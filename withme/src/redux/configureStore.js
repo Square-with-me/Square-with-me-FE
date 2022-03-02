@@ -1,19 +1,20 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import { createBrowserHistory } from "history";
-import { connectRouter } from "connected-react-router";
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { createBrowserHistory } from 'history';
+import { connectRouter } from 'connected-react-router';
 
 // import User from "./modules/user";
 // import Post from "./modules/post";
 // import Like from "./modules/like";
-
+import UserEdit from './modules/userEdit';
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-//   user: User,
-//   post: Post,
-//   like: Like,
+  //   user: User,
+  //   post: Post,
+  //   like: Like,
+  // UserEdit: UserEdit,
   router: connectRouter(history),
 });
 
@@ -23,13 +24,13 @@ const middlewares = [thunk.withExtraArgument({ history: history })];
 const env = process.env.NODE_ENV;
 
 // 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
-if (env === "development") {
-  const { logger } = require("redux-logger");
+if (env === 'development') {
+  const { logger } = require('redux-logger');
   middlewares.push(logger);
 }
 
 const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
