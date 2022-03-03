@@ -5,137 +5,15 @@ import { Image, Text, Input } from '../elements';
 import styled from 'styled-components';
 import { BsFillPencilFill } from 'react-icons/bs';
 
-// chart.jd
-import 'chart.js/auto';
-import { Pie, Bar } from 'react-chartjs-2';
+import TodayTime from '../components/TodayTime';
+import WeekTime from '../components/WeekTime';
+import MonthTime from '../components/MonthTime';
+
+function handleClick(v) {
+  console.log(v);
+}
 
 const Mypage = () => {
-  // bar chart
-  const barChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'Member Agreement Tracker',
-        backgroundColor: 'red',
-        stack: 'Stack 0',
-        data: [66, 93, 31, 76, 39, 75, 36],
-      },
-      {
-        label: 'Employee On Boarding',
-        backgroundColor: 'blue',
-        stack: 'Stack 0',
-        data: [76, 203, 41, 86, 49, 85, 46],
-      },
-      {
-        label: 'Vendor Payment',
-        backgroundColor: 'yellow',
-        stack: 'Stack 0',
-        data: [76, 103, 41, 86, 49, 85, 46],
-      },
-      {
-        label: 'Employee On Boarding',
-        backgroundColor: 'blue',
-        stack: 'Stack 1',
-        data: [56, 56, 83, 21, 66, 29, 65],
-      },
-    ],
-  };
-  const barOption = {
-    title: {
-      display: true,
-      text: 'Wisdom Application My To Do',
-    },
-    legend: {
-      display: false,
-    },
-    tooltips: {
-      enabled: true,
-      custom: function (tooltipModel) {},
-    },
-    animation: {
-      duration: 1000,
-      currentStep: 1,
-      // onComplete: function () {
-      //   var chartInstance = this.chart,
-      //     ctx = chartInstance.ctx;
-      //   ctx.textAlign = 'center';
-      //   ctx.textBaseline = 'bottom';
-      //   var stackGroup = [];
-      //   var stackIndex = [];
-      //   for (let index = 0; index < this.data.datasets.length; index++) {
-      //     var stackName = this.data.datasets[index].stack;
-      //     var stack = { Name: stackName, stackIndex: index };
-      //     var result = stackGroup.filter((obj) => {
-      //       return obj.Name === stackName;
-      //     });
-      //     if (result.length > 0) {
-      //       var sliceCount = stackGroup.findIndex((x) => x.Name == stackName);
-      //       stackGroup.splice(sliceCount, true);
-      //       stackIndex.splice(sliceCount, true);
-      //       stackGroup.push(stack);
-      //       stackIndex.push(stack.stackIndex);
-      //     } else {
-      //       stackGroup.push(stack);
-      //       stackIndex.push(stack.stackIndex);
-      //     }
-      //   }
-      //   this.data.datasets.forEach(function (dataset, i) {
-      //     var meta = chartInstance.controller.getDatasetMeta(i);
-      //     meta.data.forEach(function (bar, index) {
-      //       var data = dataset.data[index];
-      //       var result = stackGroup.filter((obj) => {
-      //         return obj.stackIndex === i;
-      //       });
-      //       if (result.length > 0) {
-      //         if (result[0].Name == 'Stack 0') {
-      //           ctx.fillText('Completed', bar._model.x, bar._model.y - 5);
-      //         }
-      //         if (result[0].Name == 'Stack 1') {
-      //           ctx.fillText('NotCompleted', bar._model.x, bar._model.y - 5);
-      //         }
-      //       }
-      //       //if($.inArray(i, stackIndex) !== -1){
-      //       //ctx.fillText(data, bar._model.x, bar._model.y - 5);
-      //       //}
-      //     });
-      //   });
-      // },
-    },
-    responsive: true,
-  };
-
-  // =====================================================
-  // pie chart
-  const data = {
-    labels: ['Do', 'Share', 'Talk'],
-    datasets: [
-      {
-        label: 'My First Dataset',
-        data: [300, 50, 100],
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)',
-        ],
-        hoverOffset: 4,
-      },
-    ],
-  };
-
-  const option = {
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            let label = context.formattedValue + 's';
-            // 초를 HH MM SS로 표현하는 정규식함수 파일을 만들어서 변경하자!
-            return label;
-          },
-        },
-      },
-    },
-  };
-
   return (
     <React.Fragment>
       <Header />
@@ -179,15 +57,40 @@ const Mypage = () => {
         <div className="todayTimeBox">
           <p>오늘 네모와 함께한 시간</p>
           <div className="chart">
-            <Pie data={data} options={option} />
+            <TodayTime />
           </div>
         </div>
         <div className="weekTime">
           <p>이번 주 네모와 함께한 시간</p>
-          <Bar data={barChartData} options={barOption} />
+          <WeekTime />
         </div>
         <div className="monthTime">
           <p>이번 달 네모와 함께한 시간</p>
+          <MonthTime
+            values={[
+              { date: '2022-03-01', count: 10 },
+              { date: '2022-03-02', count: 0 },
+              { date: '2022-03-03', count: 1 },
+              { date: '2022-03-04', count: 10 },
+              { date: '2022-03-05', count: 5 },
+              { date: '2022-03-06', count: 6 },
+              { date: '2022-03-07', count: 9 },
+              { date: '2022-03-08', count: 0 },
+              { date: '2022-03-09', count: 8 },
+              { date: '2022-03-10', count: 6 },
+              { date: '2022-03-11', count: 4 },
+              { date: '2022-03-12', count: 3 },
+              { date: '2022-03-13', count: 1 },
+              { date: '2022-03-14', count: 2 },
+              { date: '2022-03-15', count: 1 },
+              { date: '2022-03-16', count: 3 },
+              { date: '2022-03-17', count: 10 },
+              { date: '2022-03-18', count: 1 },
+              { date: '2022-03-19', count: 0 },
+            ]}
+            toolTip
+            onClick={(v) => handleClick(v)}
+          />
         </div>
       </TimeContainer>
       <Footer />

@@ -72,5 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ```
 yarn add react-icons
 yarn add react-chartjs-2 chart.js
-
+yarn add react-monthly-heatmap
 ```
