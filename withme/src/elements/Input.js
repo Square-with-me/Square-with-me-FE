@@ -48,4 +48,5 @@ const InputBox = styled.input`
   padding: 0 10px;
   font-family: 맑은 고딕;
 `;
+
 export default Input;
