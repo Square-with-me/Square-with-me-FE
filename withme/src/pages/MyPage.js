@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Image, Text, Input } from '../elements';
+import { Image, Text, Input } from '../elements/Index';
 import styled from 'styled-components';
 import { BsFillPencilFill } from 'react-icons/bs';
 
@@ -14,6 +14,11 @@ function handleClick(v) {
 }
 
 const Mypage = () => {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  // 리덕스에서 받아온 애들 for문 사용해서 배열 value에 {date:`{year}-{month}-{i+1}`, time: {리덕스에서 받아온 시간[i]}}
+  // 넣어주는 작업 하기
+
   return (
     <React.Fragment>
       <Header />
@@ -72,21 +77,6 @@ const Mypage = () => {
               { date: '2022-03-02', count: 0 },
               { date: '2022-03-03', count: 1 },
               { date: '2022-03-04', count: 10 },
-              { date: '2022-03-05', count: 5 },
-              { date: '2022-03-06', count: 6 },
-              { date: '2022-03-07', count: 9 },
-              { date: '2022-03-08', count: 0 },
-              { date: '2022-03-09', count: 8 },
-              { date: '2022-03-10', count: 6 },
-              { date: '2022-03-11', count: 4 },
-              { date: '2022-03-12', count: 3 },
-              { date: '2022-03-13', count: 1 },
-              { date: '2022-03-14', count: 2 },
-              { date: '2022-03-15', count: 1 },
-              { date: '2022-03-16', count: 3 },
-              { date: '2022-03-17', count: 10 },
-              { date: '2022-03-18', count: 1 },
-              { date: '2022-03-19', count: 0 },
             ]}
             toolTip
             onClick={(v) => handleClick(v)}
