@@ -1,0 +1,40 @@
+[
+  {
+    "id": "aalasdf",
+    "roomNumber" :"1",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요",
+    "category": "DO",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "true",
+    "pwd" :"1234",
+    "members" :"4"
+  },
+  {    
+    "id": "qwer",
+    "roomNumber" :"2",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요2",
+    "category": "share",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "false",
+    "members" :"3"
+  },
+  {    
+    "id": "qwerqwer",
+    "roomNumber" :"3",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요3",
+    "category": "talk",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "false",
+    "members" :"2"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"4",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요4",
+    "category": "do",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "true",
+    "pwd" :"1234",
+    "members" :"1"
+  }
+]
