@@ -12,9 +12,9 @@ import UserEdit from './modules/userEdit';
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-  // user: User,
   // room: Room,
   user: User,
+  userEdit: UserEdit,
   //   post: Post,
   //   like: Like,
   router: connectRouter(history),
