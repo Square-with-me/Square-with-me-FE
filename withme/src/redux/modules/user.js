@@ -1,8 +1,10 @@
 import {createAction, handleActions } from "redux-actions";
 import {produce} from "immer"
+import axios from "axios";
 // import { apis } from '../../shared/api';
 
 import {RESP} from "../../shared/responseY"
+import {RESPJ} from "../../shared/resopnseJ"
 
 const resp_userSignup = RESP.SIGNUP
 const resp_userLogin = RESP.LOGIN
@@ -21,6 +23,7 @@ const initialState ={
     user: { origin: null, nick: null },
     is_login: false,
     notUser_is_login:false,
+    notUser: null
 }
 
 //로그인 미들웨어
@@ -83,20 +86,27 @@ const logInCheckDB = () => {
 //비회원 로그인 
 const NotMenberloginDB =()=>{
  return(function(getState, dispatch, {history}){
-     axios.get('/api/user/anon')
-     .then((response)=>{
-         let token = response.data.token
-         localStorage.setItem("is_login", token)
-         dispatch(notUser({
-            user_id : response.data.user.id,
-            nick : response.data.user.nickname,
-            statusMsg : response.data.user.statusMsg,
-            token : response.data.token
-         }))
-     })
-     .catch((error)=>{
-         console.log(error)
-     })
+    //  axios.get('/api/user/anon')
+    //  .then((response)=>{
+    //      let token = response.data.token
+    //      localStorage.setItem("notUser_is_login", token)
+    //      dispatch(notUser({
+    //         user_id : response.data.user.id,
+    //         nick : response.data.user.nickname,
+    //         statusMsg : response.data.user.statusMsg,
+    //         token : response.data.token
+    //      }))
+    //  })
+    //  .catch((error)=>{
+    //      console.log(error)
+    //  })
+    if (RESPJ.NotMemberLogin.isSuccess === true) {
+			localStorage.setItem("notUser_is_login", RESPJ.NotMemberLogin.data.token);
+      let user_id = RESPJ.NotMemberLogin.data.id
+      let nick = RESPJ.NotMemberLogin.data.nickname
+      let statusMsg =RESPJ.NotMemberLogin.data.statusMsg
+    	dispatch(notUser({user_id, nick, statusMsg}));
+		}
  })
 }
 
@@ -105,6 +115,33 @@ const NotMenberlogOutDB =()=>{
     return function(getState, dispatch, {history}){
         dispatch(notUserLogOut())
     }
+}
+//비회원 로그인 체킹 미들웨어
+const NotMemberLoginCheckDB = ()=>{
+  return function(getState, dispatch, {history}){
+    // axios
+    // .get('',{
+    //   headers:{
+    //     Authorization: `Bearer ${localStorage.getItem("notUser_is_login")}`
+    //   }
+    // })
+    // .then((response)=>{
+    //   dispatch(notUser({
+    //     user_id: response.data.user.origin,
+    //     nick : response.data.user.nickname,
+    //     statusMsg : response.data.user.statusMsg,
+    //   }))
+    // })
+    // .catch((error)=>{
+    //   console.log(error)
+    // })
+    if (RESPJ.NotMemberLoginCheck.isSuccess === true) {
+      let user_id = RESPJ.NotMemberLoginCheck.data.user.id
+      let nick = RESPJ.NotMemberLoginCheck.data.user.nickname
+      let statusMsg =RESPJ.NotMemberLoginCheck.data.user.statusMsg
+    	dispatch(notUser({user_id, nick, statusMsg}));
+		}
+  }
 }
 
 
@@ -127,6 +164,7 @@ export default handleActions(
             draft.notUser_is_login = true
         }),
         [NOT_USER_LOG_OUT] :(state, action)=>produce(state,(draft)=>{
+          console.log(draft.notUser)
             localStorage.clear()
             draft.notUser=null
             draft.notUser_is_login =false
@@ -142,7 +180,9 @@ const actionCreators ={
     logInCheckDB,
     signUpDB,
     NotMenberloginDB,
-    NotMenberlogOutDB
+    NotMenberlogOutDB,
+    NotMemberLoginCheckDB,
+    notUserLogOut
 }
 
 export { actionCreators };

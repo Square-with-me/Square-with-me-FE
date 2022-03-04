@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Image, Text, Input } from '../elements';
+import { Image, Text, Input } from '../elements/Index';
 import styled from 'styled-components';
 import { BsFillPencilFill } from 'react-icons/bs';
 

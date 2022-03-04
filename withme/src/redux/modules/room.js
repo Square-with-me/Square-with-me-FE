@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import {RESPJ} from "../../shared/resopnseJ"
 
 const GET_ROOM = "GET_ROOM";
 const ADD_ROOM = "ADD_ROOM";
@@ -16,6 +17,7 @@ const searchRoom = createAction(SEARCH_ROOM, (searchRoom) => ({searchRoom}));
 
 const initialState = {
   list: [],
+  hotList:[]
 };
 
 const getRoomDB = () => {
@@ -37,38 +39,68 @@ const getRoomDB = () => {
 
 const addRoomDB = (title, secret, pwd, category, tags) => {
   return function (dispatch, getState, { history }) {
-    let _room = {
-      title: title,
-      secret: secret,
-      pwd: pwd,
-      category: category,
-      tags: tags,
-    };
-    const room = { ..._room };
-    console.log(room);
-    axios
-      .post(
-        "/api/room/new",
-        {
-          title: title,
-          secret: secret,
-          pwd: pwd,
-          category: category,
-          tags: tags,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("is_login")}`,
-          },
-        }
-      )
-      .then((response) => {
-        dispatch(addRoom(room));
-        history.push(`/detail/`);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // let _room = {
+    //   title: title,
+    //   secret: secret,
+    //   pwd: pwd,
+    //   category: category,
+    //   tags: tags,
+    // };
+    // const room = { ..._room };
+    // console.log(room);
+    // axios
+    //   .post(
+    //     "/api/room/new",
+    //     {
+    //       title: title,
+    //       secret: secret,
+    //       pwd: pwd,
+    //       category: category,
+    //       tags: tags,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem("is_login")}`,
+    //       },
+    //     }
+    //   )
+    //   .then((response) => {
+    //     if(response.isSuccess === false){
+    //       window.alert(response.msg)
+    //     } else if(response.isSuccess===true){
+    //       tags = response.data.tags.forEach((v,idx)=>{
+            
+    //       })
+    //       dispatch(addRoom({
+    //         title : response.data.title,
+    //         roomId : response.data.id,
+    //         secret : response.data.isSecret,
+    //         pwd : response.data.pwd,
+    //         masterUserId : response.data.masterUserId,
+    //         category : response.data.category.name,
+    //         tags : response.data.tags,
+    //       }))
+    //       history.push(`/detail/`);
+    //     }      
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    if(RESPJ.MakeRoom.isSuccess===true){
+      let title = RESPJ.MakeRoom.data.title
+      let roomId = RESPJ.MakeRoom.data.id
+      let secret = RESPJ.MakeRoom.data.isSecret
+      let pwd = RESPJ.MakeRoom.data.pwd
+      let masterUserId = RESPJ.MakeRoom.data.masterUserId
+      let category = RESPJ.MakeRoom.data.category.name
+      let tags = RESPJ.MakeRoom.data.Tags
+      // .forEach((t)=>{
+      //   let tag = t
+      //   // console.log(tag)
+      //   dispatch(addRoom({tag}))
+      // })
+      dispatch(addRoom({title, roomId, secret, pwd, masterUserId, category, tags}));
+    }
   };
 };
 
@@ -119,9 +151,10 @@ export default handleActions(
       }),
     [ADD_ROOM]: (state, action) =>produce(state, (draft) => {
         draft.list.unShift(action.payload.rooms);
+        console.log(draft.list)
       }),
     [DEL_ROOM]: (state, action) => produce(state, (draft) => {
-        
+
     }),
     [HOT_ROOM]: (state, action) =>produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
