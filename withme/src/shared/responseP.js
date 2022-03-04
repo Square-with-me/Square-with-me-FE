@@ -17,6 +17,12 @@ export const RESP = {
     },
   },
 
+  UPLOADIMGFILE: {
+    isSuccess: true,
+    profileImg:
+      'https://w.namu.la/s/966060fac07c32a8314e4a4eb041a4c61e7acf948f8312201b1abe2a86ffe0651a6b12903acdc96d76470571df2949503b3a5d357bce4d4e7e90dc1862263ac0fa143647c15a7600ad037c11c8b04dde',
+  },
+
   UPDATENICKNAME: {
     isSuccess: true,
     data: {

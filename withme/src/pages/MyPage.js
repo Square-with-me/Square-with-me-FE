@@ -13,10 +13,6 @@ import MonthTime from '../components/MonthTime';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as usereditActions } from '../redux/modules/userEdit';
 
-function handleClick(v) {
-  console.log(v);
-}
-
 const Mypage = () => {
   const dispatch = useDispatch();
 
@@ -37,6 +33,7 @@ const Mypage = () => {
     dispatch(usereditActions.getProfileDB());
   }, []);
 
+  // 유저 닉네임 수정
   const editNickname = () => {
     const nicknameText = document.getElementById('nickname');
     const inputNickname = document.getElementById('inputNickname');
@@ -55,6 +52,7 @@ const Mypage = () => {
     }
   };
 
+  // 상태메시지 수정
   const editStatusMsg = () => {
     const statusText = document.getElementById('statusText');
     const inputStatus = document.getElementById('inputStatus');
@@ -73,6 +71,15 @@ const Mypage = () => {
     }
   };
 
+  // 프로필 사진 수정
+  const saveImage = (e) => {
+    const img = e.target.files[0];
+    const formData = new FormData();
+    formData.append('profileImg', img);
+    // for (const keyValue of formData) console.log(keyValue);
+    dispatch(usereditActions.getImageUrlDB(formData));
+  };
+
   return (
     <React.Fragment>
       <Header />
@@ -88,7 +95,7 @@ const Mypage = () => {
           />
           <div className="filebox">
             <label htmlFor="ex_file">프로필 사진 수정</label>
-            <input type="file" id="ex_file" />
+            <input type="file" id="ex_file" onChange={saveImage} />
           </div>
         </div>
         <div className="textBox">
@@ -155,7 +162,6 @@ const Mypage = () => {
               { date: '2022-03-04', count: 10 },
             ]}
             toolTip
-            onClick={(v) => handleClick(v)}
           />
         </div>
       </TimeContainer>
