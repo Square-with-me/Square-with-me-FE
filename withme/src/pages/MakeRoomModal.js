@@ -4,49 +4,39 @@ import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import { actionCreators as roomActions } from "../redux/modules/room";
 import { useCallback } from "react";
+import { useRef } from "react";
+import {MdDeleteForever} from "react-icons/md";
+import Tag from "../components/Tag";
 
 const MakeRoomModal = ({ setMRooms }) => {
   const [title, setTitle] = useState("");
   const [secret, setSecret] = useState("");
   const [pwd, setPwd] = useState("");
   const [category, setCategory] = useState("");
-  const [tags, setTags] = useState("");
-  console.log(category, title);
 
   const dispatch = useDispatch();
 
-  // onChange로 관리할 문자열
- const [hashtag, setHashtag] = useState('')
- // 해시태그를 담을 배열
- const [hashArr, setHashArr] = useState([])
+  const [tagItem, setTagItem] = useState('')
+  const [tagList, setTagList] = useState([])
 
- const onKeyUp = useCallback(
-    (e) => {
-      if (process.browser) {
-        /* 요소 불러오기, 만들기*/
-        const $HashWrapOuter = document.querySelector('.HashWrapOuter')
-        const $HashWrapInner = document.createElement('div')
-        $HashWrapInner.className = 'HashWrapInner'
-        
-        /* 태그를 클릭 이벤트 관련 로직 */
-        $HashWrapInner.addEventListener('click', () => {
-          $HashWrapOuter?.removeChild($HashWrapInner)
-          console.log($HashWrapInner.innerHTML)
-          setHashArr(hashArr.filter((hashtag) => hashtag))
-        })
+  const onKeyPress = e => {
+    if (e.target.value.length !== 0 && e.key === 'Enter') {
+      submitTagItem()
+    }
+  }
 
-        /* enter 키 코드 :13 */
-        if (e.keyCode === 13 && e.target.value.trim() !== '') {
-          console.log('Enter Key 입력됨!', e.target.value)
-          $HashWrapInner.innerHTML = '#' + e.target.value
-          $HashWrapOuter?.appendChild($HashWrapInner)
-          setHashArr((hashArr) => [...hashArr, hashtag])
-          setHashtag('')
-        }
-      }
-    },
-    [hashtag, hashArr]
-  )
+  const submitTagItem = () => {
+    let updatedTagList = [...tagList]
+    updatedTagList.push(tagItem)
+    setTagList(updatedTagList)
+    setTagItem('')
+  }
+
+  const deleteTagItem = e => {
+    const deleteTagItem = e.target.parentElement.firstChild.innerText
+    const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
+    setTagList(filteredTagList)
+  }
 
   return (
     <React.Fragment>
@@ -76,15 +66,19 @@ const MakeRoomModal = ({ setMRooms }) => {
               <option value={"close"}>close</option>
             </select>
           </div>
-          {secret === "close" ? (
-            <input
-              placeholder="roompwd"
-              onChange={(e) => setPwd(e.target.value)}
-              type="password"
-              minLength="4"
-              maxLength="10"
-            />
-          ) : null}
+
+          <div>
+            {secret === "close" ? (
+              <input
+                placeholder="roompwd"
+                onChange={(e) => setPwd(e.target.value)}
+                type="password"
+                minLength="4"
+                maxLength="10"
+              />
+            ) : null}
+          </div>
+
           <div>
             <select onChange={(e) => setCategory(e.target.value)}>
               <option>선택해주세요</option>
@@ -96,31 +90,41 @@ const MakeRoomModal = ({ setMRooms }) => {
               <option value="6">기타</option>
             </select>
           </div>
-          {category === "1" ? <p>패션, 헤어, 성형</p> : null}
-          {category === "2" ? <p>다이어트, 스포츠, 운동</p> : null}
-          {category === "3" ? <p>독서, 공부, 시사, 토론, 과학, IT/컴퓨터</p>: null}
-          {category === "4" ? <p>취업, 아르바이트, 진로, 금융, 연애, 인테리어, 법률, 의료,사주/타로 </p> : null}
-          {category === "5" ? <p>마음챙김/명상, 정보, 수면, 요리, 반려동물, 게임, 여행,공포/미스터리</p> : null}
-          {category === "6" ? <p>손재주, 예술, 댄스/노래, 영화/드라마, 덕질</p>  : null}
-          <div className="HashWrap" >
-            <div className="HashWrapOuter"></div>
-            <input
-                className="HashInput"
-                type="text"
-                value={hashtag}
-                onChange={(e)=>setTags(e.target.value)}
-                onKeyUp={onKeyUp}
-                placeholder="해시태그 입력"
-            />
-            </div>
-          <input
-            placeholder="hash tags"
-            onChange={(e) => setTags(e.target.value)}
-          />
+
+          <div>
+            {category === "1" ? <p>패션, 헤어, 성형</p> : null}
+            {category === "2" ? <p>다이어트, 스포츠, 운동</p> : null}
+            {category === "3" ? (<p>독서, 공부, 시사, 토론, 과학, IT/컴퓨터</p>) : null}
+            {category === "4" ? (<p>취업, 아르바이트, 진로, 금융, 연애, 인테리어, 법률,의료,사주/타로{" "}</p>) : null}
+            {category === "5" ? (<p>마음챙김/명상, 정보, 수면, 요리, 반려동물, 게임,여행,공포/미스터리</p>) : null}
+            {category === "6" ? (<p>손재주, 예술, 댄스/노래, 영화/드라마, 덕질</p>) : null}
+          </div>
+        
+          <WholeBox>
+            <TagBox>
+              {tagList.map((tagItem, index) => {
+                return (
+                  <TagItem key={index}>
+                    <Text>#{tagItem}</Text>
+                    <Button onClick={deleteTagItem}>X</Button>
+                  </TagItem>
+                )
+              })}
+              <TagInput
+                type='text'
+                placeholder='Press enter to add tags'
+                tabIndex={2}
+                onChange={e => setTagItem(e.target.value)}
+                value={tagItem}
+                onKeyPress={onKeyPress}
+              />
+            </TagBox>
+          </WholeBox>
+
           <button
             onClick={() =>
               dispatch(
-                roomActions.addRoomDB(title, secret, pwd, category, tags)
+                roomActions.addRoomDB(title, secret, pwd, category, tagList )
               )
             }
           >
@@ -169,4 +173,60 @@ const Headers = styled.div`
   line-height: 20px;
   font-weight: 800;
 `;
+
+const WholeBox = styled.div`
+  padding: 10px;
+  height: 100vh;
+`
+
+const TagBox = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 50px;
+  margin: 10px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+
+  &:focus-within {
+    border-color: tomato;
+  }
+`
+
+const TagItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  background-color: tomato;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+`
+
+const Text = styled.span``
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 5px;
+  background-color: white;
+  border-radius: 50%;
+  color: tomato;
+`
+
+const TagInput = styled.input`
+  display: inline-flex;
+  min-width: 150px;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: text;
+`
+
 export default MakeRoomModal;

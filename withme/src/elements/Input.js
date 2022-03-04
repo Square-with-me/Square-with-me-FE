@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Text } from '../elements/Index';
+import { Grid, Text } from './Index';
 
 function Input(props) {
   const { label, placeholder, _onChange, type, multiLine } = props;

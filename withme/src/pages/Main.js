@@ -11,44 +11,37 @@ import jsonData from "../shared/responseJ.json"
 
 const Main = () => {
   const dispatch =useDispatch()
+
   const [MRooms, setMRooms] = useState(false);
   const [search, setSearch] = useState("");
   const [possible, setPossible] =useState("")
-  const [all, setAll] =useState("")
-  console.log(search, possible, all)
+  console.log(search, possible)
 
   let roomList = useSelector((state) => state.room);
+  // const hotRoom = useSelector((state)=>state.room.hotList)
 
   // React.useEffect(()=>{
   //   dispatch(roomActions.hotRoomDB())
   // },[])
 
-  React.useEffect(()=>{
-    dispatch(userActions.NotMenberloginDB())
-  })
-  // const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
-  const notUser_is_login = useSelector((state)=>state.user)
-  const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
+  // React.useEffect(()=>{
+  //   dispatch(userActions.NotMemberLoginCheckDB())
+  // },[])
   
+  const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
+  const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
+
   return (
     <React.Fragment>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <input
-          placeholder="search.."
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <input placeholder="search.." onChange={(e) => setSearch(e.target.value)}/>
         <span>
-          <button onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}><FaSearch /></button>
+          <button onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}><FaSearch/></button>
         </span>
       </div>
-      <button
-        onClick={() => {
-          setMRooms(true);
-        }}
-      >
-        방을 만들어볼까요?!
-      </button>
+      <button onClick={() => {setMRooms(true);}}>방을 만들어볼까요?!</button>
       {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+
       {roomList &&
         roomList.map((info, idx) => {
           return (
@@ -57,11 +50,39 @@ const Main = () => {
             </React.Fragment>
           );
         })}
-        {notUser_is_local==="false"?<button onClick={()=>{dispatch(userActions.NotMenberloginDB())}}> 비회원으로 즐기기 </button>: <button onClick={()=>{dispatch(userActions.NotMenberloginDB())}}> 비회원은 그만할래요 </button>  }
-      <input type="radio"value="possible" onChange={(e)=>{setPossible(e.target.value)}}/>입장가능한 방만 보기
-      <input type="radio" value="all" onChange={(e)=>{setAll(e.target.value)}}/> 모든 방만 보기
+
+        {notUser_is_local===false ?
+          <button onClick={()=>{dispatch(userActions.NotMenberloginDB())}}> 비회원으로 즐기기 </button>:
+          <button onClick={()=>{dispatch(userActions.notUserLogOut())}}> 비회원은 그만할래요 </button>}
+
+        <div onChange={(e)=>{setPossible(e.target.value)}}>
+          <input type="radio" name="1" value="possible" />입장가능한 방만 보기
+          <input type="radio" name="1" value="" /> 모든 방만 보기
+        </div>
+
+      {/* <div>
+        {hotRoom.map((r, idx)=>{
+
+        })}
+      </div> */}
+      
       <div>
-        {jsonData.map((r,idx)=>{
+        {possible ? jsonData.map((r,idx)=>{
+          return(
+            <div>
+            {r.members==="4" || r.isSecrect ==="false"?            
+              null:
+              <div key={idx}>
+              <p>{r.roomNumber}</p>
+              <p>{r.roomTitle}</p>
+              <p>{r.category}</p>
+              <p>{r.tags}</p>
+              <p>{r.isSecrect==="true"?<FiUnlock/> :<FiLock/>}</p>
+              </div>
+            }
+            </div>
+          )
+        }) : jsonData.map((r,idx)=>{
           return(
             <div>
             {r.members==="4"?            
@@ -84,6 +105,7 @@ const Main = () => {
           )
         })}
       </div>
+
     </React.Fragment>
   );
 };
