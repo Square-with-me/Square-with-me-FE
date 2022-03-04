@@ -2,12 +2,14 @@ import {createAction, handleActions } from "redux-actions";
 import {produce} from "immer"
 import axios from "axios";
 // import { apis } from '../../shared/api';
+import axios from 'axios';
 
 import {RESP} from "../../shared/responseY"
 import {RESPJ} from "../../shared/resopnseJ"
 
-const resp_userSignup = RESP.SIGNUP
 const resp_userLogin = RESP.LOGIN
+const resp_userSignup = RESP.SIGNUP
+const resp_userCheck = RESP.CHECK_ID
 
 const SET_USER = 'SET_USER'
 const LOG_OUT = 'LOG_OUT'
@@ -43,9 +45,9 @@ const logInDB = (origin, pwd) => {
     //   .catch(function (error) {
     //     alert("아이디 또는 비밀번호를 확인해주세요.");
     //   });
-		if (resp_userLogin.isSuccess == true) {
+		if (resp_userLogin.isSuccess === true) {
 			localStorage.setItem("login-token", resp_userLogin.data.token);
-    	dispatch(setUser({ origin }));
+      dispatch(setUser({ origin }));
       window.location.replace("/");
 		}
   };
@@ -63,6 +65,10 @@ const signUpDB = (origin, nickname, pwd) => {
      // .catch(function (error) {
      //   alert(error.response.data.errorMessage);
    //   });
+		if (resp_userSignup.isSuccess === true) {
+			window.alert(resp_userSignup.data.success);
+      history.push('/login');
+		};
   };
 };
 
@@ -80,6 +86,9 @@ const logInCheckDB = () => {
 	//			}
    //     dispatch(setUser({ origin: res.data.origin, nickname: res.data.nickname }));
   //    });
+      if (resp_userCheck.isSuccess === true) {
+      console.log('logInCheck ok')
+      };
   };
 };
 
@@ -147,7 +156,7 @@ const NotMemberLoginCheckDB = ()=>{
 
 //리덕스
 export default handleActions(
-    {
+  {
     [SET_USER] :(state, action) =>
 			produce(state,(draft) => {
         draft.user = action.payload.user;

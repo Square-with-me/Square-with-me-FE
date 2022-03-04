@@ -8,6 +8,7 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import LoginModal from '../pages/LoginModal';
 import SignupModal from '../pages/SignupModal';
+import Header from '../components/Header';
 import Kakao from '../components/Kakao';
 
 import './App.css';
@@ -16,6 +17,7 @@ function App() {
   return (
     <>
       {/* <Grid> */}
+      <Header></Header>
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/detail/:id" exact component={Detail} />
