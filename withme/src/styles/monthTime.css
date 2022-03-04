@@ -14,32 +14,7 @@
   box-sizing: border-box;
 }
 
-/* body {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-size: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-  /* color: var(--text-color); */
-  /* background: var(--bg-color);
-}
-
-header {
-  display: block;
-  width: 100%;
-  padding: 1.75em 0;
-  border-bottom: 1px solid var(--border-color);
-  background: var(--neutral-color);
-}
-
-main {
-  display: block;
-  margin: 0 auto;
-  margin-top: 5em;
-  max-width: 50em;
-} */ */
-
 /* GRID */
-
 .row {
   margin: 0;
   padding: 0;
