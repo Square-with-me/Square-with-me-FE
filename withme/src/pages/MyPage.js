@@ -21,9 +21,12 @@ const Mypage = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userEdit.user);
+
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
-  const [isEditStatus, setIsStatus] = useState(false); // 상태메시지 수정 상태 체크
-  const [editNick, setEditnick] = useState(user.nickname);
+  const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
+
+  const [editNick, setEditnick] = useState(user.nickname); // 수정한 닉네임 저장
+  const [editStatus, setEditStatus] = useState(user.statusMsg); // 수정한 상태메지시 저장
 
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
@@ -49,6 +52,24 @@ const Mypage = () => {
       inputNickname.classList.add('hidden');
       dispatch(usereditActions.editNickDB(editNick));
       setIsEditNick(false);
+    }
+  };
+
+  const editStatusMsg = () => {
+    const statusText = document.getElementById('statusText');
+    const inputStatus = document.getElementById('inputStatus');
+
+    if (!isEditStatus) {
+      // 수정 시작
+      setIsEditStatus(true);
+      statusText.classList.add('hidden');
+      inputStatus.classList.remove('hidden');
+    } else {
+      // 수정 끝
+      statusText.classList.remove('hidden');
+      inputStatus.classList.add('hidden');
+      dispatch(usereditActions.editStatusDB(editStatus));
+      setIsEditStatus(false);
     }
   };
 
@@ -80,7 +101,6 @@ const Mypage = () => {
               defaultValue={user ? user.nickname : ''}
               onChange={(e) => {
                 setEditnick(e.target.value);
-                console.log(editNick);
               }}
             />
             <button onClick={editNickname}>
@@ -88,10 +108,18 @@ const Mypage = () => {
             </button>
           </div>
           <div className="statusBox">
-            <div id="statusContent">{user ? user.statusMsg : ''}</div>
-            <input id="inputStatus" className="hidden"></input>
-            <button>저장</button>
-            <button>수정</button>
+            <div id="statusText">{user ? user.statusMsg : ''}</div>
+            <input
+              id="inputStatus"
+              className="hidden"
+              defaultValue={user.statusMsg}
+              onChange={(e) => {
+                setEditStatus(e.target.value);
+              }}
+            ></input>
+            <button onClick={editStatusMsg}>
+              <BsFillPencilFill />
+            </button>
           </div>
         </div>
       </ProfileContainer>
@@ -183,6 +211,11 @@ const ProfileContainer = styled.div`
     display: none;
   }
 
+  button {
+    background-color: transparent;
+    border: none;
+  }
+
   .textBox {
     display: flex;
     flex-direction: column;
@@ -192,11 +225,6 @@ const ProfileContainer = styled.div`
     .nameBox {
       display: flex;
       flex-direction: row;
-
-      button {
-        background-color: transparent;
-        border: none;
-      }
     }
 
     .statusBox {

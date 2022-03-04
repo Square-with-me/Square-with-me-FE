@@ -25,7 +25,7 @@ const MONTH_TIME = 'MONTH_TIME';
 const setProfile = createAction(SET_PROFILE, (user) => ({ user }));
 const addProfile = createAction(ADD_PROFILE, () => ({}));
 const editNick = createAction(EDIT_NICK, (nickname) => ({ nickname }));
-const editStatus = createAction(EDIT_STATUS, () => ({}));
+const editStatus = createAction(EDIT_STATUS, (status) => ({ status }));
 const editBadge = createAction(EDIT_BADGE, () => ({}));
 const getBadge = createAction(GET_BADGE, () => ({}));
 const todayTime = createAction(TODAY_TIME, () => ({}));
@@ -67,11 +67,20 @@ const editNickDB = (nickname) => {
     if (resp.UPDATENICKNAME.isSuccess) {
       const updateData = resp.UPDATENICKNAME.data.nickname;
       dispatch(editNick(updateData));
+      // console.log(nickname, updateData);
     }
   };
 };
 
-const editStatusDB = () => {};
+// 사용자 상태메시지 수정하기
+const editStatusDB = (status) => {
+  return function (dispatch, getState, { history }) {
+    if (resp.UPDATESTATUS.isSuccess) {
+      const updateData = resp.UPDATESTATUS.data.statusMsg;
+      dispatch(editStatus(updateData));
+    }
+  };
+};
 
 const editBadgeDB = () => {};
 
@@ -91,7 +100,13 @@ export default handleActions(
       }),
     [EDIT_NICK]: (state, action) =>
       produce(state, (draft) => {
+        console.log(action.payload);
         draft.user.nickname = action.payload.nickname;
+      }),
+    [EDIT_STATUS]: (state, action) =>
+      produce(state, (draft) => {
+        console.log('fd', action.payload);
+        draft.user.statusMsg = action.payload.status;
       }),
   },
   initialState

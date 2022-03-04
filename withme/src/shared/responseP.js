@@ -24,6 +24,13 @@ export const RESP = {
     },
   },
 
+  UPDATESTATUS: {
+    isSuccess: true,
+    data: {
+      statusMsg: '변경된 상태메시지',
+    },
+  },
+
   BADGES: {
     isSuccess: true / false,
     data: {
