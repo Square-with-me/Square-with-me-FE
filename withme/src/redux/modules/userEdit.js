@@ -80,7 +80,6 @@ const editNickDB = (nickname) => {
     if (resp.UPDATENICKNAME.isSuccess) {
       const updateData = resp.UPDATENICKNAME.data.nickname;
       dispatch(editNick(updateData));
-      // console.log(nickname, updateData);
     }
   };
 };
@@ -132,20 +131,20 @@ export default handleActions(
 const actionCreators = {
   editBadge,
   getBadge,
-
   todayTime,
   weekTime,
   monthTime,
 
+  // 완료
   getProfileDB,
   getImageUrlDB,
   editProfileDB,
   editNickDB,
   editStatusDB,
 
+  // api 설계 후 작성
   editBadgeDB,
   getBadgeDB,
-
   todayTimeDB,
   weekTimeDB,
   monthTimeDB,
