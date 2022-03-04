@@ -10,19 +10,21 @@ import { history } from '../redux/configureStore';
 const SignupModal = () => {
   const dispatch = useDispatch();
 
-  // const originCheck  = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  // const nickCheck = /^[0-9a-zA-Zㄱ-ㅎ가-힣ㅏ-ㅣ]{2,8}$/;
-  // const pwdCheck = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,16}$/;
-
   const [origin, setOrigin] = React.useState('');
   const [nickname, setNickName] = React.useState('');
   const [pwd, setPwd] = React.useState('');
   const [pwd_check, setPwdCheck] = React.useState('');
 
   const SignupModal = () => {
+
     if (nickname.length > 8 || nickname.length < 2) {
-      window.alert("닉네임의 길이가 맞지않습니다.")
+      window.alert("닉네임은 영문, 숫자 또는 한글로 이루어진 2~8자를 사용하세요")
     }
+
+    if (pwd.length > 16 || pwd.length < 8) {
+      window.alert("비밀번호는 영문(필수), 숫자(필수), 특수문자(자유)로 이루어진 8~16자를 사용하세요")
+    }
+
     dispatch(userActions.signUpDB(origin, nickname, pwd, pwd_check));
   };
 

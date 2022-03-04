@@ -1,11 +1,13 @@
 import {createAction, handleActions } from "redux-actions";
 import {produce} from "immer"
 // import { apis } from '../../shared/api';
+import axios from 'axios';
 
 import {RESP} from "../../shared/responseY"
 
-const resp_userSignup = RESP.SIGNUP
 const resp_userLogin = RESP.LOGIN
+const resp_userSignup = RESP.SIGNUP
+const resp_userCheck = RESP.CHECK_ID
 
 const SET_USER = 'SET_USER'
 const LOG_OUT = 'LOG_OUT'
@@ -40,9 +42,9 @@ const logInDB = (origin, pwd) => {
     //   .catch(function (error) {
     //     alert("아이디 또는 비밀번호를 확인해주세요.");
     //   });
-		if (resp_userLogin.isSuccess == true) {
+		if (resp_userLogin.isSuccess === true) {
 			localStorage.setItem("login-token", resp_userLogin.data.token);
-    	dispatch(setUser({ origin }));
+      dispatch(setUser({ origin }));
       window.location.replace("/");
 		}
   };
@@ -60,6 +62,10 @@ const signUpDB = (origin, nickname, pwd) => {
      // .catch(function (error) {
      //   alert(error.response.data.errorMessage);
    //   });
+		if (resp_userSignup.isSuccess === true) {
+			window.alert(resp_userSignup.data.success);
+      history.push('/login');
+		};
   };
 };
 
@@ -77,40 +83,43 @@ const logInCheckDB = () => {
 	//			}
    //     dispatch(setUser({ origin: res.data.origin, nickname: res.data.nickname }));
   //    });
+      if (resp_userCheck.isSuccess === true) {
+      console.log('logInCheck ok')
+      };
   };
 };
 
 //비회원 로그인 
 const NotMenberloginDB =()=>{
- return(function(getState, dispatch, {history}){
-     axios.get('/api/user/anon')
-     .then((response)=>{
-         let token = response.data.token
-         localStorage.setItem("is_login", token)
-         dispatch(notUser({
-            user_id : response.data.user.id,
-            nick : response.data.user.nickname,
-            statusMsg : response.data.user.statusMsg,
-            token : response.data.token
-         }))
-     })
-     .catch((error)=>{
-         console.log(error)
-     })
- })
-}
+  return(function(getState, dispatch, {history}){
+    axios.get('/api/user/anon')
+    .then((response)=>{
+      let token = response.data.token
+      localStorage.setItem("is_login", token)
+      dispatch(notUser({
+        user_id : response.data.user.id,
+        nick : response.data.user.nickname,
+        statusMsg : response.data.user.statusMsg,
+        token : response.data.token
+      }))
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  })
+};
 
 //비회원 로그아웃 
 const NotMenberlogOutDB =()=>{
-    return function(getState, dispatch, {history}){
-        dispatch(notUserLogOut())
-    }
-}
+  return function(getState, dispatch, {history}){
+    dispatch(notUserLogOut())
+  }
+};
 
 
 //리덕스
 export default handleActions(
-    {
+  {
     [SET_USER] :(state, action) =>
 			produce(state,(draft) => {
         draft.user = action.payload.user;
@@ -122,16 +131,16 @@ export default handleActions(
         draft.user = null;
         draft.is_login = false;
       }),
-        [NOT_USER]:(state, action)=>produce(state,(draft)=>{
-            draft.notUser = action.payload.user
-            draft.notUser_is_login = true
-        }),
-        [NOT_USER_LOG_OUT] :(state, action)=>produce(state,(draft)=>{
-            localStorage.clear()
-            draft.notUser=null
-            draft.notUser_is_login =false
-        })
-    }, initialState
+    [NOT_USER]:(state, action)=>produce(state,(draft)=>{
+        draft.notUser = action.payload.user
+        draft.notUser_is_login = true
+    }),
+    [NOT_USER_LOG_OUT] :(state, action)=>produce(state,(draft)=>{
+        localStorage.clear()
+        draft.notUser=null
+        draft.notUser_is_login =false
+    })
+  }, initialState
 )
 
 
