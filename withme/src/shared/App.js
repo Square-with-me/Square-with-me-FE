@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       {/* <Grid> */}
-      <Header></Header>
+      {/* <Header></Header> */}
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/detail/:id" exact component={Detail} />

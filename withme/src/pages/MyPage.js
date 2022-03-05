@@ -82,7 +82,6 @@ const Mypage = () => {
 
   return (
     <React.Fragment>
-      <Header />
       <ProfileContainer>
         <div className="imageBox">
           <Image
