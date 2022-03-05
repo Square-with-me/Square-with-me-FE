@@ -9,11 +9,10 @@ const Video = () => {
 };
 
 const Container = styled.div`
-  min-width: 540px;
-  min-height: 284px;
   display: flex;
   align-items: center;
   background-color: black;
+  border-radius: 5px;
 
   video {
     width: 100%;
