@@ -1,20 +1,46 @@
-import React, { useState } from "react";
-import MakeRoomModal from "./MakeRoomModal";
-import { FaSearch } from "react-icons/fa";
-import Room from "../components/Room";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import jsonData from "../shared/responseJ.json"
+import styled from "styled-components";
+import "../styles/Drop.css"
+
+//icons
+import {RiArrowDropDownLine} from "react-icons/ri"
+import { FaSearch } from "react-icons/fa";
+import {FiLock, FiUnlock} from "react-icons/fi"
+//pages
+import MakeRoomModal from "./MakeRoomModal";
+import Banner from "../components/Banner";
+import Room from "../components/Room";
+//redux
 import { actionCreators as roomActions } from "../redux/modules/room";
 import { actionCreators as userActions } from "../redux/modules/user";
-import {FiLock, FiUnlock} from "react-icons/fi"
-
-import jsonData from "../shared/responseJ.json"
 
 const Main = () => {
+  //드롭다운 부분
+  const dropdownRef = useRef(null);
+
+  //드롭여부 확인
+  const [isActive, setIsActive]= useState(false)
+  const Visible = (active)=>{
+    setIsActive(active)
+  }
+
+  //카테고리
+  const [beauty , setBeauty] = useState("")
+  const [exercise, setExercise] =useState("")
+  const [study, setStudy] = useState("")
+  const [consulting, setConsulting] =useState("")
+  const [culture, setCulture] =useState("")
+  const [etc, setEtc] = useState("")
+
   const dispatch =useDispatch()
 
   const [MRooms, setMRooms] = useState(false);
+  //검색
   const [search, setSearch] = useState("");
-  const [possible, setPossible] =useState("")
+  //참여가능한 방
+  const [possible, setPossible] =useState(false)
   console.log(search, possible)
 
   let roomList = useSelector((state) => state.room);
@@ -32,81 +58,206 @@ const Main = () => {
   const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
 
   return (
-    <React.Fragment>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <input placeholder="search.." onChange={(e) => setSearch(e.target.value)}/>
-        <span>
-          <button onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}><FaSearch/></button>
-        </span>
-      </div>
-      <button onClick={() => {setMRooms(true);}}>방을 만들어볼까요?!</button>
-      {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+    <Wrap>
+      <SearchBarWrap>
+        <SearchBarInput placeholder="search.." onChange={(e) => setSearch(e.target.value)}/>
+        <FaSearch style={{cursor:"pointer", width:"32px", height:"32px", margin:"auto", position:"absolute", marginRight:"20px", color:"#aaf"}} onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}/>
+      </SearchBarWrap>
 
-      {roomList &&
-        roomList.map((info, idx) => {
-          return (
-            <React.Fragment >
-              <Room info={info} key={idx}/>
-            </React.Fragment>
-          );
-        })}
+      <Banner/>
 
-        {notUser_is_local===false ?
-          <button onClick={()=>{dispatch(userActions.NotMenberloginDB())}}> 비회원으로 즐기기 </button>:
-          <button onClick={()=>{dispatch(userActions.notUserLogOut())}}> 비회원은 그만할래요 </button>}
-
-        <div onChange={(e)=>{setPossible(e.target.value)}}>
-          <input type="radio" name="1" value="possible" />입장가능한 방만 보기
-          <input type="radio" name="1" value="" /> 모든 방만 보기
+      <MenuBar>
+        <div>
+          <Btn onClick={()=>{setPossible(false)}}> <Text>ALL</Text></Btn>
+          <Btn onClick={()=>{setPossible(true)}}><Text>참여 가능</Text></Btn>
+          <Btn><Text>관전 가능</Text></Btn>
         </div>
 
-      {/* <div>
-        {hotRoom.map((r, idx)=>{
-
-        })}
-      </div> */}
+        <div className="container" >
+          <div className="menu-container">
+            <DropBtn onClick={()=> setIsActive(!isActive)} className="menu-trigger"><Text>카테고리</Text> <RiArrowDropDownLine/> </DropBtn>
+            <nav ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
+              <ul>
+                <li>
+                  <a onChange={(e)=>setBeauty(e.target.value)} >뷰티</a>
+                </li>
+                <li>
+                  <a onChange={(e)=>setExercise(e.target.value)}>운동</a>
+                </li>
+                <li>
+                  <a onChange={(e)=>setStudy(e.target.value)}>스터디</a>
+                </li>
+                <li>
+                  <a onChange={(e)=>setConsulting(e.target.value)}>상담</a>
+                </li>
+                <li>
+                  <a onChange={(e)=>setCulture(e.target.value)}>문화</a>
+                </li>
+                <li>
+                  <a onChange={(e)=>setEtc(e.target.value)}> 기타</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div></div>
+      </MenuBar>
       
-      <div>
-        {possible ? jsonData.map((r,idx)=>{
-          return(
-            <div>
+      <RoomListContainer>
+        {possible === true ?
+         jsonData.map((r, idx) => {
+          return (
+            <RoomCard>
             {r.members==="4" || r.isSecrect ==="false"?            
               null:
-              <div key={idx}>
-              <p>{r.roomNumber}</p>
-              <p>{r.roomTitle}</p>
-              <p>{r.category}</p>
-              <p>{r.tags}</p>
-              <p>{r.isSecrect==="true"?<FiUnlock/> :<FiLock/>}</p>
+              <div>
+                <div>{r.roomNumber}</div>
+                <div>{r.roomTitle}</div>
+                <div>{r.category}</div>
+                <div>{r.tags}</div>
+                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
               </div>
             }
-            </div>
-          )
-        }) : jsonData.map((r,idx)=>{
-          return(
-            <div>
-            {r.members==="4"?            
-            <div style={{backgroundColor:"gray"}} key={idx}>
-            <p>{r.roomNumber}</p>
-            <p>{r.roomTitle}</p>
-            <p>{r.category}</p>
-            <p>{r.tags}</p>
-            <p>{r.isSecrect==="true"?<FiUnlock/> :<FiLock/>}</p>
-            </div>:
-              <div key={idx}>
-              <p>{r.roomNumber}</p>
-              <p>{r.roomTitle}</p>
-              <p>{r.category}</p>
-              <p>{r.tags}</p>
-              <p>{r.isSecrect==="true"?<FiUnlock/> :<FiLock/>}</p>
-              </div>
-            }
-            </div>
-          )
+            </RoomCard>
+          );
+        })
+        : jsonData.map((r, idx) => {
+          return (
+            <RoomCard>
+              {r.members==="4"?
+              <div style={{backgroundColor:"gray"}}>
+                <div>{r.roomNumber}</div>
+                <div>{r.roomTitle}</div>
+                <div>{r.category}</div>
+                <div>{r.tags}</div>
+                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
+              </div>:
+              <div>
+                <div>{r.roomNumber}</div>
+                <div>{r.roomTitle}</div>
+                <div>{r.category}</div>
+                <div>{r.tags}</div>
+                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
+              </div>}
+            </RoomCard>           
+          );
         })}
-      </div>
+      </RoomListContainer>
 
-    </React.Fragment>
+      <Btn>더보기</Btn>
+
+    </Wrap>
   );
 };
+
+//share
+const Wrap = styled.div`
+width: 1110px;
+margin: auto;
+`
+const Btn = styled.button`
+padding: 14px;
+border: none;
+border-radius: 5px;
+margin-right: 16px;
+background-color: #aaf;
+:hover{
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+`
+const Text = styled.div`
+size: 2rem;
+color: #2f2e2e;
+`
+const MenuBar = styled.div`
+display:flex;
+margin-bottom: 25px;
+`
+const DropBtn = styled.button`
+margin-left: 24px;
+display: flex;
+justify-content: space-between;
+background-color: #aaf;
+align-items: center;
+border-radius: 5px;
+padding: 15px;
+border: none;
+width: 200px;
+`
+
+//searchbar
+const SearchBarWrap = styled.div`
+display: flex;
+justify-content:flex-end;
+width:540px;
+height:50px;
+position:relative;
+align-items:center;
+margin:25px auto;
+`
+const SearchBarInput = styled.input`
+width:100%;
+height:100%;
+border: 1px solid #aaf;
+border-radius: 4px;
+padding: 10px;
+`
+
+//room
+const RoomListContainer = styled.div`
+  display: grid;
+  grid-gap: 30px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid #aaf;
+  @media screen and (min-width: 1607px){
+    grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
+    row-gap: 32px;
+  }
+  @media screen and (min-width: 1232px) and (max-width: 1607px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
+    row-gap: 32px;
+  }
+  @media screen and (min-width: 878px) and (max-width: 1232px) {
+    grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
+  }
+  @media screen and (min-width: 551px) and (max-width: 878px) {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  @media screen and (min-width: 0px) and (max-width: 551px) {
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+  }
+  
+`
+const RoomCard = styled.div`
+border: 1px solid #aaf;
+padding: 19px;
+border-radius: 16px;
+`
+
+
+
+const CardListArea = styled.div`
+  display: grid;
+  gap: 25px;
+  box-sizing: border-box;
+  @media screen and (min-width: 1607px){
+    grid-template-columns: repeat(5, minmax(0px, 1fr)) !important;
+    row-gap: 32px;
+  }
+  @media screen and (min-width: 1232px) and (max-width: 1607px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
+    row-gap: 32px;
+  }
+  @media screen and (min-width: 878px) and (max-width: 1232px) {
+    grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
+  }
+  @media screen and (min-width: 551px) and (max-width: 878px) {
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  @media screen and (min-width: 0px) and (max-width: 551px) {
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+  }
+`
+
 export default Main;

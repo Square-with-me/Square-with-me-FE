@@ -3,7 +3,7 @@
     "id": "aalasdf",
     "roomNumber" :"1",
     "roomTitle": "혜진이랑 한바탕 놀아봐요",
-    "category": "DO",
+    "category": "뷰티",
     "tags" :"#혜진아 #노올자",
     "isSecrect" : "true",
     "pwd" :"1234",
@@ -13,7 +13,7 @@
     "id": "qwer",
     "roomNumber" :"2",
     "roomTitle": "혜진이랑 한바탕 놀아봐요2",
-    "category": "share",
+    "category": "운동",
     "tags" :"#혜진아 #노올자",
     "isSecrect" : "false",
     "members" :"3"
@@ -22,7 +22,7 @@
     "id": "qwerqwer",
     "roomNumber" :"3",
     "roomTitle": "혜진이랑 한바탕 놀아봐요3",
-    "category": "talk",
+    "category": "스터디",
     "tags" :"#혜진아 #노올자",
     "isSecrect" : "false",
     "members" :"2"
@@ -31,10 +31,60 @@
     "id": "asdf",
     "roomNumber" :"4",
     "roomTitle": "혜진이랑 한바탕 놀아봐요4",
-    "category": "do",
+    "category": "상담",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "true",
+    "pwd" :"1234",
+    "members" :"4"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"5",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요5",
+    "category": "문화",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "false",
+    "pwd" :"",
+    "members" :"3"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"6",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요6",
+    "category": "기타",
     "tags" :"#혜진아 #노올자",
     "isSecrect" : "true",
     "pwd" :"1234",
     "members" :"1"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"7",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요7",
+    "category": "뷰티",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "false",
+    "pwd" :"",
+    "members" :"4"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"8",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요8",
+    "category": "운동",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "false",
+    "pwd" :"",
+    "members" :"4"
+  },
+  {    
+    "id": "asdf",
+    "roomNumber" :"9",
+    "roomTitle": "혜진이랑 한바탕 놀아봐요9",
+    "category": "스터디",
+    "tags" :"#혜진아 #노올자",
+    "isSecrect" : "true",
+    "pwd" :"1234",
+    "members" :"2"
   }
 ]
