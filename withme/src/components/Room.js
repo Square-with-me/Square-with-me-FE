@@ -9,7 +9,6 @@ const Room = () => {
         </Container>
     </React.Fragment>
   )
-   
 };
 
 const Container = styled.div`

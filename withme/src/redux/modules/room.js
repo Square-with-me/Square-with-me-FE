@@ -34,6 +34,22 @@ const getRoomDB = () => {
       .catch((error) => {
         console.log(error);
       });
+
+      if(RESPJ.GetRoom.isSuccess===true){
+        let title = RESPJ.GetRoom.data.title
+        let roomId = RESPJ.GetRoom.data.id
+        let secret = RESPJ.GetRoom.data.isSecret
+        let pwd = RESPJ.GetRoom.data.pwd
+        let masterUserId = RESPJ.GetRoom.data.masterUserId
+        let category = RESPJ.GetRoom.data.category.name
+        let tags = RESPJ.GetRoom.data.Tags
+        let Participants = RESPJ.GetRoom.data.Participants.length
+        // .forEach((t)=>{
+        //   let tag = t
+        //   // console.log(tag)
+        //   dispatch(addRoom({tag}))
+        // })
+        dispatch(getRoom({title, roomId, secret, pwd, masterUserId, category, tags,Participants}));}
   };
 };
 

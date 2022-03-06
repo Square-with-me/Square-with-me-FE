@@ -8,13 +8,17 @@ import "../styles/Drop.css"
 import {RiArrowDropDownLine} from "react-icons/ri"
 import { FaSearch } from "react-icons/fa";
 import {FiLock, FiUnlock} from "react-icons/fi"
-//pages
+import{BsFillPeopleFill} from "react-icons/bs"
+//pages/components
 import MakeRoomModal from "./MakeRoomModal";
 import Banner from "../components/Banner";
 import Room from "../components/Room";
+import Footer from "../components/Footer";
+
 //redux
 import { actionCreators as roomActions } from "../redux/modules/room";
 import { actionCreators as userActions } from "../redux/modules/user";
+
 
 const Main = () => {
   //드롭다운 부분
@@ -41,7 +45,6 @@ const Main = () => {
   const [search, setSearch] = useState("");
   //참여가능한 방
   const [possible, setPossible] =useState(false)
-  console.log(search, possible)
 
   let roomList = useSelector((state) => state.room);
   // const hotRoom = useSelector((state)=>state.room.hotList)
@@ -57,16 +60,24 @@ const Main = () => {
   const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
   const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
 
+  const [title, setTitle] =useState("")
+
   return (
+    <React.Fragment>
     <Wrap>
-      <SearchBarWrap>
+      <SearchBarWrap className="searchbar">
         <SearchBarInput placeholder="search.." onChange={(e) => setSearch(e.target.value)}/>
         <FaSearch style={{cursor:"pointer", width:"32px", height:"32px", margin:"auto", position:"absolute", marginRight:"20px", color:"#aaf"}} onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}/>
       </SearchBarWrap>
+      <div className="banner">
+        <Banner />
+      </div>
 
-      <Banner/>
+      <HotRoomListContainer className="hotroomlist">
+      
+      </HotRoomListContainer>
 
-      <MenuBar>
+      <MenuBar className="menulist">
         <div>
           <Btn onClick={()=>{setPossible(false)}}> <Text>ALL</Text></Btn>
           <Btn onClick={()=>{setPossible(true)}}><Text>참여 가능</Text></Btn>
@@ -79,7 +90,7 @@ const Main = () => {
             <nav ref={dropdownRef} className={`menu ${isActive ? "active" : "inactive"}`}>
               <ul>
                 <li>
-                  <a onChange={(e)=>setBeauty(e.target.value)} >뷰티</a>
+                  <a onChange={(e)=>setBeauty(e.target.value)} onClick={()=>{isActive(false)}}>뷰티</a>
                 </li>
                 <li>
                   <a onChange={(e)=>setExercise(e.target.value)}>운동</a>
@@ -87,7 +98,7 @@ const Main = () => {
                 <li>
                   <a onChange={(e)=>setStudy(e.target.value)}>스터디</a>
                 </li>
-                <li>
+                <li>``
                   <a onChange={(e)=>setConsulting(e.target.value)}>상담</a>
                 </li>
                 <li>
@@ -102,58 +113,118 @@ const Main = () => {
         </div>
         <div></div>
       </MenuBar>
-      
-      <RoomListContainer>
-        {possible === true ?
-         jsonData.map((r, idx) => {
-          return (
-            <RoomCard>
-            {r.members==="4" || r.isSecrect ==="false"?            
-              null:
-              <div>
-                <div>{r.roomNumber}</div>
-                <div>{r.roomTitle}</div>
-                <div>{r.category}</div>
-                <div>{r.tags}</div>
-                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
-              </div>
-            }
-            </RoomCard>
-          );
+
+      <RoomListContainer className="roomlist">
+        {possible===true?
+          jsonData.map((r, idx)=>{
+            return(
+              <>
+                {r.Participants.length ===4 || r.isSecrect === "true"?null:
+                <RoomCard>
+                  <div>
+                    <CategoryText>{r.category}</CategoryText>
+                    <TitleText className="title" onChange={(e)=>setTitle(e.target.value)}>{r.title}</TitleText>
+                  </div>
+                  <div>{r.isSecrect === "true"?
+                  <div>
+                    <div><FiLock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>:
+                  <div>
+                    <div><FiUnlock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>}
+                  </div>
+                  <div className="tag">{r.Tags.map((r, idx)=>{return(<TagText>#{r.name}</TagText>)})}</div>
+                </RoomCard>}
+              </>
+            )
+          })
+        : jsonData.map((r,idx)=>{
+          return(
+            <div style={{backgroundColor:"beige"}}>
+              {r.Participants.length === 4 ?
+              <RoomCard style={{backgroundColor:"gray"}}>
+                  <div>
+                    <CategoryText>{r.category}</CategoryText>
+                    <TitleText className="title">{r.title}</TitleText>
+                  </div>
+                  <div>{r.isSecrect === "true"?
+                  <div>
+                    <div><FiLock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>:
+                  <div>
+                    <div><FiUnlock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>}
+                  </div>
+                  <div className="tag">{r.Tags.map((r, idx)=>{return(<TagText>#{r.name}</TagText>)})}</div>
+              </RoomCard>
+              : <RoomCard>
+                  <div>
+                    <CategoryText>{r.category}</CategoryText>
+                    <TitleText className="title">{r.title}</TitleText>
+                  </div>
+                  <div>{r.isSecrect === "true"?
+                  <div>
+                    <div><FiLock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>:
+                  <div>
+                    <div><FiUnlock/></div>
+                    <div><BsFillPeopleFill style={{marginRight:"5px"}}/><span>{r.Participants.length}/4</span></div>
+                  </div>}
+                  </div>
+                  <div className="tag">{r.Tags.map((r, idx)=>{return(<TagText>#{r.name}</TagText>)})}</div>
+                </RoomCard>}
+            </div>
+          )
         })
-        : jsonData.map((r, idx) => {
-          return (
-            <RoomCard>
-              {r.members==="4"?
-              <div style={{backgroundColor:"gray"}}>
-                <div>{r.roomNumber}</div>
-                <div>{r.roomTitle}</div>
-                <div>{r.category}</div>
-                <div>{r.tags}</div>
-                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
-              </div>:
-              <div>
-                <div>{r.roomNumber}</div>
-                <div>{r.roomTitle}</div>
-                <div>{r.category}</div>
-                <div>{r.tags}</div>
-                <div>{r.isSecrect==="false"?<FiUnlock/> :<FiLock/>}</div>
-              </div>}
-            </RoomCard>           
-          );
-        })}
+        }
       </RoomListContainer>
 
+      <div className="morebtn">
       <Btn>더보기</Btn>
+      </div>
 
+      <div className="footer">
+       <Footer />
+      </div>
     </Wrap>
+    </React.Fragment>
   );
 };
 
 //share
 const Wrap = styled.div`
-width: 1110px;
+display: grid;
+grid-template-columns: repeat(12, 1fr);
+max-width: 1110px;
 margin: auto;
+grid-gap: 30px;
+margin: auto;
+.searchbar{
+  grid-column: 4/10;
+}
+.banner {
+  grid-column: 1/13;
+}
+.hotroomlist{
+  grid-column: 1/13;
+}
+.menulist{
+  grid-column: 1/13;
+}
+.roomlist{
+  grid-column: 1/13;
+}
+.morebtn{
+ margin: auto;
+}
+.footer{
+  grid-column: 1/13;
+}
 `
 const Btn = styled.button`
 padding: 14px;
@@ -189,7 +260,7 @@ width: 200px;
 const SearchBarWrap = styled.div`
 display: flex;
 justify-content:flex-end;
-width:540px;
+width:100%;
 height:50px;
 position:relative;
 align-items:center;
@@ -227,22 +298,44 @@ const RoomListContainer = styled.div`
   @media screen and (min-width: 0px) and (max-width: 551px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
-  
 `
 const RoomCard = styled.div`
 border: 1px solid #aaf;
 padding: 19px;
 border-radius: 16px;
+display: grid;
+grid-template-columns: 2fr 1fr;
+grid-auto-rows: 2fr;
+grid-gap: 8px;
+.tag{
+  grid-column: 1/ 4;
+  grid-row: 2 / 3;
+  white-space: pre-line;
+}
 `
-
-
-
-const CardListArea = styled.div`
-  display: grid;
-  gap: 25px;
-  box-sizing: border-box;
-  @media screen and (min-width: 1607px){
-    grid-template-columns: repeat(5, minmax(0px, 1fr)) !important;
+const CategoryText = styled.div`
+color: #aaf;
+font-size: 13px;
+`
+const TitleText = styled.div`
+font-weight: 800;
+white-space:nowrap;
+display: block;
+font-size: 1.2rem;
+`
+const TagText = styled.span`
+  background-color: #aaf;
+  border: none;
+  border-radius: 30px;
+  padding: 0px 10px;
+  margin-right: 5px;
+`
+const HotRoomListContainer = styled.div`
+display: grid;
+grid-gap: 30px;
+cursor: pointer;
+@media screen and (min-width: 1607px){
+    grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
     row-gap: 32px;
   }
   @media screen and (min-width: 1232px) and (max-width: 1607px) {
@@ -259,5 +352,4 @@ const CardListArea = styled.div`
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 `
-
 export default Main;
