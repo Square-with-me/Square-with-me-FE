@@ -64,6 +64,705 @@ export const RESPJ = {
           nickname: "장현광이다",
           masterBadgeId: null,
         },
+        {
+          id: 2,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 4,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방10",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "기타",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 4,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방4",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "스터디",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방1",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+  },
+  GetRoom: {
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방3",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "뷰티",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 4,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방10",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "기타",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 4,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방4",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "스터디",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방1",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방8",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
+      ],
+    },
+  },
+
+
+  HotRoom: {
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방3",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "뷰티",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 4,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방4",
+      isSecret: true,
+      pwd: "1234",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "스터디",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+      ],
+    },
+    isSuccess: true,
+    data: {
+      id: 3,
+      title: "테스트용 방1",
+      isSecret: false,
+      pwd: "",
+      masterUserId: 1,
+      category: {
+        id: 1,
+        name: "운동",
+      },
+      Tags: [
+        {
+          id: 2,
+          name: "메롱",
+        },
+        {
+          id: 3,
+          name: "방만듬",
+        },
+        {
+          id: 1,
+          name: "안녕",
+        },
+      ],
+      Participants: [
+        {
+          id: 1,
+          nickname: "장현광이다",
+          masterBadgeId: null,
+        },
+        {
+          id: 2,
+          nickname: "야호",
+          masterBadgeId: null,
+        },
+        {
+          id: 3,
+          nickname: "그래",
+          masterBadgeId: null,
+        },
       ],
     },
   },

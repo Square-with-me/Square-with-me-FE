@@ -2,39 +2,203 @@
   {
     "id": "aalasdf",
     "roomNumber" :"1",
-    "roomTitle": "혜진이랑 한바탕 놀아봐요",
-    "category": "DO",
-    "tags" :"#혜진아 #노올자",
+    "title": "혜진이랑 한바탕 놀아봐요",
+    "category": "뷰티",
+    "Tags": [
+      {
+        "id": 2,
+        "name": "메롱"
+      },
+      {
+        "id": 3,
+        "name": "방만듬"
+      },
+      {
+        "id": 1,
+        "name": "안녕"
+      },
+      {
+        "id": 1,
+        "name": "hi"
+      },
+      {
+        "id": 1,
+        "name": "11"
+      },
+      {
+        "id": 1,
+        "name": "312"
+      }
+    ],
     "isSecrect" : "true",
     "pwd" :"1234",
-    "members" :"4"
+    "Participants" :[
+      {
+        "id": 1,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 2,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 3,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 4,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      }
+    ]
   },
-  {    
-    "id": "qwer",
+  {
+    "id": "aalasdf",
     "roomNumber" :"2",
-    "roomTitle": "혜진이랑 한바탕 놀아봐요2",
-    "category": "share",
-    "tags" :"#혜진아 #노올자",
+    "title": "혜진이랑 한바탕 놀아봐요2",
+    "category": "운동",
+    "Tags": [
+      {
+        "id": 2,
+        "name": "비번은"
+      },
+      {
+        "id": 3,
+        "name": "없어요"
+      },
+      {
+        "id": 1,
+        "name": "ㅎㅎ~"
+      }
+    ],
     "isSecrect" : "false",
-    "members" :"3"
+    "pwd" :"",
+    "Participants" :[
+      {
+        "id": 1,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 2,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 3,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      }
+    ]
   },
-  {    
-    "id": "qwerqwer",
+  {
+    "id": "qwerty",
     "roomNumber" :"3",
-    "roomTitle": "혜진이랑 한바탕 놀아봐요3",
-    "category": "talk",
-    "tags" :"#혜진아 #노올자",
-    "isSecrect" : "false",
-    "members" :"2"
-  },
-  {    
-    "id": "asdf",
-    "roomNumber" :"4",
-    "roomTitle": "혜진이랑 한바탕 놀아봐요4",
-    "category": "do",
-    "tags" :"#혜진아 #노올자",
+    "title": "혜진이랑 한바탕 놀아봐요3",
+    "category": "스터디",
+    "Tags": [
+      {
+        "id": 2,
+        "name": "비번은"
+      },
+      {
+        "id": 3,
+        "name": "있꼬"
+      },
+      {
+        "id": 1,
+        "name": "2명"
+      }
+    ],
     "isSecrect" : "true",
     "pwd" :"1234",
-    "members" :"1"
+    "Participants" :[
+      {
+        "id": 1,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 2,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      }
+    ]
+  },
+  {
+    "id": "aalasdf",
+    "roomNumber" :"4",
+    "title": "혜진이랑 한바탕 놀아봐요4",
+    "category": "상담",
+    "Tags": [
+      {
+        "id": 2,
+        "name": "비번"
+      },
+      {
+        "id": 3,
+        "name": "없고"
+      },
+      {
+        "id": 1,
+        "name": "1명"
+      }
+    ],
+    "isSecrect" : "false",
+    "pwd" :"",
+    "Participants" :[
+      {
+        "id": 1,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      }
+    ]
+  },
+  {
+    "id": "zxcvadf",
+    "roomNumber" :"5",
+    "title": "혜진이랑 한바탕 놀아봐요5",
+    "category": "기타",
+    "Tags": [
+      {
+        "id": 2,
+        "name": "비번"
+      },
+      {
+        "id": 3,
+        "name": "없고"
+      },
+      {
+        "id": 1,
+        "name": "가득찼어"
+      }
+    ],
+    "isSecrect" : "false",
+    "pwd" :"",
+    "Participants" :[
+      {
+        "id": 1,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 2,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 3,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      },
+      {
+        "id": 4,
+        "nickname": "장현광이다",
+        "masterBadgeId": null
+      }
+    ]
   }
 ]

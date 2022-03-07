@@ -1,11 +1,23 @@
-import React from "react"
+import React from "react";
+import styled from "styled-components";
 
-const Room =()=>{
-    return (
-        <React.Fragment>
+const Room = () => {
+  return(
+    <React.Fragment>
+        <Container>
 
-        </React.Fragment>
-    )
-}
+        </Container>
+    </React.Fragment>
+  )
+};
 
-export default Room
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 254px);
+  grid-gap: 30px;
+  grid-template-rows: 184px;
+  box-sizing: border-box;
+  cursor: pointer;
+`;
+
+export default Room;
