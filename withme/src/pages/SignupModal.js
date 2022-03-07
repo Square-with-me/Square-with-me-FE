@@ -7,7 +7,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 
-const SignupModal = () => {
+const SignupModal = ({ setIsSignup }) => {
   const dispatch = useDispatch();
 
   const [origin, setOrigin] = React.useState('');
@@ -30,128 +30,184 @@ const SignupModal = () => {
 
   return (
     <>
+      {/* 모달창 뒷배경이 회색일 때 */}
+        {/* <ModalBackground
+          onClick={() => {
+            setIsSignup(false);
+          }}
+        /> */}
       <SignupWrap>
-        <SignInText>ㅁ with me 회원가입</SignInText>
+        <Contents>
+          <SignInText>회원가입하라고 이짜식드라~~!!!!!!!!</SignInText>
 
-        <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
+        <Inputs>
+        <OriginInput>
           <Input
-            width="100%"
-            borderRadius="5px"
-            bg="#fff"
-            label="아이디"
-            placeholder="아이디"
+            label=""
+            placeholder="이메일을 입력해주세요"
             value={origin}
             _onChange={(e) => {
               setOrigin(e.target.value);
             }}
           />
-        </Grid>
+        </OriginInput>
 
-        <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
+        <NicknameInput>
           <Input
-            width="100%"
-            borderRadius="5px"
-            bg="#fff"
-            label="닉네임"
-            placeholder="닉네임"
+            label=""
+            placeholder="닉네임을 입력해주세요"
             value={nickname}
             _onChange={(e) => {
               setNickName(e.target.value);
             }}
           />
-        </Grid>
+        </NicknameInput>
 
-        <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
+        <PwdInput>
           <Input
-            width="100%"
-            borderRadius="5px"
-            bg="#fff"
-            label="비밀번호"
-            placeholder="비밀번호"
+            label=""
+            placeholder="비밀번호를 입력해주세요"
             type="password"
             value={pwd}
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
           />
-        </Grid>
+        </PwdInput>
 
-        <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
+        <PwdCheckInput>
           <Input
-            width="100%"
-            borderRadius="5px"
-            bg="#fff"
-            label="비밀번호 확인"
-            placeholder="비밀번호 확인"
+            label=""
+            placeholder="비밀번호를 재입력 해주세요"
             value={pwd_check}
             type="password"
             _onChange={(e) => {
               setPwdCheck(e.target.value);
             }}
           />
-        </Grid>
+        </PwdCheckInput>
+        </Inputs>
 
-        <Grid padding="0px 10%" margin="10px 0px 0px 0px" height="13%">
-          <SuccessSignUp onClick={SignupModal}>회원가입하기</SuccessSignUp>
-        </Grid>
-
-        <Grid padding="0px 10%" margin="10px 0px 0px 0px" height="13%">
-          <GoLogin
+        <Buttons>
+          <CancleButton
+            style={{ cursor: "pointer" }}
             onClick={() => {
-              history.push('/login');
-            }}
-          >
-            계정이 있으신가요? 로그인
-          </GoLogin>
-        </Grid>
-
+              setIsSignup(false);
+              }}>취소하기</CancleButton>
+          <SuccessSignUp onClick={SignupModal}>회원가입하기</SuccessSignUp>
+        </Buttons>
+        </Contents>
       </SignupWrap>
     </>
   );
 };
 
+// 모달창 뒷배경이 회색일 때
+// const ModalBackground = styled.div`
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   z-index: 99;
+//   background-color: rgba(0, 0, 0, 0.5);
+// `;
+
 const SignupWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 18px;
+
+  position: absolute;
+  width: 540px;
+  height: 527px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #868686;
+  z-index: 100;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 10px 0px;
+`;
+
+const SignInText = styled.div`
+  padding: 8px;
+  height: 44px;
+  align-self: stretch;
+`;
+
+const Inputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: auto;
-  margin-top: 45px;
-  width: 600px;
-  height: 730px;
-  border-radius: 5px;
-  border: 1px solid #adb5bd;
-  @media (min-width: 601px) {
-    padding: 48px 40px 36px 40px;
-    flex-grow: 1;
-    overflow: hidden;
-  }
+  width: 504px;
+  height: 336px;
 `;
 
-const SignInText = styled.div`
-  font-size: 24px;
-  margin: auto;
+const OriginInput = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 10px 0px;
+`;
+
+const NicknameInput = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 10px 0px;
+`;
+
+const PwdInput = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 10px 0px;
+`;
+
+const PwdCheckInput = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 10px 0px;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 8px;
+  width: 269px;
+  height: 67px;
+`;
+
+const CancleButton = styled.button`
+  width: 98px;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 0px 20px;
 `;
 
 const SuccessSignUp = styled.button`
-  border: none;
-  border-radius: 5px;
-  background-color: #9474cc;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 0px 145px;
-  padding: 10px 11px;
-`;
-
-const GoLogin = styled.button`
-  border: none;
-  background-color: #fff;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 0px 100px;
+  width: 135px;
+  height: 50px;
+  background: #cbb2fe;
+  border-radius: 4px;
 `;
 
 export default SignupModal;

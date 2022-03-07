@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
+import MakeRoomModal from "../pages/MakeRoomModal";
 
 import { FaBars } from 'react-icons/fa';
 // import MainLogo from '../image/MainLogo.png';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 const Sidebar = (props) => {
   const { open, close, header, value } = props;
+  const dispatch = useDispatch();
+  //방 만들기
+  const [MRooms, setMRooms] = useState(false);
+
+  const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
+  const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
+
   if (open) {
     return (
       <OpenSidebar>
@@ -58,16 +66,28 @@ const Sidebar = (props) => {
               </MenuButton>
 
               <MenuButton
-                // onClick={() => {
-                //   history.push('/');
-                // }}
-              >
-                <MenuText>방 만들기</MenuText>
-              </MenuButton>
+                onClick={() => {
+                  setMRooms(true);
+                }}>
+                  <MenuText>방 만들기</MenuText>
+                </MenuButton>
+              {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
 
-              <MenuButton>
-                <MenuText>비회원으로 즐기기</MenuText>
-              </MenuButton>
+              {notUser_is_local===false ?
+                <MenuButton 
+                  onClick={()=>{
+                    dispatch(userActions.NotMenberloginDB())
+                  }}>
+                    <MenuText>비회원으로 즐기기</MenuText>
+                </MenuButton>:
+
+                <MenuButton
+                  onClick={()=>{
+                    dispatch(userActions.notUserLogOut())
+                  }}>
+                    <MenuText>비회원은 그만할래요</MenuText>
+                </MenuButton>
+              }
           </SidebarContent>
         </Section>
       </OpenSidebar>
