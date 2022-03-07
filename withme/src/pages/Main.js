@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MakeRoomModal from "./MakeRoomModal";
+// import MakeRoomModal from "./MakeRoomModal";
 import { FaSearch } from "react-icons/fa";
 import Room from "../components/Room";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,7 @@ import jsonData from "../shared/responseJ.json"
 const Main = () => {
   const dispatch =useDispatch()
 
-  const [MRooms, setMRooms] = useState(false);
+  // const [MRooms, setMRooms] = useState(false);
   const [search, setSearch] = useState("");
   const [possible, setPossible] =useState("")
   console.log(search, possible)
@@ -39,8 +39,8 @@ const Main = () => {
           <button onClick={()=>{dispatch(roomActions.searchRoomDB(search))}}><FaSearch/></button>
         </span>
       </div>
-      <button onClick={() => {setMRooms(true);}}>방을 만들어볼까요?!</button>
-      {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+      {/* <button onClick={() => {setMRooms(true);}}>방을 만들어볼까요?!</button>
+      {MRooms && <MakeRoomModal setMRooms={setMRooms} />} */}
 
       {roomList &&
         roomList.map((info, idx) => {
@@ -51,9 +51,9 @@ const Main = () => {
           );
         })}
 
-        {notUser_is_local===false ?
+        {/* {notUser_is_local===false ?
           <button onClick={()=>{dispatch(userActions.NotMenberloginDB())}}> 비회원으로 즐기기 </button>:
-          <button onClick={()=>{dispatch(userActions.notUserLogOut())}}> 비회원은 그만할래요 </button>}
+          <button onClick={()=>{dispatch(userActions.notUserLogOut())}}> 비회원은 그만할래요 </button>} */}
 
         <div onChange={(e)=>{setPossible(e.target.value)}}>
           <input type="radio" name="1" value="possible" />입장가능한 방만 보기

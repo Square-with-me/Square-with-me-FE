@@ -71,6 +71,14 @@ const signUpDB = (origin, nickname, pwd) => {
   };
 };
 
+//로그아웃 미들웨어
+const logOutDB = () => {
+  return function(dispatch, getState, { history }){
+      dispatch(logOut())
+      history.push('/')
+  }
+}
+
 //로그인 체크 미들웨어
 const logInCheckDB = () => {
   return function (dispatch, getState, { history }) {
@@ -83,7 +91,10 @@ const logInCheckDB = () => {
     //			history.replace("/");
     //			return;
     //			}
-    //     dispatch(setUser({ origin: res.data.origin, nickname: res.data.nickname }));
+    //     dispatch(setUser({
+          //   origin: res.data.origin,
+          //   nickname: res.data.nickname
+          // }));
     //    });
     if (resp_userCheck.isSuccess === true) {
       console.log('logInCheck ok');
@@ -185,6 +196,7 @@ export default handleActions(
 const actionCreators = {
   setUser,
   logOut,
+  logOutDB,
   logInDB,
   logInCheckDB,
   signUpDB,

@@ -5,10 +5,9 @@ import { Grid, Input } from '../elements/Index';
 // redux import
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
-
 import { history } from '../redux/configureStore';
 
-const LoginModal = (props) => {
+const LoginModal = ({ setIsM }) => {
   const dispatch = useDispatch();
 
   const redirectURI = "http://localhost:3000/api/auth/kakao/callback";
@@ -22,129 +21,172 @@ const LoginModal = (props) => {
   };
     return (
       <>
+       {/* 모달창 뒷배경이 회색일 때 */}
+        {/* <ModalBackground
+          onClick={() => {
+            setIsM(false);
+          }}
+        /> */}
         <LoginWrap>
-          <LogInText>ㅁ with me 로그인</LogInText>
+          <Contents>
+            <HelloText>반갑습니다 - ! <br/> 오늘도 즐거운 만남을 위해 잘 오셨어요</HelloText>
 
-          <Grid padding="0px 10%" margin="30px 0px 15px 0px" height="13%">
-            <Input
-              width="100%"
-              borderRadius="5px"
-              bg="#fff"
-              label="아이디"
-              placeholder="아이디를 입력해주세요."
-              _onChange={(e) => {
-                setOrigin(e.target.value);
-              }}
-              value={origin}
-            />
-          </Grid>
+            <LoginInfo>
+              <Inputs>
+                <OriginInput>
+                  <Input
+                    label=""
+                    placeholder="이메일을 입력해주세요."
+                    _onChange={(e) => {
+                      setOrigin(e.target.value);
+                    }}
+                    value={origin}
+                  />
+                </OriginInput>
 
-          <Grid padding="0px 10%" margin="10px 0px 10px 0px" height="13%">
-            <Input
-              width="100%"
-              borderRadius="5px"
-              bg="#fff"
-              label="비밀번호"
-              placeholder="비밀번호를 입력해주세요."
-              type="password"
-              _onChange={(e) => {
-                setPwd(e.target.value);
-              }}
-              value={pwd}
-            />
-          </Grid>
+                <PwdInput>
+                  <Input
+                    label=""
+                    placeholder="비밀번호를 입력해주세요."
+                    type="password"
+                    _onChange={(e) => {
+                      setPwd(e.target.value);
+                    }}
+                    value={pwd}
+                  />
+                </PwdInput>
+              </Inputs>
 
-          <Grid padding="0px 10%" margin="10px 0px 0px 0px" height="13%">
-            <LoginButton onClick={LoginModal}>로그인 하기</LoginButton>
-          </Grid>
+              <KakaoLogin
+                onClick={() => {
+                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${redirectURI}&response_type=code`;
+                }}
+              >
+                카카오 로그인
+              </KakaoLogin>
 
-          <Grid>
-            <KakaoLogin
-              onClick={() => {
-                window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${redirectURI}&response_type=code`;
-              }}
-            >
-              카카오 로그인
-            </KakaoLogin>
-          </Grid>
+              <GoSignUp
+                onClick={() => {
+                  history.push('/signup');
+                }}
+              >
+                회원가입 하기
+              </GoSignUp>
+            </LoginInfo>
 
-          <Grid>
-            <GoSignUp
-              onClick={() => {
-                history.push('/signup');
-              }}
-            >
-              아직 회원이 아니라면? 회원가입 하기
-            </GoSignUp>
-          </Grid>
-          
-            <NonMemderLogin>비회원으로 즐기기</NonMemderLogin>
+            <Buttons>
+              <CancleButton onClick={() => {setIsM(false)}}>취소하기</CancleButton>
+              <LoginButton onClick={LoginModal}>로그인하기</LoginButton>
+            </Buttons>
+          </Contents>
         </LoginWrap>
       </>
     );
   };
 
+// 모달창 뒷배경이 회색일 때
+// const ModalBackground = styled.div`
+//   top: 0;
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   z-index: 99;
+//   background-color: rgba(0, 0, 0, 0.5);
+// `;
+
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 18px;
+  position: absolute;
+  width: 540px;
+  height: 567px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #868686;
+  z-index: 100;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 10px 0px;
+`;
+
+const HelloText = styled.div`
+  padding: 8px;
+  height: 72px;
+  align-self: stretch;
+`;
+
+const LoginInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: auto;
-  margin-top: 65px;
-  width: 600px;
-  height: 700px;
-  border-radius: 5px;
-  border: 1px solid #adb5bd;
-  @media (min-width: 450px) {
-    padding: 48px 40px 36px 40px;
-    flex-grow: 1;
-    overflow: hidden;
-  }
+  padding: 0px 0px 40px;
+  height: 348px;
 `;
 
-const LogInText = styled.div`
-  font-size: 24px;
-  margin: 30px 0px;
+const Inputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 504px;
+  height: 176px;
 `;
 
-const LoginButton = styled.button`
-  border: none;
-  border-radius: 5px;
-  background-color: #9474cc;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 0px 150px;
-  padding: 10px 11px;
+const OriginInput = styled.div`
+  padding: 8px;
+  height: 50px;
+  margin: 8px 0px;
+`;
+
+const PwdInput = styled.div`
+  padding: 8px;
+  margin: 8px 0px;
 `;
 
 const KakaoLogin = styled.button`
-  border: none;
-  border-radius: 5px;
-  background-color: #ffea00;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 10px 195px;
-  padding: 10px 11px;
+  width: 382px;
+  height: 50px;
+  background: #f9e000;
+  border-radius: 4px;
+  margin: 4px 10px;
 `;
 
 const GoSignUp = styled.button`
-  border: none;
-  background-color: #fff;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 20px 115px;
+  width: 382px;
+  height: 50px;
+  background: #b6ccfe;
+  border-radius: 4px;
+  margin: 4px 10px;
 `;
 
-const NonMemderLogin = styled.button`
-  border: none;
-  background-color: #fff;
-  color: black;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 20px 80px;
+const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 8px;
+  height: 67px;
+`;
+
+const CancleButton = styled.button`
+  width: 98px;
+  height: 50px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin: 0px 20px;
+`;
+
+const LoginButton = styled.button`
+  width: 116px;
+  height: 50px;
+  background: #cbb2fe;
+  border-radius: 4px;
 `;
 
 export default LoginModal;
