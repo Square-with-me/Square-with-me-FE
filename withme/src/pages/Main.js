@@ -6,6 +6,9 @@ import "../styles/Drop.css"
 
 //icons
 import {RiArrowDropDownLine} from "react-icons/ri"
+import React, { useState } from "react";
+
+// import MakeRoomModal from "./MakeRoomModal";
 import { FaSearch } from "react-icons/fa";
 import {FiLock, FiUnlock} from "react-icons/fi"
 import{BsFillPeopleFill} from "react-icons/bs"

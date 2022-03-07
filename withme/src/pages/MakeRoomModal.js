@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { actionCreators as roomActions } from "../redux/modules/room";
 import { useCallback } from "react";
 import { useRef } from "react";
-import {MdDeleteForever} from "react-icons/md";
+import { MdDeleteForever } from "react-icons/md";
 import Tag from "../components/Tag";
 
 const MakeRoomModal = ({ setMRooms }) => {
@@ -40,11 +40,11 @@ const MakeRoomModal = ({ setMRooms }) => {
 
   return (
     <React.Fragment>
-      <Black
+      {/* <ModalBackground
         onClick={() => {
           setMRooms(false);
         }}
-      />
+      /> */}
       <Wrap>
         <Headers>
           <AiOutlineClose
@@ -112,7 +112,7 @@ const MakeRoomModal = ({ setMRooms }) => {
               })}
               <TagInput
                 type='text'
-                placeholder='Press enter to add tags'
+                placeholder='태그를 입력해주세요'
                 tabIndex={2}
                 onChange={e => setTagItem(e.target.value)}
                 value={tagItem}
@@ -128,7 +128,7 @@ const MakeRoomModal = ({ setMRooms }) => {
               )
             }
           >
-            make a room
+          make a room
           </button>
         </div>
       </Wrap>
@@ -136,13 +136,15 @@ const MakeRoomModal = ({ setMRooms }) => {
   );
 };
 
-const Black = styled.div`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.5);
-`;
+// 모달창 뒷배경이 회색일 때
+// const ModalBackground = styled.div`
+//   width: 100%;
+//   height: 100%;
+//   position: fixed;
+//   z-index: 99;
+//   background-color: rgba(0, 0, 0, 0.5);
+// `;
+
 const Wrap = styled.div`
   width: 600px;
   max-width: 60%;
@@ -155,7 +157,8 @@ const Wrap = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background: #868686;
+  z-index: 100;
 `;
 
 const Headers = styled.div`
@@ -188,7 +191,7 @@ const TagBox = styled.div`
   padding: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-
+  background: white;
   &:focus-within {
     border-color: tomato;
   }
