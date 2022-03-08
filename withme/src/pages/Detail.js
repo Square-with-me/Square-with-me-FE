@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { history } from '../redux/configureStore';
+
 // 방 입장
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
@@ -29,6 +31,12 @@ const Detail = (props) => {
   const [isSW, setIsSW] = useState(false); // 스톱워치
   const [isPP, setIsPP] = useState(false); // 참가자 목록
   const [isCT, setIsCT] = useState(false); // 채팅
+
+  const [peers, setPeers] = useState([]);
+  const socketRef = useRef();
+  const userVideo = useRef();
+  const peersRef = useRef([]);
+  const roomID = props.match.params.id;
 
   // 사이드바 컨트롤
   useEffect(() => {
@@ -87,24 +95,14 @@ const Detail = (props) => {
     }
   };
 
-  const [peers, setPeers] = useState([]);
-  const socketRef = useRef();
-  const userVideo = useRef();
-  const peersRef = useRef([]);
-  const roomID = props.match.params.id;
-
   useEffect(() => {
-    console.log('방입장');
-    socketRef.current = io.connect('/', { transports: ['websocket'] });
-    console.log(socketRef.current);
+    socketRef.current = io.connect('/');
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
         socketRef.current.emit('join room', roomID);
-        console.log('지금 방 아이디는', roomID);
-        console.log(socketRef);
         socketRef.current.on('all users', (users) => {
           const peers = [];
           users.forEach((userID) => {
@@ -168,6 +166,13 @@ const Detail = (props) => {
     return peer;
   }
 
+  function leavingRoom() {
+    socketRef.current.on('disconnect', () => {
+      console.log(socketRef.current);
+    });
+    // history.push('/');
+  }
+
   return (
     <Container>
       <div id="top"></div>
@@ -212,7 +217,7 @@ const Detail = (props) => {
       </div>
       <div id="bottom">
         <div id="centerButton">
-          <button></button>
+          <button onClick={leavingRoom}>나가기</button>
           <button></button>
           <button></button>
           <button></button>
