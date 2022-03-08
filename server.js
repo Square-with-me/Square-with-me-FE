@@ -11,6 +11,7 @@ const users = {};
 const socketToRoom = {};
 
 io.on('connection', (socket) => {
+  console.log(socket);
   socket.on('join room', (roomID) => {
     if (users[roomID]) {
       const length = users[roomID].length;

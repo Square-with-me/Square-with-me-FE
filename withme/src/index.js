@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './shared/App';
-import store from "./redux/configureStore";
-import { Provider } from "react-redux";
+import store from './redux/configureStore';
+import { Provider } from 'react-redux';
+import * as serviceWorker from './shared/serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,3 +14,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorker.unregister();

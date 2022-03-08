@@ -1,9 +1,18 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Video = () => {
+const Video = (props) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    props.peer.on('stream', (stream) => {
+      ref.current.srcObject = stream;
+    });
+  }, []);
+
   return (
     <Container>
-      <video></video>
+      <video playsInline autoPlay ref={ref}></video>
     </Container>
   );
 };

@@ -20,7 +20,7 @@ function App() {
       {/* <Header></Header> */}
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
-        <Route path="/detail/:id" exact component={Detail} />
+        <Route path="/room/:id" exact component={Detail} />
         <Route path="/login" exact component={LoginModal}></Route>
         <Route path="/signup" exact component={SignupModal}></Route>
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />

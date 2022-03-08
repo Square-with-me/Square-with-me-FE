@@ -21,6 +21,10 @@ import Footer from '../components/Footer';
 import { actionCreators as roomActions } from '../redux/modules/room';
 import { actionCreators as userActions } from '../redux/modules/user';
 
+// 방 생성하기
+import { v1 as uuid } from 'uuid';
+import { history } from '../redux/configureStore';
+
 const Main = () => {
   //드롭다운 부분
   const dropdownRef = useRef(null);
@@ -65,9 +69,16 @@ const Main = () => {
 
   const [title, setTitle] = useState('');
 
+  // 방 생성하기 함수
+  function create() {
+    const id = uuid();
+    history.push(`/room/${id}`);
+  }
+
   return (
     <React.Fragment>
       <Wrap>
+        <button onClick={create}>방생성하기</button>
         <SearchBarWrap className="searchbar">
           <SearchBarInput
             placeholder="search.."
