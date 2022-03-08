@@ -96,13 +96,21 @@ const Detail = (props) => {
   };
 
   useEffect(() => {
-    socketRef.current = io.connect('/');
+    socketRef.current = io.connect('http://175.112.86.142:8000/');
+
+    const newPeer = new Peer();
+    console.log(newPeer);
+
+    newPeer.on('open', function (id) {
+      console.log(id);
+    });
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         userVideo.current.srcObject = stream;
         socketRef.current.emit('join room', roomID);
+        //
         socketRef.current.on('all users', (users) => {
           const peers = [];
           users.forEach((userID) => {
@@ -156,7 +164,6 @@ const Detail = (props) => {
       trickle: false,
       stream,
     });
-
     peer.on('signal', (signal) => {
       socketRef.current.emit('returning signal', { signal, callerID });
     });
@@ -166,11 +173,14 @@ const Detail = (props) => {
     return peer;
   }
 
+  function exit() {
+    console.log('나갈꺼임 말리지마라');
+  }
+
   function leavingRoom() {
-    socketRef.current.on('disconnect', () => {
-      console.log(socketRef.current);
-    });
-    // history.push('/');
+    socketRef.current.emit('byebye', exit);
+
+    history.push('/');
   }
 
   return (

@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const http = require('http');
+const https = require('https');
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 
@@ -44,7 +44,6 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const roomID = socketToRoom[socket.id];
-    console.log(roomID);
 
     let room = users[roomID];
     if (room) {
