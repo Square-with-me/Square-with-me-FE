@@ -218,6 +218,7 @@ const Detail = (props) => {
         )}
         {isCT ? (
           <div className="rightState">
+            <button>C</button>
             <p>채팅</p>
             <button></button>
           </div>

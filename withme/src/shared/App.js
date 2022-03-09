@@ -11,6 +11,8 @@ import SignupModal from '../pages/SignupModal';
 import Header from '../components/Header';
 import Kakao from '../components/Kakao';
 
+import Test from '../pages/Test';
+
 import './App.css';
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
         <Route path="/signup" exact component={SignupModal}></Route>
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
+        <Route path="/test" exact component={Test} />
       </ConnectedRouter>
       {/* </Grid> */}
     </>
