@@ -71,15 +71,6 @@ const MakeRoomModal = ({ setMRooms }) => {
             </select>
           </Category>
 
-          <div>
-            {category === "1" ? <p>패션, 헤어, 성형</p> : null}
-            {category === "2" ? <p>다이어트, 스포츠, 운동</p> : null}
-            {category === "3" ? (<p>독서, 공부, 시사, 토론, 과학, IT/컴퓨터</p>) : null}
-            {category === "4" ? (<p>취업, 아르바이트, 진로, 금융, 연애, 인테리어, 법률,의료,사주/타로{" "}</p>) : null}
-            {category === "5" ? (<p>마음챙김/명상, 정보, 수면, 요리, 반려동물, 게임,여행,공포/미스터리</p>) : null}
-            {category === "6" ? (<p>손재주, 예술, 댄스/노래, 영화/드라마, 덕질</p>) : null}
-          </div>
-
           <RoomSetting>
             <select onChange={(e) => setSecret(e.target.value)}>
               <option value={"open"}>공개방</option>
@@ -87,7 +78,16 @@ const MakeRoomModal = ({ setMRooms }) => {
             </select>
           </RoomSetting>
           </Settings>
-          
+
+          <Ex>
+            {category === "1" ? <p>패션, 헤어, 성형</p> : null}
+            {category === "2" ? <p>다이어트, 스포츠, 운동</p> : null}
+            {category === "3" ? (<p>독서, 공부, 시사, 토론, 과학, IT/컴퓨터</p>) : null}
+            {category === "4" ? (<p>취업, 아르바이트, 진로, 금융, 연애, 인테리어, 법률, 의료, 사주/타로{" "}</p>) : null}
+            {category === "5" ? (<p>마음챙김/명상, 정보, 수면, 요리, 반려동물, 게임, 여행, 공포/미스터리</p>) : null}
+            {category === "6" ? (<p>손재주, 예술, 댄스/노래, 영화/드라마, 덕질</p>) : null}
+          </Ex>
+
           <PwdInput>
             {secret === "close" ? (
               <Input
@@ -176,7 +176,6 @@ const Headers = styled.div`
 `;
 
 const Contents = styled.div`
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin: 10px 0px;
@@ -194,6 +193,7 @@ const Settings = styled.div`
   width: 184px;
   height: 50px;
   border-radius: 4px;
+  margin: 20px 8px;
 `;
 
 const Category = styled.div`
@@ -212,19 +212,24 @@ const RoomSetting = styled.div`
   border-radius: 4px;
 `;
 
+const Ex = styled.div`
+  margin: -5px 0px -20px 10px;
+  color: #8187dc;
+`;
+
 const PwdInput = styled.div`
   padding: 8px;
-  margin: 4px 0px;
+  margin: 0px 0px -38px 0px;
 `
 
 const RoomInfoInput = styled.div`
   padding: 8px;
   height: 66px;
-  margin: 4px 0px;
+  margin: 15px 0px 0px 0px;
 `
 
 const WholeBox = styled.div`
-  padding: 10px;
+  padding: 8px;
   height: 100vh;
 `
 
@@ -235,7 +240,6 @@ const TagBox = styled.div`
   width: 488px;
   height: 50px;
   border-radius: 10px;
-  background: white;
   background: #FFFFFF;
   border-radius: 4px;
   margin: 8px 0px;
@@ -278,6 +282,7 @@ const TagInput = styled.input`
   border: none;
   outline: none;
   cursor: text;
+  margin: 4px 0px;
 `
 
 const MRoomButton = styled.button`

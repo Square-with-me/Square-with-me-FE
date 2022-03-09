@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
-const Modals = ({ setIsM, setIsSignup, setMRooms }) => {
+const Modals = () => {
   const dispatch = useDispatch();
 
   const [LoginM, setIsM] = useState(false);
