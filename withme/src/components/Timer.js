@@ -71,19 +71,19 @@ class Timer extends Component {
     this.secondsInput.current.value = 0;
   }
 
-
   render() {
     const { hours, minutes, seconds } = this.state;
 
     return (
       <div className="App">
          <div className="inputGroup">
-            <Input ref={this.hoursInput} placeholder={0} name="hours"  onChange={this.inputHandler}/>H:
-            <Input ref={this.minutesInput} placeholder={0} name="minutes" onChange={this.inputHandler}/>M:
-            <Input ref={this.secondsInput} placeholder={0} name="seconds" onChange={this.inputHandler}/>S
+            <Input ref={this.hoursInput} placeholder={0} name="hours"  onChange={this.inputHandler} type="number" min="0" max="23"/>H:
+            <Input ref={this.minutesInput} placeholder={0} name="minutes" onChange={this.inputHandler} type="number" min="0" max="59"/>M:
+            <Input ref={this.secondsInput} placeholder={0} name="seconds" onChange={this.inputHandler} type="number" min="0" max="59"/>S
          </div>
          <div>
             <Btn onClick={this.startTimer} className="start">start</Btn>
+            <Btn onClick={this.resetTimer} className="reset">reset</Btn>
             <Btn onClick={this.stopTimer}  className="stop">stop</Btn>
          </div>
          <Text> {hours} : {minutes} : {seconds} </Text>

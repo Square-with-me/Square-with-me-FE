@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Timer from "../components/Timer"
+import {AiOutlineDown} from "react-icons/ai"
 
 import { history } from '../redux/configureStore';
 
@@ -202,9 +204,14 @@ const Detail = (props) => {
       <div id="rightBox">
         {isSW ? (
           <div className="rightState" id="stopwatch">
+          <div style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>            
             <p>스톱워치</p>
-            <button></button>
+            <AiOutlineDown style={{cursor:"pointer"}}/>
           </div>
+          <div>
+            <Timer/>
+          </div>
+        </div>
         ) : (
           ''
         )}
@@ -289,12 +296,12 @@ const Container = styled.div`
 
     animation: show 1s;
     animation-fill-mode: forwards;
-
+/* 
     button {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-    }
+    } */
 
     @keyframes show {
       from {
@@ -326,9 +333,9 @@ const Container = styled.div`
     } */
 
     .rightState {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      /* display: flex; */
+      /* justify-content: space-between; */
+      /* align-items: center; */
       background-color: red;
 
       animation: slide-in 1s;
