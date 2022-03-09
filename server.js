@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const https = require('https');
+const http = require('http');
 const app = express();
-const server = https.createServer(app);
+const server = http.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 
@@ -49,8 +49,21 @@ io.on('connection', (socket) => {
     if (room) {
       room = room.filter((id) => id !== socket.id);
       users[roomID] = room;
-      console.log(room);
     }
+  });
+
+  // 채팅
+  socket.on('join_room', (roomId) => {
+    socket.join(roomId);
+  });
+
+  socket.on('send_message', (data) => {
+    // socket.to(data.roomId).emit('receive_message', data);
+    // 나를 제외한 같은 방의 사람들에게 (socket.broadcast.to(방 아이디))
+    socket.broadcast.to(data.roomId).emit('receive_message', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('User Disconnected', socket.id);
   });
 });
 

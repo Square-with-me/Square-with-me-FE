@@ -1,41 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Message = (props) => {
+  const {
+    data: { sender, message },
+  } = props;
+
   return (
     <MessageBox>
       <div id="userInfo">
         <div id="profileImg"></div>
         <div id="badge"></div>
-        <p id="userName">이 구역 라이언</p>
+        <p id="userName">{sender}</p>
       </div>
-      <p id="message">나는 곰이 아니야 사자야</p>
+      <p id="message">{message}</p>
     </MessageBox>
   );
 };
 
-const Chatting = () => {
-  const [sendMessage, setSendMessage] = useState('');
+const Chatting = ({ socket, roomId }) => {
+  const [userMessage, setUserMessage] = useState('');
+  const [nickname, setnickName] = useState('라이언');
+  const [messageList, setMassageList] = useState([]);
+
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      setMassageList((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  const sendMessage = async () => {
+    if (userMessage === '') return;
+    const data = {
+      roomId: roomId,
+      sender: nickname,
+      message: userMessage,
+    };
+    setMassageList((list) => [...list, data]);
+    await socket.emit('send_message', data);
+  };
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
-      console.log(sendMessage);
-      setSendMessage('');
+      sendMessage();
+      setUserMessage('');
     }
   };
 
   return (
     <ChattingBox>
-      <Message></Message>
-      <Message></Message>
-      <Message></Message>
+      {messageList.map((data, index) => {
+        return <Message key={index} data={data}></Message>;
+      })}
       <div id="inputBox"></div>
       <input
         type="text"
         onChange={(e) => {
-          setSendMessage(e.target.value);
+          setUserMessage(e.target.value);
         }}
-        value={sendMessage}
+        value={userMessage}
         onKeyPress={onKeyPress}
       />
     </ChattingBox>

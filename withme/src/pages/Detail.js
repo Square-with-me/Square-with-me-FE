@@ -41,7 +41,6 @@ const Detail = (props) => {
   // 사이드바 컨트롤
   useEffect(() => {
     const videoBox = document.getElementById('videoBox');
-    console.log(sideCount);
 
     if (videoBox !== null && sideCount === 0) {
       videoBox.style.gridColumn = '1/13';
@@ -97,13 +96,6 @@ const Detail = (props) => {
 
   useEffect(() => {
     socketRef.current = io.connect('http://175.112.86.142:8000/');
-
-    const newPeer = new Peer();
-    console.log(newPeer);
-
-    newPeer.on('open', function (id) {
-      console.log(id);
-    });
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
