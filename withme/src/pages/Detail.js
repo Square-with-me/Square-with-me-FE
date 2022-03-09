@@ -1,14 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Video from '../components/Video';
 
-const Detail = () => {
+import { history } from '../redux/configureStore';
+
+// 방 입장
+import io from 'socket.io-client';
+import Peer from 'simple-peer';
+
+const StyledVideo = styled.video`
+  width: 100%;
+  background-color: steelblue;
+`;
+
+const Video = (props) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    props.peer.on('stream', (stream) => {
+      ref.current.srcObject = stream;
+    });
+  }, []);
+
+  return <StyledVideo playsInline autoPlay ref={ref} />;
+};
+
+const Detail = (props) => {
   const [isSide, setIsSide] = useState(false); // 오른쪽 박스가 열려있는지
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
   const [isSW, setIsSW] = useState(false); // 스톱워치
   const [isPP, setIsPP] = useState(false); // 참가자 목록
   const [isCT, setIsCT] = useState(false); // 채팅
+
+  const [peers, setPeers] = useState([]);
+  const socketRef = useRef();
+  const userVideo = useRef();
+  const peersRef = useRef([]);
+  const roomID = props.match.params.id;
 
   // 사이드바 컨트롤
   useEffect(() => {
@@ -67,14 +95,109 @@ const Detail = () => {
     }
   };
 
+  useEffect(() => {
+    socketRef.current = io.connect('http://175.112.86.142:8000/');
+
+    const newPeer = new Peer();
+    console.log(newPeer);
+
+    newPeer.on('open', function (id) {
+      console.log(id);
+    });
+
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        userVideo.current.srcObject = stream;
+        socketRef.current.emit('join room', roomID);
+        //
+        socketRef.current.on('all users', (users) => {
+          const peers = [];
+          users.forEach((userID) => {
+            const peer = createPeer(userID, socketRef.current.id, stream);
+            peersRef.current.push({
+              peerID: userID,
+              peer,
+            });
+            peers.push(peer);
+          });
+          setPeers(peers);
+        });
+        socketRef.current.on('user joined', (payload) => {
+          const peer = addPeer(payload.signal, payload.callerID, stream);
+          peersRef.current.push({
+            peerID: payload.callerID,
+            peer,
+          });
+
+          setPeers((users) => [...users, peer]);
+        });
+
+        socketRef.current.on('receiving returned signal', (payload) => {
+          const item = peersRef.current.find((p) => p.peerID === payload.id);
+          item.peer.signal(payload.signal);
+        });
+      });
+  }, []);
+
+  function createPeer(userToSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream,
+    });
+
+    peer.on('signal', (signal) => {
+      socketRef.current.emit('sending signal', {
+        userToSignal,
+        callerID,
+        signal,
+      });
+    });
+
+    return peer;
+  }
+
+  function addPeer(incomingSignal, callerID, stream) {
+    const peer = new Peer({
+      initiator: false,
+      trickle: false,
+      stream,
+    });
+    peer.on('signal', (signal) => {
+      socketRef.current.emit('returning signal', { signal, callerID });
+    });
+
+    peer.signal(incomingSignal);
+
+    return peer;
+  }
+
+  function exit() {
+    console.log('나갈꺼임 말리지마라');
+  }
+
+  function leavingRoom() {
+    socketRef.current.emit('byebye', exit);
+
+    history.push('/');
+  }
+
   return (
     <Container>
       <div id="top"></div>
       <div id="videoBox">
-        <Video />
-        <Video />
-        <Video />
-        <Video />
+        <div id="videoContainer">
+          {/* 본인 비디오 */}
+          <StyledVideo muted ref={userVideo} autoPlay playsInline />
+        </div>
+        {peers.map((peer, index) => {
+          return (
+            <div id="videoContainer">
+              <Video key={index} peer={peer} />
+            </div>
+          );
+        })}
       </div>
       <div id="rightBox">
         {isSW ? (
@@ -95,6 +218,7 @@ const Detail = () => {
         )}
         {isCT ? (
           <div className="rightState">
+            <button>C</button>
             <p>채팅</p>
             <button></button>
           </div>
@@ -104,7 +228,7 @@ const Detail = () => {
       </div>
       <div id="bottom">
         <div id="centerButton">
-          <button></button>
+          <button onClick={leavingRoom}>나가기</button>
           <button></button>
           <button></button>
           <button></button>
@@ -147,6 +271,13 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
+  }
+
+  #videoContainer {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    border-radius: 5px;
   }
 
   #rightBox {
