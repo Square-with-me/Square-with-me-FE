@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 class Timer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hours: 0,
       minutes: 0,
       seconds:0
     }
+    console.log(props)
     this.hoursInput = React.createRef();
     this.minutesInput= React.createRef();
     this.secondsInput = React.createRef();
