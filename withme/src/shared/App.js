@@ -6,8 +6,8 @@ import { history } from '../redux/configureStore';
 import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
-import LoginModal from '../pages/LoginModal';
-import SignupModal from '../pages/SignupModal';
+// import LoginModal from '../pages/LoginModal';
+// import SignupModal from '../pages/SignupModal';
 import Header from '../components/Header';
 import Kakao from '../components/Kakao';
 
@@ -17,12 +17,12 @@ function App() {
   return (
     <>
       {/* <Grid> */}
-      {/* <Header></Header> */}
+      <Header></Header>
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/detail/:id" exact component={Detail} />
-        <Route path="/login" exact component={LoginModal}></Route>
-        <Route path="/signup" exact component={SignupModal}></Route>
+        {/* <Route path="/login" exact component={LoginModal}></Route> */}
+        {/* <Route path="/signup" exact component={SignupModal}></Route> */}
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
       </ConnectedRouter>

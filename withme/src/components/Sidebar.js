@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
+import LoginModal from "../pages/LoginModal";
+import SignupModal from "../pages/SignupModal";
 import MakeRoomModal from "../pages/MakeRoomModal";
 
 import { FaBars } from 'react-icons/fa';
@@ -13,7 +15,9 @@ import { history } from '../redux/configureStore';
 const Sidebar = (props) => {
   const { open, close, header, value } = props;
   const dispatch = useDispatch();
-  //방 만들기
+
+  const [LoginM, setIsM] = useState(false);
+  const [SignupM, setIsSignup] = useState(false);
   const [MRooms, setMRooms] = useState(false);
 
   const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
@@ -35,7 +39,7 @@ const Sidebar = (props) => {
                 />
               </Grid> */}
               
-              <LeftIcon>
+              <RightIcon>
                 <FaBars
                   color="#000"
                   size="1rem"
@@ -44,39 +48,42 @@ const Sidebar = (props) => {
                 >
                   {header}
                 </FaBars>
-              </LeftIcon>
+              </RightIcon>
             </Grid>
           </SidebarHeader>
 
           <SidebarContent>
               <MenuButton
                 onClick={() => {
-                  history.push('/login');
-                }}
-              >
+                  setIsM(true);
+                  close();
+                }}>
                 <MenuText>로그인</MenuText>
               </MenuButton>
+              {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup}/>}
+              {SignupM && <SignupModal setIsSignup={setIsSignup} />}
 
               <MenuButton
                 onClick={() => {
                   history.push('/mypage/:id');
-                }}
-              >
+                  close();
+                }}>
                 <MenuText>마이페이지</MenuText>
               </MenuButton>
 
               <MenuButton
                 onClick={() => {
                   setMRooms(true);
+                  close();
                 }}>
                   <MenuText>방 만들기</MenuText>
                 </MenuButton>
-              {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+                {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
 
               {notUser_is_local===false ?
                 <MenuButton 
                   onClick={()=>{
-                    dispatch(userActions.NotMenberloginDB())
+                    dispatch(userActions.NotMemberloginDB())
                   }}>
                     <MenuText>비회원으로 즐기기</MenuText>
                 </MenuButton>:
@@ -129,7 +136,7 @@ const SidebarBox = styled.div`
 const OpenSidebar = styled(SidebarBox)`
   //위치 조정
   display: flex;
-  justify-content: left;
+  justify-content: right;
   align-items: top;
 
   /* 팝업이 스르륵 열리는 효과 */
@@ -192,13 +199,13 @@ const MenuText = styled.p`
 `;
 
 //Header에서 가져온 로고 =이렇게 생긴거
-const LeftIcon = styled.button`
+const RightIcon = styled.button`
   cursor: pointer;
   border: none;
   background-color: #fff;
   display: flex;
-  justifycontent: left;
-  padding: 0 20px;
+  justifycontent: right;
+  padding: 0 84.8%;
 `;
 
 export default Sidebar;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input, Grid } from '../elements/Index';
 import styled from 'styled-components';
+import { AiOutlineClose } from "react-icons/ai";
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -30,15 +31,22 @@ const SignupModal = ({ setIsSignup }) => {
 
   return (
     <>
-      {/* 모달창 뒷배경이 회색일 때 */}
-        {/* <ModalBackground
+        <ModalBackground
           onClick={() => {
             setIsSignup(false);
           }}
-        /> */}
+        />
       <SignupWrap>
+        <Headers>
+          <AiOutlineClose
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setIsSignup(false);
+            }}
+          />
+        </Headers>
         <Contents>
-          <SignInText>회원가입하라고 이짜식드라~~!!!!!!!!</SignInText>
+          <SignInText>환영합니다 - ! <br/> 회원가입 하고 ㅁwith me와 함께해요</SignInText>
 
         <Inputs>
         <OriginInput>
@@ -89,11 +97,6 @@ const SignupModal = ({ setIsSignup }) => {
         </Inputs>
 
         <Buttons>
-          <CancleButton
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setIsSignup(false);
-              }}>취소하기</CancleButton>
           <SuccessSignUp onClick={SignupModal}>회원가입하기</SuccessSignUp>
         </Buttons>
         </Contents>
@@ -103,29 +106,35 @@ const SignupModal = ({ setIsSignup }) => {
 };
 
 // 모달창 뒷배경이 회색일 때
-// const ModalBackground = styled.div`
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   position: fixed;
-//   z-index: 99;
-//   background-color: rgba(0, 0, 0, 0.5);
-// `;
+const ModalBackground = styled.div`
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 
 const SignupWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 40px 18px;
-
+  box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
   position: absolute;
   width: 540px;
   height: 527px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #868686;
+  background: #FFF;
   z-index: 100;
+`;
+
+const Headers = styled.div`
+  margin: -7px 0px;
+  padding: 0px 95%;
+  color: rgb(34, 34, 34);
 `;
 
 const Contents = styled.div`
@@ -195,17 +204,9 @@ const Buttons = styled.div`
   height: 67px;
 `;
 
-const CancleButton = styled.button`
-  width: 98px;
-  height: 50px;
-  background: #FFFFFF;
-  border-radius: 4px;
-  margin: 0px 20px;
-`;
-
 const SuccessSignUp = styled.button`
-  width: 135px;
-  height: 50px;
+  width: 118px;
+  height: 42px;
   background: #cbb2fe;
   border-radius: 4px;
 `;

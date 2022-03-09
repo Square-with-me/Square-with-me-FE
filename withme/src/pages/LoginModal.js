@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from "react";
 import styled from 'styled-components';
 import { Grid, Input } from '../elements/Index';
+import { AiOutlineClose } from "react-icons/ai";
+import SignupModal from "../pages/SignupModal";
 
 // redux import
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
-const LoginModal = ({ setIsM }) => {
+const LoginModal = ({ setIsM, setIsSignup }) => {
   const dispatch = useDispatch();
 
   const redirectURI = "http://localhost:3000/api/auth/kakao/callback";
@@ -21,13 +23,20 @@ const LoginModal = ({ setIsM }) => {
   };
     return (
       <>
-       {/* 모달창 뒷배경이 회색일 때 */}
-        {/* <ModalBackground
+        <ModalBackground
           onClick={() => {
             setIsM(false);
           }}
-        /> */}
+        />
         <LoginWrap>
+          <Headers>
+            <AiOutlineClose
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setIsM(false);
+              }}
+            />
+          </Headers>
           <Contents>
             <HelloText>반갑습니다 - ! <br/> 오늘도 즐거운 만남을 위해 잘 오셨어요</HelloText>
 
@@ -67,15 +76,21 @@ const LoginModal = ({ setIsM }) => {
 
               <GoSignUp
                 onClick={() => {
-                  history.push('/signup');
-                }}
-              >
+                  setIsSignup(true);
+                  setIsM(false);
+                }}>
                 회원가입 하기
               </GoSignUp>
+
+              <NotMember 
+                  onClick={()=>{
+                    dispatch(userActions.NotMemberloginDB())
+                  }}>
+                    비회원으로 즐기기
+              </NotMember>
             </LoginInfo>
 
             <Buttons>
-              <CancleButton onClick={() => {setIsM(false)}}>취소하기</CancleButton>
               <LoginButton onClick={LoginModal}>로그인하기</LoginButton>
             </Buttons>
           </Contents>
@@ -85,14 +100,14 @@ const LoginModal = ({ setIsM }) => {
   };
 
 // 모달창 뒷배경이 회색일 때
-// const ModalBackground = styled.div`
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   position: fixed;
-//   z-index: 99;
-//   background-color: rgba(0, 0, 0, 0.5);
-// `;
+const ModalBackground = styled.div`
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
 
 const LoginWrap = styled.div`
   display: flex;
@@ -105,8 +120,14 @@ const LoginWrap = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #868686;
+  background: #FFF;
   z-index: 100;
+`;
+
+const Headers = styled.div`
+  margin: -7px 0px;
+  padding: 0px 95%;
+  color: rgb(34, 34, 34);
 `;
 
 const Contents = styled.div`
@@ -117,6 +138,7 @@ const Contents = styled.div`
 `;
 
 const HelloText = styled.div`
+  margin: 0px;
   padding: 8px;
   height: 72px;
   align-self: stretch;
@@ -166,6 +188,14 @@ const GoSignUp = styled.button`
   margin: 4px 10px;
 `;
 
+const NotMember = styled.button`
+  width: 382px;
+  height: 50px;
+  background: #b6ccfe;
+  border-radius: 4px;
+  margin: 4px 10px;
+`;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -174,17 +204,9 @@ const Buttons = styled.div`
   height: 67px;
 `;
 
-const CancleButton = styled.button`
-  width: 98px;
-  height: 50px;
-  background: #FFFFFF;
-  border-radius: 4px;
-  margin: 0px 20px;
-`;
-
 const LoginButton = styled.button`
-  width: 116px;
-  height: 50px;
+  width: 110px;
+  height: 40px;
   background: #cbb2fe;
   border-radius: 4px;
 `;

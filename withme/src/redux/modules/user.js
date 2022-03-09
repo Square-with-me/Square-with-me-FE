@@ -103,7 +103,7 @@ const logInCheckDB = () => {
 };
 
 //비회원 로그인
-const NotMenberloginDB = () => {
+const NotMemberloginDB = () => {
   return function (getState, dispatch, { history }) {
     //  axios.get('/api/user/anon')
     //  .then((response)=>{
@@ -130,7 +130,7 @@ const NotMenberloginDB = () => {
 };
 
 //비회원 로그아웃
-const NotMenberlogOutDB = () => {
+const NotMemberlogOutDB = () => {
   return function (getState, dispatch, { history }) {
     dispatch(notUserLogOut());
   };
@@ -200,8 +200,8 @@ const actionCreators = {
   logInDB,
   logInCheckDB,
   signUpDB,
-  NotMenberloginDB,
-  NotMenberlogOutDB,
+  NotMemberloginDB,
+  NotMemberlogOutDB,
   NotMemberLoginCheckDB,
   notUserLogOut,
 };
