@@ -5,12 +5,11 @@ import styled from 'styled-components';
 import '../styles/Drop.css';
 
 //icons
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import {RiArrowDropDownLine} from "react-icons/ri"
+import { FaSearch } from "react-icons/fa";
+import {FiLock, FiUnlock} from "react-icons/fi"
+import{BsFillPeopleFill} from "react-icons/bs"
 
-// import MakeRoomModal from "./MakeRoomModal";
-import { FaSearch } from 'react-icons/fa';
-import { FiLock, FiUnlock } from 'react-icons/fi';
-import { BsFillPeopleFill } from 'react-icons/bs';
 //pages/components
 import MakeRoomModal from './MakeRoomModal';
 import Banner from '../components/Banner';
