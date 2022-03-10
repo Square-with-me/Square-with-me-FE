@@ -71,23 +71,28 @@ const Chatting = ({ socket, roomId }) => {
 
 const ChattingBox = styled.div`
   width: 100%;
-  height: 100%;
+  // 높이
+  height: 50vh;
   display: flex;
   flex-direction: column;
   background-color: #ddd;
   justify-content: space-between;
-
   box-sizing: border-box;
+  background-color: teal;
 
   #messageBox {
     width: 100%;
+    background-color: transparent;
+
     overflow: scroll;
-    background-color: salmon;
   }
 
   #inputBox {
+    height: 30px;
+
     input {
       width: 100%;
+      height: 100%;
     }
   }
 `;
