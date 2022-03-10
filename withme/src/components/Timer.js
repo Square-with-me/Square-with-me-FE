@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import io from 'socket.io-client';
+const socket = io.connect('/');
 
 class Timer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hours: 0,
       minutes: 0,
-      seconds:0
+      seconds:0,
+      countDown : null
     }
     this.hoursInput = React.createRef();
     this.minutesInput= React.createRef();
     this.secondsInput = React.createRef();
+    this.subscribeToTimer(data => this.setState({ countdown: data.countdown }))
+    this.subscribeToTimer = this.subscribeToTimer.bind(this)
+    this.setTimer = this.setTimer.bind(this)
+  }
+
+  subscribeToTimer(cb) {
+    socket.on('timer', data => cb(data))
+  }
+  setTimer() {
+    socket.emit('settimer', { time: this.state.newTime })
+  }
+  startStop(bool) {
+    //takes bool
+    socket.emit('event', { status: bool })
   }
 
   inputHandler = (e) => {
@@ -78,15 +95,16 @@ class Timer extends Component {
     return (
       <div className="App">
          <div className="inputGroup">
-            <Input ref={this.hoursInput} placeholder={0} name="hours"  onChange={this.inputHandler}/>H:
+            <Input ref={this.hoursInput} placeholder={0} name="hours"  onChange={(e)=>{ this.setState({ newTime: e.target.value })}}/>H:
             <Input ref={this.minutesInput} placeholder={0} name="minutes" onChange={this.inputHandler}/>M:
             <Input ref={this.secondsInput} placeholder={0} name="seconds" onChange={this.inputHandler}/>S
          </div>
          <div>
-            <Btn onClick={this.startTimer} className="start">start</Btn>
-            <Btn onClick={this.stopTimer}  className="stop">stop</Btn>
+            <Btn onClick={(e)=>{this.setState({ newTime: e.target.value }); this.startTimer(true) ; this.setTimer()} } className="start">start</Btn>
+            <Btn onClick={_ =>{ this.startStop(false); this.stopTimer()}}  className="stop">stop</Btn>
+            <Btn onClick={this.resetTimer}  className="reset">reset</Btn>
          </div>
-         <Text> {hours} : {minutes} : {seconds} </Text>
+         <Text> {this.state.hours} : {this.state.minutes} : {this.state.seconds} </Text>
       </div>
 
     );

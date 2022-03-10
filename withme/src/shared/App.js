@@ -14,6 +14,7 @@ import Kakao from '../components/Kakao';
 import Test from '../pages/Test';
 
 import './App.css';
+import TimerTest from '../pages/TestTimer';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
         <Route path="/test" exact component={Test} />
+        <Route path="/test2" exact component={TimerTest} />
       </ConnectedRouter>
       {/* </Grid> */}
     </>
