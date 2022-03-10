@@ -51,15 +51,28 @@ const initialState = {
 };
 const resp = RESP;
 
-// 사용자 프로필 정보 가져오기
-const getProfileDB = () => {
-  return function (dispatch, getState, { history }) {
-    if (resp.GETLOGIN.isSuccess) {
-      const userData = resp.GETLOGIN.data.user;
-      dispatch(setProfile(userData));
-    }
-  };
-};
+// //로그인 체크 미들웨어
+// const logInCheckDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     apis.loginCheck().then((res) => {
+//       if (!res.data.isSuccess) {
+//         alert('회원정보가 올바르지 않습니다.');
+//         history.replace('/');
+//         return;
+//       }
+
+//       const user = res.data.data.user;
+//       dispatch(
+//         setUser({
+//           ...user,
+//         })
+//       );
+//     });
+//     if (resp_userCheck.isSuccess === true) {
+//       console.log('logInCheck ok');
+//     }
+//   };
+// };
 
 // 이미지 주소 받아오기
 const getImageUrlDB = (formdata) => {
@@ -75,12 +88,31 @@ const getImageUrlDB = (formdata) => {
 const editProfileDB = () => {};
 
 // 사용자 닉네임 수정하기
-const editNickDB = (nickname) => {
+const editNickDB = (userId, nickname) => {
+  console.log(userId, nickname);
+
   return function (dispatch, getState, { history }) {
-    if (resp.UPDATENICKNAME.isSuccess) {
-      const updateData = resp.UPDATENICKNAME.data.nickname;
-      dispatch(editNick(updateData));
-    }
+    axios
+      .patch(
+        `http://14.45.204.153:7034/api/user/${userId}/profile/nickname`,
+        { nickname },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+          },
+        }
+      )
+      .then(function (res) {
+        console.log('닉네임 수정하기', res);
+        // dispatch(editNick(nickname));
+      })
+      .catch(function (error) {
+        window.alert(error.response.data.msg);
+      });
+    // if (resp.UPDATENICKNAME.isSuccess) {
+    //   const updateData = resp.UPDATENICKNAME.data.nickname;
+    //   dispatch(editNick(updateData));
+    // }
   };
 };
 
@@ -136,7 +168,6 @@ const actionCreators = {
   monthTime,
 
   // 완료
-  getProfileDB,
   getImageUrlDB,
   editProfileDB,
   editNickDB,
