@@ -2,9 +2,10 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from 'axios';
 import { RESP } from '../../shared/responseP';
+import { apis } from '../../shared/api';
 
 //프로필 가져오기
-const SET_PROFILE = 'GET_PROFILE';
+const SET_USER = 'SET_USER';
 //프로필 업로드
 const EDIT_PROFILE = 'ADD_PROFILE';
 //닉네임 변경
@@ -22,7 +23,7 @@ const WEEK_TIME = 'WEEK_TIME';
 //이번달 시간
 const MONTH_TIME = 'MONTH_TIME';
 
-const setProfile = createAction(SET_PROFILE, (user) => ({ user }));
+const setUser = createAction(SET_USER, (user) => ({ user }));
 const editProfile = createAction(EDIT_PROFILE, (profileUrl) => ({
   profileUrl,
 }));
@@ -52,27 +53,24 @@ const initialState = {
 const resp = RESP;
 
 // //로그인 체크 미들웨어
-// const logInCheckDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     apis.loginCheck().then((res) => {
-//       if (!res.data.isSuccess) {
-//         alert('회원정보가 올바르지 않습니다.');
-//         history.replace('/');
-//         return;
-//       }
+const logInCheckDB = () => {
+  return function (dispatch, getState, { history }) {
+    apis.loginCheck().then((res) => {
+      if (!res.data.isSuccess) {
+        alert('회원정보가 올바르지 않습니다.');
+        history.replace('/');
+        return;
+      }
 
-//       const user = res.data.data.user;
-//       dispatch(
-//         setUser({
-//           ...user,
-//         })
-//       );
-//     });
-//     if (resp_userCheck.isSuccess === true) {
-//       console.log('logInCheck ok');
-//     }
-//   };
-// };
+      const user = res.data.data.user;
+      dispatch(
+        setUser({
+          ...user,
+        })
+      );
+    });
+  };
+};
 
 // 이미지 주소 받아오기
 const getImageUrlDB = (formdata) => {
@@ -85,12 +83,11 @@ const getImageUrlDB = (formdata) => {
   };
 };
 
+// 프로필 사진 수정하기
 const editProfileDB = () => {};
 
 // 사용자 닉네임 수정하기
 const editNickDB = (userId, nickname) => {
-  console.log(userId, nickname);
-
   return function (dispatch, getState, { history }) {
     axios
       .patch(
@@ -104,25 +101,36 @@ const editNickDB = (userId, nickname) => {
       )
       .then(function (res) {
         console.log('닉네임 수정하기', res);
-        // dispatch(editNick(nickname));
+        dispatch(editNick(nickname));
       })
       .catch(function (error) {
         window.alert(error.response.data.msg);
       });
-    // if (resp.UPDATENICKNAME.isSuccess) {
-    //   const updateData = resp.UPDATENICKNAME.data.nickname;
-    //   dispatch(editNick(updateData));
-    // }
   };
 };
 
 // 사용자 상태메시지 수정하기
-const editStatusDB = (status) => {
+const editStatusDB = (userId, status) => {
+  console.log(userId, status);
   return function (dispatch, getState, { history }) {
-    if (resp.UPDATESTATUS.isSuccess) {
-      const updateData = resp.UPDATESTATUS.data.statusMsg;
-      dispatch(editStatus(updateData));
-    }
+    axios
+      .patch(
+        `http://14.45.204.153:7034/api/user/${userId}/profile/statusMsg`,
+        { statusMsg: status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+          },
+        }
+      )
+      .then(function (res) {
+        console.log('상태메시지 수정하기', res);
+        dispatch(editStatus(status));
+      })
+      .catch(function (error) {
+        console.log(error);
+        window.alert(error.response.data.msg);
+      });
   };
 };
 
@@ -138,9 +146,12 @@ const monthTimeDB = () => {};
 
 export default handleActions(
   {
-    [SET_PROFILE]: (state, action) =>
+    [SET_USER]: (state, action) =>
       produce(state, (draft) => {
+        console.log('마이페이지: ', action.payload.user);
+
         draft.user = action.payload.user;
+        draft.is_login = true;
       }),
     [EDIT_NICK]: (state, action) =>
       produce(state, (draft) => {
@@ -168,6 +179,7 @@ const actionCreators = {
   monthTime,
 
   // 완료
+  logInCheckDB,
   getImageUrlDB,
   editProfileDB,
   editNickDB,

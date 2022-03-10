@@ -1,5 +1,4 @@
 import Timer from '../components/Timer';
-import Timer2 from '../components/Timer2';
 import io from 'socket.io-client';
 import { useEffect, useState } from 'react';
 
@@ -12,11 +11,11 @@ const TimerTest = () => {
 
   useEffect(() => {
     socket.emit('join_room', roomId);
-    console.log(socket)
+    console.log(socket);
   });
   return (
     <>
-      <Timer roomId={roomId} socket={socket} />
+      <Timer socket={socket} roomId={roomId} />
     </>
   );
 };

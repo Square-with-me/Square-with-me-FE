@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
 
   // 채팅
   socket.on('join_room', (roomId) => {
+    console.log(roomId);
     socket.join(roomId);
   });
 
@@ -64,6 +65,12 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', () => {
     console.log('User Disconnected', socket.id);
+  });
+
+  // 타이머
+  socket.on('start_timer', (data) => {
+    console.log('타이머 시작 ', data);
+    // socket.broadcast.to(data).emit('start_receive', data);
   });
 });
 
