@@ -4,7 +4,7 @@ const token = localStorage.getItem('login-token');
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'http://14.45.204.153:7034',
   headers: {
     Authorization: `Bearer ${token}`,
     'content-type': 'application/json;charset=UTF-8',
@@ -14,9 +14,10 @@ const api = axios.create({
 
 export const apis = {
   //user
-  signup: (user) => api.post('/api/auth/local', user),
-  login: (user) => api.post('/api/user', user),
+  signup: (origin, nickname, pwd) =>
+    api.post('/api/auth/local', { origin, nickname, pwd }),
+  login: (origin, pwd) => api.post('/api/auth', { origin, pwd }),
   loginCheck: () => api.get('/api/user/me'),
-  nonMemberLogin: (user) => api.get('/api/user/anon', user),
+  nonMemberLogin: (user) => api.get('/api/auth/anon', user),
   logout: (user) => api.delete('/api/auth/:type', user),
 };

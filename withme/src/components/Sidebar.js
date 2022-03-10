@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
-import LoginModal from "../pages/LoginModal";
-import SignupModal from "../pages/SignupModal";
-import MakeRoomModal from "../pages/MakeRoomModal";
+import LoginModal from '../pages/LoginModal';
+import SignupModal from '../pages/SignupModal';
+import MakeRoomModal from '../pages/MakeRoomModal';
 
 import { FaBars } from 'react-icons/fa';
 // import MainLogo from '../image/MainLogo.png';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
@@ -20,8 +20,16 @@ const Sidebar = (props) => {
   const [SignupM, setIsSignup] = useState(false);
   const [MRooms, setMRooms] = useState(false);
 
-  const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
-  const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
+  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
+  const notUser_is_local = localStorage.getItem('notUser_is_login')
+    ? true
+    : false;
+
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(userActions.logInCheckDB());
+  }, []);
 
   if (open) {
     return (
@@ -29,7 +37,7 @@ const Sidebar = (props) => {
         <Section>
           <SidebarHeader>
             <Grid is_flex padding="0px" justifyContent="left" height="52px">
-            {/* <Grid is_flex justifyContent="left">
+              {/* <Grid is_flex justifyContent="left">
                 <img
                   src={MainLogo}
                   style={{
@@ -38,7 +46,7 @@ const Sidebar = (props) => {
                   }}
                 />
               </Grid> */}
-              
+
               <RightIcon>
                 <FaBars
                   color="#000"
@@ -53,48 +61,53 @@ const Sidebar = (props) => {
           </SidebarHeader>
 
           <SidebarContent>
+            <MenuButton
+              onClick={() => {
+                setIsM(true);
+                close();
+              }}
+            >
+              <MenuText>로그인</MenuText>
+            </MenuButton>
+            {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+            {SignupM && <SignupModal setIsSignup={setIsSignup} />}
+
+            <MenuButton
+              onClick={() => {
+                history.push(`/mypage/${user.id}`);
+                close();
+              }}
+            >
+              <MenuText>마이페이지</MenuText>
+            </MenuButton>
+
+            <MenuButton
+              onClick={() => {
+                setMRooms(true);
+                close();
+              }}
+            >
+              <MenuText>방 만들기</MenuText>
+            </MenuButton>
+            {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+
+            {notUser_is_local === false ? (
               <MenuButton
                 onClick={() => {
-                  setIsM(true);
-                  close();
-                }}>
-                <MenuText>로그인</MenuText>
+                  dispatch(userActions.NotMemberloginDB());
+                }}
+              >
+                <MenuText>비회원으로 즐기기</MenuText>
               </MenuButton>
-              {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup}/>}
-              {SignupM && <SignupModal setIsSignup={setIsSignup} />}
-
+            ) : (
               <MenuButton
                 onClick={() => {
-                  history.push('/mypage/:id');
-                  close();
-                }}>
-                <MenuText>마이페이지</MenuText>
+                  dispatch(userActions.notUserLogOut());
+                }}
+              >
+                <MenuText>비회원은 그만할래요</MenuText>
               </MenuButton>
-
-              <MenuButton
-                onClick={() => {
-                  setMRooms(true);
-                  close();
-                }}>
-                  <MenuText>방 만들기</MenuText>
-                </MenuButton>
-                {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
-
-              {notUser_is_local===false ?
-                <MenuButton 
-                  onClick={()=>{
-                    dispatch(userActions.NotMemberloginDB())
-                  }}>
-                    <MenuText>비회원으로 즐기기</MenuText>
-                </MenuButton>:
-
-                <MenuButton
-                  onClick={()=>{
-                    dispatch(userActions.notUserLogOut())
-                  }}>
-                    <MenuText>비회원은 그만할래요</MenuText>
-                </MenuButton>
-              }
+            )}
           </SidebarContent>
         </Section>
       </OpenSidebar>
