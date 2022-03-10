@@ -1,32 +1,32 @@
-.menu-container {
+.roomMenu-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.menu-trigger:hover {
+.roomMenu-trigger:hover {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-.menu-trigger span {
+.roomMenu-trigger span {
   font-weight: 700;
   vertical-align: middle;
   font-size: 14px;
   margin: 0 10px;
 }
 
-.menu-trigger img {
+.roomMenu-trigger img {
   border-radius: 90px;
 }
 
-.menu {
+.roomMenu {
   background: #ffffff;
   border-radius: 8px;
   position: absolute;
-  top: 60px;
-  right: 0;
-  width: 200px;
+  top: 65px;
+  width: 162px;
+  height: 334px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
@@ -35,23 +35,23 @@
   z-index: 999;
 }
 
-.menu.active {
+.roomMenu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-.menu ul {
+.roomMenu ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.menu li {
+.roomMenu li {
   border-bottom: 1px solid #dddddd;
 }
 
-.menu li a {
+.roomMenu li a {
   text-decoration: none;
   color: #333333;
   padding: 15px 20px;

@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import '../styles/Drop.css';
 
 //icons
-import {RiArrowDropDownLine} from "react-icons/ri"
+import { RiArrowDropDownLine } from "react-icons/ri"
 import { FaSearch } from "react-icons/fa";
-import {FiLock, FiUnlock} from "react-icons/fi"
-import{BsFillPeopleFill} from "react-icons/bs"
+import { FiLock, FiUnlock } from "react-icons/fi"
+import{ BsFillPeopleFill } from "react-icons/bs"
+import{ AiFillPlusSquare } from "react-icons/ai"
+
 
 //pages/components
 import MakeRoomModal from './MakeRoomModal';
@@ -78,6 +80,7 @@ const Main = () => {
     <React.Fragment>
       <Wrap>
         <button onClick={create}>방생성하기</button>
+
         <SearchBarWrap className="searchbar">
           <SearchBarInput
             placeholder="search.."
@@ -101,7 +104,7 @@ const Main = () => {
         <div className="banner">
           <Banner />
         </div>
-
+        
         <HotRoomListContainer className="hotroomlist"></HotRoomListContainer>
 
         <MenuBar className="menulist">
@@ -156,7 +159,6 @@ const Main = () => {
                     <a onChange={(e) => setStudy(e.target.value)}>스터디</a>
                   </li>
                   <li>
-                    ``
                     <a onChange={(e) => setConsulting(e.target.value)}>상담</a>
                   </li>
                   <li>
@@ -173,6 +175,22 @@ const Main = () => {
         </MenuBar>
 
         <RoomListContainer className="roomlist">
+          <RoomCard
+            onClick={() => {
+              setMRooms(true);
+            }}>
+              <AiFillPlusSquare
+                style={{
+                  cursor: 'pointer',
+                  width: '70px',
+                  height: '70px',
+                  margin: '13px 80px', // 수정필요
+                  color: '#aaf',
+                }}
+              />
+          </RoomCard>
+          {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+
           {possible === true
             ? jsonData.map((r, idx) => {
                 return (

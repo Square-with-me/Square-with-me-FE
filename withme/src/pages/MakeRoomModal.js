@@ -41,7 +41,7 @@ const MakeRoomModal = ({ setMRooms }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <ModalBackground
         onClick={() => {
           setMRooms(false);
@@ -58,6 +58,7 @@ const MakeRoomModal = ({ setMRooms }) => {
         </Headers>
         <Contents>
           <HelloText>rla지현님 <br/> 새로운 친구를 만나러 가볼까요?</HelloText>
+          
           <Settings>
           <Category>
             <select onChange={(e) => setCategory(e.target.value)}>
@@ -129,23 +130,23 @@ const MakeRoomModal = ({ setMRooms }) => {
             </TagBox>
           </WholeBox>
 
-          <MRoomButton
-            onClick={() =>
-              dispatch(
-                roomActions.addRoomDB(title, secret, pwd, category, tagList )
-              )
-            }
-          >
-          방 만들기
-          </MRoomButton>
+            <MRoomButton
+              onClick={() =>
+                dispatch(
+                  roomActions.addRoomDB(title, secret, pwd, category, tagList ))
+                  }>
+            방 만들기
+            </MRoomButton>
         </Contents>
       </MRoomWrap>
-    </React.Fragment>
+    </>
   );
 };
 
 // 모달창 뒷배경이 회색일 때
 const ModalBackground = styled.div`
+  top: 0;
+  left: 0px;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -200,7 +201,7 @@ const Category = styled.div`
   display: flex;
   flex-direction: row;
   width: 184px;
-  height: 50px;
+  height: 45px;
   border-radius: 4px;
 `;
 
@@ -208,7 +209,7 @@ const RoomSetting = styled.div`
   display: flex;
   flex-direction: row;
   width: 184px;
-  height: 50px;
+  height: 45px;
   border-radius: 4px;
 `;
 
@@ -230,7 +231,7 @@ const RoomInfoInput = styled.div`
 
 const WholeBox = styled.div`
   padding: 8px;
-  height: 100vh;
+  height: 90px;
 `
 
 const TagBox = styled.div`
@@ -288,6 +289,7 @@ const TagInput = styled.input`
 const MRoomButton = styled.button`
   width: 118px;
   height: 42px;
+  margin: 0px 75%;
   background: #cbb2fe;
   border-radius: 4px;
 `;
