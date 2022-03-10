@@ -51,6 +51,29 @@ const initialState = {
 };
 const resp = RESP;
 
+// //로그인 체크 미들웨어
+// const logInCheckDB = () => {
+//   return function (dispatch, getState, { history }) {
+//     apis.loginCheck().then((res) => {
+//       if (!res.data.isSuccess) {
+//         alert('회원정보가 올바르지 않습니다.');
+//         history.replace('/');
+//         return;
+//       }
+
+//       const user = res.data.data.user;
+//       dispatch(
+//         setUser({
+//           ...user,
+//         })
+//       );
+//     });
+//     if (resp_userCheck.isSuccess === true) {
+//       console.log('logInCheck ok');
+//     }
+//   };
+// };
+
 // 이미지 주소 받아오기
 const getImageUrlDB = (formdata) => {
   return function (dispatch, getState, { history }) {
@@ -84,8 +107,7 @@ const editNickDB = (userId, nickname) => {
         // dispatch(editNick(nickname));
       })
       .catch(function (error) {
-        console.log(error);
-        window.alert(error.msg);
+        window.alert(error.response.data.msg);
       });
     // if (resp.UPDATENICKNAME.isSuccess) {
     //   const updateData = resp.UPDATENICKNAME.data.nickname;
