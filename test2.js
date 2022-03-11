@@ -10,11 +10,19 @@ class Timer extends Component {
       hours: 0,
       minutes: 0,
       seconds: 0,
+      testText: [],
     };
     this.hoursInput = React.createRef();
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
   }
+
+  //  subscribeToTimer(cb) {
+  //    socket.on('timer', (data) => cb(data));
+  //  }
+  //  setTimer() {
+  //    socket.emit('settimer', { time: this.state.newTime });
+  //  }
 
   inputHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -24,45 +32,22 @@ class Timer extends Component {
     return seconds + minutes * 60 + hours * 60 * 60;
   };
 
-  startTimer = async () => {
+  startTimer = () => {
     this.timer = setInterval(this.countDown, 1000);
-
-    const data = {
-      roomId: this.props.roomId,
-      hours: this.hoursInput.current.value,
-      minutes: this.minutesInput.current.value,
-      seconds: this.secondsInput.current.value,
-    };
-
+    // console.log(this.props.roomId);
     console.log('스타트 버튼 누름');
-    await socket.emit('start_timer', data);
+    socket.emit('start_timer', this.props.roomId);
   };
 
-  receiveStartTimer = () => {
-    console.log(this.hours, this.minutes, this.seconds);
-    this.timer = setInterval(this.countDown, 1000);
-  };
-
-  componentWillMount() {
-    socket.emit('join_room', this.props.roomId);
-
-    // 시작 신호 받음
+  componentDidMount() {
     socket.on('start_receive', (data) => {
-      this.setState({ hours: data.hours });
-      this.setState({ minutes: data.minutes });
-      this.setState({ seconds: data.seconds });
-
-      this.receiveStartTimer();
+      console.log('타이머 시작!!!!!!!!!!');
+      this.testText.push('실행');
     });
   }
-
   componentDidUpdate() {
-    socket.on('stop_receive', () => {
-      this.receiveStopTimer();
-    });
-
-    socket.on('reset_receive', () => {
-      this.receiveresetTimer();
+    socket.on('start_receive', (data) => {
+      console.log('타이머 시작!!!!!!!!!!');
     });
   }
 
@@ -76,25 +61,18 @@ class Timer extends Component {
         ? this.setState({ seconds: seconds - 1 })
         : this.setState({ seconds: 59 });
 
-      if (hours && minutes && seconds) {
-        this.setState({ seconds: seconds - 1 });
-      } else if (!minutes && hours && seconds) {
-        this.setState({ seconds: seconds - 1 });
-      }
-
-      // minutes change -> 분단위로 떨어지는데
-      else if (c_seconds % 60 === 0 && minutes) {
+      // minutes change
+      if (c_seconds % 60 === 0 && minutes) {
         this.setState({ minutes: minutes - 1 });
       }
 
       // when only hours entered
-      else if (!minutes && hours) {
+      if (!minutes && hours) {
         this.setState({ minutes: 59 });
-        this.setState({ hours: hours - 1 });
       }
 
       // hours change
-      else if (c_seconds % 3600 === 0 && hours) {
+      if (c_seconds % 3600 === 0 && hours) {
         this.setState({ hours: hours - 1 });
       }
     } else {
@@ -102,29 +80,11 @@ class Timer extends Component {
     }
   };
 
-  stopTimer = async () => {
-    clearInterval(this.timer);
-    await socket.emit('stop_time', this.props.roomId);
-  };
-
-  resetTimer = async () => {
-    this.setState({
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    });
-    this.hoursInput.current.value = 0;
-    this.minutesInput.current.value = 0;
-    this.secondsInput.current.value = 0;
-
-    await socket.emit('reset_time', this.props.roomId);
-  };
-
-  receiveStopTimer = () => {
+  stopTimer = () => {
     clearInterval(this.timer);
   };
 
-  receiveresetTimer = () => {
+  resetTimer = () => {
     this.setState({
       hours: 0,
       minutes: 0,
@@ -177,6 +137,11 @@ class Timer extends Component {
         <Text>
           {hours} : {minutes} : {seconds}
         </Text>
+        <div
+          style={{ width: '100px', height: '300px', backgroundColor: 'tomato' }}
+        >
+          {this.testText}
+        </div>
       </div>
     );
   }

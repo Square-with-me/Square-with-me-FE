@@ -49,28 +49,52 @@ const Chatting = ({ socket, roomId }) => {
 
   return (
     <ChattingBox>
-      {messageList.map((data, index) => {
-        return <Message key={index} data={data}></Message>;
-      })}
-      <div id="inputBox"></div>
-      <input
-        type="text"
-        onChange={(e) => {
-          setUserMessage(e.target.value);
-        }}
-        value={userMessage}
-        onKeyPress={onKeyPress}
-      />
+      <div id="messageBox">
+        {messageList.map((data, index) => {
+          return <Message key={index} data={data}></Message>;
+        })}
+      </div>
+      <div id="inputBox">
+        <input
+          type="text"
+          onChange={(e) => {
+            setUserMessage(e.target.value);
+          }}
+          value={userMessage}
+          onKeyPress={onKeyPress}
+          placeholder="메시지를 입력하세요"
+        />
+      </div>
     </ChattingBox>
   );
 };
 
 const ChattingBox = styled.div`
   width: 100%;
-  height: 100%;
+  // 높이
+  height: 50vh;
   display: flex;
   flex-direction: column;
   background-color: #ddd;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: teal;
+
+  #messageBox {
+    width: 100%;
+    background-color: transparent;
+
+    overflow: scroll;
+  }
+
+  #inputBox {
+    height: 30px;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const MessageBox = styled.div`

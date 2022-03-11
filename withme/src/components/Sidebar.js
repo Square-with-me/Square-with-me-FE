@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
 
-import MakeRoomModal from "../pages/MakeRoomModal";
 import SecretRoomModal from "../pages/SecretRoomModal";
+import LoginModal from '../pages/LoginModal';
+import SignupModal from '../pages/SignupModal';
+import MakeRoomModal from '../pages/MakeRoomModal';
 
 import { FaBars } from 'react-icons/fa';
 // import MainLogo from '../image/MainLogo.png';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
@@ -19,8 +21,16 @@ const Sidebar = (props) => {
   const [MRooms, setMRooms] = useState(false);
   const [SRoomM, setSRoomM] = useState(false);
 
-  const notUser_is_login = useSelector((state)=>state.user.notUser_is_login)
-  const notUser_is_local = localStorage.getItem("notUser_is_login")? true: false
+  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
+  const notUser_is_local = localStorage.getItem('notUser_is_login')
+    ? true
+    : false;
+
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    dispatch(userActions.logInCheckDB());
+  }, []);
 
   if (open) {
     return (
@@ -29,7 +39,7 @@ const Sidebar = (props) => {
         <Section>
           <SidebarHeader>
             <Grid is_flex padding="0px" justifyContent="left" height="52px">
-            {/* <Grid is_flex justifyContent="left">
+              {/* <Grid is_flex justifyContent="left">
                 <img
                   src={MainLogo}
                   style={{
@@ -38,7 +48,7 @@ const Sidebar = (props) => {
                   }}
                 />
               </Grid> */}
-              
+
               <RightIcon>
                 <FaBars
                   color="#000"
@@ -53,29 +63,25 @@ const Sidebar = (props) => {
           </SidebarHeader>
 
           <SidebarContent>
-              <MenuButton
-                onClick={() => {
-                  setIsM(true);
-                  close();
-                }}>
-                <MenuText>로그인</MenuText>
-              </MenuButton>
+            <MenuButton
+              onClick={() => {
+                setIsM(true);
+                close();
+              }}
+            >
+              <MenuText>로그인</MenuText>
+            </MenuButton>
+            {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+            {SignupM && <SignupModal setIsSignup={setIsSignup} />}
 
-              <MenuButton
-                onClick={() => {
-                  history.push('/mypage/:id');
-                  close();
-                }}>
-                <MenuText>마이페이지</MenuText>
-              </MenuButton>
-
-              {/* <MenuButton
-                onClick={() => {
-                  setMRooms(true);
-                }}>
-                  <MenuText>방 만들기</MenuText>
-                </MenuButton>
-                {MRooms && <MakeRoomModal setMRooms={setMRooms} />} */}
+            <MenuButton
+              onClick={() => {
+                history.push(`/mypage/${user.id}`);
+                close();
+              }}
+            >
+              <MenuText>마이페이지</MenuText>
+            </MenuButton>
 
               {notUser_is_local===false ?
                 <MenuButton 

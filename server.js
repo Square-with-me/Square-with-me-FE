@@ -54,6 +54,7 @@ io.on('connection', (socket) => {
 
   // 채팅
   socket.on('join_room', (roomId) => {
+    console.log('방입장 방 번호: ', roomId);
     socket.join(roomId);
   });
 
@@ -64,6 +65,22 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', () => {
     console.log('User Disconnected', socket.id);
+  });
+
+  // 타이머
+  socket.on('start_timer', (data) => {
+    console.log('타이머 시작 ', data);
+    socket.broadcast.to(data.roomId).emit('start_receive', data);
+  });
+
+  socket.on('stop_time', (roomId) => {
+    console.log('타이머 멈춤');
+    socket.broadcast.to(roomId).emit('stop_receive');
+  });
+
+  socket.on('reset_time', (roomId) => {
+    console.log('타이머 리셋');
+    socket.broadcast.to(roomId).emit('reset_receive');
   });
 });
 
