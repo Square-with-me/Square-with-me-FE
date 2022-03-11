@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { Grid, Input } from '../elements/Index';
 import { AiOutlineClose } from "react-icons/ai";
-import SignupModal from "../pages/SignupModal";
 
 // redux import
 import { useDispatch } from 'react-redux';
@@ -13,7 +12,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
   const dispatch = useDispatch();
 
   const redirectURI = "http://localhost:3000/api/auth/kakao/callback";
-  const KAKAO_REST_API_KEY = "b60b1caa32fdc7c0aa62e43ce7f29c2d";
+  const KAKAO_REST_API_KEY = "받은키값";
 
   const [origin, setOrigin] = React.useState('');
   const [pwd, setPwd] = React.useState('');
@@ -106,6 +105,7 @@ const ModalBackground = styled.div`
   height: 100%;
   position: fixed;
   z-index: 99;
+  left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 

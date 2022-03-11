@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
+
+import SecretRoomModal from "../pages/SecretRoomModal";
 import LoginModal from '../pages/LoginModal';
 import SignupModal from '../pages/SignupModal';
 import MakeRoomModal from '../pages/MakeRoomModal';
@@ -13,12 +15,11 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 const Sidebar = (props) => {
-  const { open, close, header, value } = props;
+  const { open, close, header, setIsM} = props;
   const dispatch = useDispatch();
 
-  const [LoginM, setIsM] = useState(false);
-  const [SignupM, setIsSignup] = useState(false);
   const [MRooms, setMRooms] = useState(false);
+  const [SRoomM, setSRoomM] = useState(false);
 
   const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
   const notUser_is_local = localStorage.getItem('notUser_is_login')
@@ -33,6 +34,7 @@ const Sidebar = (props) => {
 
   if (open) {
     return (
+      <React.Fragment>
       <OpenSidebar>
         <Section>
           <SidebarHeader>
@@ -81,36 +83,33 @@ const Sidebar = (props) => {
               <MenuText>마이페이지</MenuText>
             </MenuButton>
 
-            <MenuButton
-              onClick={() => {
-                setMRooms(true);
-                close();
-              }}
-            >
-              <MenuText>방 만들기</MenuText>
-            </MenuButton>
-            {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+              {notUser_is_local===false ?
+                <MenuButton 
+                  onClick={()=>{
+                    dispatch(userActions.NotMemberloginDB())
+                  }}>
+                    <MenuText>비회원으로 즐기기</MenuText>
+                </MenuButton>:
 
-            {notUser_is_local === false ? (
+                <MenuButton
+                  onClick={()=>{
+                    dispatch(userActions.notUserLogOut())
+                  }}>
+                    <MenuText>비회원은 그만할래요</MenuText>
+                </MenuButton>
+              }
+
               <MenuButton
                 onClick={() => {
-                  dispatch(userActions.NotMemberloginDB());
-                }}
-              >
-                <MenuText>비회원으로 즐기기</MenuText>
+                  setSRoomM(true);
+                }}>
+                <MenuText>비공개 방 모달</MenuText>
+                {SRoomM && <SecretRoomModal setSRoomM={setSRoomM} />}
               </MenuButton>
-            ) : (
-              <MenuButton
-                onClick={() => {
-                  dispatch(userActions.notUserLogOut());
-                }}
-              >
-                <MenuText>비회원은 그만할래요</MenuText>
-              </MenuButton>
-            )}
           </SidebarContent>
         </Section>
       </OpenSidebar>
+      </React.Fragment>
     );
   }
   return null;
@@ -158,7 +157,6 @@ const OpenSidebar = styled(SidebarBox)`
 
 const SidebarHeader = styled.header`
   position: relative;
-  // padding: 16px 64px 16px 16px;
   padding: 10px;
   background-color: #fff;
   font-weight: 700;
@@ -166,10 +164,8 @@ const SidebarHeader = styled.header`
 
 const Section = styled.section`
   width: 100%;
-  // margin: 0;
   max-width: 350px;
   border-radius: 0.3rem;
-  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   background-color: #fff;
   /* 팝업이 스르륵 열리는 효과 */
   animation: modal-show 0.3s linear;
@@ -181,8 +177,6 @@ const Section = styled.section`
 
 const SidebarContent = styled.div`
   padding: 0;
-  // border-bottom: 1px solid #dee2e6;
-  // border-top: 1px solid #dee2e6;
   //modal 배경색
   background-color: #fff;
   height: 100%;
