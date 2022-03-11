@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 import { Button, Grid, Input } from '../elements/Index';
+import '../styles/RoomInfoDrop.css';
+
+//pages/components
 import LoginModal from "../pages/LoginModal";
 import SignupModal from "../pages/SignupModal";
-import '../styles/RoomInfoDrop.css';
-// import MainLogo from '../image/MainLogo.png';
-import { FaBars } from 'react-icons/fa';
-
-import { useDispatch, useSelector } from "react-redux";
-
 import Sidebar from './Sidebar';
+
+//icons
+import { FaBars } from 'react-icons/fa';
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -40,20 +41,19 @@ const Header = (props) => {
   const [LoginM, setIsM] = useState(false);
   const [SignupM, setIsSignup] = useState(false);
 
-
   return (
     <>
       <div className="container">
-        <div className="menu-container">
+        <div className="roomMenu-container">
           <DropBtn
             onClick={() => setIsActive(!isActive)}
-            className="menu-trigger"
+            className="roomMenu-trigger"
           >
             <Text>방 정보</Text>
           </DropBtn>
           <nav
             ref={dropdownRef}
-            className={`menu ${isActive ? 'active' : 'inactive'}`}
+            className={`roomMenu ${isActive ? 'active' : 'inactive'}`}
           >
           <ul>
             <li>
@@ -63,7 +63,7 @@ const Header = (props) => {
                   isActive(false);
                 }}
               >
-                뷰티
+                <h2>수학문제 풀자!</h2> <br/> #고1 수학
               </a>
             </li>
             <li>
