@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Timer from "../components/Timer"
 import {AiOutlineDown} from "react-icons/ai"
 import Chatting from '../components/Chatting';
+import Timer from '../components/Timer';
 
 import { history } from '../redux/configureStore';
 
@@ -37,6 +38,7 @@ const Detail = (props) => {
   const [isCT, setIsCT] = useState(false); // 채팅
 
   const [ischatting, setIsChatting] = useState(false);
+  const [isTimer, setIsTimer] = useState(true);
 
   // 화상 채팅
   const [peers, setPeers] = useState([]);
@@ -212,6 +214,7 @@ const Detail = (props) => {
       </div>
       <div id="rightBox">
         {isSW ? (
+<<<<<<< HEAD
           <div className="rightState" id="stopwatch">
           <div style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>            
             <p>스톱워치</p>
@@ -221,6 +224,15 @@ const Detail = (props) => {
             <Timer/>
           </div>
         </div>
+=======
+          <>
+            <div className="rightState" id="stopwatch">
+              <p>스톱워치</p>
+              <button></button>
+            </div>
+            {isTimer ? <Timer roomId={roomID} /> : ''}
+          </>
+>>>>>>> 4053c6a39605161f5b5c2cb952c57983fc47c4be
         ) : (
           ''
         )}

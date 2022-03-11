@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import '../styles/Drop.css';
 
 //icons
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import { FaSearch } from 'react-icons/fa';
-import { FiLock, FiUnlock } from 'react-icons/fi';
-import { BsFillPeopleFill } from 'react-icons/bs';
+import { RiArrowDropDownLine } from "react-icons/ri"
+import { FaSearch } from "react-icons/fa";
+import { FiLock, FiUnlock } from "react-icons/fi"
+import{ BsFillPeopleFill } from "react-icons/bs"
+import{ AiFillPlusSquare } from "react-icons/ai"
+
 
 //pages/components
 import MakeRoomModal from './MakeRoomModal';
@@ -77,10 +79,11 @@ const Main = () => {
   return (
     <React.Fragment>
       <Wrap>
-        <button onClick={create}>방생성하기</button>
+        <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
+
         <SearchBarWrap className="searchbar">
           <SearchBarInput
-            placeholder="search.."
+            placeholder="방 정보를 입력해주세요"
             onChange={(e) => setSearch(e.target.value)}
           />
           <FaSearch
@@ -91,7 +94,7 @@ const Main = () => {
               margin: 'auto',
               position: 'absolute',
               marginRight: '20px',
-              color: '#aaf',
+              color: '#33344B',
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
@@ -101,29 +104,29 @@ const Main = () => {
         <div className="banner">
           <Banner />
         </div>
-
+        
         <HotRoomListContainer className="hotroomlist"></HotRoomListContainer>
 
         <MenuBar className="menulist">
           <div>
-            <Btn
+            <AllBtn
               onClick={() => {
                 setPossible(false);
               }}
             >
               {' '}
-              <Text>ALL</Text>
-            </Btn>
-            <Btn
+              <RoomText>ALL</RoomText>
+            </AllBtn>
+            <PossibleBtn
               onClick={() => {
                 setPossible(true);
               }}
             >
-              <Text>참여 가능</Text>
-            </Btn>
-            <Btn>
-              <Text>관전 가능</Text>
-            </Btn>
+              <RoomText>참여 가능</RoomText>
+            </PossibleBtn>
+            <SpectatorBtn>
+              <RoomText>관전 가능</RoomText>
+            </SpectatorBtn>
           </div>
 
           <div className="container">
@@ -132,7 +135,7 @@ const Main = () => {
                 onClick={() => setIsActive(!isActive)}
                 className="menu-trigger"
               >
-                <Text>카테고리</Text> <RiArrowDropDownLine />{' '}
+                <CategoryDText>카테고리</CategoryDText> <RiArrowDropDownLine />{' '}
               </DropBtn>
               <nav
                 ref={dropdownRef}
@@ -156,7 +159,6 @@ const Main = () => {
                     <a onChange={(e) => setStudy(e.target.value)}>스터디</a>
                   </li>
                   <li>
-                    ``
                     <a onChange={(e) => setConsulting(e.target.value)}>상담</a>
                   </li>
                   <li>
@@ -173,6 +175,22 @@ const Main = () => {
         </MenuBar>
 
         <RoomListContainer className="roomlist">
+          <RoomCard
+            onClick={() => {
+              setMRooms(true);
+            }}>
+              <AiFillPlusSquare
+                style={{
+                  cursor: 'pointer',
+                  width: '70px',
+                  height: '70px',
+                  margin: '13px 80px', // 수정필요
+                  color: '#aaf',
+                }}
+              />
+          </RoomCard>
+          {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
+
           {possible === true
             ? jsonData.map((r, idx) => {
                 return (
@@ -228,9 +246,9 @@ const Main = () => {
               })
             : jsonData.map((r, idx) => {
                 return (
-                  <div style={{ backgroundColor: 'beige' }}>
+                  <div style={{ backgroundColor: '#FFFFFF' }}>
                     {r.Participants.length === 4 ? (
-                      <RoomCard style={{ backgroundColor: 'gray' }}>
+                      <RoomCard style={{ backgroundColor: '#EDEBF1' }}>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
@@ -355,31 +373,91 @@ const Wrap = styled.div`
     grid-column: 1/13;
   }
 `;
-const Btn = styled.button`
+
+const EXRoomMaker = styled.button`
   padding: 14px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   margin-right: 16px;
-  background-color: #aaf;
+  background-color: #EDEBF1;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
 `;
-const Text = styled.div`
-  size: 2rem;
-  color: #2f2e2e;
+
+const AllBtn = styled.button`
+  padding: 17px 14px;
+  width: 56px;
+  height: 48px;
+  border: 1px solid #7179F0;
+  border-radius: 4px;
+  margin-right: 16px;
+  background-color: #FFFFFF;
+  :hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  }
 `;
+
+const PossibleBtn = styled.button`
+  padding: 12px 14px;
+  width: 90px;
+  height: 48px;
+  border: 1px solid #7179F0;
+  border-radius: 4px;
+  margin-right: 16px;
+  background-color: #FFFFFF;
+  :hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const SpectatorBtn = styled.button`
+  padding: 12px 14px;
+  width: 90px;
+  height: 48px;
+  border: 1px solid #7179F0;
+  border-radius: 4px;
+  margin-right: 16px;
+  background-color: #FFFFFF;
+  :hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const RoomText = styled.div`
+  size: 2rem;
+  color: #7179F0;
+`;
+
+const Btn = styled.button`
+  padding: 12px 14px;
+  width: 78px;
+  height: 51px;
+  border: 1px solid #8A8BA3;
+  border-radius: 4px;
+  background-color: #EDEBF1;
+  :hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  }
+`;
+
+const CategoryDText = styled.div`
+  size: 2rem;
+  color: #7179F0;
+`;
+
 const MenuBar = styled.div`
   display: flex;
   margin-bottom: 25px;
 `;
+
 const DropBtn = styled.button`
-  margin-left: 24px;
   display: flex;
   justify-content: space-between;
-  background-color: #aaf;
+  background-color: #FFFFFF;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 4px;
+  border: 1px solid #7179F0;
   padding: 15px;
   border: none;
   width: 200px;
@@ -395,10 +473,11 @@ const SearchBarWrap = styled.div`
   align-items: center;
   margin: 25px auto;
 `;
+
 const SearchBarInput = styled.input`
   width: 100%;
   height: 100%;
-  border: 1px solid #aaf;
+  border: 1px solid #8A8BA3;
   border-radius: 4px;
   padding: 10px;
 `;
@@ -409,7 +488,7 @@ const RoomListContainer = styled.div`
   grid-gap: 30px;
   box-sizing: border-box;
   cursor: pointer;
-  border: 1px solid #aaf;
+  border: none;
   @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
     row-gap: 32px;
@@ -428,10 +507,14 @@ const RoomListContainer = styled.div`
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 `;
+
 const RoomCard = styled.div`
-  border: 1px solid #aaf;
+  width: 255px;
+  height: 175px;
+  border: none;
   padding: 19px;
-  border-radius: 16px;
+  border-radius: 4px;
+  box-shadow: -6px -6px 8px #FFFFFF, 6px 6px 8px rgba(0, 0, 0, 0.15);
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
@@ -442,23 +525,41 @@ const RoomCard = styled.div`
     white-space: pre-line;
   }
 `;
+
 const CategoryText = styled.div`
-  color: #aaf;
-  font-size: 13px;
+  background: #FFC9C9;
+  border-radius: 4px;
+  width: 45px;
+  height: 18px;
+  margin: 8px 0px;
+  padding: 2px 4px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.6rem;
+  color: #33344B;
+  display: flex;
+  justify-content: center;
 `;
+
 const TitleText = styled.div`
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
   display: block;
   font-size: 1.2rem;
+  color: #33344B;
 `;
+
 const TagText = styled.span`
-  background-color: #aaf;
+  background-color: #FAFAFF;
+  color: #33344B;
+  font-weight: 400;
+  font-size: 0.8rem;
   border: none;
-  border-radius: 30px;
-  padding: 0px 10px;
-  margin-right: 5px;
+  border-radius: 4px;
+  padding: 0px 14px;
+  margin-right: 10px;
 `;
+
 const HotRoomListContainer = styled.div`
   display: grid;
   grid-gap: 30px;
@@ -481,4 +582,5 @@ const HotRoomListContainer = styled.div`
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 `;
+
 export default Main;

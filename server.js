@@ -70,7 +70,17 @@ io.on('connection', (socket) => {
   // 타이머
   socket.on('start_timer', (data) => {
     console.log('타이머 시작 ', data);
-    socket.broadcast.to(data).emit('start_receive', data);
+    socket.broadcast.to(data.roomId).emit('start_receive', data);
+  });
+
+  socket.on('stop_time', (roomId) => {
+    console.log('타이머 멈춤');
+    socket.broadcast.to(roomId).emit('stop_receive');
+  });
+
+  socket.on('reset_time', (roomId) => {
+    console.log('타이머 리셋');
+    socket.broadcast.to(roomId).emit('reset_receive');
   });
 });
 
