@@ -1,11 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-<<<<<<< HEAD
 import Timer from "../components/Timer"
 import {AiOutlineDown} from "react-icons/ai"
-=======
 import Chatting from '../components/Chatting';
->>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
 
 import { history } from '../redux/configureStore';
 

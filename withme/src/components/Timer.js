@@ -9,15 +9,9 @@ class Timer extends Component {
     this.state = {
       hours: 0,
       minutes: 0,
-<<<<<<< HEAD
-      seconds:0
-    }
-    console.log(props)
-=======
       seconds: 0,
       testText: [],
     };
->>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
     this.hoursInput = React.createRef();
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
@@ -99,30 +93,13 @@ class Timer extends Component {
     this.hoursInput.current.value = 0;
     this.minutesInput.current.value = 0;
     this.secondsInput.current.value = 0;
-<<<<<<< HEAD
-  }
-=======
   };
->>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
 
   render() {
     const { hours, minutes, seconds } = this.state;
 
     return (
       <div className="App">
-<<<<<<< HEAD
-         <div className="inputGroup">
-            <Input ref={this.hoursInput} placeholder={0} name="hours"  onChange={this.inputHandler} type="number" min="0" max="23"/>H:
-            <Input ref={this.minutesInput} placeholder={0} name="minutes" onChange={this.inputHandler} type="number" min="0" max="59"/>M:
-            <Input ref={this.secondsInput} placeholder={0} name="seconds" onChange={this.inputHandler} type="number" min="0" max="59"/>S
-         </div>
-         <div>
-            <Btn onClick={this.startTimer} className="start">start</Btn>
-            <Btn onClick={this.resetTimer} className="reset">reset</Btn>
-            <Btn onClick={this.stopTimer}  className="stop">stop</Btn>
-         </div>
-         <Text> {hours} : {minutes} : {seconds} </Text>
-=======
         <div className="inputGroup">
           <Input
             ref={this.hoursInput}
@@ -165,7 +142,6 @@ class Timer extends Component {
         >
           {this.testText}
         </div>
->>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
       </div>
     );
   }

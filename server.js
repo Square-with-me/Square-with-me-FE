@@ -51,23 +51,6 @@ io.on('connection', (socket) => {
       users[roomID] = room;
     }
   });
-<<<<<<< HEAD
-    // 채팅
-    socket.on('join_room', (roomId) => {
-      socket.join(roomId);
-      console.log(roomId)
-    });
-  
-    socket.on('send_message', (data) => {
-      // socket.to(data.roomId).emit('receive_message', data);
-      // 나를 제외한 같은 방의 사람들에게 (socket.broadcast.to(방 아이디))
-      socket.broadcast.to(data.roomId).emit('receive_message', data);
-    });
-    socket.on('disconnect', () => {
-      console.log('User Disconnected', socket.id);
-    });
-  });
-=======
 
   // 채팅
   socket.on('join_room', (roomId) => {
@@ -90,7 +73,6 @@ io.on('connection', (socket) => {
     // socket.broadcast.to(data).emit('start_receive', data);
   });
 });
->>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
 
 server.listen(process.env.PORT || 8000, () =>
   console.log('server is running on port 8000')
