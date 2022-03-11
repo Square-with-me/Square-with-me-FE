@@ -39,17 +39,26 @@ class Timer extends Component {
     socket.emit('start_timer', this.props.roomId);
   };
 
-  componentDidMount() {
-    socket.on('start_receive', (data) => {
-      console.log('타이머 시작!!!!!!!!!!');
-      this.testText.push('실행');
-    });
-  }
-  componentDidUpdate() {
+  componentWillMount() {
+    socket.emit('join_room', this.props.roomId);
+    console.log('방입장클라이언트');
+
     socket.on('start_receive', (data) => {
       console.log('타이머 시작!!!!!!!!!!');
     });
   }
+
+  // componentDidMount() {
+  //   socket.on('start_receive', (data) => {
+  //     console.log('타이머 시작!!!!!!!!!!');
+  //     this.testText.push('실행');
+  //   });
+  // }
+  // componentDidUpdate() {
+  //   socket.on('start_receive', (data) => {
+  //     console.log('타이머 시작!!!!!!!!!!');
+  //   });
+  // }
 
   countDown = () => {
     const { hours, minutes, seconds } = this.state;
