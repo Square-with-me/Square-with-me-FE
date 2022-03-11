@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Chatting from '../components/Chatting';
+import Timer from '../components/Timer';
 
 import { history } from '../redux/configureStore';
 
@@ -35,6 +36,7 @@ const Detail = (props) => {
   const [isCT, setIsCT] = useState(false); // 채팅
 
   const [ischatting, setIsChatting] = useState(false);
+  const [isTimer, setIsTimer] = useState(true);
 
   // 화상 채팅
   const [peers, setPeers] = useState([]);
@@ -210,10 +212,13 @@ const Detail = (props) => {
       </div>
       <div id="rightBox">
         {isSW ? (
-          <div className="rightState" id="stopwatch">
-            <p>스톱워치</p>
-            <button></button>
-          </div>
+          <>
+            <div className="rightState" id="stopwatch">
+              <p>스톱워치</p>
+              <button></button>
+            </div>
+            {isTimer ? <Timer roomId={roomID} /> : ''}
+          </>
         ) : (
           ''
         )}
