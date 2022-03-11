@@ -1,8 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const https = require('https');
+const http = require('http');
 const app = express();
-const server = https.createServer(app);
+const server = http.createServer(app);
 const socket = require('socket.io');
 const io = socket(server);
 
@@ -49,9 +49,9 @@ io.on('connection', (socket) => {
     if (room) {
       room = room.filter((id) => id !== socket.id);
       users[roomID] = room;
-      console.log(room);
     }
   });
+<<<<<<< HEAD
     // 채팅
     socket.on('join_room', (roomId) => {
       socket.join(roomId);
@@ -67,6 +67,30 @@ io.on('connection', (socket) => {
       console.log('User Disconnected', socket.id);
     });
   });
+=======
+
+  // 채팅
+  socket.on('join_room', (roomId) => {
+    console.log(roomId);
+    socket.join(roomId);
+  });
+
+  socket.on('send_message', (data) => {
+    // socket.to(data.roomId).emit('receive_message', data);
+    // 나를 제외한 같은 방의 사람들에게 (socket.broadcast.to(방 아이디))
+    socket.broadcast.to(data.roomId).emit('receive_message', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('User Disconnected', socket.id);
+  });
+
+  // 타이머
+  socket.on('start_timer', (data) => {
+    console.log('타이머 시작 ', data);
+    // socket.broadcast.to(data).emit('start_receive', data);
+  });
+});
+>>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
 
 server.listen(process.env.PORT || 8000, () =>
   console.log('server is running on port 8000')

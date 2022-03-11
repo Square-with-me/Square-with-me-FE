@@ -1,53 +1,100 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Message = (props) => {
+  const {
+    data: { sender, message },
+  } = props;
+
   return (
     <MessageBox>
       <div id="userInfo">
         <div id="profileImg"></div>
         <div id="badge"></div>
-        <p id="userName">이 구역 라이언</p>
+        <p id="userName">{sender}</p>
       </div>
-      <p id="message">나는 곰이 아니야 사자야</p>
+      <p id="message">{message}</p>
     </MessageBox>
   );
 };
 
-const Chatting = () => {
-  const [sendMessage, setSendMessage] = useState('');
+const Chatting = ({ socket, roomId }) => {
+  const [userMessage, setUserMessage] = useState('');
+  const [nickname, setnickName] = useState('라이언');
+  const [messageList, setMassageList] = useState([]);
+
+  useEffect(() => {
+    socket.on('receive_message', (data) => {
+      setMassageList((list) => [...list, data]);
+    });
+  }, [socket]);
+
+  const sendMessage = async () => {
+    if (userMessage === '') return;
+    const data = {
+      roomId: roomId,
+      sender: nickname,
+      message: userMessage,
+    };
+    setMassageList((list) => [...list, data]);
+    await socket.emit('send_message', data);
+  };
 
   const onKeyPress = (e) => {
     if (e.key === 'Enter') {
-      console.log(sendMessage);
-      setSendMessage('');
+      sendMessage();
+      setUserMessage('');
     }
   };
 
   return (
     <ChattingBox>
-      <Message></Message>
-      <Message></Message>
-      <Message></Message>
-      <div id="inputBox"></div>
-      <input
-        type="text"
-        onChange={(e) => {
-          setSendMessage(e.target.value);
-        }}
-        value={sendMessage}
-        onKeyPress={onKeyPress}
-      />
+      <div id="messageBox">
+        {messageList.map((data, index) => {
+          return <Message key={index} data={data}></Message>;
+        })}
+      </div>
+      <div id="inputBox">
+        <input
+          type="text"
+          onChange={(e) => {
+            setUserMessage(e.target.value);
+          }}
+          value={userMessage}
+          onKeyPress={onKeyPress}
+          placeholder="메시지를 입력하세요"
+        />
+      </div>
     </ChattingBox>
   );
 };
 
 const ChattingBox = styled.div`
   width: 100%;
-  height: 100%;
+  // 높이
+  height: 50vh;
   display: flex;
   flex-direction: column;
   background-color: #ddd;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: teal;
+
+  #messageBox {
+    width: 100%;
+    background-color: transparent;
+
+    overflow: scroll;
+  }
+
+  #inputBox {
+    height: 30px;
+
+    input {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const MessageBox = styled.div`

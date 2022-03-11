@@ -12,6 +12,7 @@ import MonthTime from '../components/MonthTime';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as usereditActions } from '../redux/modules/userEdit';
+import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
 const Mypage = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const Mypage = () => {
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
 
-  const [editNick, setEditnick] = useState(user.nickname); // 수정한 닉네임 저장
-  const [editStatus, setEditStatus] = useState(user.statusMsg); // 수정한 상태메지시 저장
+  const [editNick, setEditnick] = useState(''); // 수정한 닉네임 저장
+  const [editStatus, setEditStatus] = useState(''); // 수정한 상태메지시 저장
 
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
@@ -30,7 +31,7 @@ const Mypage = () => {
   // 넣어주는 작업 하기
 
   useEffect(() => {
-    dispatch(usereditActions.getProfileDB());
+    dispatch(userEditActions.logInCheckDB());
   }, []);
 
   // 유저 닉네임 수정
@@ -41,13 +42,14 @@ const Mypage = () => {
     if (!isEditNick) {
       // 수정시작
       setIsEditNick(true);
+      setEditnick(user.nickname);
       nicknameText.classList.add('hidden');
       inputNickname.classList.remove('hidden');
     } else {
       // 수정 끝
       nicknameText.classList.remove('hidden');
       inputNickname.classList.add('hidden');
-      dispatch(usereditActions.editNickDB(editNick));
+      dispatch(usereditActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
   };
@@ -66,7 +68,7 @@ const Mypage = () => {
       // 수정 끝
       statusText.classList.remove('hidden');
       inputStatus.classList.add('hidden');
-      dispatch(usereditActions.editStatusDB(editStatus));
+      dispatch(usereditActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
   };

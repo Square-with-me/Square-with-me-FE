@@ -1,13 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import Timer from "../components/Timer"
 import {AiOutlineDown} from "react-icons/ai"
+=======
+import Chatting from '../components/Chatting';
+>>>>>>> 20ffc00379da1f79f74639e87b7d78814117e93c
 
 import { history } from '../redux/configureStore';
 
 // 방 입장
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
+
+const socket = io.connect('/');
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -27,13 +33,15 @@ const Video = (props) => {
 };
 
 const Detail = (props) => {
-  const [isSide, setIsSide] = useState(false); // 오른쪽 박스가 열려있는지
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
   const [isSW, setIsSW] = useState(false); // 스톱워치
   const [isPP, setIsPP] = useState(false); // 참가자 목록
   const [isCT, setIsCT] = useState(false); // 채팅
 
+  const [ischatting, setIsChatting] = useState(false);
+
+  // 화상 채팅
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
   const userVideo = useRef();
@@ -43,7 +51,6 @@ const Detail = (props) => {
   // 사이드바 컨트롤
   useEffect(() => {
     const videoBox = document.getElementById('videoBox');
-    console.log(sideCount);
 
     if (videoBox !== null && sideCount === 0) {
       videoBox.style.gridColumn = '1/13';
@@ -97,15 +104,20 @@ const Detail = (props) => {
     }
   };
 
+  // 채팅 열기, 닫기
+  const openChatting = (e) => {
+    if (ischatting) {
+      setIsChatting(false);
+    } else {
+      setIsChatting(true);
+    }
+  };
+
+  // 비디오 연결, 채팅 연결
   useEffect(() => {
+    socket.emit('join_room', roomID);
+
     socketRef.current = io.connect('http://175.112.86.142:8000/');
-
-    const newPeer = new Peer();
-    console.log(newPeer);
-
-    newPeer.on('open', function (id) {
-      console.log(id);
-    });
 
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
@@ -224,11 +236,20 @@ const Detail = (props) => {
           ''
         )}
         {isCT ? (
-          <div className="rightState">
-            <button>C</button>
-            <p>채팅</p>
-            <button></button>
-          </div>
+          <>
+            <div className="rightState">
+              <button
+                onClick={(e) => {
+                  openChatting(e);
+                }}
+              >
+                C
+              </button>
+              <p>채팅</p>
+              <button></button>
+            </div>
+            {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
+          </>
         ) : (
           ''
         )}
@@ -321,16 +342,6 @@ const Container = styled.div`
         visibility: visible;
       }
     }
-
-    /* @keyframes slide-out {
-      from {
-        visibility: visible;
-      }
-      to {
-        visibility: hidden;
-        margin-left: 50%;
-      }
-    } */
 
     .rightState {
       /* display: flex; */
