@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Timer from "../components/Timer"
-import {AiOutlineDown} from "react-icons/ai"
+import Timer from '../components/Timer';
+import { AiOutlineDown } from 'react-icons/ai';
 import Chatting from '../components/Chatting';
 
 import { history } from '../redux/configureStore';
@@ -313,7 +313,7 @@ const Container = styled.div`
 
     animation: show 1s;
     animation-fill-mode: forwards;
-/* 
+    /* 
     button {
       width: 32px;
       height: 32px;

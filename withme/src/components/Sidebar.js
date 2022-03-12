@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, Grid } from '../elements/Index';
 import styled from 'styled-components';
 
-import SecretRoomModal from "../pages/SecretRoomModal";
+import SecretRoomModal from '../pages/SecretRoomModal';
 import LoginModal from '../pages/LoginModal';
 import SignupModal from '../pages/SignupModal';
 import MakeRoomModal from '../pages/MakeRoomModal';
@@ -15,7 +15,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 const Sidebar = (props) => {
-  const { open, close, header, setIsM} = props;
+  const { open, close, header, setIsM } = props;
   const dispatch = useDispatch();
 
   const [MRooms, setMRooms] = useState(false);
@@ -29,78 +29,90 @@ const Sidebar = (props) => {
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
+    console.log('로그인 췤');
     dispatch(userActions.logInCheckDB());
   }, []);
 
   if (open) {
     return (
       <>
-      <ModalBackground onClick ={()=>{close()}}/>
-      <OpenSidebar>
-        <Section>
-          <SidebarHeader>
-            <Grid is_flex padding="0px" justifyContent="left" height="52px">
-              {open ?
-              <RightIcon>
-                <FaBars
-                  color="#000"
-                  size="1rem"
-                  onClick={close}
-                  padding="0 20px"
+        <ModalBackground
+          onClick={() => {
+            close();
+          }}
+        />
+        <OpenSidebar>
+          <Section>
+            <SidebarHeader>
+              <Grid is_flex padding="0px" justifyContent="left" height="52px">
+                {open ? (
+                  <RightIcon>
+                    <FaBars
+                      color="#000"
+                      size="1rem"
+                      onClick={close}
+                      padding="0 20px"
+                    >
+                      {header}
+                    </FaBars>
+                  </RightIcon>
+                ) : (
+                  ' '
+                )}
+              </Grid>
+            </SidebarHeader>
+
+            <SidebarContent>
+              <MenuButton
+                onClick={() => {
+                  setIsM(true);
+                  close();
+                }}
+              >
+                <MenuText>로그인</MenuText>
+              </MenuButton>
+
+              <MenuButton
+                onClick={() => {
+                  history.push(`/mypage/${user.id}`);
+                  close();
+                }}
+              >
+                <MenuText>마이페이지</MenuText>
+              </MenuButton>
+
+              {notUser_is_local === false ? (
+                <MenuButton
+                  onClick={() => {
+                    dispatch(userActions.NotMemberloginDB());
+                  }}
                 >
-                  {header}
-                </FaBars>
-              </RightIcon> : " "}
-
-            </Grid>
-          </SidebarHeader>
-
-          <SidebarContent>
-            <MenuButton
-              onClick={() => {
-                setIsM(true);
-                close();
-              }}
-            >
-              <MenuText>로그인</MenuText>
-            </MenuButton>
-
-            <MenuButton
-              onClick={() => {
-                history.push(`/mypage/${user.id}`);
-                close();
-              }}
-            >
-              <MenuText>마이페이지</MenuText>
-            </MenuButton>
-
-              {notUser_is_local===false ?
-                <MenuButton
-                  onClick={()=>{
-                    dispatch(userActions.NotMemberloginDB())
-                  }}>
-                    <MenuText>비회원으로 즐기기</MenuText>
-                </MenuButton>:
-
-                <MenuButton
-                  onClick={()=>{
-                    dispatch(userActions.notUserLogOut())
-                  }}>
-                    <MenuText>비회원은 그만할래요</MenuText>
+                  <MenuText>비회원으로 즐기기</MenuText>
                 </MenuButton>
-              }
+              ) : (
+                <MenuButton
+                  onClick={() => {
+                    dispatch(userActions.notUserLogOut());
+                  }}
+                >
+                  <MenuText>비회원은 그만할래요</MenuText>
+                </MenuButton>
+              )}
 
               <MenuButton>
                 <MenuText
-                onClick={() => {
-                  setSRoomM(true);
-                  // close();
-                }}>비공개 방 모달</MenuText>
+                  onClick={() => {
+                    setSRoomM(true);
+                    // close();
+                  }}
+                >
+                  비공개 방 모달
+                </MenuText>
                 {SRoomM && <SecretRoomModal setSRoomM={setSRoomM} />}
               </MenuButton>
-          </SidebarContent>
-        </Section>
-      </OpenSidebar>
+            </SidebarContent>
+          </Section>
+        </OpenSidebar>
       </>
     );
   }

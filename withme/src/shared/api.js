@@ -20,4 +20,7 @@ export const apis = {
   loginCheck: () => api.get('/api/user/me'),
   nonMemberLogin: (user) => api.get('/api/auth/anon', user),
   logout: (user) => api.delete('/api/auth/:type', user),
+
+  //userEdit
+  imageUpload: (image) => api.post('/api/upload/image', image),
 };
