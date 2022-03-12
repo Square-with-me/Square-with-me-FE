@@ -14,7 +14,7 @@ import Kakao from '../components/Kakao';
 import Test from '../pages/Test';
 
 import './App.css';
-import TimerTest from '../pages/TestTimer';
+import TimerTest from '../pages/TimerTest';
 
 function App() {
   return (

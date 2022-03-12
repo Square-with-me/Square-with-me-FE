@@ -81,7 +81,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                 회원가입 하기
               </GoSignUp>
 
-              <NotMember 
+              <NotMember
                   onClick={()=>{
                     dispatch(userActions.NotMemberloginDB())
                   }}>
