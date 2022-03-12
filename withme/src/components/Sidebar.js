@@ -34,7 +34,8 @@ const Sidebar = (props) => {
 
   if (open) {
     return (
-      <React.Fragment>
+      <>
+      <ModalBackground onClick ={()=>{close()}}/>
       <OpenSidebar>
         <Section>
           <SidebarHeader>
@@ -48,7 +49,7 @@ const Sidebar = (props) => {
                   }}
                 />
               </Grid> */}
-
+              {open ?
               <RightIcon>
                 <FaBars
                   color="#000"
@@ -58,7 +59,8 @@ const Sidebar = (props) => {
                 >
                   {header}
                 </FaBars>
-              </RightIcon>
+              </RightIcon> : " "}
+
             </Grid>
           </SidebarHeader>
 
@@ -82,7 +84,7 @@ const Sidebar = (props) => {
             </MenuButton>
 
               {notUser_is_local===false ?
-                <MenuButton 
+                <MenuButton
                   onClick={()=>{
                     dispatch(userActions.NotMemberloginDB())
                   }}>
@@ -97,21 +99,32 @@ const Sidebar = (props) => {
                 </MenuButton>
               }
 
-              <MenuButton
+              <MenuButton>
+                <MenuText
                 onClick={() => {
                   setSRoomM(true);
-                }}>
-                <MenuText>비공개 방 모달</MenuText>
+                  // close();
+                }}>비공개 방 모달</MenuText>
                 {SRoomM && <SecretRoomModal setSRoomM={setSRoomM} />}
               </MenuButton>
           </SidebarContent>
         </Section>
       </OpenSidebar>
-      </React.Fragment>
+      </>
     );
   }
   return null;
 };
+
+const ModalBackground = styled.div`
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
 
 const SidebarBox = styled.div`
   display: none;
@@ -121,7 +134,6 @@ const SidebarBox = styled.div`
   bottom: 0;
   left: 0;
   z-index: 99;
-  background-color: rgba(0, 0, 0, 0.6);
 
   @keyframes modal-show {
     from {
@@ -143,14 +155,40 @@ const SidebarBox = styled.div`
   }
 `;
 
-const OpenSidebar = styled(SidebarBox)`
+const OpenSidebar = styled.div`
   //위치 조정
   display: flex;
   justify-content: right;
   align-items: top;
+  z-index: 100;
+  padding: 1%;
+  width: 300px;
 
   /* 팝업이 스르륵 열리는 효과 */
   animation: modal-bg-show 0.6s;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  @keyframes modal-show {
+    from {
+      opacity: 0;
+      margin-left: -300px;
+    }
+    to {
+      opacity: 1;
+      margin-left: 0;
+    }
+  }
+  @keyframes modal-bg-show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const SidebarHeader = styled.header`
@@ -174,7 +212,7 @@ const Section = styled.section`
 `;
 
 const SidebarContent = styled.div`
-  padding: 0;
+  padding: 5%;
   //modal 배경색
   background-color: #fff;
   height: 100%;
@@ -209,7 +247,7 @@ const RightIcon = styled.button`
   border: none;
   background-color: #fff;
   display: flex;
-  justifycontent: right;
+  justify-content: right;
   padding: 0 84.8%;
 `;
 

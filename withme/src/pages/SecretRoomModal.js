@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as roomActions } from "../redux/modules/room";
 
 const SecretRoomModal = ({ setSRoomM }) => {
+  console.log(setSRoomM)
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState('');

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Timer from "../components/Timer"
+import {AiOutlineDown} from "react-icons/ai"
 import Chatting from '../components/Chatting';
-import Timer from '../components/Timer';
 
 import { history } from '../redux/configureStore';
 
@@ -312,12 +313,12 @@ const Container = styled.div`
 
     animation: show 1s;
     animation-fill-mode: forwards;
-
+/* 
     button {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-    }
+    } */
 
     @keyframes show {
       from {
@@ -339,9 +340,9 @@ const Container = styled.div`
     }
 
     .rightState {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      /* display: flex; */
+      /* justify-content: space-between; */
+      /* align-items: center; */
       background-color: red;
 
       animation: slide-in 1s;
