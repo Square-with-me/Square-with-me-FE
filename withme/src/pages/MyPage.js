@@ -81,25 +81,32 @@ const Mypage = () => {
     dispatch(usereditActions.getImageUrlDB(formData));
   };
 
+  const onClickImage = () => {
+    const fileUpload = document.getElementById('ex_file');
+    fileUpload.click();
+  };
+
   return (
     <Container>
       <div id="start">
-        <ProfileContainer>
-          <p>My Profile</p>
-          <div className="box">
+        <p className="label">My Page</p>
+        <div id="startBox" className="boxStyle">
+          <ProfileContainer>
             <div className="imageBox">
               <Image
                 shape="circle"
-                width="100px"
-                height="100px"
+                width="110px"
+                height="110px"
                 src={
                   user.profileImg
                     ? user.profileImg
                     : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMEAAADACAMAAACKwPcLAAAANlBMVEVmZmb////u8vpwb3D29vbY2NixsbGLi4vi4uKCgoLr6+vPz8+fn594eHjFxcWop6i7u7uVlZUD7tw7AAAEB0lEQVR4nO2ba5ujIAxG2wHBu+3//7MzjnhpV60kr5vBJ+fjri6cQhIE9nZLnC/pDrBRA3nUQB41kEcN5FEDedRAHjWQRw3kUQN51EAeNZBHDeRRA3nUQB41kEcN5FEDedRAHjXYxjxdld17bFa5pzmrnZMMmi6/v5F3zSlNnWJQZ+/dH8jqExo7weBZrve/p3zCm4MbNBu//zQO6LmENujsvsBPXHfYFrEGplp2tXK+6P+08K5ailXQvAQ1MHMCsm3x+ndFO0vkSAWkQTMJWLfSR+PsGQpAg3kEHhsdNI8TFHAGk0Dptx/yJVwBZzAGcbbbNzMm2wrVLsygCz1rPz3YhgdRSRVl0NiDApOCBZU2lEGYHBn62c+ADJ4hiA/FpwnhjFkjgQxCn3ay0BIffCFNYwzqUAeOPh/qAmSxjTEI32KHc7yxuEiAGDTDT+qOv+GGNxDpCGLQRQ7BNAiImgAxyI+WgpmhKOSAxhEGZpgSxecnZ4rhHcDqCGEwFAMb95JFlQSEgaMs1arY4N8CYVBRopKkvQbCIIupxyMeVREQBjY+kMdQjgyeNRAGQ1r5P2/9ixr0qAEPnEHKkZx+NiWV1z9V0dJfVaS/skt/dZ3+F84FvjLT/9JPf7flAjte6e86XmDnN/3d9wucgKR/CnWBk8ALnMamfyK+VEj0VsIFboZc4HbOLf0bUrcL3FL7UWh3BSK3lT6DNvDVXv97yhp7eRZr4D9MoRAJa7mWDNKgONT/Xwfg1VngquLx2svs0fmwvvC+e7zZ4eIBZuCXN33Lx8rXi3cvd7EB23W/oAzcYoq8l+OZxi089xexh8EYmHmOfArTenawkJmE2S/aX9K9MTtAAhphUEwriepQwTXzlAMoAAwmAXt486HIcQp8g/Eb/55HrHhMC1NgG0zfBG1caqlR4cw2GLNQ1N57z6TATKpcg7EQE+rTqMDc+WIaeOoI9NR0+wU8g3EHlCQwK7BCgWcQ5hD5MKkFzCOWQZhD9B3QMZFxUirLIOQhxi56wc9HHIMwjVk7oI4dzByDkjmHekIuYAwCw8AjcuE4kPRIYBjEHmBuMAwC/UyNbhB/iLxOzawJdAOHGYJxEIhFkWPAbHgm/BTU18kGBWBBMBCmY+QdsQmyQccMwAU5K6DIBkMmOnwPYQ/HWhyRDXhD/0IoLMS3qQYFq9U3WL8G1aDmL4tnMk5Zpho4XBiMnxnEUKYakP7XxBYdZ0CpBqR7vluw7v9SDXK8AbG2UA2QqYj3r6kBBgmDv4MayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogz9c3668W/KAjNpwAAAAASUVORK5CYII='
                 }
+                _onClick={(e) => {
+                  onClickImage(e);
+                }}
               />
               <div className="filebox">
-                <label htmlFor="ex_file">프로필 사진 수정</label>
                 <input type="file" id="ex_file" onChange={saveImage} />
               </div>
             </div>
@@ -134,40 +141,51 @@ const Mypage = () => {
                 </button>
               </div>
             </div>
-          </div>
-        </ProfileContainer>
-        <BadgeContainer>
-          <p>대표 벳지 설정</p>
-          <div className="badgeBox">
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-          </div>
-        </BadgeContainer>
+          </ProfileContainer>
+          <BadgeContainer>
+            <div className="badgeBox">
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+            </div>
+            <button>수정하기</button>
+          </BadgeContainer>
+        </div>
       </div>
       <div id="middle">
-        <BadgeContainer>
+        <div>
           <p>더 많은 뱃지를 획득해보세요</p>
-          <div className="badgeBox">
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
-            <div className="badge"></div>
+          <div id="middleTopBox" className="boxStyle">
+            <BadgeContainer>
+              <div className="badgeBox">
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+              </div>
+            </BadgeContainer>
           </div>
-        </BadgeContainer>
-        <TodayTimeBox>
+        </div>
+        <div>
           <p>오늘 네모와 함께한 시간</p>
-          <div className="chart">
-            <TodayTime />
+          <div id="middleBottomBox" className="boxStyle">
+            <TodayTimeBox>
+              <div className="chart">
+                <TodayTime />
+              </div>
+            </TodayTimeBox>
           </div>
-        </TodayTimeBox>
+        </div>
       </div>
-      <div id="end">
+      <div id="end" className="boxStyle">
         <WeekTimeBox>
           <p>이번 주 네모와 함께한 시간</p>
           <WeekTime />
@@ -190,9 +208,8 @@ const Mypage = () => {
 };
 
 const Container = styled.div`
-  width: 1110px;
-  height: 100vh;
-  background-color: gold;
+  max-width: 1110px;
+  height: 620px;
   margin: auto;
   display: grid;
   column-gap: 30px;
@@ -200,21 +217,50 @@ const Container = styled.div`
   grid-template-columns: repeat(12, 1fr);
 
   #start {
-    height: 100%;
-    background-color: blueviolet;
+    height: 620px;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     grid-column: 1 / 5;
+
+    p.label {
+      font-size: 24px;
+      line-height: 36px;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #33344b;
+    }
+
+    #startBox {
+      height: 562px;
+    }
   }
   #middle {
-    height: 100%;
-    background-color: aliceblue;
+    height: 620px;
     display: flex;
     flex-direction: column;
     grid-column: 5 / 8;
+    justify-content: space-between;
+
+    p {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 25px;
+      color: #33344b;
+    }
+
+    #middleTopBox {
+      height: 212px;
+    }
+    #middleBottomBox {
+      height: 296px;
+    }
   }
   #end {
-    height: 100%;
+    height: 620px;
     background-color: navy;
     display: flex;
     flex-direction: column;
@@ -222,41 +268,34 @@ const Container = styled.div`
     align-items: center;
     grid-column: 8 / 13;
   }
+
+  .boxStyle {
+    padding: 48px 26px 48px 26px;
+    background-color: #f7f7f7;
+    box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
 `;
 
 const ProfileContainer = styled.div`
   width: 100%;
-  height: 40%;
+  height: 30%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: red;
   margin-bottom: 10px;
 
-  p {
-    background-color: #fff;
-  }
-
-  .box {
-    display: flex;
-    flex-direction: row;
-  }
-
   .imageBox {
     width: 50%;
-    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
     background-color: pink;
-
-    .filebox {
-      height: 20%;
-    }
+    justify-content: center;
 
     .filebox label {
       display: inline-block;
-      padding: 0.5em 0.75em;
+      /* padding: 0.5em 0.75em; */
       color: #999;
       font-size: inherit;
       line-height: normal;
@@ -291,43 +330,78 @@ const ProfileContainer = styled.div`
 
   .textBox {
     width: 50%;
-
     display: flex;
     flex-direction: column;
     padding: 10px;
     background-color: skyblue;
+    justify-content: center;
+    gap: 10px;
 
     .nameBox {
       display: flex;
       flex-direction: row;
-    }
+      justify-content: space-between;
 
+      #nickname {
+        font-size: 20px;
+        line-height: 30px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+      }
+    }
     .statusBox {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+
+      #statusText {
+        font-size: 18px;
+        line-height: 24.52px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+      }
     }
   }
 `;
 
 const BadgeContainer = styled.div`
-  height: 60%;
+  height: 70%;
   display: flex;
   flex-direction: column;
-  background-color: #eee;
+
+  align-items: center;
+  justify-content: space-between;
 
   .badgeBox {
-    height: 100%;
+    height: 240px;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, auto));
-    grid-template-rows: repeat(auto-fill, minmax(100px, auto));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     background-color: black;
     place-items: center;
   }
 
   .badge {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     background-color: red;
+  }
+
+  button {
+    width: 95px;
+    height: 51px;
+    padding: 12px 14px;
+    background: #7179f0;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
   }
 `;
 
@@ -337,7 +411,7 @@ const TodayTimeBox = styled.div`
 
 const WeekTimeBox = styled.div`
   background-color: #fff;
-  width: 90%;
+  width: 100%;
   p {
     background-color: yellow;
   }
@@ -347,24 +421,6 @@ const MonthTimeBox = styled.div`
   background-color: tomato;
   p {
     background-color: yellow;
-  }
-`;
-
-const TimeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-
-  p {
-    width: 50%;
-  }
-
-  .chart {
-    width: 50%;
-  }
-
-  .todayTimeBox {
-    display: flex;
   }
 `;
 

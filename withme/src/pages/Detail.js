@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Chatting from '../components/Chatting';
 import Timer from '../components/Timer';
+import { AiOutlineDown } from 'react-icons/ai';
+import Chatting from '../components/Chatting';
 
 import { history } from '../redux/configureStore';
 

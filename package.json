@@ -12,5 +12,8 @@
   "scripts": {
     "start": "PROD=true node server.js",
     "postinstall": "cd ./withme && yarn"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0"
   }
 }
