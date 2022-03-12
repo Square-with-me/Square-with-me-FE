@@ -85,51 +85,54 @@ const Mypage = () => {
     <Container>
       <div id="start">
         <ProfileContainer>
-          <div className="imageBox">
-            <Image
-              shape="circle"
-              width="100px"
-              height="100px"
-              src={
-                user.profileImg
-                  ? user.profileImg
-                  : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMEAAADACAMAAACKwPcLAAAANlBMVEVmZmb////u8vpwb3D29vbY2NixsbGLi4vi4uKCgoLr6+vPz8+fn594eHjFxcWop6i7u7uVlZUD7tw7AAAEB0lEQVR4nO2ba5ujIAxG2wHBu+3//7MzjnhpV60kr5vBJ+fjri6cQhIE9nZLnC/pDrBRA3nUQB41kEcN5FEDedRAHjWQRw3kUQN51EAeNZBHDeRRA3nUQB41kEcN5FEDedRAHjXYxjxdld17bFa5pzmrnZMMmi6/v5F3zSlNnWJQZ+/dH8jqExo7weBZrve/p3zCm4MbNBu//zQO6LmENujsvsBPXHfYFrEGplp2tXK+6P+08K5ailXQvAQ1MHMCsm3x+ndFO0vkSAWkQTMJWLfSR+PsGQpAg3kEHhsdNI8TFHAGk0Dptx/yJVwBZzAGcbbbNzMm2wrVLsygCz1rPz3YhgdRSRVl0NiDApOCBZU2lEGYHBn62c+ADJ4hiA/FpwnhjFkjgQxCn3ay0BIffCFNYwzqUAeOPh/qAmSxjTEI32KHc7yxuEiAGDTDT+qOv+GGNxDpCGLQRQ7BNAiImgAxyI+WgpmhKOSAxhEGZpgSxecnZ4rhHcDqCGEwFAMb95JFlQSEgaMs1arY4N8CYVBRopKkvQbCIIupxyMeVREQBjY+kMdQjgyeNRAGQ1r5P2/9ixr0qAEPnEHKkZx+NiWV1z9V0dJfVaS/skt/dZ3+F84FvjLT/9JPf7flAjte6e86XmDnN/3d9wucgKR/CnWBk8ALnMamfyK+VEj0VsIFboZc4HbOLf0bUrcL3FL7UWh3BSK3lT6DNvDVXv97yhp7eRZr4D9MoRAJa7mWDNKgONT/Xwfg1VngquLx2svs0fmwvvC+e7zZ4eIBZuCXN33Lx8rXi3cvd7EB23W/oAzcYoq8l+OZxi089xexh8EYmHmOfArTenawkJmE2S/aX9K9MTtAAhphUEwriepQwTXzlAMoAAwmAXt486HIcQp8g/Eb/55HrHhMC1NgG0zfBG1caqlR4cw2GLNQ1N57z6TATKpcg7EQE+rTqMDc+WIaeOoI9NR0+wU8g3EHlCQwK7BCgWcQ5hD5MKkFzCOWQZhD9B3QMZFxUirLIOQhxi56wc9HHIMwjVk7oI4dzByDkjmHekIuYAwCw8AjcuE4kPRIYBjEHmBuMAwC/UyNbhB/iLxOzawJdAOHGYJxEIhFkWPAbHgm/BTU18kGBWBBMBCmY+QdsQmyQccMwAU5K6DIBkMmOnwPYQ/HWhyRDXhD/0IoLMS3qQYFq9U3WL8G1aDmL4tnMk5Zpho4XBiMnxnEUKYakP7XxBYdZ0CpBqR7vluw7v9SDXK8AbG2UA2QqYj3r6kBBgmDv4MayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogz9c3668W/KAjNpwAAAAASUVORK5CYII='
-              }
-            />
-            <div className="filebox">
-              <label htmlFor="ex_file">프로필 사진 수정</label>
-              <input type="file" id="ex_file" onChange={saveImage} />
-            </div>
-          </div>
-          <div className="textBox">
-            <div className="nameBox">
-              <div id="nickname"> {user ? user.nickname : ''}</div>
-              <input
-                id="inputNickname"
-                className="hidden"
-                type="text"
-                defaultValue={user ? user.nickname : ''}
-                onChange={(e) => {
-                  setEditnick(e.target.value);
-                }}
+          <p>My Profile</p>
+          <div className="box">
+            <div className="imageBox">
+              <Image
+                shape="circle"
+                width="100px"
+                height="100px"
+                src={
+                  user.profileImg
+                    ? user.profileImg
+                    : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMEAAADACAMAAACKwPcLAAAANlBMVEVmZmb////u8vpwb3D29vbY2NixsbGLi4vi4uKCgoLr6+vPz8+fn594eHjFxcWop6i7u7uVlZUD7tw7AAAEB0lEQVR4nO2ba5ujIAxG2wHBu+3//7MzjnhpV60kr5vBJ+fjri6cQhIE9nZLnC/pDrBRA3nUQB41kEcN5FEDedRAHjWQRw3kUQN51EAeNZBHDeRRA3nUQB41kEcN5FEDedRAHjXYxjxdld17bFa5pzmrnZMMmi6/v5F3zSlNnWJQZ+/dH8jqExo7weBZrve/p3zCm4MbNBu//zQO6LmENujsvsBPXHfYFrEGplp2tXK+6P+08K5ailXQvAQ1MHMCsm3x+ndFO0vkSAWkQTMJWLfSR+PsGQpAg3kEHhsdNI8TFHAGk0Dptx/yJVwBZzAGcbbbNzMm2wrVLsygCz1rPz3YhgdRSRVl0NiDApOCBZU2lEGYHBn62c+ADJ4hiA/FpwnhjFkjgQxCn3ay0BIffCFNYwzqUAeOPh/qAmSxjTEI32KHc7yxuEiAGDTDT+qOv+GGNxDpCGLQRQ7BNAiImgAxyI+WgpmhKOSAxhEGZpgSxecnZ4rhHcDqCGEwFAMb95JFlQSEgaMs1arY4N8CYVBRopKkvQbCIIupxyMeVREQBjY+kMdQjgyeNRAGQ1r5P2/9ixr0qAEPnEHKkZx+NiWV1z9V0dJfVaS/skt/dZ3+F84FvjLT/9JPf7flAjte6e86XmDnN/3d9wucgKR/CnWBk8ALnMamfyK+VEj0VsIFboZc4HbOLf0bUrcL3FL7UWh3BSK3lT6DNvDVXv97yhp7eRZr4D9MoRAJa7mWDNKgONT/Xwfg1VngquLx2svs0fmwvvC+e7zZ4eIBZuCXN33Lx8rXi3cvd7EB23W/oAzcYoq8l+OZxi089xexh8EYmHmOfArTenawkJmE2S/aX9K9MTtAAhphUEwriepQwTXzlAMoAAwmAXt486HIcQp8g/Eb/55HrHhMC1NgG0zfBG1caqlR4cw2GLNQ1N57z6TATKpcg7EQE+rTqMDc+WIaeOoI9NR0+wU8g3EHlCQwK7BCgWcQ5hD5MKkFzCOWQZhD9B3QMZFxUirLIOQhxi56wc9HHIMwjVk7oI4dzByDkjmHekIuYAwCw8AjcuE4kPRIYBjEHmBuMAwC/UyNbhB/iLxOzawJdAOHGYJxEIhFkWPAbHgm/BTU18kGBWBBMBCmY+QdsQmyQccMwAU5K6DIBkMmOnwPYQ/HWhyRDXhD/0IoLMS3qQYFq9U3WL8G1aDmL4tnMk5Zpho4XBiMnxnEUKYakP7XxBYdZ0CpBqR7vluw7v9SDXK8AbG2UA2QqYj3r6kBBgmDv4MayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogz9c3668W/KAjNpwAAAAASUVORK5CYII='
+                }
               />
-              <button onClick={editNickname}>
-                <BsFillPencilFill />
-              </button>
+              <div className="filebox">
+                <label htmlFor="ex_file">프로필 사진 수정</label>
+                <input type="file" id="ex_file" onChange={saveImage} />
+              </div>
             </div>
-            <div className="statusBox">
-              <div id="statusText">{user ? user.statusMsg : ''}</div>
-              <input
-                id="inputStatus"
-                className="hidden"
-                defaultValue={user.statusMsg}
-                onChange={(e) => {
-                  setEditStatus(e.target.value);
-                }}
-              ></input>
-              <button onClick={editStatusMsg}>
-                <BsFillPencilFill />
-              </button>
+            <div className="textBox">
+              <div className="nameBox">
+                <div id="nickname"> {user ? user.nickname : ''}</div>
+                <input
+                  id="inputNickname"
+                  className="hidden"
+                  type="text"
+                  defaultValue={user ? user.nickname : ''}
+                  onChange={(e) => {
+                    setEditnick(e.target.value);
+                  }}
+                />
+                <button onClick={editNickname}>
+                  <BsFillPencilFill />
+                </button>
+              </div>
+              <div className="statusBox">
+                <div id="statusText">{user ? user.statusMsg : ''}</div>
+                <input
+                  id="inputStatus"
+                  className="hidden"
+                  defaultValue={user.statusMsg}
+                  onChange={(e) => {
+                    setEditStatus(e.target.value);
+                  }}
+                ></input>
+                <button onClick={editStatusMsg}>
+                  <BsFillPencilFill />
+                </button>
+              </div>
             </div>
           </div>
         </ProfileContainer>
@@ -223,12 +226,20 @@ const Container = styled.div`
 
 const ProfileContainer = styled.div`
   width: 100%;
-  height: 30%;
+  height: 40%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: red;
-  justify-content: space-between;
   margin-bottom: 10px;
+
+  p {
+    background-color: #fff;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: row;
+  }
 
   .imageBox {
     width: 50%;
@@ -299,7 +310,7 @@ const ProfileContainer = styled.div`
 `;
 
 const BadgeContainer = styled.div`
-  height: 70%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   background-color: #eee;
@@ -321,11 +332,12 @@ const BadgeContainer = styled.div`
 `;
 
 const TodayTimeBox = styled.div`
-  background-color: tomato;
+  background-color: #fff;
 `;
 
 const WeekTimeBox = styled.div`
-  background-color: tomato;
+  background-color: #fff;
+  width: 90%;
   p {
     background-color: yellow;
   }
