@@ -1,0 +1,11 @@
+<svg
+  id="레이어_2"
+  data-name="레이어 2"
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 32 32"
+>
+  <path d="M10,23.56H2V8.44h8Zm-6-2H8V10.44H4Z"/>
+  <path d="M30,23.56H22V8.44h8Zm-6-2h4V10.44H24Z"/>
+  <rect x="9.02" y="13.5" width="13.96" height="2"/>
+  <rect x="9.09" y="16.5" width="13.96" height="2"/>
+</svg>

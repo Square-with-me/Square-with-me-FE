@@ -41,53 +41,54 @@ const Footer = () => {
 };
 
 const P = styled.p`
-font-size: 75%;
+  font-size: 75%;
+  margin: 10px 0px;
 `
 
 const Grid = styled.div`
-display: grid;
-justify-content: space-around;
-grid-template-columns: 1fr 1fr 1fr ;
-padding: 10px;
-@media screen and (min-width: 935px) {
-  display: contents;
-}
+  display: grid;
+  justify-content: space-around;
+  grid-template-columns: 1fr 1fr 1fr ;
+  padding: 10px;
+  @media screen and (min-width: 935px) {
+    display: contents;
+  }
 `
 
 const Div =styled.div`
-margin: 10px 0px;
-border-bottom: 1px solid #DDDDDD;
-padding: 0px 30px;
-@media screen and (min-width: 935px) {
+  margin: 10px 0px;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 0px 30px;
+  @media screen and (min-width: 935px) {
     /* margin: 15px 0px; */
     border-bottom: none;
-}
+  }
 `
 
 const Wrap = styled.div`
-bottom:0;
-width:100%;
-height:6%;
-background-color:#F7F7F7 ;
-display: contents;
-padding: 30px;
-/* @media screen and (min-width: 1192px) {
-}
-@media screen and (min-width: 1125px) {
-} */
-@media screen and (min-width: 935px) {
-bottom:0;
-width:100%;
-height:6%;
-background-color:#F7F7F7 ;
+  bottom:0;
+  width:100%;
+  height:6%;
+  background-color:#F7F7F7 ;
+  display: contents;
+  padding: 30px;
+  /* @media screen and (min-width: 1192px) {
+  }
+  @media screen and (min-width: 1125px) {
+  } */
+  @media screen and (min-width: 935px) {
+    bottom:0;
+    width:100%;
+    height:6%;
+    background-color:#F7F7F7 ;
   }
 `
 
 const Div1 = styled.div`
-display: contents;
-width:100%;
-margin: auto;
-@media screen and (min-width: 935px) {
+  display: contents;
+  width:100%;
+  margin: auto;
+  @media screen and (min-width: 935px) {
     display:flex;
     justify-content:space-around;
     width:70%;
@@ -96,15 +97,15 @@ margin: auto;
 `
 
 const Div2 = styled.div`
-    display: flex;
-    align-content:center;
-    align-items:center;
-    width: 70%;
-    margin: auto;
-    padding: 10px 0px;
-    flex-direction: column-reverse;
+  display: flex;
+  align-content:center;
+  align-items:center;
+  width: 70%;
+  margin: auto;
+  padding: 10px 0px;
+  flex-direction: column-reverse;
 
-@media screen and (min-width: 935px) {
+  @media screen and (min-width: 935px) {
     display: flex;
     flex-direction: inherit;
     justify-content:space-around;
@@ -117,17 +118,17 @@ const Div2 = styled.div`
   }
 `
 
-const Div3 =styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-font-size: 75%;
-@media screen and (min-width: 935px) {
-  display: flex;
-  justify-content: space-around;
+// const Div3 =styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   font-size: 75%;
+//   @media screen and (min-width: 935px) {
+//     display: flex;
+//     justify-content: space-around;
 
-  align-items: center;
-  font-size: 75%;
-}
-`
+//     align-items: center;
+//     font-size: 75%;
+//   }
+// `
 export default Footer;
