@@ -71,8 +71,6 @@ const Sidebar = (props) => {
             >
               <MenuText>로그인</MenuText>
             </MenuButton>
-            {/* {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />} */}
-            {/* {SignupM && <SignupModal setIsSignup={setIsSignup} />} */}
 
             <MenuButton
               onClick={() => {

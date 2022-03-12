@@ -184,7 +184,7 @@ const Main = () => {
                   cursor: 'pointer',
                   width: '70px',
                   height: '70px',
-                  margin: '13px 80px', // 수정필요
+                  margin: '1.6rem 4.5rem', // 수정필요
                   color: '#aaf',
                 }}
               />
