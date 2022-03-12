@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Input, Grid } from '../elements/Index';
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import { RiArrowDropDownLine } from "react-icons/ri"
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as roomActions } from "../redux/modules/room";
 import { useCallback } from "react";
 import { useRef } from "react";
 import Tag from "../components/Tag";
+import '../styles/Drop.css';
 
 const MakeRoomModal = ({ setMRooms }) => {
   const [title, setTitle] = useState("");
@@ -41,13 +42,13 @@ const MakeRoomModal = ({ setMRooms }) => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <ModalBackground
         onClick={() => {
           setMRooms(false);
         }}
       />
-      <MRoomWrap>
+      <LoginWrap>
         <Headers>
           <AiOutlineClose
             style={{ cursor: "pointer" }}
@@ -57,9 +58,7 @@ const MakeRoomModal = ({ setMRooms }) => {
           />
         </Headers>
         <Contents>
-          <HelloText>rla지현님 <br/> 새로운 친구를 만나러 가볼까요?</HelloText>
-          
-          <Settings>
+          <HelloText>장혜진님 <br/> 새로운 친구를 만나러 가볼까요?</HelloText>
           <Category>
             <select onChange={(e) => setCategory(e.target.value)}>
               <option>카테고리</option>
@@ -70,26 +69,14 @@ const MakeRoomModal = ({ setMRooms }) => {
               <option value="5">문화</option>
               <option value="6">기타</option>
             </select>
-          </Category>
 
-          <RoomSetting>
             <select onChange={(e) => setSecret(e.target.value)}>
               <option value={"open"}>공개방</option>
               <option value={"close"}>비밀방</option>
             </select>
-          </RoomSetting>
-          </Settings>
+          </Category>
 
-          <Ex>
-            {category === "1" ? <p>패션, 헤어, 성형</p> : null}
-            {category === "2" ? <p>다이어트, 스포츠, 운동</p> : null}
-            {category === "3" ? (<p>독서, 공부, 시사, 토론, 과학, IT/컴퓨터</p>) : null}
-            {category === "4" ? (<p>취업, 아르바이트, 진로, 금융, 연애, 인테리어, 법률, 의료, 사주/타로{" "}</p>) : null}
-            {category === "5" ? (<p>마음챙김/명상, 정보, 수면, 요리, 반려동물, 게임, 여행, 공포/미스터리</p>) : null}
-            {category === "6" ? (<p>손재주, 예술, 댄스/노래, 영화/드라마, 덕질</p>) : null}
-          </Ex>
-
-          <PwdInput>
+          <div >
             {secret === "close" ? (
               <Input
                 placeholder="방 비밀번호"
@@ -99,199 +86,184 @@ const MakeRoomModal = ({ setMRooms }) => {
                 maxLength="10"
               />
             ) : null}
-          </PwdInput>
+          </div>
+          <div>
+            <Input
+              placeholder="방정보를 입력해주세요"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
 
-          <RoomInfoInput>
-          <Input
-            placeholder="방정보를 입력해주세요"
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          </RoomInfoInput>
+          <div>
+            <TagInput
+              type='text'
+              placeholder='태그를 입력해주세요'
+              tabIndex={2}
+              onChange={e => setTagItem(e.target.value)}
+              value={tagItem}
+              onKeyPress={onKeyPress}/>
+            <TagItemWrap>
+            {tagList.map((tagItem, index) => {
+              return (
+                <TagItem key={index}>
+                <p># {tagItem}</p>
+                <Button onClick={deleteTagItem}>X</Button>
+                </TagItem>
+              )
+            })}
+            </TagItemWrap>
+          </div>
 
-          <WholeBox>
-            <TagBox>
-              {tagList.map((tagItem, index) => {
-                return (
-                  <TagItem key={index}>
-                    <Text>#{tagItem}</Text>
-                    <Button onClick={deleteTagItem}>X</Button>
-                  </TagItem>
-                )
-              })}
-
-              <TagInput
-                type='text'
-                placeholder='태그를 입력해주세요'
-                tabIndex={2}
-                onChange={e => setTagItem(e.target.value)}
-                value={tagItem}
-                onKeyPress={onKeyPress}
-              />
-            </TagBox>
-          </WholeBox>
-
-            <MRoomButton
-              onClick={() =>
-                dispatch(
-                  roomActions.addRoomDB(title, secret, pwd, category, tagList ))
-                  }>
+          <div>
+          <Btn
+            onClick={() =>
+              dispatch(
+                roomActions.addRoomDB(title, secret, pwd, category, tagList ))
+              }>
             방 만들기
-            </MRoomButton>
+          </Btn>
+          </div>
+
         </Contents>
-      </MRoomWrap>
-    </>
+      </LoginWrap>
+    </React.Fragment>
   );
 };
 
-// 모달창 뒷배경이 회색일 때
+// 모달창 뒷배경
 const ModalBackground = styled.div`
   top: 0;
-  left: 0px;
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 2;
+  left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
-`;
-
-const MRoomWrap = styled.div`
+  backdrop-filter: blur(3px);
+`
+//모달창 전체 
+const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 18px;
+  padding: 26px;
   position: absolute;
   width: 540px;
-  height: 549px;
-  box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+  height: 100%;
+  max-height: 547px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #FFF;
+  background: #FAFAFA;
   z-index: 100;
-`;
-
+`
+//모달창 헤더
 const Headers = styled.div`
-  margin: -7px 0px;
-  padding: 0px 95%;
-  color: rgb(34, 34, 34);
-`;
-
+  position: fixed;
+  right: 26px;
+`
+//모달창 안에 내용 감싸기
 const Contents = styled.div`
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 10px 0px;
-`;
-
-const HelloText = styled.div`
-  padding: 8px;
-  height: 72px;
-  align-self: stretch;
-`;
-
-const Settings = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 184px;
-  height: 50px;
-  border-radius: 4px;
-  margin: 20px 8px;
-`;
-
+width: 100%;
+`
+//방설정
 const Category = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  width: 184px;
-  height: 45px;
-  border-radius: 4px;
-`;
-
-const RoomSetting = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 184px;
-  height: 45px;
-  border-radius: 4px;
-`;
-
-const Ex = styled.div`
-  margin: -5px 0px -20px 10px;
-  color: #8187dc;
-`;
-
-const PwdInput = styled.div`
-  padding: 8px;
-  margin: 0px 0px -38px 0px;
-`
-
-const RoomInfoInput = styled.div`
-  padding: 8px;
-  height: 66px;
-  margin: 15px 0px 0px 0px;
-`
-
-const WholeBox = styled.div`
-  padding: 8px;
-  height: 90px;
-`
-
-const TagBox = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 488px;
-  height: 50px;
-  border-radius: 10px;
-  background: #FFFFFF;
-  border-radius: 4px;
-  margin: 8px 0px;
-  border: solid;
-  &:focus-within {
-    border-color: tomato;
+  width: 148px;
+  height: 40px;
+  border-radius: 4px; */
+  /* background-color: aliceblue; */
+  margin: 0px 10px 16px 0px;
+  select{
+    width: 148px;
+    height: 40px;
+    border: 1px solid #8A8BA3;
+    border-radius: 4px;
+    & :focus{
+      border: 1px solid #7179F0 ;
+    }
   }
-`
+  select > option {
+    width: 100%;
+    background-color: blue;
+  }
+`;
 
+//태그들
+const TagItemWrap = styled.div`
+display: flex;
+
+`
 const TagItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 5px;
-  padding: 5px;
-  background-color: tomato;
-  border-radius: 5px;
-  color: white;
-  font-size: 13px;
-`
-
-const Text = styled.span``
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
-  margin-left: 5px;
-  background-color: white;
-  border-radius: 50%;
-  color: tomato;
-`
-
-const TagInput = styled.input`
-  display: inline-flex;
-  min-width: 150px;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: text;
-  margin: 4px 0px;
-`
-
-const MRoomButton = styled.button`
-  width: 118px;
-  height: 42px;
-  margin: 0px 75%;
-  background: #cbb2fe;
+  padding: 8px;
+  background-color: #E3E5FF;
   border-radius: 4px;
-`;
+  color: #33344B;
+  font-size: 12px;
+  width:20%;
+  margin-right: 10px;
+`
+const Button = styled.button`
+background-color: transparent;
+border: none;
+`
+const TagInput = styled.input`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #8A8BA3;
+  padding: 12px 12px 12px 50px;
+  &:focus-within {
+    border: none;
+    outline: 1px solid #7179F0;
+  }
+`
+
+//element
+const Btn = styled.button`
+width: 120px;
+height: 48px;
+font-size: 16px;
+background-color:#7179F0 ;
+color: #FAFAFF;
+border: none;
+border-radius: 4px;
+margin:  0px 0px 0px 16px;
+padding: 12px 14px;
+position: fixed;
+right: 26px;
+`
+const HelloText = styled.div`
+  align-self: stretch;
+  margin-top: 50px;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  align-items: center;
+  color: #33344B;
+`
+const Input = styled.input`
+border: 1px solid #8A8BA3;
+width: 100%;
+height: 48px;
+margin-bottom: 16px;
+padding: 12px 12px 12px 50px;
+border-radius: 4px;
+&:focus{
+  border: none;
+  outline: 1px solid #7179F0;
+}
+`
 
 export default MakeRoomModal;

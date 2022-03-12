@@ -40,15 +40,6 @@ const Sidebar = (props) => {
         <Section>
           <SidebarHeader>
             <Grid is_flex padding="0px" justifyContent="left" height="52px">
-              {/* <Grid is_flex justifyContent="left">
-                <img
-                  src={MainLogo}
-                  style={{
-                    width: '150px',
-                    height: '35px',
-                  }}
-                />
-              </Grid> */}
               {open ?
               <RightIcon>
                 <FaBars

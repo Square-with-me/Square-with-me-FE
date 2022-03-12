@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Input, Grid } from '../elements/Index';
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -14,24 +13,22 @@ const SecretRoomModal = ({ setSRoomM }) => {
 
   return (
     <>
-      <ModalBackground
-        onClick={() => {
-          setSRoomM(false);
-        }}
-      />
-      <SRoomWrap>
-        <Headers>
-          <AiOutlineClose
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setSRoomM(false);
-            }}
-          />
-        </Headers>
-        <Contents>
-          <Notice>'헤진이랑 한바탕 놀아봐요' 방은 비공개 방입니다 <br/> 입장하시려면 비밀번호를 입력해주세요</Notice>
-
-          <PwdInput>
+    <ModalBackground
+      onClick={() => {
+        setSRoomM(false);
+      }}
+    />
+    <LoginWrap>
+      <Headers>
+        <AiOutlineClose
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setSRoomM(false);
+          }}
+        />
+      </Headers>
+      <Contents>
+        <HelloText>'헤진이랑 한바탕 놀아봐요' 방은 비공개 방입니다 <br/> 입장하시려면 비밀번호를 입력해주세요</HelloText>
               <Input
                 label=""
                 placeholder="비밀번호를 입력해주세요."
@@ -40,81 +37,77 @@ const SecretRoomModal = ({ setSRoomM }) => {
                   setPwd(e.target.value);
                 }}
                 value={pwd}
-                minLength="4"
-                maxLength="10"
               />
-          </PwdInput>
-
-            <SRoomPwd
-              onClick={() =>
-                dispatch(
-                roomActions.addRoomDB(pwd))
-              }>
-              입장하기
-            </SRoomPwd>
-        </Contents>
-      </SRoomWrap>
-    </>
+        <LoginButton>입장</LoginButton>
+      </Contents>
+    </LoginWrap>
+  </>
   );
 };
-
-// 모달창 뒷배경이 회색일 때
+// 모달창 뒷배경
 const ModalBackground = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 2;
   left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
-`;
-
-const SRoomWrap = styled.div`
+  backdrop-filter: blur(3px);
+`
+//모달창 전체 
+const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 18px;
+  padding: 26px;
   position: absolute;
-  width: 555px;
-  height: 345px;
+  width: 540px;
+  height: 393px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #FFF;
+  background: #FAFAFA;
   z-index: 100;
-`;
-
+`
+//모달창 헤더
 const Headers = styled.div`
-  margin: 0px 0px;
-  padding: 0px 95%;
-  color: rgb(34, 34, 34);
-`;
-
+  position: fixed;
+  right: 26px;
+`
+//모달창 안에 내용 감싸기
 const Contents = styled.div`
-  margin: 20px 8px;
-  color: black;
-`;
+width: 100%;
+`
 
-const Notice = styled.div`
-  display: flex;
-  padding: 8px;
-  height: 72px;
-  font-color: black;
-  font-size: 16px;
-  display: flex;
-`;
-
-const PwdInput = styled.div`
-  padding: 8px;
-  margin: 0px 0px -38px 0px;
-`;
-
-const SRoomPwd = styled.button`
-  width: 118px;
-  height: 42px;
-  margin: 65px 75%;
-  background: #cbb2fe;
-  border-radius: 4px;
-`;
+const HelloText = styled.div`
+  align-self: stretch;
+  margin-top: 50px;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  align-items: center;
+  color: #33344B;
+`
+const Input = styled.input`
+border: 1px solid #8A8BA3;
+width: 100%;
+height: 48px;
+margin-bottom: 16px;
+padding: 12px 12px 12px 50px;
+border-radius: 4px;
+`
+const LoginButton = styled.button`
+display: block;
+background-color: #7179F0;
+margin: 24px auto;
+border: none;
+height: 51px;
+width: 300px;
+border-radius: 4px;
+color: #FAFAFF;
+font-size: 18px;
+`
 
 export default SecretRoomModal;
