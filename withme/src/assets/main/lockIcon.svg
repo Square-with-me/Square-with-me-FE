@@ -1,0 +1,10 @@
+<svg
+  id="레이어_2"
+  data-name="레이어 2"
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 32 32"
+>
+  <polygon points="24 8 22 8 22 4.03 10 4.03 10 8 8 8 8 2.03 24 2.03 24 8"/>
+  <path d="M28,28H4V6.88H28ZM6,26H26V8.88H6Z"/>
+  <path d="M19,20.45H13v-6h6Zm-4-2h2v-2H15Z"/>
+</svg>

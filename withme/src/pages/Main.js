@@ -6,10 +6,11 @@ import '../styles/Drop.css';
 
 //icons
 import { RiArrowDropDownLine } from "react-icons/ri"
-import { FaSearch } from "react-icons/fa";
 import { FiLock, FiUnlock } from "react-icons/fi"
 import{ BsFillPeopleFill } from "react-icons/bs"
-import{ AiFillPlusSquare } from "react-icons/ai"
+import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
+import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
+import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
 
 
 //pages/components
@@ -86,7 +87,7 @@ const Main = () => {
             placeholder="방 정보를 입력해주세요"
             onChange={(e) => setSearch(e.target.value)}
           />
-          <FaSearch
+          <Search
             style={{
               cursor: 'pointer',
               width: '32px',
@@ -94,7 +95,7 @@ const Main = () => {
               margin: 'auto',
               position: 'absolute',
               marginRight: '20px',
-              color: '#33344B',
+              fill: 'green',
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
@@ -179,13 +180,13 @@ const Main = () => {
             onClick={() => {
               setMRooms(true);
             }}>
-              <AiFillPlusSquare
+              <Plus 
                 style={{
                   cursor: 'pointer',
                   width: '70px',
                   height: '70px',
-                  margin: '1.6rem 4.5rem', // 수정필요
-                  color: '#aaf',
+                  margin: '2rem 4.9rem',
+                  fill: 'red',
                 }}
               />
           </RoomCard>
@@ -211,7 +212,11 @@ const Main = () => {
                           {r.isSecrect === 'true' ? (
                             <div>
                               <div>
-                                <FiLock />
+                                <FiLock 
+                                  style={{
+
+                                  }}
+                                />
                               </div>
                               <div>
                                 <BsFillPeopleFill
@@ -223,7 +228,8 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
+                                {/* <FiUnlock /> */}
+                                <Lock />
                               </div>
                               <div>
                                 <BsFillPeopleFill
