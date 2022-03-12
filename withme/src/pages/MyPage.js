@@ -160,9 +160,9 @@ const Mypage = () => {
       </div>
       <div id="middle">
         <div>
-          <p>더 많은 뱃지를 획득해보세요</p>
+          <p>더 많은 뱃지를 획득해보세요!</p>
           <div id="middleTopBox" className="boxStyle">
-            <BadgeContainer>
+            <BadgeContainer2>
               <div className="badgeBox">
                 <div className="badge"></div>
                 <div className="badge"></div>
@@ -171,11 +171,11 @@ const Mypage = () => {
                 <div className="badge"></div>
                 <div className="badge"></div>
               </div>
-            </BadgeContainer>
+            </BadgeContainer2>
           </div>
         </div>
         <div>
-          <p>오늘 네모와 함께한 시간</p>
+          <p>오늘의 참여 기록</p>
           <div id="middleBottomBox" className="boxStyle">
             <TodayTimeBox>
               <div className="chart">
@@ -185,23 +185,31 @@ const Mypage = () => {
           </div>
         </div>
       </div>
-      <div id="end" className="boxStyle">
-        <WeekTimeBox>
-          <p>이번 주 네모와 함께한 시간</p>
-          <WeekTime />
-        </WeekTimeBox>
-        <MonthTimeBox>
+      <div id="end">
+        <div className="width100">
+          <p>이번 주 참여 기록</p>
+          <div id="endTopBox" className="boxStyle">
+            <WeekTimeBox>
+              <WeekTime />
+            </WeekTimeBox>
+          </div>
+        </div>
+        <div className="width100">
           <p>이번 달 네모와 함께한 시간</p>
-          <MonthTime
-            values={[
-              { date: '2022-03-01', count: 10 },
-              { date: '2022-03-02', count: 0 },
-              { date: '2022-03-03', count: 1 },
-              { date: '2022-03-04', count: 10 },
-            ]}
-            toolTip
-          />
-        </MonthTimeBox>
+          <div id="endBottomBox" className="boxStyle">
+            <MonthTimeBox>
+              {/* <MonthTime
+                values={[
+                  { date: '2022-03-01', count: 10 },
+                  { date: '2022-03-02', count: 0 },
+                  { date: '2022-03-03', count: 1 },
+                  { date: '2022-03-04', count: 10 },
+                ]}
+                toolTip
+              /> */}
+            </MonthTimeBox>
+          </div>
+        </div>
       </div>
     </Container>
   );
@@ -234,6 +242,7 @@ const Container = styled.div`
 
     #startBox {
       height: 562px;
+      padding: 48px 26px 48px 26px;
     }
   }
   #middle {
@@ -254,26 +263,51 @@ const Container = styled.div`
 
     #middleTopBox {
       height: 212px;
+      padding: 32px 28px;
     }
     #middleBottomBox {
       height: 296px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   }
   #end {
     height: 620px;
-    background-color: navy;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     grid-column: 8 / 13;
+
+    p {
+      font-family: 'Noto Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 27px;
+      color: #33344b;
+    }
+
+    #endTopBox {
+      height: 267px;
+      width: 100%;
+    }
+
+    #endBottomBox {
+      height: 238px;
+      width: 100%;
+    }
   }
 
   .boxStyle {
-    padding: 48px 26px 48px 26px;
     background-color: #f7f7f7;
     box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
+  }
+
+  .width100 {
+    width: 100%;
   }
 `;
 
@@ -405,23 +439,44 @@ const BadgeContainer = styled.div`
   }
 `;
 
+const BadgeContainer2 = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  .badgeBox {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background-color: black;
+    place-items: center;
+  }
+
+  .badge {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+  }
+`;
+
 const TodayTimeBox = styled.div`
-  background-color: #fff;
+  padding: 32px 28px;
 `;
 
 const WeekTimeBox = styled.div`
-  background-color: #fff;
   width: 100%;
-  p {
-    background-color: yellow;
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const MonthTimeBox = styled.div`
   background-color: tomato;
-  p {
-    background-color: yellow;
-  }
 `;
 
 export default Mypage;
