@@ -76,8 +76,9 @@ const Mypage = () => {
   const saveImage = (e) => {
     const img = e.target.files[0];
     const formData = new FormData();
-    formData.append('profileImg', img);
-    // for (const keyValue of formData) console.log(keyValue);
+    formData.append('image', img);
+    console.log('이미지 시작');
+    for (const keyValue of formData) console.log(keyValue);
     dispatch(usereditActions.getImageUrlDB(formData));
   };
 

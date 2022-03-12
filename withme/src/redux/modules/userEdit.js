@@ -73,13 +73,18 @@ const logInCheckDB = () => {
 };
 
 // 이미지 주소 받아오기
-const getImageUrlDB = (formdata) => {
+const getImageUrlDB = (file) => {
   return function (dispatch, getState, { history }) {
-    if (resp.UPLOADIMGFILE.isSuccess) {
-      const profileImg = resp.UPLOADIMGFILE.profileImg;
-      console.log(formdata, profileImg);
-      dispatch(editProfile(profileImg));
-    }
+    console.log('디스패치', file);
+    apis
+      .imageUpload(file)
+      .then((res) => {
+        console.log('주소받은', res);
+        //dispatch(editProfile(이미지주소));
+      })
+      .catch(function (error) {
+        alert(error.response.data.msg);
+      });
   };
 };
 
