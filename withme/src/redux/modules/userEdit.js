@@ -33,7 +33,7 @@ const editBadge = createAction(EDIT_BADGE, () => ({}));
 const getBadge = createAction(GET_BADGE, () => ({}));
 const todayTime = createAction(TODAY_TIME, () => ({}));
 const weekTime = createAction(WEEK_TIME, () => ({}));
-const monthTime = createAction(MONTH_TIME, () => ({}));
+const monthTime = createAction(MONTH_TIME, (monthTime) => monthTime);
 
 const initialState = {
   user: {
@@ -49,6 +49,7 @@ const initialState = {
   },
   today: '',
   week: '',
+  month: [],
 };
 const resp = RESP;
 
@@ -145,11 +146,27 @@ const editBadgeDB = () => {};
 
 const getBadgeDB = () => {};
 
-const todayTimeDB = () => {};
-
-const weekTimeDB = () => {};
-
-const monthTimeDB = () => {};
+// 시간 받아오기
+const timeGetDB = (userId) => {
+  return function (dispatch, getState, { history }) {
+    const token = localStorage.getItem('login-token');
+    axios
+      .get(`http://14.45.204.153:7034/api/user/${userId}/records`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(function (res) {
+        console.log('timeGet :  ', res.data.data);
+        const monthData = res.data.data.monthRecord;
+        const weekData = res.data.data.weekRecord;
+        dispatch(monthTime(monthData));
+      })
+      .catch(function (error) {
+        window.alert(error.response.data.msg);
+      });
+  };
+};
 
 export default handleActions(
   {
@@ -168,11 +185,15 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user.statusMsg = action.payload.status;
       }),
-
     [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
         console.log('이미지 변경: ', action.payload);
         draft.user.profileImg = action.payload.profileUrl;
+      }),
+    [MONTH_TIME]: (state, action) =>
+      produce(state, (draft) => {
+        console.log('액션 페이로드: ', action.payload);
+        draft.month = action.payload;
       }),
   },
   initialState
@@ -195,9 +216,7 @@ const actionCreators = {
   // api 설계 후 작성
   editBadgeDB,
   getBadgeDB,
-  todayTimeDB,
-  weekTimeDB,
-  monthTimeDB,
+  timeGetDB,
 };
 
 export { actionCreators };

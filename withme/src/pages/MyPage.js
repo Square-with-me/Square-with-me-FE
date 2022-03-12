@@ -6,14 +6,14 @@ import { BsFillPencilFill } from 'react-icons/bs';
 
 import TodayTime from '../components/TodayTime';
 import WeekTime from '../components/WeekTime';
-import MonthTime from '../components/MonthTime';
+import MonthTime from '../components/MonthTime2';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as usereditActions } from '../redux/modules/userEdit';
 import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
-const Mypage = () => {
+const Mypage = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userEdit.user);
@@ -24,10 +24,7 @@ const Mypage = () => {
   const [editNick, setEditnick] = useState(''); // 수정한 닉네임 저장
   const [editStatus, setEditStatus] = useState(''); // 수정한 상태메지시 저장
 
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
-  // 리덕스에서 받아온 애들 for문 사용해서 배열 value에 {date:`{year}-{month}-{i+1}`, time: {리덕스에서 받아온 시간[i]}}
-  // 넣어주는 작업 하기
+  const userId = props.match.params.id;
 
   useEffect(() => {
     dispatch(userEditActions.logInCheckDB());
@@ -199,15 +196,7 @@ const Mypage = () => {
           <p>이번 달 네모와 함께한 시간</p>
           <div id="endBottomBox" className="boxStyle">
             <MonthTimeBox>
-              {/* <MonthTime
-                values={[
-                  { date: '2022-03-01', count: 10 },
-                  { date: '2022-03-02', count: 0 },
-                  { date: '2022-03-03', count: 1 },
-                  { date: '2022-03-04', count: 10 },
-                ]}
-                toolTip
-              /> */}
+              <MonthTime userId={userId} />
             </MonthTimeBox>
           </div>
         </div>
@@ -297,7 +286,7 @@ const Container = styled.div`
 
     #endBottomBox {
       height: 238px;
-      width: 100%;
+      padding: 24px 32px;
     }
   }
 
@@ -477,7 +466,8 @@ const WeekTimeBox = styled.div`
 `;
 
 const MonthTimeBox = styled.div`
-  background-color: tomato;
+  width: 100%;
+  height: 100%;
 `;
 
 export default Mypage;
