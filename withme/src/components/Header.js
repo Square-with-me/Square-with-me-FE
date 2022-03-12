@@ -44,7 +44,7 @@ const Header = (props) => {
   return (
     <>
       <div className="container">
-        <div className="roomMenu-container">
+        <div className="rMenu-container">
           <DropBtn
             onClick={() => setIsActive(!isActive)}
             className="roomMenu-trigger"

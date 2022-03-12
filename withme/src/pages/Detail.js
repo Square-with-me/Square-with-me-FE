@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Timer from "../components/Timer"
 import {AiOutlineDown} from "react-icons/ai"
 import Chatting from '../components/Chatting';
-import Timer from '../components/Timer';
 
 import { history } from '../redux/configureStore';
 
@@ -214,17 +213,6 @@ const Detail = (props) => {
       </div>
       <div id="rightBox">
         {isSW ? (
-<<<<<<< HEAD
-          <div className="rightState" id="stopwatch">
-          <div style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>            
-            <p>스톱워치</p>
-            <AiOutlineDown style={{cursor:"pointer"}}/>
-          </div>
-          <div>
-            <Timer/>
-          </div>
-        </div>
-=======
           <>
             <div className="rightState" id="stopwatch">
               <p>스톱워치</p>
@@ -232,7 +220,6 @@ const Detail = (props) => {
             </div>
             {isTimer ? <Timer roomId={roomID} /> : ''}
           </>
->>>>>>> 4053c6a39605161f5b5c2cb952c57983fc47c4be
         ) : (
           ''
         )}
