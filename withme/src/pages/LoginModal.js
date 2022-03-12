@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import { Grid, Input } from '../elements/Index';
 import { AiOutlineClose } from "react-icons/ai";
 
 // redux import
@@ -37,11 +36,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
             />
           </Headers>
           <Contents>
-            <HelloText>반갑습니다 - ! <br/> 오늘도 즐거운 만남을 위해 잘 오셨어요</HelloText>
-
-            <LoginInfo>
-              <Inputs>
-                <OriginInput>
+            <HelloText>반갑습니다 <br/> 오늘도 즐거운 만남을 위해 잘 오셨어요</HelloText>
                   <Input
                     label=""
                     placeholder="이메일을 입력해주세요."
@@ -50,9 +45,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                     }}
                     value={origin}
                   />
-                </OriginInput>
 
-                <PwdInput>
                   <Input
                     label=""
                     placeholder="비밀번호를 입력해주세요."
@@ -62,10 +55,11 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                     }}
                     value={pwd}
                   />
-                </PwdInput>
-              </Inputs>
 
-              <KakaoLogin
+            <LoginButton onClick={LoginModal}>로그인</LoginButton>
+            <LineWrap><Line/><div>또는</div></LineWrap>
+
+              {/* <KakaoLogin
                 onClick={() => {
                   window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${redirectURI}&response_type=code`;
                 }}
@@ -86,129 +80,149 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                     dispatch(userActions.NotMemberloginDB())
                   }}>
                     비회원으로 즐기기
-              </NotMember>
-            </LoginInfo>
-
-            <Buttons>
-              <LoginButton onClick={LoginModal}>로그인하기</LoginButton>
-            </Buttons>
+              </NotMember> */}
+              <LoginButtonWrap>
+                <div>
+                  <SocalLoginBtn onClick={() => {
+                  window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${redirectURI}&response_type=code`;
+                }}>카카오로 로그인</SocalLoginBtn>
+                </div>
+                <div>
+                  <SocalLoginBtn>네이버로 로그인</SocalLoginBtn>
+                </div>
+              </LoginButtonWrap>
+              <SignupWrap>
+                <div>아직회원이 아니신가요?
+                  <a                 
+                  onClick={() => {
+                  setIsSignup(true);
+                  setIsM(false);
+                }}>회원가입</a>
+                </div>
+              </SignupWrap>
           </Contents>
         </LoginWrap>
       </>
     );
   };
 
-// 모달창 뒷배경이 회색일 때
+// 모달창 뒷배경
 const ModalBackground = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 99;
+  z-index: 2;
   left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
-`;
-
+  backdrop-filter: blur(3px);
+`
+//모달창 전체 
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 18px;
+  padding: 26px;
   position: absolute;
   width: 540px;
-  height: 567px;
+  height: 595px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #FFF;
+  background: #FAFAFA;
   z-index: 100;
-`;
-
+`
+//모달창 헤더
 const Headers = styled.div`
-  margin: -7px 0px;
-  padding: 0px 95%;
-  color: rgb(34, 34, 34);
-`;
-
+  position: fixed;
+  right: 26px;
+`
+//모달창 안에 내용 감싸기
 const Contents = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 10px 0px;
-`;
+width: 100%;
+`
 
 const HelloText = styled.div`
-  margin: 0px;
-  padding: 8px;
-  height: 72px;
   align-self: stretch;
-`;
-
-const LoginInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
   align-items: center;
-  padding: 0px 0px 40px;
-  height: 348px;
-`;
-
-const Inputs = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 504px;
-  height: 176px;
-`;
-
-const OriginInput = styled.div`
-  padding: 8px;
-  height: 50px;
-  margin: 8px 0px;
-`;
-
-const PwdInput = styled.div`
-  padding: 8px;
-  margin: 8px 0px;
-`;
-
-const KakaoLogin = styled.button`
-  width: 382px;
-  height: 50px;
-  background: #f9e000;
-  border-radius: 4px;
-  margin: 4px 10px;
-`;
-
-const GoSignUp = styled.button`
-  width: 382px;
-  height: 50px;
-  background: #b6ccfe;
-  border-radius: 4px;
-  margin: 4px 10px;
-`;
-
-const NotMember = styled.button`
-  width: 382px;
-  height: 50px;
-  background: #b6ccfe;
-  border-radius: 4px;
-  margin: 4px 10px;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  padding: 8px;
-  height: 67px;
-`;
+  color: #33344B;
+`
+const Input = styled.input`
+border: 1px solid #8A8BA3;
+width: 100%;
+height: 48px;
+margin-bottom: 16px;
+padding: 12px 12px 12px 50px;
+border-radius: 4px;
+`
 
 const LoginButton = styled.button`
-  width: 110px;
-  height: 40px;
-  background: #cbb2fe;
-  border-radius: 4px;
+display: block;
+background-color: #7179F0;
+margin: 24px auto;
+border: none;
+height: 51px;
+padding: 12px 151px 12px 151px;
+border-radius: 4px;
+color: #FAFAFF;
+font-size: 18px;
+`
+const LoginButtonWrap = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+width: auto;
+margin: 13px auto 0px auto;
+`
+const SocalLoginBtn = styled.button`
+width: 173px;
+border: 1px solid #E4E2EB;
+padding: 12px 15px 12px 50px;
+color: #8A8BA3;
+background-color: white;
+margin: 0px 8px 0px 8px;
+font-size: 16px;
 `;
+const LineWrap = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+font-size: 14px;
+div{
+  background-color: #FAFAFA;
+  padding: 0px 5px;
+  color: #C7C8DB;
+  z-index: 3;
+}
+`
+const Line = styled.hr`
+width: 300px;
+border: 0.7px solid #C7C8DB;
+padding: 0px;
+position:absolute;
+`
+
+//회원가입 문장쪽
+const SignupWrap = styled.div`
+width: 228px;
+height: 37px;
+margin: 40px auto 8px auto;
+div{
+  color: #8A8BA3;
+  font-size: 14px;
+}
+a{
+  padding-left: 21px;
+  text-decoration: underline;
+  color: #58596A;
+  cursor: pointer;
+}
+`
 
 export default LoginModal;
