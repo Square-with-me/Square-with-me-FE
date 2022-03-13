@@ -1,8 +1,11 @@
 <svg
   id="레이어_2"
   data-name="레이어 2"
-  xmlns="http://www.w3.org/2000/svg" 
+  xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 24 24"
 >
-  <polyline points="20.9 6.55 12 15.45 3.1 6.55"/>
+  <defs>
+    <style>.cls-1{fill:none;stroke:#040000;stroke-miterlimit:10;stroke-width:2px;}</style>
+  </defs>
+  <polyline class="cls-1" points="20.9 6.55 12 15.45 3.1 6.55"/>
 </svg>

@@ -121,7 +121,7 @@ const MakeRoomModal = ({ setMRooms }) => {
                   </CategoryWrap>
                   <CategoryWrap>
                     <div>문화</div>
-                    <div><CultureIcon width="24px"/></div>
+                    <div><CultureIcon  fill="#8A8BA3" width="24px"/></div>
                   </CategoryWrap>
                   <CategoryWrap>
                     <div>기타</div>

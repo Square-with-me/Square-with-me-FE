@@ -3,19 +3,30 @@ import jsonData from "../shared/responseJ.json";
 import styled from "styled-components";
 import "../styles/Drop.css";
 
-//icons
+// main icons
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { FiLock, FiUnlock } from "react-icons/fi";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { ReactComponent as Search } from "../assets/main/searchIcon.svg";
-import { ReactComponent as Plus } from "../assets/main/plusIcon.svg";
-import { ReactComponent as Lock } from "../assets/main/lockIcon.svg";
+import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
+import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
+import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
+// import { ReactComponent as HotRoom } from '../assets/main/hotRoomIcon.svg';
+// import { ReactComponent as LowerAngle } from '../assets/main/lowerAngleIcon.svg';
+import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
+import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
+
+// category icon
+import { ReactComponent as Beauty } from '../assets/category/beautyIcon.svg';
+import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
+import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
+import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
+import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
+import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 
 //pages/components
 import MakeRoomModal from "./MakeRoomModal";
 import Banner from "../components/Banner";
 import RoomCard from "../components/RoomCard";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
+import FooterTest from "../components/FooterTest";
 import Header from "../components/Header";
 
 //redux
@@ -182,9 +193,42 @@ const Main = () => {
                 className="menu-trigger"
               >
                 <CategoryDText>{category}</CategoryDText>
-                <RiArrowDropDownLine />
+                <RiArrowDropDownLine
+                  style={{
+                    cursor: "pointer",
+                  }}
+                />
               </DropBtn>
-              <nav
+
+              <div                  
+                  ref={dropdownRef}
+                  className={`menu ${isActive ? "active" : "inactive"}`}>
+                  <CategoryWrap>
+                    <div>뷰티</div>
+                    <Beauty fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>운동</div>
+                    <Exercise fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>스터디</div>
+                    <Study fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>상담</div>
+                    <Consulting fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>문화</div>
+                    <div><Culture fill="#8A8BA3" width="24px"/></div>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>기타</div>
+                    <Other fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  </div>
+              {/* <nav
                 ref={dropdownRef}
                 className={`menu ${isActive ? "active" : "inactive"}`}
               >
@@ -256,10 +300,18 @@ const Main = () => {
                     </div>
                   </li>
                 </ul>
-              </nav>
+              </nav> */}
             </div>
           </div>
-          <div></div>
+          <Refresh
+            style={{
+              cursor: "pointer",
+              width: "32px",
+              height: "32px",
+              margin: "auto",
+              fill: "#8A8BA3",
+            }}
+          />
         </MenuBar>
 
         <RoomListContainer className="roomlist">
@@ -275,7 +327,7 @@ const Main = () => {
                 cursor: "pointer",
                 width: "70px",
                 height: "70px",
-                margin: "2rem 4.9rem",
+                margin: "2rem 4.5rem",
                 fill: "#FFFFFF",
               }}
             />
@@ -302,10 +354,10 @@ const Main = () => {
                           {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock style={{}} />
+                                <Lock style={{}} />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -317,7 +369,7 @@ const Main = () => {
                                 <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -348,10 +400,10 @@ const Main = () => {
                           {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -360,10 +412,10 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -387,10 +439,10 @@ const Main = () => {
                           {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -399,10 +451,10 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
+                                <UserNick
                                   style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
@@ -434,7 +486,8 @@ const Main = () => {
         </div>
 
         <div className="footer">
-          <Footer />
+          {/* <Footer /> */}
+          <FooterTest />
         </div>
       </Wrap>
     </React.Fragment>
@@ -642,6 +695,21 @@ const CategoryText = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+const CategoryWrap = styled.div`
+display: flex;
+justify-content: space-between;
+padding: 10px;
+align-items: center;
+div{
+  font-size: 16px;
+  color: #8a8ba3;
+  &:hover{
+    color: #7179F0 ;
+    fill: #7179F0;
+  }
+}
+`
 
 const TitleText = styled.div`
   font-weight: 700;
