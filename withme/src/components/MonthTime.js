@@ -1,127 +1,66 @@
-import React from 'react';
-import dateFns from 'date-fns';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import '../styles/monthTime.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
-class MonthTime extends React.Component {
-  state = {
-    currentMonth: new Date(),
-    selectedDate: new Date(),
-  };
+const MonthTime = ({ userId }) => {
+  const dispatch = useDispatch();
 
-  renderHeader() {
-    const dateFormat = 'MMMM YYYY';
+  const month = useSelector((store) => store.userEdit.month);
 
-    return (
-      <div className="header row flex-middle">
-        <div className="col col-center">
-          <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
-        </div>
-      </div>
-    );
-  }
+  console.log('month', month);
 
-  renderDays() {
-    const dateFormat = 'dddd';
-    const days = [];
+  useEffect(() => {
+    dispatch(userEditActions.timeGetDB(userId));
+  }, []);
 
-    let startDate = dateFns.startOfWeek(this.state.currentMonth);
-
-    for (let i = 0; i < 7; i++) {
-      days.push(
-        <div className="col col-center" key={i}>
-          {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
-        </div>
-      );
-    }
-
-    return <div className="days row">{days}</div>;
-  }
-
-  renderCells() {
-    const { currentMonth } = this.state;
-    const monthStart = dateFns.startOfMonth(currentMonth);
-    const monthEnd = dateFns.endOfMonth(monthStart);
-    const startDate = dateFns.startOfWeek(monthStart);
-    const endDate = dateFns.endOfWeek(monthEnd);
-
-    const dateFormat = 'D';
-    const rows = [];
-
-    const dateValue = this.props.values;
-
-    let days = [];
-    let day = startDate;
-    let formattedDate = '';
-
-    while (day <= endDate) {
-      for (let i = 0; i < 7; i++) {
-        formattedDate = dateFns.format(day, dateFormat);
-        const reFormattedDate = dateFns.format(day, 'YYYY-MM-DD');
-
-        const filterDate = dateValue.filter((d) =>
-          dateFns.isEqual(d.date, day)
-        );
-
-        const cloneDay = day;
-        days.push(
-          <div
-            className={`col cell ${
-              !dateFns.isSameMonth(day, monthStart) ? 'disabled' : ''
-            } tooltip`}
-            key={day}
-            style={
-              dateFns.isSameMonth(day, monthStart) &&
-              filterDate.length &&
-              filterDate[0].count > 5
-                ? { background: 'pink' }
-                : filterDate.length && filterDate[0].count > 0
-                ? { background: 'blue' }
-                : null
-            }
-            onClick={
-              dateFns.isSameMonth(day, monthStart)
-                ? () => this.onDateClick(dateFns.parse(cloneDay))
-                : null
+  return (
+    <Container>
+      {month.map((data, index) => {
+        return (
+          <Cell
+            key={index}
+            bg={
+              // 색상 확인을 위해 임의값을 넣은거임 추후에 수정 필요!
+              data.time === 0
+                ? '#fff'
+                : data.time > 10000
+                ? '#8E94F2'
+                : data.time > 8000
+                ? '#BCC0FF'
+                : data.time > 0
+                ? '#E3E5FF'
+                : ''
             }
           >
-            {!dateFns.isSameMonth(day, monthStart) ? null : (
-              <span>
-                <span className="number">{formattedDate}</span>
-                {this.props.toolTip ? (
-                  <span className="tooltiptext">{reFormattedDate}</span>
-                ) : null}
-              </span>
-            )}
-          </div>
+            {index + 1}
+          </Cell>
         );
-        day = dateFns.addDays(day, 1);
-      }
-      rows.push(
-        <div className="row" key={day}>
-          {days}
-        </div>
-      );
-      days = [];
-    }
-    return <div className="body">{rows}</div>;
-  }
+      })}
+    </Container>
+  );
+};
 
-  onDateClick = (day) => {
-    if (this.props.onClick) {
-      this.props.onClick(day);
-    }
-  };
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  place-items: center;
+`;
 
-  render() {
-    return (
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
-      </div>
-    );
-  }
-}
+const Cell = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${(props) => props.bg};
+  text-align: center;
+  line-height: 30px;
+  color: #33344b;
+  font-size: 14px;
+  font-family: 'Noto Sans';
+`;
 
 export default MonthTime;

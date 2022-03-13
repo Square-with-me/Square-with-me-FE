@@ -6,7 +6,7 @@ import { BsFillPencilFill } from 'react-icons/bs';
 
 import TodayTime from '../components/TodayTime';
 import WeekTime from '../components/WeekTime';
-import MonthTime from '../components/MonthTime2';
+import MonthTime from '../components/MonthTime';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
