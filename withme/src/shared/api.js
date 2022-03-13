@@ -13,7 +13,7 @@ const api = axios.create({
 });
 
 export const apis = {
-  //user
+  // user
   signup: (origin, nickname, pwd) =>
     api.post('/api/auth/local', { origin, nickname, pwd }),
   login: (origin, pwd) => api.post('/api/auth', { origin, pwd }),
@@ -21,6 +21,10 @@ export const apis = {
   nonMemberLogin: (user) => api.get('/api/auth/anon', user),
   logout: (user) => api.delete('/api/auth/:type', user),
 
-  //userEdit
+  // userEdit
   imageUpload: (image) => api.post('/api/upload/image', image),
+
+  // room
+  getRoomHot: () => api.get('/api/rooms?q=hot'),
+  getRoomAll: () => api.get('/api/rooms?q=all'),
 };

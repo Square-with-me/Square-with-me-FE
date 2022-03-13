@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #7179F0;
+  border: 1px solid #7179f0;
   border-radius: 4px;
   width: 130px;
 }
@@ -54,7 +54,7 @@
   border-bottom: 1px solid #dddddd;
 }
 
-.menu li a {
+.menu li div {
   text-decoration: none;
   color: #333333;
   padding: 15px 20px;

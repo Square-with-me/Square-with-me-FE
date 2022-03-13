@@ -1,25 +1,24 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import jsonData from '../shared/responseJ.json';
 import styled from 'styled-components';
 import '../styles/Drop.css';
 
 //icons
-import { RiArrowDropDownLine } from "react-icons/ri"
-import { FiLock, FiUnlock } from "react-icons/fi"
-import{ BsFillPeopleFill } from "react-icons/bs"
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { FiLock, FiUnlock } from 'react-icons/fi';
+import { BsFillPeopleFill } from 'react-icons/bs';
 import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
 import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
 import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
 
-
 //pages/components
 import MakeRoomModal from './MakeRoomModal';
 import Banner from '../components/Banner';
-import Room from '../components/Room';
+import RoomCard from '../components/RoomCard';
 import Footer from '../components/Footer';
 
 //redux
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as roomActions } from '../redux/modules/room';
 import { actionCreators as userActions } from '../redux/modules/user';
 
@@ -28,6 +27,8 @@ import { v1 as uuid } from 'uuid';
 import { history } from '../redux/configureStore';
 
 const Main = () => {
+  const dispatch = useDispatch();
+
   //드롭다운 부분
   const dropdownRef = useRef(null);
 
@@ -37,23 +38,13 @@ const Main = () => {
     setIsActive(active);
   };
 
-  //카테고리
-  const [beauty, setBeauty] = useState('');
-  const [exercise, setExercise] = useState('');
-  const [study, setStudy] = useState('');
-  const [consulting, setConsulting] = useState('');
-  const [culture, setCulture] = useState('');
-  const [etc, setEtc] = useState('');
-
-  const dispatch = useDispatch();
-
   const [MRooms, setMRooms] = useState(false);
   //검색
   const [search, setSearch] = useState('');
   //참여가능한 방
   const [possible, setPossible] = useState(false);
 
-  let roomList = useSelector((state) => state.room);
+  let roomList = useSelector((store) => store.room.list);
   // const hotRoom = useSelector((state)=>state.room.hotList)
 
   // React.useEffect(()=>{
@@ -64,12 +55,32 @@ const Main = () => {
   //   dispatch(userActions.NotMemberLoginCheckDB())
   // },[])
 
-  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
+  const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
   const notUser_is_local = localStorage.getItem('notUser_is_login')
     ? true
     : false;
 
   const [title, setTitle] = useState('');
+
+  // sumin ////////////////////////
+
+  const [category, setCategory] = useState('카테고리');
+  const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
+
+  useEffect(() => {
+    if (choiceCate === 0) {
+      // 전체 방 불러오기
+      dispatch(roomActions.getRoomDB());
+    } else {
+      // 카테고리별 방 불러오기
+    }
+  }, [choiceCate]);
+
+  useEffect(() => {
+    console.log('예아', roomList);
+  }, [roomList]);
+
+  ////////////////////////////////
 
   // 방 생성하기 함수
   function create() {
@@ -105,7 +116,7 @@ const Main = () => {
         <div className="banner">
           <Banner />
         </div>
-        
+
         <HotRoomListContainer className="hotroomlist"></HotRoomListContainer>
 
         <MenuBar className="menulist">
@@ -115,7 +126,6 @@ const Main = () => {
                 setPossible(false);
               }}
             >
-              {' '}
               <RoomText>ALL</RoomText>
             </AllBtn>
             <PossibleBtn
@@ -136,7 +146,8 @@ const Main = () => {
                 onClick={() => setIsActive(!isActive)}
                 className="menu-trigger"
               >
-                <CategoryDText>카테고리</CategoryDText> <RiArrowDropDownLine />{' '}
+                <CategoryDText>{category}</CategoryDText>
+                <RiArrowDropDownLine />
               </DropBtn>
               <nav
                 ref={dropdownRef}
@@ -144,29 +155,64 @@ const Main = () => {
               >
                 <ul>
                   <li>
-                    <a
-                      onChange={(e) => setBeauty(e.target.value)}
-                      onClick={() => {
-                        isActive(false);
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(1);
                       }}
                     >
                       뷰티
-                    </a>
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setExercise(e.target.value)}>운동</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(2);
+                      }}
+                    >
+                      운동
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setStudy(e.target.value)}>스터디</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(3);
+                      }}
+                    >
+                      스터디
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setConsulting(e.target.value)}>상담</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(4);
+                      }}
+                    >
+                      상담
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setCulture(e.target.value)}>문화</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(5);
+                      }}
+                    >
+                      문화
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setEtc(e.target.value)}> 기타</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(6);
+                      }}
+                    >
+                      기타
+                    </div>
                   </li>
                 </ul>
               </nav>
@@ -176,20 +222,22 @@ const Main = () => {
         </MenuBar>
 
         <RoomListContainer className="roomlist">
-          <RoomCard
+          {/* 방 만들기 카드 */}
+          <RoomCardContainer
             onClick={() => {
               setMRooms(true);
-            }}>
-              <Plus 
-                style={{
-                  cursor: 'pointer',
-                  width: '70px',
-                  height: '70px',
-                  margin: '2rem 4.9rem',
-                  fill: 'red',
-                }}
-              />
-          </RoomCard>
+            }}
+          >
+            <Plus
+              style={{
+                cursor: 'pointer',
+                width: '70px',
+                height: '70px',
+                margin: '2rem 4.9rem',
+                fill: 'red',
+              }}
+            />
+          </RoomCardContainer>
           {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
 
           {possible === true
@@ -198,7 +246,7 @@ const Main = () => {
                   <>
                     {r.Participants.length === 4 ||
                     r.isSecrect === 'true' ? null : (
-                      <RoomCard>
+                      <RoomCardContainer>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText
@@ -212,11 +260,7 @@ const Main = () => {
                           {r.isSecrect === 'true' ? (
                             <div>
                               <div>
-                                <FiLock 
-                                  style={{
-
-                                  }}
-                                />
+                                <FiLock style={{}} />
                               </div>
                               <div>
                                 <BsFillPeopleFill
@@ -228,7 +272,7 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                {/* <FiUnlock /> */}
+                                <FiUnlock />
                                 <Lock />
                               </div>
                               <div>
@@ -245,7 +289,7 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     )}
                   </>
                 );
@@ -254,7 +298,7 @@ const Main = () => {
                 return (
                   <div style={{ backgroundColor: '#FFFFFF' }}>
                     {r.Participants.length === 4 ? (
-                      <RoomCard style={{ backgroundColor: '#EDEBF1' }}>
+                      <RoomCardContainer style={{ backgroundColor: '#EDEBF1' }}>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
@@ -291,9 +335,9 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     ) : (
-                      <RoomCard>
+                      <RoomCardContainer>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
@@ -330,11 +374,18 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     )}
                   </div>
                 );
               })}
+
+          {roomList
+            ? roomList.map((data, index) => {
+                console.log('히히', data);
+                return <RoomCard {...data} />;
+              })
+            : ''}
         </RoomListContainer>
 
         <div className="morebtn">
@@ -385,7 +436,7 @@ const EXRoomMaker = styled.button`
   border: none;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #EDEBF1;
+  background-color: #edebf1;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -395,10 +446,10 @@ const AllBtn = styled.button`
   padding: 17px 14px;
   width: 56px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #7179f0;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -408,10 +459,10 @@ const PossibleBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #7179f0;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -421,10 +472,10 @@ const SpectatorBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #7179f0;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -432,16 +483,16 @@ const SpectatorBtn = styled.button`
 
 const RoomText = styled.div`
   size: 2rem;
-  color: #7179F0;
+  color: #7179f0;
 `;
 
 const Btn = styled.button`
   padding: 12px 14px;
   width: 78px;
   height: 51px;
-  border: 1px solid #8A8BA3;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
-  background-color: #EDEBF1;
+  background-color: #edebf1;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -449,7 +500,7 @@ const Btn = styled.button`
 
 const CategoryDText = styled.div`
   size: 2rem;
-  color: #7179F0;
+  color: #7179f0;
 `;
 
 const MenuBar = styled.div`
@@ -460,10 +511,10 @@ const MenuBar = styled.div`
 const DropBtn = styled.button`
   display: flex;
   justify-content: space-between;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid #7179F0;
+  border: 1px solid #7179f0;
   padding: 15px;
   border: none;
   width: 200px;
@@ -483,7 +534,7 @@ const SearchBarWrap = styled.div`
 const SearchBarInput = styled.input`
   width: 100%;
   height: 100%;
-  border: 1px solid #8A8BA3;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   padding: 10px;
 `;
@@ -514,13 +565,13 @@ const RoomListContainer = styled.div`
   }
 `;
 
-const RoomCard = styled.div`
+const RoomCardContainer = styled.div`
   width: 255px;
   height: 175px;
   border: none;
   padding: 19px;
   border-radius: 4px;
-  box-shadow: -6px -6px 8px #FFFFFF, 6px 6px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
@@ -533,7 +584,7 @@ const RoomCard = styled.div`
 `;
 
 const CategoryText = styled.div`
-  background: #FFC9C9;
+  background: #ffc9c9;
   border-radius: 4px;
   width: 45px;
   height: 18px;
@@ -542,7 +593,7 @@ const CategoryText = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 0.6rem;
-  color: #33344B;
+  color: #33344b;
   display: flex;
   justify-content: center;
 `;
@@ -552,12 +603,12 @@ const TitleText = styled.div`
   white-space: nowrap;
   display: block;
   font-size: 1.2rem;
-  color: #33344B;
+  color: #33344b;
 `;
 
 const TagText = styled.span`
-  background-color: #FAFAFF;
-  color: #33344B;
+  background-color: #fafaff;
+  color: #33344b;
   font-weight: 400;
   font-size: 0.8rem;
   border: none;
