@@ -1,30 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
-import jsonData from '../shared/responseJ.json';
-import styled from 'styled-components';
-import '../styles/Drop.css';
+import React, { useEffect, useRef, useState } from "react";
+import jsonData from "../shared/responseJ.json";
+import styled from "styled-components";
+import "../styles/Drop.css";
 
 //icons
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import { FiLock, FiUnlock } from 'react-icons/fi';
-import { BsFillPeopleFill } from 'react-icons/bs';
-import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
-import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
-import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { FiLock, FiUnlock } from "react-icons/fi";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { ReactComponent as Search } from "../assets/main/searchIcon.svg";
+import { ReactComponent as Plus } from "../assets/main/plusIcon.svg";
+import { ReactComponent as Lock } from "../assets/main/lockIcon.svg";
 
 //pages/components
-import MakeRoomModal from './MakeRoomModal';
-import Banner from '../components/Banner';
-import RoomCard from '../components/RoomCard';
-import Footer from '../components/Footer';
+import MakeRoomModal from "./MakeRoomModal";
+import Banner from "../components/Banner";
+import RoomCard from "../components/RoomCard";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as roomActions } from '../redux/modules/room';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // 방 생성하기
-import { v1 as uuid } from 'uuid';
-import { history } from '../redux/configureStore';
+import { v1 as uuid } from "uuid";
+import { history } from "../redux/configureStore";
+import Sidebar from "../components/Sidebar";
+import Side from "../components/Side";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -40,9 +43,16 @@ const Main = () => {
 
   const [MRooms, setMRooms] = useState(false);
   //검색
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   //참여가능한 방
   const [possible, setPossible] = useState(false);
+  const [title, setTitle] = useState("");
+
+  //side
+  const [side, setSide] = useState(false)
+  const onSetSide =(active)=>{
+    setSide(active)
+  }
 
   let roomList = useSelector((store) => store.room.list);
   // const hotRoom = useSelector((state)=>state.room.hotList)
@@ -56,15 +66,15 @@ const Main = () => {
   // },[])
 
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
+  const notUser_is_local = localStorage.getItem("notUser_is_login")
     ? true
     : false;
 
-  const [title, setTitle] = useState('');
+
 
   // sumin ////////////////////////
 
-  const [category, setCategory] = useState('카테고리');
+  const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
   useEffect(() => {
@@ -77,7 +87,7 @@ const Main = () => {
   }, [choiceCate]);
 
   useEffect(() => {
-    console.log('예아', roomList);
+    console.log("예아", roomList);
   }, [roomList]);
 
   ////////////////////////////////
@@ -91,8 +101,8 @@ const Main = () => {
   return (
     <React.Fragment>
       <Wrap>
+        <div className="header"><Header/></div>
         <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
-
         <SearchBarWrap className="searchbar">
           <SearchBarInput
             placeholder="방 정보를 입력해주세요"
@@ -100,19 +110,20 @@ const Main = () => {
           />
           <Search
             style={{
-              cursor: 'pointer',
-              width: '32px',
-              height: '32px',
-              margin: 'auto',
-              position: 'absolute',
-              marginRight: '20px',
-              fill: 'green',
+              cursor: "pointer",
+              width: "32px",
+              height: "32px",
+              margin: "auto",
+              position: "absolute",
+              marginRight: "20px",
+              fill: "#33344B",
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
             }}
           />
         </SearchBarWrap>
+
         <div className="banner">
           <Banner />
         </div>
@@ -121,20 +132,44 @@ const Main = () => {
 
         <MenuBar className="menulist">
           <div>
-            <AllBtn
-              onClick={() => {
-                setPossible(false);
-              }}
-            >
-              <RoomText>ALL</RoomText>
-            </AllBtn>
-            <PossibleBtn
-              onClick={() => {
-                setPossible(true);
-              }}
-            >
-              <RoomText>참여 가능</RoomText>
-            </PossibleBtn>
+            {possible === true ? (
+              <AllBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+              >
+                <RoomText>ALL</RoomText>
+              </AllBtn>
+            ) : (
+              <AllBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+                style={{ background: "#7179F0", border: "none" }}
+              >
+                <RoomText style={{ color: "#FAFAFF" }}>ALL</RoomText>
+              </AllBtn>
+            )}
+
+            {possible === true ? (
+              <PossibleBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+                style={{ background: "#7179F0", border: "none" }}
+              >
+                <RoomText style={{ color: "#FAFAFF" }}>참여 가능</RoomText>
+              </PossibleBtn>
+            ) : (
+              <PossibleBtn
+                onClick={() => {
+                  setPossible(true);
+                }}
+              >
+                <RoomText>참여 가능</RoomText>
+              </PossibleBtn>
+            )}
+
             <SpectatorBtn>
               <RoomText>관전 가능</RoomText>
             </SpectatorBtn>
@@ -151,7 +186,7 @@ const Main = () => {
               </DropBtn>
               <nav
                 ref={dropdownRef}
-                className={`menu ${isActive ? 'active' : 'inactive'}`}
+                className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <ul>
                   <li>
@@ -159,6 +194,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(1);
+                        setIsActive(!isActive)
                       }}
                     >
                       뷰티
@@ -169,6 +205,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(2);
+                        setIsActive(!isActive)
                       }}
                     >
                       운동
@@ -179,6 +216,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(3);
+                        setIsActive(!isActive)
                       }}
                     >
                       스터디
@@ -189,6 +227,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(4);
+                        setIsActive(!isActive)
                       }}
                     >
                       상담
@@ -199,6 +238,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(5);
+                        setIsActive(!isActive)
                       }}
                     >
                       문화
@@ -209,6 +249,7 @@ const Main = () => {
                       onClick={(e) => {
                         console.log(e.target);
                         setChoiceCate(6);
+                        setIsActive(!isActive)
                       }}
                     >
                       기타
@@ -227,14 +268,15 @@ const Main = () => {
             onClick={() => {
               setMRooms(true);
             }}
+            style={{ backgroundColor: "#BCC0FF" }}
           >
             <Plus
               style={{
-                cursor: 'pointer',
-                width: '70px',
-                height: '70px',
-                margin: '2rem 4.9rem',
-                fill: 'red',
+                cursor: "pointer",
+                width: "70px",
+                height: "70px",
+                margin: "2rem 4.9rem",
+                fill: "#FFFFFF",
               }}
             />
           </RoomCardContainer>
@@ -245,7 +287,7 @@ const Main = () => {
                 return (
                   <>
                     {r.Participants.length === 4 ||
-                    r.isSecrect === 'true' ? null : (
+                    r.isSecrect === "true" ? null : (
                       <RoomCardContainer>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
@@ -257,14 +299,14 @@ const Main = () => {
                           </TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
                                 <FiLock style={{}} />
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -272,12 +314,11 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
                                 <Lock />
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -296,22 +337,22 @@ const Main = () => {
               })
             : jsonData.map((r, idx) => {
                 return (
-                  <div style={{ backgroundColor: '#FFFFFF' }}>
+                  <div style={{ backgroundColor: "#FFFFFF" }}>
                     {r.Participants.length === 4 ? (
-                      <RoomCardContainer style={{ backgroundColor: '#EDEBF1' }}>
+                      <RoomCardContainer style={{ backgroundColor: "#EDEBF1" }}>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
                                 <FiLock />
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -323,7 +364,7 @@ const Main = () => {
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -343,14 +384,14 @@ const Main = () => {
                           <TitleText className="title">{r.title}</TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
                                 <FiLock />
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -362,7 +403,7 @@ const Main = () => {
                               </div>
                               <div>
                                 <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -382,10 +423,10 @@ const Main = () => {
 
           {roomList
             ? roomList.map((data, index) => {
-                console.log('히히', data);
+                console.log("히히", data);
                 return <RoomCard {...data} />;
               })
-            : ''}
+            : ""}
         </RoomListContainer>
 
         <div className="morebtn">
@@ -408,6 +449,10 @@ const Wrap = styled.div`
   margin: auto;
   grid-gap: 30px;
   margin: auto;
+  position: relative;
+  .header {
+    grid-column: 12/13;
+  }
   .searchbar {
     grid-column: 4/10;
   }
@@ -446,7 +491,7 @@ const AllBtn = styled.button`
   padding: 17px 14px;
   width: 56px;
   height: 48px;
-  border: 1px solid #7179f0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
@@ -459,7 +504,7 @@ const PossibleBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179f0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
@@ -472,7 +517,7 @@ const SpectatorBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179f0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
@@ -483,7 +528,7 @@ const SpectatorBtn = styled.button`
 
 const RoomText = styled.div`
   size: 2rem;
-  color: #7179f0;
+  color: #8a8ba3;
 `;
 
 const Btn = styled.button`
@@ -500,7 +545,7 @@ const Btn = styled.button`
 
 const CategoryDText = styled.div`
   size: 2rem;
-  color: #7179f0;
+  color: #8a8ba3;
 `;
 
 const MenuBar = styled.div`
@@ -514,7 +559,7 @@ const DropBtn = styled.button`
   background-color: #ffffff;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid #7179f0;
+  border: 1px solid #8a8ba3;
   padding: 15px;
   border: none;
   width: 200px;
