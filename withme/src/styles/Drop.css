@@ -3,9 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #7179f0;
+  border: 1px solid #8A8BA3;
   border-radius: 4px;
-  width: 130px;
+  width: 140px;
 }
 
 .menu-trigger:hover {
