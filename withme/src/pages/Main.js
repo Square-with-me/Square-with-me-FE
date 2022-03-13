@@ -4,14 +4,25 @@ import jsonData from '../shared/responseJ.json';
 import styled from 'styled-components';
 import '../styles/Drop.css';
 
-//icons
+// main icons
 import { RiArrowDropDownLine } from "react-icons/ri"
 import { FiLock, FiUnlock } from "react-icons/fi"
 import{ BsFillPeopleFill } from "react-icons/bs"
 import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
 import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
 import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
+// import { ReactComponent as HotRoom } from '../assets/main/hotRoomIcon.svg';
+// import { ReactComponent as LowerAngle } from '../assets/main/lowerAngleIcon.svg';
+// import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
+// import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
 
+// // category icon
+// import { ReactComponent as Beauty } from '../assets/main/beautyIcon.svg';
+// import { ReactComponent as Consulting } from '../assets/main/consultingIcon.svg';
+// import { ReactComponent as Culture } from '../assets/main/cultureIcon.svg';
+// import { ReactComponent as Exercise } from '../assets/main/exerciseIcon.svg';
+// import { ReactComponent as Other } from '../assets/main/otherIcon.svg';
+// import { ReactComponent as Study } from '../assets/main/studyIcon.svg';
 
 //pages/components
 import MakeRoomModal from './MakeRoomModal';
@@ -95,7 +106,7 @@ const Main = () => {
               margin: 'auto',
               position: 'absolute',
               marginRight: '20px',
-              fill: 'green',
+              fill: '#33344B',
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
@@ -177,6 +188,9 @@ const Main = () => {
 
         <RoomListContainer className="roomlist">
           <RoomCard
+            style={{
+              backgroundColor: '#BCC0FF',
+            }}
             onClick={() => {
               setMRooms(true);
             }}>
@@ -185,8 +199,8 @@ const Main = () => {
                   cursor: 'pointer',
                   width: '70px',
                   height: '70px',
-                  margin: '2rem 4.9rem',
-                  fill: 'red',
+                  margin: '2rem 4.5rem',
+                  fill: '#FFF',
                 }}
               />
           </RoomCard>
