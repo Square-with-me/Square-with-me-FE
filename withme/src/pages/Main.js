@@ -1,44 +1,48 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import jsonData from '../shared/responseJ.json';
-import styled from 'styled-components';
-import '../styles/Drop.css';
+import React, { useEffect, useRef, useState } from "react";
+import jsonData from "../shared/responseJ.json";
+import styled from "styled-components";
+import "../styles/Drop.css";
 
 // main icons
-import { RiArrowDropDownLine } from "react-icons/ri"
-import { FiLock, FiUnlock } from "react-icons/fi"
-import{ BsFillPeopleFill } from "react-icons/bs"
+import { RiArrowDropDownLine } from "react-icons/ri";
 import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
 import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
 import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
 // import { ReactComponent as HotRoom } from '../assets/main/hotRoomIcon.svg';
 // import { ReactComponent as LowerAngle } from '../assets/main/lowerAngleIcon.svg';
-// import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
-// import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
+import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
+import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
 
-// // category icon
-// import { ReactComponent as Beauty } from '../assets/main/beautyIcon.svg';
-// import { ReactComponent as Consulting } from '../assets/main/consultingIcon.svg';
-// import { ReactComponent as Culture } from '../assets/main/cultureIcon.svg';
-// import { ReactComponent as Exercise } from '../assets/main/exerciseIcon.svg';
-// import { ReactComponent as Other } from '../assets/main/otherIcon.svg';
-// import { ReactComponent as Study } from '../assets/main/studyIcon.svg';
+// category icon
+import { ReactComponent as Beauty } from '../assets/category/beautyIcon.svg';
+import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
+import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
+import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
+import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
+import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 
 //pages/components
-import MakeRoomModal from './MakeRoomModal';
-import Banner from '../components/Banner';
-import Room from '../components/Room';
-import Footer from '../components/Footer';
+import MakeRoomModal from "./MakeRoomModal";
+import Banner from "../components/Banner";
+import RoomCard from "../components/RoomCard";
+// import Footer from "../components/Footer";
+import FooterTest from "../components/FooterTest";
+import Header from "../components/Header";
 
 //redux
-import { actionCreators as roomActions } from '../redux/modules/room';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // 방 생성하기
-import { v1 as uuid } from 'uuid';
-import { history } from '../redux/configureStore';
+import { v1 as uuid } from "uuid";
+import { history } from "../redux/configureStore";
+import Sidebar from "../components/Sidebar";
+import Side from "../components/Side";
 
 const Main = () => {
+  const dispatch = useDispatch();
+
   //드롭다운 부분
   const dropdownRef = useRef(null);
 
@@ -48,23 +52,20 @@ const Main = () => {
     setIsActive(active);
   };
 
-  //카테고리
-  const [beauty, setBeauty] = useState('');
-  const [exercise, setExercise] = useState('');
-  const [study, setStudy] = useState('');
-  const [consulting, setConsulting] = useState('');
-  const [culture, setCulture] = useState('');
-  const [etc, setEtc] = useState('');
-
-  const dispatch = useDispatch();
-
   const [MRooms, setMRooms] = useState(false);
   //검색
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   //참여가능한 방
   const [possible, setPossible] = useState(false);
+  const [title, setTitle] = useState("");
 
-  let roomList = useSelector((state) => state.room);
+  //side
+  const [side, setSide] = useState(false)
+  const onSetSide =(active)=>{
+    setSide(active)
+  }
+
+  let roomList = useSelector((store) => store.room.list);
   // const hotRoom = useSelector((state)=>state.room.hotList)
 
   // React.useEffect(()=>{
@@ -75,12 +76,32 @@ const Main = () => {
   //   dispatch(userActions.NotMemberLoginCheckDB())
   // },[])
 
-  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
+  const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
+  const notUser_is_local = localStorage.getItem("notUser_is_login")
     ? true
     : false;
 
-  const [title, setTitle] = useState('');
+
+
+  // sumin ////////////////////////
+
+  const [category, setCategory] = useState("카테고리");
+  const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
+
+  useEffect(() => {
+    if (choiceCate === 0) {
+      // 전체 방 불러오기
+      dispatch(roomActions.getRoomDB());
+    } else {
+      // 카테고리별 방 불러오기
+    }
+  }, [choiceCate]);
+
+  useEffect(() => {
+    console.log("예아", roomList);
+  }, [roomList]);
+
+  ////////////////////////////////
 
   // 방 생성하기 함수
   function create() {
@@ -91,8 +112,8 @@ const Main = () => {
   return (
     <React.Fragment>
       <Wrap>
+        <div className="header"><Header/></div>
         <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
-
         <SearchBarWrap className="searchbar">
           <SearchBarInput
             placeholder="방 정보를 입력해주세요"
@@ -100,42 +121,66 @@ const Main = () => {
           />
           <Search
             style={{
-              cursor: 'pointer',
-              width: '32px',
-              height: '32px',
-              margin: 'auto',
-              position: 'absolute',
-              marginRight: '20px',
-              fill: '#33344B',
+              cursor: "pointer",
+              width: "32px",
+              height: "32px",
+              margin: "auto",
+              position: "absolute",
+              marginRight: "20px",
+              fill: "#33344B",
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
             }}
           />
         </SearchBarWrap>
+
         <div className="banner">
           <Banner />
         </div>
-        
+
         <HotRoomListContainer className="hotroomlist"></HotRoomListContainer>
 
         <MenuBar className="menulist">
           <div>
-            <AllBtn
-              onClick={() => {
-                setPossible(false);
-              }}
-            >
-              {' '}
-              <RoomText>ALL</RoomText>
-            </AllBtn>
-            <PossibleBtn
-              onClick={() => {
-                setPossible(true);
-              }}
-            >
-              <RoomText>참여 가능</RoomText>
-            </PossibleBtn>
+            {possible === true ? (
+              <AllBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+              >
+                <RoomText>ALL</RoomText>
+              </AllBtn>
+            ) : (
+              <AllBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+                style={{ background: "#7179F0", border: "none" }}
+              >
+                <RoomText style={{ color: "#FAFAFF" }}>ALL</RoomText>
+              </AllBtn>
+            )}
+
+            {possible === true ? (
+              <PossibleBtn
+                onClick={() => {
+                  setPossible(false);
+                }}
+                style={{ background: "#7179F0", border: "none" }}
+              >
+                <RoomText style={{ color: "#FAFAFF" }}>참여 가능</RoomText>
+              </PossibleBtn>
+            ) : (
+              <PossibleBtn
+                onClick={() => {
+                  setPossible(true);
+                }}
+              >
+                <RoomText>참여 가능</RoomText>
+              </PossibleBtn>
+            )}
+
             <SpectatorBtn>
               <RoomText>관전 가능</RoomText>
             </SpectatorBtn>
@@ -147,63 +192,146 @@ const Main = () => {
                 onClick={() => setIsActive(!isActive)}
                 className="menu-trigger"
               >
-                <CategoryDText>카테고리</CategoryDText> <RiArrowDropDownLine />{' '}
+                <CategoryDText>{category}</CategoryDText>
+                <RiArrowDropDownLine
+                  style={{
+                    cursor: "pointer",
+                  }}
+                />
               </DropBtn>
-              <nav
+
+              <div                  
+                  ref={dropdownRef}
+                  className={`menu ${isActive ? "active" : "inactive"}`}>
+                  <CategoryWrap>
+                    <div>뷰티</div>
+                    <Beauty fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>운동</div>
+                    <Exercise fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>스터디</div>
+                    <Study fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>상담</div>
+                    <Consulting fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>문화</div>
+                    <div><Culture fill="#8A8BA3" width="24px"/></div>
+                  </CategoryWrap>
+                  <CategoryWrap>
+                    <div>기타</div>
+                    <Other fill="#8A8BA3" width="24px"/>
+                  </CategoryWrap>
+                  </div>
+              {/* <nav
                 ref={dropdownRef}
-                className={`menu ${isActive ? 'active' : 'inactive'}`}
+                className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <ul>
                   <li>
-                    <a
-                      onChange={(e) => setBeauty(e.target.value)}
-                      onClick={() => {
-                        isActive(false);
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(1);
+                        setIsActive(!isActive)
                       }}
                     >
                       뷰티
-                    </a>
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setExercise(e.target.value)}>운동</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(2);
+                        setIsActive(!isActive)
+                      }}
+                    >
+                      운동
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setStudy(e.target.value)}>스터디</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(3);
+                        setIsActive(!isActive)
+                      }}
+                    >
+                      스터디
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setConsulting(e.target.value)}>상담</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(4);
+                        setIsActive(!isActive)
+                      }}
+                    >
+                      상담
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setCulture(e.target.value)}>문화</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(5);
+                        setIsActive(!isActive)
+                      }}
+                    >
+                      문화
+                    </div>
                   </li>
                   <li>
-                    <a onChange={(e) => setEtc(e.target.value)}> 기타</a>
+                    <div
+                      onClick={(e) => {
+                        console.log(e.target);
+                        setChoiceCate(6);
+                        setIsActive(!isActive)
+                      }}
+                    >
+                      기타
+                    </div>
                   </li>
                 </ul>
-              </nav>
+              </nav> */}
             </div>
           </div>
-          <div></div>
+          <Refresh
+            style={{
+              cursor: "pointer",
+              width: "32px",
+              height: "32px",
+              margin: "auto",
+              fill: "#8A8BA3",
+            }}
+          />
         </MenuBar>
 
         <RoomListContainer className="roomlist">
-          <RoomCard
-            style={{
-              backgroundColor: '#BCC0FF',
-            }}
+          {/* 방 만들기 카드 */}
+          <RoomCardContainer
             onClick={() => {
               setMRooms(true);
-            }}>
-              <Plus 
-                style={{
-                  cursor: 'pointer',
-                  width: '70px',
-                  height: '70px',
-                  margin: '2rem 4.5rem',
-                  fill: '#FFF',
-                }}
-              />
-          </RoomCard>
+            }}
+            style={{ backgroundColor: "#BCC0FF" }}
+          >
+            <Plus
+              style={{
+                cursor: "pointer",
+                width: "70px",
+                height: "70px",
+                margin: "2rem 4.5rem",
+                fill: "#FFFFFF",
+              }}
+            />
+          </RoomCardContainer>
           {MRooms && <MakeRoomModal setMRooms={setMRooms} />}
 
           {possible === true
@@ -211,8 +339,8 @@ const Main = () => {
                 return (
                   <>
                     {r.Participants.length === 4 ||
-                    r.isSecrect === 'true' ? null : (
-                      <RoomCard>
+                    r.isSecrect === "true" ? null : (
+                      <RoomCardContainer>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText
@@ -223,18 +351,14 @@ const Main = () => {
                           </TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock 
-                                  style={{
-
-                                  }}
-                                />
+                                <Lock style={{}} />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -242,12 +366,11 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                {/* <FiUnlock /> */}
                                 <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -259,29 +382,29 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     )}
                   </>
                 );
               })
             : jsonData.map((r, idx) => {
                 return (
-                  <div style={{ backgroundColor: '#FFFFFF' }}>
+                  <div style={{ backgroundColor: "#FFFFFF" }}>
                     {r.Participants.length === 4 ? (
-                      <RoomCard style={{ backgroundColor: '#EDEBF1' }}>
+                      <RoomCardContainer style={{ backgroundColor: "#EDEBF1" }}>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -289,11 +412,11 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -305,22 +428,22 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     ) : (
-                      <RoomCard>
+                      <RoomCardContainer>
                         <div>
                           <CategoryText>{r.category}</CategoryText>
                           <TitleText className="title">{r.title}</TitleText>
                         </div>
                         <div>
-                          {r.isSecrect === 'true' ? (
+                          {r.isSecrect === "true" ? (
                             <div>
                               <div>
-                                <FiLock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -328,11 +451,11 @@ const Main = () => {
                           ) : (
                             <div>
                               <div>
-                                <FiUnlock />
+                                <Lock />
                               </div>
                               <div>
-                                <BsFillPeopleFill
-                                  style={{ marginRight: '5px' }}
+                                <UserNick
+                                  style={{ marginRight: "5px" }}
                                 />
                                 <span>{r.Participants.length}/4</span>
                               </div>
@@ -344,11 +467,18 @@ const Main = () => {
                             return <TagText>#{r.name}</TagText>;
                           })}
                         </div>
-                      </RoomCard>
+                      </RoomCardContainer>
                     )}
                   </div>
                 );
               })}
+
+          {roomList
+            ? roomList.map((data, index) => {
+                console.log("히히", data);
+                return <RoomCard {...data} />;
+              })
+            : ""}
         </RoomListContainer>
 
         <div className="morebtn">
@@ -356,7 +486,8 @@ const Main = () => {
         </div>
 
         <div className="footer">
-          <Footer />
+          {/* <Footer /> */}
+          <FooterTest />
         </div>
       </Wrap>
     </React.Fragment>
@@ -371,6 +502,10 @@ const Wrap = styled.div`
   margin: auto;
   grid-gap: 30px;
   margin: auto;
+  position: relative;
+  .header {
+    grid-column: 12/13;
+  }
   .searchbar {
     grid-column: 4/10;
   }
@@ -399,7 +534,7 @@ const EXRoomMaker = styled.button`
   border: none;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #EDEBF1;
+  background-color: #edebf1;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -409,10 +544,10 @@ const AllBtn = styled.button`
   padding: 17px 14px;
   width: 56px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -422,10 +557,10 @@ const PossibleBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -435,10 +570,10 @@ const SpectatorBtn = styled.button`
   padding: 12px 14px;
   width: 90px;
   height: 48px;
-  border: 1px solid #7179F0;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   margin-right: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -446,16 +581,16 @@ const SpectatorBtn = styled.button`
 
 const RoomText = styled.div`
   size: 2rem;
-  color: #7179F0;
+  color: #8a8ba3;
 `;
 
 const Btn = styled.button`
   padding: 12px 14px;
   width: 78px;
   height: 51px;
-  border: 1px solid #8A8BA3;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
-  background-color: #EDEBF1;
+  background-color: #edebf1;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -463,7 +598,7 @@ const Btn = styled.button`
 
 const CategoryDText = styled.div`
   size: 2rem;
-  color: #7179F0;
+  color: #8a8ba3;
 `;
 
 const MenuBar = styled.div`
@@ -474,10 +609,10 @@ const MenuBar = styled.div`
 const DropBtn = styled.button`
   display: flex;
   justify-content: space-between;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid #7179F0;
+  border: 1px solid #8a8ba3;
   padding: 15px;
   border: none;
   width: 200px;
@@ -497,7 +632,7 @@ const SearchBarWrap = styled.div`
 const SearchBarInput = styled.input`
   width: 100%;
   height: 100%;
-  border: 1px solid #8A8BA3;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
   padding: 10px;
 `;
@@ -528,13 +663,13 @@ const RoomListContainer = styled.div`
   }
 `;
 
-const RoomCard = styled.div`
+const RoomCardContainer = styled.div`
   width: 255px;
   height: 175px;
   border: none;
   padding: 19px;
   border-radius: 4px;
-  box-shadow: -6px -6px 8px #FFFFFF, 6px 6px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
@@ -547,7 +682,7 @@ const RoomCard = styled.div`
 `;
 
 const CategoryText = styled.div`
-  background: #FFC9C9;
+  background: #ffc9c9;
   border-radius: 4px;
   width: 45px;
   height: 18px;
@@ -556,22 +691,37 @@ const CategoryText = styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 0.6rem;
-  color: #33344B;
+  color: #33344b;
   display: flex;
   justify-content: center;
 `;
+
+const CategoryWrap = styled.div`
+display: flex;
+justify-content: space-between;
+padding: 10px;
+align-items: center;
+div{
+  font-size: 16px;
+  color: #8a8ba3;
+  &:hover{
+    color: #7179F0 ;
+    fill: #7179F0;
+  }
+}
+`
 
 const TitleText = styled.div`
   font-weight: 700;
   white-space: nowrap;
   display: block;
   font-size: 1.2rem;
-  color: #33344B;
+  color: #33344b;
 `;
 
 const TagText = styled.span`
-  background-color: #FAFAFF;
-  color: #33344B;
+  background-color: #fafaff;
+  color: #33344b;
   font-weight: 400;
   font-size: 0.8rem;
   border: none;

@@ -1,55 +1,38 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import axios from "axios";
-import {RESPJ} from "../../shared/resopnseJ"
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import axios from 'axios';
+import { apis } from '../../shared/api';
 
-const GET_ROOM = "GET_ROOM";
-const ADD_ROOM = "ADD_ROOM";
-const DEL_ROOM = "DEL_ROOM";
-const HOT_ROOM = "HOT_ROOM";
-const SEARCH_ROOM = "SEARCH_ROOM";
+import { RESPJ } from '../../shared/resopnseJ';
+
+const GET_ROOM = 'GET_ROOM';
+const ADD_ROOM = 'ADD_ROOM';
+const DEL_ROOM = 'DEL_ROOM';
+const HOT_ROOM = 'HOT_ROOM';
+const SEARCH_ROOM = 'SEARCH_ROOM';
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
 const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
-const searchRoom = createAction(SEARCH_ROOM, (searchRoom) => ({searchRoom}));
+const searchRoom = createAction(SEARCH_ROOM, (searchRoom) => ({ searchRoom }));
 
 const initialState = {
   list: [],
-  hotList:[]
+  hotList: [],
 };
 
 const getRoomDB = () => {
   return function (dispatch, getState, { history }) {
-    axios
-      .get("/api/rooms/all", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("is_login")}`,
-        },
+    apis
+      .getRoomAll()
+      .then((res) => {
+        console.log('전체 방 불러오기', res.data.data);
+        dispatch(getRoom(res.data.data));
       })
-      .then((response) => {
-        dispatch.getRoom(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
+      .catch(function (error) {
+        alert(error.response.data.msg);
       });
-
-      if(RESPJ.GetRoom.isSuccess===true){
-        let title = RESPJ.GetRoom.data.title
-        let roomId = RESPJ.GetRoom.data.id
-        let secret = RESPJ.GetRoom.data.isSecret
-        let pwd = RESPJ.GetRoom.data.pwd
-        let masterUserId = RESPJ.GetRoom.data.masterUserId
-        let category = RESPJ.GetRoom.data.category.name
-        let tags = RESPJ.GetRoom.data.Tags
-        let Participants = RESPJ.GetRoom.data.Participants.length
-        // .forEach((t)=>{
-        //   let tag = t
-        //   // console.log(tag)
-        //   dispatch(addRoom({tag}))
-        // })
-        dispatch(getRoom({title, roomId, secret, pwd, masterUserId, category, tags,Participants}));}
   };
 };
 
@@ -85,7 +68,7 @@ const addRoomDB = (title, secret, pwd, category, tags) => {
     //       window.alert(response.msg)
     //     } else if(response.isSuccess===true){
     //       tags = response.data.tags.forEach((v,idx)=>{
-            
+
     //       })
     //       dispatch(addRoom({
     //         title : response.data.title,
@@ -97,43 +80,43 @@ const addRoomDB = (title, secret, pwd, category, tags) => {
     //         tags : response.data.tags,
     //       }))
     //       history.push(`/detail/`);
-    //     }      
+    //     }
     //   })
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    if(RESPJ.MakeRoom.isSuccess===true){
-      let title = RESPJ.MakeRoom.data.title
-      let roomId = RESPJ.MakeRoom.data.id
-      let secret = RESPJ.MakeRoom.data.isSecret
-      let pwd = RESPJ.MakeRoom.data.pwd
-      let masterUserId = RESPJ.MakeRoom.data.masterUserId
-      let category = RESPJ.MakeRoom.data.category.name
-      let tags = RESPJ.MakeRoom.data.Tags
+    if (RESPJ.MakeRoom.isSuccess === true) {
+      let title = RESPJ.MakeRoom.data.title;
+      let roomId = RESPJ.MakeRoom.data.id;
+      let secret = RESPJ.MakeRoom.data.isSecret;
+      let pwd = RESPJ.MakeRoom.data.pwd;
+      let masterUserId = RESPJ.MakeRoom.data.masterUserId;
+      let category = RESPJ.MakeRoom.data.category.name;
+      let tags = RESPJ.MakeRoom.data.Tags;
       // .forEach((t)=>{
       //   let tag = t
       //   // console.log(tag)
       //   dispatch(addRoom({tag}))
       // })
-      dispatch(addRoom({title, roomId, secret, pwd, masterUserId, category, tags}));
+      dispatch(
+        addRoom({ title, roomId, secret, pwd, masterUserId, category, tags })
+      );
     }
   };
 };
 
-const delRoomDB = () => {
-
-};
+const delRoomDB = () => {};
 
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
-      .get("/api/rooms/hot", {
+      .get('/api/rooms/hot', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("is_login")}`,
+          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
         },
       })
       .then((response) => {
-          let searchRoom = response.data
+        let searchRoom = response.data;
         dispatch.hotRoom(searchRoom);
       })
       .catch((error) => {
@@ -143,20 +126,20 @@ const hotRoomDB = () => {
 };
 
 const searchRoomDB = (search) => {
-    return function(dispatch, getState, {history}){
-        axios
-        .get(`/api/rooms?q=${search}`,{
-            headers:{
-                Authorization: `Bearer ${localStorage.getItem("is_login")}`
-            }
-        })
-        .then((response)=>{
-            dispatch.searchRoom(response.data)
-        })
-        .catch((error)=>{
-            console.log(error)
-        })
-    }
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(`/api/rooms?q=${search}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
+        },
+      })
+      .then((response) => {
+        dispatch.searchRoom(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 };
 
 export default handleActions(
@@ -165,25 +148,22 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.roomList;
       }),
-    [ADD_ROOM]: (state, action) =>produce(state, (draft) => {
+    [ADD_ROOM]: (state, action) =>
+      produce(state, (draft) => {
         draft.list.unShift(action.payload.rooms);
-        console.log(draft.list)
+        console.log(draft.list);
       }),
-    [DEL_ROOM]: (state, action) => produce(state, (draft) => {
-
-    }),
-    [HOT_ROOM]: (state, action) =>produce(state, (draft) => {
+    [DEL_ROOM]: (state, action) => produce(state, (draft) => {}),
+    [HOT_ROOM]: (state, action) =>
+      produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
       }),
-    [SEARCH_ROOM]:(state, action)=>produce(state, (draft)=>{
-
-    })
+    [SEARCH_ROOM]: (state, action) => produce(state, (draft) => {}),
   },
   initialState
 );
 
 const actionCreators = {
-  getRoom,
   addRoom,
   delRoom,
   hotRoom,

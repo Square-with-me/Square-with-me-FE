@@ -12,7 +12,7 @@ import UserEdit from './modules/userEdit';
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
-  // room: Room,
+  room: Room,
   user: User,
   userEdit: UserEdit,
   //   post: Post,

@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       {/* <Grid> */}
-      <Header></Header>
+      {/* <Header></Header> */}
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />

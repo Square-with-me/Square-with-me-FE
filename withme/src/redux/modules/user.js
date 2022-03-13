@@ -3,12 +3,7 @@ import { produce } from 'immer';
 import axios from 'axios';
 import { apis } from '../../shared/api';
 
-import { RESP } from '../../shared/responseY';
 import { RESPJ } from '../../shared/resopnseJ';
-
-const resp_userLogin = RESP.LOGIN;
-const resp_userSignup = RESP.SIGNUP;
-const resp_userCheck = RESP.CHECK_ID;
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';

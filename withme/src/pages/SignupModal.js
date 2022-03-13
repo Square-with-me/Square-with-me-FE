@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineClose } from "react-icons/ai";
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
-import { history } from '../redux/configureStore';
 
+//svg
+import {ReactComponent as Lock} from "../assets/modals/lockIcon.svg"
+import { ReactComponent as UserNickIcon } from "../assets/modals/userNickIcon.svg";
+import { ReactComponent as lowerAngleIcon } from "../assets/modals/lowerAngleIcon.svg";
+import { AiOutlineClose } from "react-icons/ai";
 
-const SignupModal = ({ setIsSignup }) => {
+const SignupModal = ({  setIsSignup }) => {
   const dispatch = useDispatch();
 
   const [origin, setOrigin] = React.useState('');
@@ -54,27 +57,33 @@ const SignupModal = ({ setIsSignup }) => {
                 }}
                 value={origin}
               />
-              <div style={{display:"flex"}}>
-              <Input
-                label=""
-                placeholder="닉네임을 입력해주세요"
-                onChange={(e) => {
-                  setNickName(e.target.value);
-                }}
-                value={nickname}
-              />
+              <div style={{display:"flex",position:"relative"}}>
+                <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <Input
+                  label=""
+                  placeholder="닉네임을 입력해주세요"
+                  onChange={(e) => {
+                    setNickName(e.target.value);
+                  }}
+                  value={nickname}
+                />
               <Btn>중복확인</Btn>
               </div>
-              <Input
-                label=""
-                placeholder="비밀번호를 입력해주세요."
-                type="password"
-                _onChange={(e) => {
-                  setPwd(e.target.value);
-                }}
-                value={pwd}
-              />
-              <Input
+              <div style={{position:"relative"}}>
+                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <Input
+                  label=""
+                  placeholder="비밀번호를 입력해주세요."
+                  type="password"
+                  onChange={(e) => {
+                    setPwd(e.target.value);
+                  }}
+                  value={pwd}
+                />
+              </div>
+              <div style={{position:"relative"}}>
+                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <Input
                 label=""
                 placeholder="비밀번호를 다시 입력해주세요."
                 type="password"
@@ -82,7 +91,8 @@ const SignupModal = ({ setIsSignup }) => {
                   setPwdCheck(e.target.value);
                 }}
                 value={pwd_check}
-              />
+                />
+              </div>
         <div style={{display:"flex"}}>
         <LoginButton onClick={Signup}>회원가입</LoginButton>
         <LoginButton onClick={()=>{dispatch(userActions.NotMemberloginDB())}} >비회원으로 즐기기</LoginButton>
@@ -109,7 +119,7 @@ const LoginWrap = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 26px;
-  position: absolute;
+  position: fixed;
   width: 540px;
   height: 595px;
   top: 50%;
@@ -150,12 +160,15 @@ const Btn = styled.button`
 width: 120px;
 height: 48px;
 font-size: 16px;
-background-color:#BCC0FF ;
+background-color:#7179F0;
 color: #FAFAFF;
 border: none;
 border-radius: 4px;
 margin:  0px 0px 0px 16px;
 padding: 12px 14px;
+&:hover{
+  background-color:#BCC0FF ;
+}
 `
 
 const LoginButton = styled.button`
@@ -168,5 +181,8 @@ width: 200px;
 border-radius: 4px;
 color: #FAFAFF;
 font-size: 18px;
+&:hover{
+  background-color:#BCC0FF ;
+}
 `
 export default SignupModal;
