@@ -3,14 +3,11 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import '../../styles/Category.css';
 
-import { AiOutlineClose } from "react-icons/ai";
 
 //svg
-import { RiArrowDropDownLine } from "react-icons/ri";
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 import {ReactComponent as OnCamera} from "../../assets/modals/onCameraIcon.svg"
 import {ReactComponent as OffCamera} from "../../assets/modals/offCameraIcon.svg"
-import {ReactComponent as BeautyIcon} from "../../assets/category/beautyIcon.svg"
 import {ReactComponent as ConsultingIcon} from "../../assets/category/consultingIcon.svg"
 import {ReactComponent as CultureIcon} from "../../assets/category/cultureIcon.svg"
 import {ReactComponent as ExerciseIcon} from "../../assets/category/exerciseIcon.svg"
@@ -86,6 +83,7 @@ const MakeRoomModal = ({ setMRooms }) => {
               <DropWrap>
                 <DropBtn
                   onClick={() => setIsActive(!isActive)}
+                  style={{ height: "40px" }}
                 >{category === ""
                 ? <CategoryDText>카테고리</CategoryDText>
                 :<CategoryDText>{category}</CategoryDText>}
@@ -315,6 +313,7 @@ height: 100%;
 const Category = styled.div`
   display: flex;
   margin: 0px 10px 16px 0px;
+  
   select{
     width: 148px;
     height: 40px;
@@ -346,7 +345,6 @@ const TagItem = styled.div`
   font-size: 12px;
   width:83px;
   font-weight: 400;
-  /* height: 28px; */
   margin-right: 10px;
   margin:0px 10px 30px 0px;
 `
@@ -427,10 +425,7 @@ const DropBtn = styled.button`
   width: 200px;
   &:hover{
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #7B61FF
-  }
-  .active{
-    border: 1px solid #7B61FF;
+    border: 0.5px solid #7B61FF
   }
 `;
 const CategoryDText = styled.div`

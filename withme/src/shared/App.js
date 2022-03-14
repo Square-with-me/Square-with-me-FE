@@ -6,19 +6,13 @@ import { history } from '../redux/configureStore';
 import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
-import Header from '../components/Header';
 import Kakao from '../components/Kakao';
-
 import Test from '../pages/Test';
-
-import './App.css';
 import TimerTest from '../pages/TimerTest';
 
 function App() {
   return (
-    <>
-      {/* <Grid> */}
-      {/* <Header></Header> */}
+    <React.Fragment>
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />
@@ -27,8 +21,7 @@ function App() {
         <Route path="/test" exact component={Test} />
         <Route path="/test2" exact component={TimerTest} />
       </ConnectedRouter>
-      {/* </Grid> */}
-    </>
+    </React.Fragment>
   );
 }
 
