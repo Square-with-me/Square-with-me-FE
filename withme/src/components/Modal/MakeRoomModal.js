@@ -20,7 +20,7 @@ import { actionCreators as roomActions } from "../../redux/modules/room";
 
 const MakeRoomModal = ({ setMRooms , create}) => {
   const [title, setTitle] = useState("");
-  const [secret, setSecret] = useState("");
+  const [secret, setSecret] = useState(false);
   const [camera, setCamera] = useState("ok");
   const [pwd, setPwd] = useState("");
   const [category, setCategory] = useState("");
@@ -189,24 +189,24 @@ const MakeRoomModal = ({ setMRooms , create}) => {
                 />
               )}
 
-              {secret === "close" ? (
+              {secret === false ? (
                 <Lock
                   width="32px"
                   fill="#33344B"
-                  onClick={() => setSecret("open")}
+                  onClick={() => setSecret(true)}
                 />
               ) : (
                 <Lock
                   width="32px"
                   fill="#8A8BA3"
-                  onClick={() => setSecret("close")}
+                  onClick={() => setSecret(false)}
                 />
               )}
             </div>
           </Category>
 
           <div>
-            {secret === "close" ? (
+            {secret === false ? (
               <Input
                 placeholder="방 비밀번호"
                 onChange={(e) => setPwd(e.target.value)}

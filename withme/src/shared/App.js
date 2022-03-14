@@ -22,7 +22,6 @@ function App() {
         <Route path="/test" exact component={Test} />
         <Route path="/test2" exact component={TimerTest} />
       </ConnectedRouter>
-      <Back/>
     </React.Fragment>
   );
 }
@@ -31,7 +30,7 @@ z-index: -10;
 width: 100%;
 height: 100%;
 position: absolute;
-top: 507px;
+top: 530px;
 background-color: #F7F7F7;
 `
 export default App;

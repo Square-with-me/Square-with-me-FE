@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import jsonData from '../shared/responseJ.json';
 import styled from 'styled-components';
 import '../styles/Drop.css';
 
 // main icons
-import { RiArrowDropDownLine } from 'react-icons/ri';
 import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
 import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
-import { ReactComponent as Lock } from '../assets/main/lockIcon.svg';
-// import { ReactComponent as HotRoom } from '../assets/main/hotRoomIcon.svg';
 import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
-import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
 
 // category icon
 import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
@@ -23,7 +18,6 @@ import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 import MakeRoomModal from '../components/Modal/MakeRoomModal';
 import Banner from '../components/Banner';
 import RoomCard from '../components/RoomCard';
-// import Footer from "../components/Footer";
 import FooterTest from '../components/FooterTest';
 import Header from '../components/Header';
 
@@ -54,25 +48,9 @@ const Main = () => {
   const [search, setSearch] = useState('');
   //참여가능한 방
   const [possible, setPossible] = useState(false);
-  const [title, setTitle] = useState('');
+  console.log(possible)
 
-  //side
-  const [side, setSide] = useState(false);
-  const onSetSide = (active) => {
-    setSide(active);
-  };
-
-  let roomList = useSelector((store) => store.room.list);
-  const hotRoom = useSelector((state) => state.room.hotList);
-
-  React.useEffect(() => {
-    dispatch(roomActions.hotRoomDB());
-  }, []);
-
-  // React.useEffect(()=>{
-  //   dispatch(userActions.NotMemberLoginCheckDB())
-  // },[])
-
+  //login
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
   const notUser_is_local = localStorage.getItem('notUser_is_login')
     ? true
@@ -83,9 +61,14 @@ const Main = () => {
   function NotLog() {
     window.alert('로그인 이후 이용 가능 합니다.');
   }
+  // React.useEffect(()=>{
+  //   dispatch(userActions.NotMemberLoginCheckDB())
+  // },[])
+    // React.useEffect(()=>{
+  //   dispatch(userActions.LoginCheckDB())
+  // },[])
 
-  // sumin ////////////////////////
-
+  //room
   const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
@@ -99,6 +82,17 @@ const Main = () => {
     }
   }, [choiceCate]);
 
+  let roomList = useSelector((store) => store.room.list);
+  const hotRoom = useSelector((state) => state.room.hotList);
+  console.log(hotRoom)
+
+  React.useEffect(() => {
+    dispatch(roomActions.hotRoomDB());
+    // dispatch(roomActions.getRoomDB())
+    console.log('hot')
+  }, []);
+
+
   // 방 생성하기 함수
   function create() {
     const id = uuid();
@@ -111,7 +105,7 @@ const Main = () => {
         <div className="header">
           <Header />
         </div>
-        {/* <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker> */}
+        <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
         <div className="logo">
           <svg
             width="130"
@@ -227,9 +221,9 @@ const Main = () => {
               </PossibleBtn>
             )}
 
-            <SpectatorBtn>
+            {/* <SpectatorBtn>
               <RoomText>관전 가능</RoomText>
-            </SpectatorBtn>
+            </SpectatorBtn> */}
 
             <Category>
               <div className="container">
@@ -381,162 +375,32 @@ const Main = () => {
             <Plus
               style={{
                 cursor: 'pointer',
-                width: '70px',
-                height: '70px',
-                margin: '2rem 4.5rem',
+                width: '64px',
+                height: '64px',
+                margin: '45 96',
                 fill: '#FFFFFF',
               }}
             />
           </RoomCardContainer>
           {MRooms && <MakeRoomModal setMRooms={setMRooms} create={create} />}
-          {/* 
-          {possible === true
-            ? jsonData.map((r, idx) => {
-                return (
-                  <>
-                    {r.Participants.length === 4 ||
-                    r.isSecrect === "true" ? null : (
-                      <RoomCardContainer>
-                        <div>
-                          <CategoryText>{r.category}</CategoryText>
-                          <TitleText
-                            className="title"
-                            onChange={(e) => setTitle(e.target.value)}
-                          >
-                            {r.title}
-                          </TitleText>
-                        </div>
-                        <div>
-                          {r.isSecrect === "true" ? (
-                            <div>
-                              <div>
-                                <Lock style={{}} />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div>
-                              <div>
-                                <Lock />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        <div className="tag">
-                          {r.Tags.map((r, idx) => {
-                            return <TagText>#{r.name}</TagText>;
-                          })}
-                        </div>
-                      </RoomCardContainer>
-                    )}
-                  </>
-                );
-              })
-            : jsonData.map((r, idx) => {
-                return (
-                  <div style={{ backgroundColor: "#FFFFFF" }}>
-                    {r.Participants.length === 4 ? (
-                      <RoomCardContainer style={{ backgroundColor: "#EDEBF1" }}>
-                        <div>
-                          <CategoryText>{r.category}</CategoryText>
-                          <TitleText className="title">{r.title}</TitleText>
-                        </div>
-                        <div>
-                          {r.isSecrect === "true" ? (
-                            <div>
-                              <div>
-                                <Lock />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div>
-                              <div>
-                                <Lock />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        <div className="tag">
-                          {r.Tags.map((r, idx) => {
-                            return <TagText>#{r.name}</TagText>;
-                          })}
-                        </div>
-                      </RoomCardContainer>
-                    ) : (
-                      <RoomCardContainer>
-                        <div>
-                          <CategoryText>{r.category}</CategoryText>
-                          <TitleText className="title">{r.title}</TitleText>
-                        </div>
-                        <div>
-                          {r.isSecrect === "true" ? (
-                            <div>
-                              <div>
-                                <Lock />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          ) : (
-                            <div>
-                              <div>
-                                <Lock />
-                              </div>
-                              <div>
-                                <UserNick
-                                  style={{ marginRight: "5px" }}
-                                />
-                                <span>{r.Participants.length}/4</span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                        <div className="tag">
-                          {r.Tags.map((r, idx) => {
-                            return <TagText>#{r.name}</TagText>;
-                          })}
-                        </div>
-                      </RoomCardContainer>
-                    )}
-                  </div>
-                );
-              })} */}
+
           {hotRoom
             ? hotRoom.map((data, index) => {
-                return <HotRoomCard {...data} />;
+                return (
+                  <div>
+                    <HotRoomCard {...data} />
+                  </div>
+                )
               })
             : ''}
 
           {roomList
             ? roomList.map((data, index) => {
-                return <RoomCard {...data} possible={possible} />;
+                return(
+                  <div>
+                    <RoomCard {...data} possible = {setPossible} />
+                  </div>
+                ) 
               })
             : ''}
         </RoomListContainer>
@@ -546,7 +410,6 @@ const Main = () => {
         </div>
 
         <div className="footer">
-          {/* <Footer /> */}
           <FooterTest />
         </div>
       </Wrap>
@@ -592,6 +455,7 @@ const Wrap = styled.div`
     grid-column: 1/13;
   }
   .morebtn {
+    grid-column: 1/13;
     margin: auto;
   }
   .footer {
@@ -615,7 +479,6 @@ const EXRoomMaker = styled.button`
 `;
 
 const AllBtn = styled.button`
-  padding: 14px 0px;
   width: 56px;
   height: 43px;
   border: 1px solid #8a8ba3;
@@ -643,20 +506,6 @@ const PossibleBtn = styled.button`
   }
 `;
 
-const SpectatorBtn = styled.button`
-  width: 90px;
-  height: 43px;
-  border: 1px solid #8a8ba3;
-  border-radius: 4px;
-  margin-right: 16px;
-  background-color: #ffffff;
-  font-weight: 500;
-  font-size: 16px;
-  :hover {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  }
-`;
-
 const RoomText = styled.div`
   size: 2rem;
   color: #8a8ba3;
@@ -668,7 +517,8 @@ const Btn = styled.button`
   height: 51px;
   border: 1px solid #8a8ba3;
   border-radius: 4px;
-  background-color: #edebf1;
+  background-color: #EDEBF1;
+  font-size: 16px;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -709,10 +559,7 @@ const DropBtn = styled.button`
   width: 200px;
   &:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #7b61ff;
-  }
-  .active {
-    border: 1px solid #7b61ff;
+    border: 0.5px solid #7b61ff;
   }
 `;
 
@@ -735,6 +582,7 @@ const CategoryWrap = styled.div`
   justify-content: space-between;
   padding: 10px;
   align-items: center;
+  cursor: pointer;
   div {
     font-size: 16px;
     color: #8a8ba3;
@@ -792,77 +640,11 @@ const RoomListContainer = styled.div`
 
 const RoomCardContainer = styled.div`
   width: 255px;
-  height: 175px;
+  height: 154px;
   border: none;
-  padding: 19px;
   border-radius: 4px;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-auto-rows: 2fr;
-  grid-gap: 8px;
-  .tag {
-    grid-column: 1/ 4;
-    grid-row: 2 / 3;
-    white-space: pre-line;
-  }
-`;
-
-const CategoryText = styled.div`
-  background: #ffc9c9;
-  border-radius: 4px;
-  width: 45px;
-  height: 18px;
-  margin: 8px 0px;
-  padding: 2px 4px;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.6rem;
-  color: #33344b;
-  display: flex;
-  justify-content: center;
-`;
-
-const TitleText = styled.div`
-  font-weight: 700;
-  white-space: nowrap;
-  display: block;
-  font-size: 1.2rem;
-  color: #33344b;
-`;
-
-const TagText = styled.span`
-  background-color: #fafaff;
-  color: #33344b;
-  font-weight: 400;
-  font-size: 0.8rem;
-  border: none;
-  border-radius: 4px;
-  padding: 0px 14px;
-  margin-right: 10px;
-`;
-
-const HotRoomListContainer = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  cursor: pointer;
-  @media screen and (min-width: 1607px) {
-    grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
-    row-gap: 32px;
-  }
-  @media screen and (min-width: 1232px) and (max-width: 1607px) {
-    grid-template-columns: repeat(4, minmax(0px, 1fr));
-    row-gap: 32px;
-  }
-  @media screen and (min-width: 878px) and (max-width: 1232px) {
-    grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
-  }
-  @media screen and (min-width: 551px) and (max-width: 878px) {
-    grid-template-columns: repeat(2, minmax(0px, 1fr));
-  }
-  @media screen and (min-width: 0px) and (max-width: 551px) {
-    grid-template-columns: repeat(1, minmax(0px, 1fr));
-  }
+  position: relative;
 `;
 
 export default Main;
