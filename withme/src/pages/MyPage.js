@@ -151,6 +151,10 @@ const Mypage = (props) => {
               <div className="badge"></div>
               <div className="badge"></div>
               <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
+              <div className="badge"></div>
             </div>
             <button>수정하기</button>
           </BadgeContainer>
@@ -162,6 +166,11 @@ const Mypage = (props) => {
           <div id="middleTopBox" className="boxStyle">
             <BadgeContainer2>
               <div className="badgeBox">
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
+                <div className="badge"></div>
                 <div className="badge"></div>
                 <div className="badge"></div>
                 <div className="badge"></div>
@@ -392,7 +401,6 @@ const BadgeContainer = styled.div`
   height: 70%;
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: space-between;
 
@@ -401,9 +409,10 @@ const BadgeContainer = styled.div`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    background-color: black;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-row-gap: 20px;
     place-items: center;
+    overflow-y: scroll;
   }
 
   .badge {
@@ -431,19 +440,17 @@ const BadgeContainer = styled.div`
 
 const BadgeContainer2 = styled.div`
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  overflow-y: scroll;
 
   .badgeBox {
     height: 100%;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    background-color: black;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-row-gap: 10px;
     place-items: center;
+    overflow-y: scroll;
   }
 
   .badge {

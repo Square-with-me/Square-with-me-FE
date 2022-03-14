@@ -22,6 +22,7 @@ const initialState = {
   hotList: [],
 };
 
+// 방 정보 가져오기
 const getRoomDB = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -116,16 +117,35 @@ const hotRoomDB = () => {
   };
 };
 
+// 검색 결과 방 가져오기
 const searchRoomDB = (search) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`/api/rooms?q=${search}`, {
+      .get(`http://14.45.204.153:7034/api/rooms?q=${search}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('is_login')}`,
         },
       })
-      .then((response) => {
-        dispatch.searchRoom(response.data);
+      .then((res) => {
+        dispatch(getRoom(res.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+// 카테고리별 방 가져오기
+const categoryRoomDB = (categoryId) => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(`http://14.45.204.153:7034/api/rooms/category/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getRoom(res.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -149,7 +169,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
       }),
-    [SEARCH_ROOM]: (state, action) => produce(state, (draft) => {}),
   },
   initialState
 );
@@ -165,6 +184,7 @@ const actionCreators = {
   delRoomDB,
   hotRoomDB,
   searchRoomDB,
+  categoryRoomDB,
 };
 
 export { actionCreators };

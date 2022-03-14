@@ -5,30 +5,38 @@ import styled from 'styled-components';
 // import { BsFillPeopleFill } from 'react-icons/bs';
 // import { FiLock, FiUnlock } from 'react-icons/fi';
 // import { ReactComponent as HotRoomIcon } from '../assets/main/hotRoomIcon.svg'
-import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg'
-import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg'
+import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg';
+import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg';
 
-const RoomCard = (props,{possible}) => {
+const RoomCard = (props, { possible }) => {
   // useEffect(() => {
   //   console.log(title, isSecret, category, Tags);
   // }, []);
-  console.log(possible)
+  console.log(possible);
   return (
     <RoomCardContainer>
       <div>
         <div>
-          {props.isSecret === true
-          ?<div style={{display:"flex", alignItems:"center"}}>
-            <CategoryText style={{marginRight:"8px"}}>{props.category.name}</CategoryText>
-            <div><LockIcon width="20" fill="#8A8BA3"/></div>
-          </div>
-          :<CategoryText>{props.category.name}</CategoryText>}
+          {props.isSecret === true ? (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <CategoryText style={{ marginRight: '8px' }}>
+                {props.category.name}
+              </CategoryText>
+              <div>
+                <LockIcon width="20" fill="#8A8BA3" />
+              </div>
+            </div>
+          ) : (
+            <CategoryText>{props.category.name}</CategoryText>
+          )}
         </div>
-        
+
         <TitleText className="title">{props.title}</TitleText>
       </div>
-        <div style={{display:"flex", alignItems:"center"}}>
-        <div><UserNickIcon width="20" fill="#8A8BA3"/></div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div>
+          <UserNickIcon width="20" fill="#8A8BA3" />
+        </div>
         <div>3/4</div>
       </div>
       <div className="tag">
@@ -84,7 +92,7 @@ const TitleText = styled.div`
 `;
 
 const TagText = styled.span`
-  background-color: #FAFAFF;
+  background-color: #fafaff;
   color: #33344b;
   font-weight: 400;
   font-size: 12px;
