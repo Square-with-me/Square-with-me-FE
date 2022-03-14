@@ -83,9 +83,9 @@ ul,li{
 
 *{margin:0;padding:0;}
 ul,li{list-style:none;}
-.slide{height:300px;overflow:hidden;}
+.slide{height:231px;overflow:hidden;}
 .slide ul{width:calc(100% * 4);display:flex;animation:slide 30s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
-.slide li{width:calc(100% / 4);height:300px;}
+.slide li{width:calc(100% / 4);height:231px;}
 .slide li:nth-child(1){background:#ffa;}
 .slide li:nth-child(2){background:#faa;}
 .slide li:nth-child(3){background:#afa;}

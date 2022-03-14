@@ -32,7 +32,7 @@ const Sidebar = (props) => {
   const user = useSelector((state) => state.user.user);
 
   const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem("is_login") ? true : false;
+  const is_local = localStorage.getItem("login-token") ? true : false;
   React.useEffect(() => {}, [is_login]);
 
   const notUser_is_login = useSelector((state) => state.user.notUser_is_login);

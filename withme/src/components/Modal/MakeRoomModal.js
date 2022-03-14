@@ -18,7 +18,7 @@ import {ReactComponent as StudyIcon} from "../../assets/category/studyIcon.svg"
 import { actionCreators as roomActions } from "../../redux/modules/room";
 
 
-const MakeRoomModal = ({ setMRooms }) => {
+const MakeRoomModal = ({ setMRooms , create}) => {
   const [title, setTitle] = useState("");
   const [secret, setSecret] = useState("");
   const [camera, setCamera] = useState("ok");
@@ -61,6 +61,7 @@ const MakeRoomModal = ({ setMRooms }) => {
   const Visible = (active) => {
     setIsActive(active);
   };
+  
 
   return (
     <React.Fragment>
@@ -252,6 +253,7 @@ const MakeRoomModal = ({ setMRooms }) => {
                   secret,
                   pwd,
                   category,
+                  choiceCate,
                   tagList,
                   camera
                 )

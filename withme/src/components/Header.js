@@ -58,7 +58,7 @@ const RightIcon = styled.button`
   max-width: 100%;
   justify-content: right;
   background-color: #fff;
-  margin: 25px 0px 80px 0px;
+  margin: 25px 0px 10px 0px;
 `;
 
 export default Header;
