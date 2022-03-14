@@ -188,7 +188,7 @@ const Main = () => {
         </div>
 
         <MenuBar className="menulist">
-          <div>
+          <div className="flex">
             {possible === true ? (
               <AllBtn
                 onClick={() => {
@@ -230,141 +230,143 @@ const Main = () => {
             <SpectatorBtn>
               <RoomText>관전 가능</RoomText>
             </SpectatorBtn>
-          </div>
 
-          <Category>
-            <div className="container">
-              <DropWrap>
-                <DropBtn
-                  onClick={() => setIsActive(!isActive)}
-                  style={{ height: '40px' }}
-                >
-                  {category === '' ? (
-                    <CategoryDText>카테고리</CategoryDText>
-                  ) : (
-                    <CategoryDText>{category}</CategoryDText>
-                  )}
-                  <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 28 28"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M24.9001 10.5498L16.0001 19.4498L7.1001 10.5498"
-                        stroke="#8A8BA3"
-                        stroke-width="2"
-                        stroke-miterlimit="10"
-                      />
-                    </svg>
-                  </div>
-                </DropBtn>
-                <div
-                  ref={dropdownRef}
-                  className={`menu ${isActive ? 'active' : 'inactive'}`}
-                >
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('뷰티');
-                      setIsActive(!isActive);
-                      setChoiceCate(1);
-                    }}
+            <Category>
+              <div className="container">
+                <DropWrap>
+                  <DropBtn
+                    onClick={() => setIsActive(!isActive)}
+                    style={{ height: '40px' }}
                   >
-                    <div>뷰티</div>
-                    <svg
-                      width="24px"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13.11 9.32L11.33 5H8.88L7.1 9.32L4 11.44V14.18L7.1 16.3L9 21H11.16L13.08 16.32L15.97 14.32V11.32L13.11 9.32ZM11.49 15L10.11 18.36L8.72 15L5.54 12.81L8.72 10.64L10.11 7.27L11.49 10.64L14.67 12.81L11.49 15Z"
-                        fill="#8A8BA3"
-                      />
-                      <path
-                        d="M23.7799 15.34L21.9999 11H19.5499L17.7699 15.32L14.6699 17.44V20.2L17.7699 22.32L19.6999 27H21.8599L23.7799 22.32L26.6699 20.32V17.32L23.7799 15.34ZM22.1599 21L20.7799 24.36L19.3899 21L16.2099 18.82L19.3899 16.65L20.7799 13.28L22.1599 16.65L25.3399 18.82L22.1599 21Z"
-                        fill="#8A8BA3"
-                      />
-                    </svg>
-                  </CategoryWrap>
-
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('운동');
-                      setIsActive(!isActive);
-                      setChoiceCate(2);
-                    }}
-                  >
-                    <div>운동</div>
-                    <Exercise fill="#8A8BA3" width="24px" />
-                  </CategoryWrap>
-
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('스터디');
-                      setIsActive(!isActive);
-                      setChoiceCate(3);
-                    }}
-                  >
-                    <div>스터디</div>
-                    <Study fill="#8A8BA3" width="24px" />
-                  </CategoryWrap>
-
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('상담');
-                      setIsActive(!isActive);
-                      setChoiceCate(4);
-                    }}
-                  >
-                    <div>상담</div>
-                    <Consulting fill="#8A8BA3" width="24px" />
-                  </CategoryWrap>
-
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('문화');
-                      setIsActive(!isActive);
-                      setChoiceCate(5);
-                    }}
-                  >
-                    <div>문화</div>
+                    {category === '' ? (
+                      <CategoryDText>카테고리</CategoryDText>
+                    ) : (
+                      <CategoryDText>{category}</CategoryDText>
+                    )}
                     <div>
-                      <Culture fill="#8A8BA3" width="24px" />
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 28 28"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24.9001 10.5498L16.0001 19.4498L7.1001 10.5498"
+                          stroke="#8A8BA3"
+                          stroke-width="2"
+                          stroke-miterlimit="10"
+                        />
+                      </svg>
                     </div>
-                  </CategoryWrap>
-
-                  <CategoryWrap
-                    onClick={() => {
-                      setCategory('기타');
-                      setIsActive(!isActive);
-                      setChoiceCate(6);
-                    }}
+                  </DropBtn>
+                  <div
+                    ref={dropdownRef}
+                    className={`menu ${isActive ? 'active' : 'inactive'}`}
                   >
-                    <div>기타</div>
-                    <Other fill="#8A8BA3" width="24px" />
-                  </CategoryWrap>
-                </div>
-              </DropWrap>
-            </div>
-          </Category>
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('뷰티');
+                        setIsActive(!isActive);
+                        setChoiceCate(1);
+                      }}
+                    >
+                      <div>뷰티</div>
+                      <svg
+                        width="24px"
+                        height="32"
+                        viewBox="0 0 32 32"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.11 9.32L11.33 5H8.88L7.1 9.32L4 11.44V14.18L7.1 16.3L9 21H11.16L13.08 16.32L15.97 14.32V11.32L13.11 9.32ZM11.49 15L10.11 18.36L8.72 15L5.54 12.81L8.72 10.64L10.11 7.27L11.49 10.64L14.67 12.81L11.49 15Z"
+                          fill="#8A8BA3"
+                        />
+                        <path
+                          d="M23.7799 15.34L21.9999 11H19.5499L17.7699 15.32L14.6699 17.44V20.2L17.7699 22.32L19.6999 27H21.8599L23.7799 22.32L26.6699 20.32V17.32L23.7799 15.34ZM22.1599 21L20.7799 24.36L19.3899 21L16.2099 18.82L19.3899 16.65L20.7799 13.28L22.1599 16.65L25.3399 18.82L22.1599 21Z"
+                          fill="#8A8BA3"
+                        />
+                      </svg>
+                    </CategoryWrap>
+
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('운동');
+                        setIsActive(!isActive);
+                        setChoiceCate(2);
+                      }}
+                    >
+                      <div>운동</div>
+                      <Exercise fill="#8A8BA3" width="24px" />
+                    </CategoryWrap>
+
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('스터디');
+                        setIsActive(!isActive);
+                        setChoiceCate(3);
+                      }}
+                    >
+                      <div>스터디</div>
+                      <Study fill="#8A8BA3" width="24px" />
+                    </CategoryWrap>
+
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('상담');
+                        setIsActive(!isActive);
+                        setChoiceCate(4);
+                      }}
+                    >
+                      <div>상담</div>
+                      <Consulting fill="#8A8BA3" width="24px" />
+                    </CategoryWrap>
+
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('문화');
+                        setIsActive(!isActive);
+                        setChoiceCate(5);
+                      }}
+                    >
+                      <div>문화</div>
+                      <div>
+                        <Culture fill="#8A8BA3" width="24px" />
+                      </div>
+                    </CategoryWrap>
+
+                    <CategoryWrap
+                      onClick={() => {
+                        setCategory('기타');
+                        setIsActive(!isActive);
+                        setChoiceCate(6);
+                      }}
+                    >
+                      <div>기타</div>
+                      <Other fill="#8A8BA3" width="24px" />
+                    </CategoryWrap>
+                  </div>
+                </DropWrap>
+              </div>
+            </Category>
+          </div>
           <div>
-            <Refresh
-              style={{
-                cursor: 'pointer',
-                width: '32px',
-                height: '32px',
-                margin: 'auto',
-                marginRight: '0px',
-                fill: '#8A8BA3',
-              }}
-              onClick={() => {
-                dispatch(roomActions.getRoomDB());
-              }}
-            />
+            <div>
+              <Refresh
+                style={{
+                  cursor: 'pointer',
+                  width: '32px',
+                  height: '32px',
+                  margin: 'auto',
+                  marginRight: '0px',
+                  fill: '#8A8BA3',
+                }}
+                onClick={() => {
+                  dispatch(roomActions.getRoomDB());
+                }}
+              />
+            </div>
           </div>
         </MenuBar>
 
@@ -581,6 +583,10 @@ const Wrap = styled.div`
   }
   .menulist {
     grid-column: 1/13;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .roomlist {
     grid-column: 1/13;
@@ -590,6 +596,10 @@ const Wrap = styled.div`
   }
   .footer {
     grid-column: 1/13;
+  }
+
+  .flex {
+    display: flex;
   }
 `;
 
@@ -671,7 +681,6 @@ const MenuBar = styled.div`
 
 const Category = styled.div`
   display: flex;
-  margin: 1px 10px 16px 0px;
   select {
     width: 148px;
     height: 40px;

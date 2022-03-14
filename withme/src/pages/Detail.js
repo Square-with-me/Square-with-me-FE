@@ -214,9 +214,11 @@ const Detail = (props) => {
       <div id="rightBox">
         {isSW ? (
           <>
-            <div className="rightState" id="stopwatch">
-              <p>스톱워치</p>
-              <button></button>
+            <div className="designBox" id="stopwatch">
+              <div className="flex">
+                <p>스톱워치</p>
+                <button></button>
+              </div>
             </div>
             {isTimer ? <Timer roomId={roomID} /> : ''}
           </>
@@ -224,27 +226,31 @@ const Detail = (props) => {
           ''
         )}
         {isPP ? (
-          <div className="rightState">
-            <p>참가자</p>
-            <button></button>
+          <div className="designBox">
+            <div className="flex">
+              <p>참가자</p>
+              <button></button>
+            </div>
           </div>
         ) : (
           ''
         )}
         {isCT ? (
           <>
-            <div className="rightState">
-              <button
-                onClick={(e) => {
-                  openChatting(e);
-                }}
-              >
-                C
-              </button>
-              <p>채팅</p>
-              <button></button>
+            <div className="designBox">
+              <div className="flex">
+                <button
+                  onClick={(e) => {
+                    openChatting(e);
+                  }}
+                >
+                  C
+                </button>
+                <p>채팅</p>
+                <button></button>
+              </div>
+              {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
             </div>
-            {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
           </>
         ) : (
           ''
@@ -268,6 +274,7 @@ const Detail = (props) => {
 };
 
 const Container = styled.div`
+  box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
   width: 1110px;
   height: 100vh;
@@ -333,17 +340,22 @@ const Container = styled.div`
       }
     }
 
-    .rightState {
-      /* display: flex; */
-      /* justify-content: space-between; */
-      /* align-items: center; */
-      background-color: red;
-
+    .designBox {
+      background: #f7f7f7;
       animation: slide-in 1s;
       animation-fill-mode: forwards;
-
       margin: 5%;
-      padding: 0 5%;
+      padding: 5%;
+      border-radius: 13px;
+
+      filter: drop-shadow(-6px -6px 8px #ffffff)
+        drop-shadow(6px 6px 8px rgba(0, 0, 0, 0.15));
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
   }
 
