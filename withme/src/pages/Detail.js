@@ -290,11 +290,11 @@ const Detail = (props) => {
           <>
             <div className="designBox" id="stopwatch">
               <div className="flex">
-                <p>스톱워치</p>
+                <p>타이머</p>
                 <button></button>
               </div>
+              {isTimer ? <Timer roomId={roomID} /> : ''}
             </div>
-            {isTimer ? <Timer roomId={roomID} /> : ''}
           </>
         ) : (
           ''
