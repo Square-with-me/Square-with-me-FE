@@ -14,7 +14,6 @@ import TimerTest from '../pages/TimerTest';
 function App() {
   return (
     <React.Fragment>
-      
       <ConnectedRouter history={history}>
         <Route path="/" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />
@@ -22,7 +21,6 @@ function App() {
         <Route path="/mypage/:id" exact component={MyPage} />
         <Route path="/test" exact component={Test} />
         <Route path="/test2" exact component={TimerTest} />
-        {/* <Back/> */}
       </ConnectedRouter>
     </React.Fragment>
   );
