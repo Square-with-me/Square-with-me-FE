@@ -22,6 +22,7 @@ const initialState = {
   hotList: [],
 };
 
+// 방 정보 가져오기
 const getRoomDB = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -125,6 +126,7 @@ const hotRoomDB = () => {
   };
 };
 
+// 검색 결과 방 가져오기
 const searchRoomDB = (search) => {
   return function (dispatch, getState, { history }) {
     axios
@@ -142,6 +144,7 @@ const searchRoomDB = (search) => {
   };
 };
 
+// 카테고리별 방 가져오기
 const categoryRoomDB = (categoryId) => {
   return function (dispatch, getState, { history }) {
     axios
@@ -175,7 +178,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
       }),
-    [SEARCH_ROOM]: (state, action) => produce(state, (draft) => {}),
   },
   initialState
 );

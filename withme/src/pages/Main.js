@@ -152,7 +152,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(1);
                       }}
                     >
@@ -162,7 +161,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(2);
                       }}
                     >
@@ -172,7 +170,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(3);
                       }}
                     >
@@ -182,7 +179,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(4);
                       }}
                     >
@@ -192,7 +188,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(5);
                       }}
                     >
@@ -202,7 +197,6 @@ const Main = () => {
                   <li>
                     <div
                       onClick={(e) => {
-                        console.log(e.target);
                         setChoiceCate(6);
                       }}
                     >
