@@ -5,7 +5,7 @@ const Banner =()=>{
 
  return (
    <React.Fragment>
-    <div className ="slide">
+    {/* <div className ="slide">
       <input type="radio" name="pos" id="pos1" checked/>
       <input type="radio" name="pos" id="pos2"/>
       <input type="radio" name="pos" id="pos3"/>
@@ -22,6 +22,14 @@ const Banner =()=>{
       <label for="pos3">3</label>
       <label for="pos4">4</label>
     </p>
+  </div> */}
+    <div class="slide">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
   </div>
    </React.Fragment>
  )
