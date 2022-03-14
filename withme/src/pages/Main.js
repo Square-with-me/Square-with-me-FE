@@ -351,23 +351,19 @@ const Main = () => {
               </div>
             </Category>
           </div>
-          <div>
-            <div>
-              <Refresh
-                style={{
-                  cursor: 'pointer',
-                  width: '32px',
-                  height: '32px',
-                  margin: 'auto',
-                  marginRight: '0px',
-                  fill: '#8A8BA3',
-                }}
-                onClick={() => {
-                  dispatch(roomActions.getRoomDB());
-                }}
-              />
-            </div>
-          </div>
+          <Refresh
+            style={{
+              cursor: 'pointer',
+              width: '32px',
+              height: '32px',
+              margin: 'auto',
+              marginRight: '0px',
+              fill: '#8A8BA3',
+            }}
+            onClick={() => {
+              dispatch(roomActions.getRoomDB());
+            }}
+          />
         </MenuBar>
 
         <RoomListContainer className="roomlist">
