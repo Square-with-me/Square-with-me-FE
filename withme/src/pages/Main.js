@@ -14,12 +14,12 @@ import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
 import { ReactComponent as UserNick } from '../assets/main/userNickIcon.svg';
 
 // category icon
-import { ReactComponent as Beauty } from '../assets/category/beautyIcon.svg';
 import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
 import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
 import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
 import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
+
 
 //pages/components
 import MakeRoomModal from "./MakeRoomModal";
@@ -193,114 +193,42 @@ const Main = () => {
                 className="menu-trigger"
               >
                 <CategoryDText>{category}</CategoryDText>
-                <RiArrowDropDownLine
-                  style={{
-                    cursor: "pointer",
-                  }}
-                />
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10" />
+                </svg>
               </DropBtn>
 
               <div                  
-                  ref={dropdownRef}
-                  className={`menu ${isActive ? "active" : "inactive"}`}>
-                  <CategoryWrap>
-                    <div>뷰티</div>
-                    <Beauty fill="#8A8BA3" width="24px"/>
-                  </CategoryWrap>
-                  <CategoryWrap>
-                    <div>운동</div>
-                    <Exercise fill="#8A8BA3" width="24px"/>
-                  </CategoryWrap>
-                  <CategoryWrap>
-                    <div>스터디</div>
-                    <Study fill="#8A8BA3" width="24px"/>
-                  </CategoryWrap>
-                  <CategoryWrap>
-                    <div>상담</div>
-                    <Consulting fill="#8A8BA3" width="24px"/>
-                  </CategoryWrap>
-                  <CategoryWrap>
-                    <div>문화</div>
-                    <div><Culture fill="#8A8BA3" width="24px"/></div>
-                  </CategoryWrap>
-                  <CategoryWrap>
-                    <div>기타</div>
-                    <Other fill="#8A8BA3" width="24px"/>
-                  </CategoryWrap>
-                  </div>
-              {/* <nav
                 ref={dropdownRef}
-                className={`menu ${isActive ? "active" : "inactive"}`}
-              >
-                <ul>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(1);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      뷰티
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(2);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      운동
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(3);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      스터디
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(4);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      상담
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(5);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      문화
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      onClick={(e) => {
-                        console.log(e.target);
-                        setChoiceCate(6);
-                        setIsActive(!isActive)
-                      }}
-                    >
-                      기타
-                    </div>
-                  </li>
-                </ul>
-              </nav> */}
+                className={`menu ${isActive ? "active" : "inactive"}`}>
+                <CategoryWrap>
+                  <div>뷰티</div>
+                  <svg width="24px" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.11 9.32L11.33 5H8.88L7.1 9.32L4 11.44V14.18L7.1 16.3L9 21H11.16L13.08 16.32L15.97 14.32V11.32L13.11 9.32ZM11.49 15L10.11 18.36L8.72 15L5.54 12.81L8.72 10.64L10.11 7.27L11.49 10.64L14.67 12.81L11.49 15Z" fill="#8A8BA3"/>
+                    <path d="M23.7799 15.34L21.9999 11H19.5499L17.7699 15.32L14.6699 17.44V20.2L17.7699 22.32L19.6999 27H21.8599L23.7799 22.32L26.6699 20.32V17.32L23.7799 15.34ZM22.1599 21L20.7799 24.36L19.3899 21L16.2099 18.82L19.3899 16.65L20.7799 13.28L22.1599 16.65L25.3399 18.82L22.1599 21Z" fill="#8A8BA3"/>
+                  </svg>
+                </CategoryWrap>
+                <CategoryWrap>
+                  <div>운동</div>
+                  <Exercise fill="#8A8BA3" width="24px"/>
+                </CategoryWrap>
+                <CategoryWrap>
+                  <div>스터디</div>
+                  <Study fill="#8A8BA3" width="24px"/>
+                </CategoryWrap>
+                <CategoryWrap>
+                  <div>상담</div>
+                  <Consulting fill="#8A8BA3" width="24px"/>
+                </CategoryWrap>
+                <CategoryWrap>
+                  <div>문화</div>
+                  <div><Culture fill="#8A8BA3" width="24px"/></div>
+                </CategoryWrap>
+                <CategoryWrap>
+                  <div>기타</div>
+                  <Other fill="#8A8BA3" width="24px"/>
+                </CategoryWrap>
+              </div>
             </div>
           </div>
           <Refresh
@@ -309,6 +237,7 @@ const Main = () => {
               width: "32px",
               height: "32px",
               margin: "auto",
+              marginRight: "0px",
               fill: "#8A8BA3",
             }}
           />
