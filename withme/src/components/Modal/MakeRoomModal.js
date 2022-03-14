@@ -1,24 +1,24 @@
 import React, { useState,useRef } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import '../styles/Category.css';
+import '../../styles/Category.css';
 
 import { AiOutlineClose } from "react-icons/ai";
 
 //svg
 import { RiArrowDropDownLine } from "react-icons/ri";
-import {ReactComponent as Lock} from "../assets/modals/lockIcon.svg"
-import {ReactComponent as OnCamera} from "../assets/modals/onCameraIcon.svg"
-import {ReactComponent as OffCamera} from "../assets/modals/offCameraIcon.svg"
-import {ReactComponent as BeautyIcon} from "../assets/category/beautyIcon.svg"
-import {ReactComponent as ConsultingIcon} from "../assets/category/consultingIcon.svg"
-import {ReactComponent as CultureIcon} from "../assets/category/cultureIcon.svg"
-import {ReactComponent as ExerciseIcon} from "../assets/category/exerciseIcon.svg"
-import {ReactComponent as OtherIcon} from "../assets/category/otherIcon.svg"
-import {ReactComponent as StudyIcon} from "../assets/category/studyIcon.svg"
+import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
+import {ReactComponent as OnCamera} from "../../assets/modals/onCameraIcon.svg"
+import {ReactComponent as OffCamera} from "../../assets/modals/offCameraIcon.svg"
+import {ReactComponent as BeautyIcon} from "../../assets/category/beautyIcon.svg"
+import {ReactComponent as ConsultingIcon} from "../../assets/category/consultingIcon.svg"
+import {ReactComponent as CultureIcon} from "../../assets/category/cultureIcon.svg"
+import {ReactComponent as ExerciseIcon} from "../../assets/category/exerciseIcon.svg"
+import {ReactComponent as OtherIcon} from "../../assets/category/otherIcon.svg"
+import {ReactComponent as StudyIcon} from "../../assets/category/studyIcon.svg"
 
 //redux
-import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as roomActions } from "../../redux/modules/room";
 
 
 const MakeRoomModal = ({ setMRooms }) => {

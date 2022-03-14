@@ -3,11 +3,10 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 
 //style
-import { Grid } from "../elements/Index";
 import styled from "styled-components";
 
 //pages
-import SecretRoomModal from "../pages/SecretRoomModal";
+import SecretRoomModal from "../components/Modal/SecretRoomModal";
 
 //svg
 import { ReactComponent as SidebarIcon } from "../assets/modals/sidebarIcon.svg";
