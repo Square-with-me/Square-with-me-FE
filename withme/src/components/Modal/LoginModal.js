@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
 // redux import
@@ -8,6 +7,7 @@ import { actionCreators as userActions } from "../../redux/modules/user";
 
 //svg
 import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
+import { ReactComponent as EmailIcon } from "../../assets/modals/emailIcon.svg";
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 
 const LoginModal = ({ setIsM, setIsSignup }) => {
@@ -30,20 +30,21 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
         }}
       />
       <LoginWrap>
-        <Headers>
-          <AiOutlineClose
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setIsM(false);
-            }}
-          />
+        <Headers          
+        onClick={() => {
+          setIsM(false);
+          }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
         </Headers>
         <Contents>
           <HelloText>
             반갑습니다 <br /> 오늘도 즐거운 만남을 위해 잘 오셨어요
           </HelloText>
           <div style={{position:"relative"}}>          
-            <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
             <Input
             label=""
             placeholder="이메일을 입력해주세요."
@@ -138,6 +139,7 @@ const LoginWrap = styled.div`
 const Headers = styled.div`
   position: fixed;
   right: 26px;
+  cursor: pointer;
 `;
 //모달창 안에 내용 감싸기
 const Contents = styled.div`
