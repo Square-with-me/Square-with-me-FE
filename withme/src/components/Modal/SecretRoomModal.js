@@ -6,7 +6,6 @@ import { actionCreators as roomActions } from "../../redux/modules/room";
 
 //svg
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
-import { AiOutlineClose } from "react-icons/ai";
 
 const SecretRoomModal = ({ setSRoomM }) => {
   console.log(setSRoomM);
@@ -22,13 +21,14 @@ const SecretRoomModal = ({ setSRoomM }) => {
         }}
       />
       <LoginWrap>
-        <Headers>
-          <AiOutlineClose
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setSRoomM(false);
-            }}
-          />
+        <Headers         
+        onClick={() => {
+          setSRoomM(false);
+        }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
         </Headers>
         <Contents>
           <HelloText>
@@ -84,6 +84,7 @@ const LoginWrap = styled.div`
 const Headers = styled.div`
   position: fixed;
   right: 26px;
+  cursor: pointer;
 `;
 //모달창 안에 내용 감싸기
 const Contents = styled.div`

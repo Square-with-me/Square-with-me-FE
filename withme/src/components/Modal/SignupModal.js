@@ -8,6 +8,7 @@ import { actionCreators as userActions } from '../../redux/modules/user';
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
 import { ReactComponent as lowerAngleIcon } from "../../assets/modals/lowerAngleIcon.svg";
+import {ReactComponent as EmailIcon} from "../../assets/modals/emailIcon.svg"
 import { AiOutlineClose } from "react-icons/ai";
 
 const SignupModal = ({  setIsSignup }) => {
@@ -39,24 +40,28 @@ const SignupModal = ({  setIsSignup }) => {
       }}
     />
     <LoginWrap>
-      <Headers>
-        <AiOutlineClose
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setIsSignup(false)
-          }}
-        />
+      <Headers      
+      onClick={() => {
+        setIsSignup(false)
+      }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
       </Headers>
       <Contents>
         <HelloText>환영합니다 <br/> 저희와 재미있는 만남을 만들어봐요!</HelloText>
-              <Input
-                label=""
-                placeholder="이메일을 입력해주세요."
-                onChange={(e) => {
-                  setOrigin(e.target.value);
-                }}
-                value={origin}
-              />
+          <div style={{position:"relative"}}>
+            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+            <Input
+                  label=""
+                  placeholder="이메일을 입력해주세요."
+                  onChange={(e) => {
+                    setOrigin(e.target.value);
+                  }}
+                  value={origin}
+                />
+          </div>
               <div style={{display:"flex",position:"relative"}}>
                 <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
                 <Input
@@ -132,6 +137,7 @@ const LoginWrap = styled.div`
 const Headers = styled.div`
   position: fixed;
   right: 26px;
+  cursor: pointer;
 `
 //모달창 안에 내용 감싸기
 const Contents = styled.div`
