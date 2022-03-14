@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useDispatch } from 'react-redux';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as userActions } from '../../redux/modules/user';
 
 //svg
-import {ReactComponent as Lock} from "../assets/modals/lockIcon.svg"
-import { ReactComponent as UserNickIcon } from "../assets/modals/userNickIcon.svg";
-import { ReactComponent as lowerAngleIcon } from "../assets/modals/lowerAngleIcon.svg";
+import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
+import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
+import { ReactComponent as lowerAngleIcon } from "../../assets/modals/lowerAngleIcon.svg";
 import { AiOutlineClose } from "react-icons/ai";
 
 const SignupModal = ({  setIsSignup }) => {

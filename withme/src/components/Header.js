@@ -4,8 +4,8 @@ import styled from "styled-components";
 import "../styles/RoomInfoDrop.css";
 
 //pages/components
-import LoginModal from "../pages/LoginModal";
-import SignupModal from "../pages/SignupModal";
+import LoginModal from "../components/Modal/LoginModal";
+import SignupModal from "../components/Modal/SignupModal";
 import Sidebar from "./Sidebar";
 
 //icons

@@ -22,7 +22,7 @@ import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 
 //pages/components
-import MakeRoomModal from "./MakeRoomModal";
+import MakeRoomModal from "../components/Modal/MakeRoomModal";
 import Banner from "../components/Banner";
 import RoomCard from "../components/RoomCard";
 // import Footer from "../components/Footer";
@@ -37,8 +37,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 // 방 생성하기
 import { v1 as uuid } from "uuid";
 import { history } from "../redux/configureStore";
-import Sidebar from "../components/Sidebar";
-import Side from "../components/Side";
 
 const Main = () => {
   const dispatch = useDispatch();
