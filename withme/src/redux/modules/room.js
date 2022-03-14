@@ -36,72 +36,63 @@ const getRoomDB = () => {
   };
 };
 
-const addRoomDB = (title, secret, pwd, category, tags) => {
+const addRoomDB = (title, secret, pwd, category,categoryid, tags, camera) => {
   return function (dispatch, getState, { history }) {
-    // let _room = {
-    //   title: title,
-    //   secret: secret,
-    //   pwd: pwd,
-    //   category: category,
-    //   tags: tags,
-    // };
-    // const room = { ..._room };
-    // console.log(room);
-    // axios
-    //   .post(
-    //     "/api/room/new",
-    //     {
-    //       title: title,
-    //       secret: secret,
-    //       pwd: pwd,
-    //       category: category,
-    //       tags: tags,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("is_login")}`,
-    //       },
-    //     }
-    //   )
-    //   .then((response) => {
-    //     if(response.isSuccess === false){
-    //       window.alert(response.msg)
-    //     } else if(response.isSuccess===true){
-    //       tags = response.data.tags.forEach((v,idx)=>{
-
-    //       })
-    //       dispatch(addRoom({
-    //         title : response.data.title,
-    //         roomId : response.data.id,
-    //         secret : response.data.isSecret,
-    //         pwd : response.data.pwd,
-    //         masterUserId : response.data.masterUserId,
-    //         category : response.data.category.name,
-    //         tags : response.data.tags,
-    //       }))
-    //       history.push(`/detail/`);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    if (RESPJ.MakeRoom.isSuccess === true) {
-      let title = RESPJ.MakeRoom.data.title;
-      let roomId = RESPJ.MakeRoom.data.id;
-      let secret = RESPJ.MakeRoom.data.isSecret;
-      let pwd = RESPJ.MakeRoom.data.pwd;
-      let masterUserId = RESPJ.MakeRoom.data.masterUserId;
-      let category = RESPJ.MakeRoom.data.category.name;
-      let tags = RESPJ.MakeRoom.data.Tags;
-      // .forEach((t)=>{
-      //   let tag = t
-      //   // console.log(tag)
-      //   dispatch(addRoom({tag}))
-      // })
-      dispatch(
-        addRoom({ title, roomId, secret, pwd, masterUserId, category, tags })
-      );
-    }
+    let _room = {
+      title: title,
+      secret: secret,
+      pwd: pwd,
+      category: category,
+      tags: tags,
+      camera:camera
+    };
+    const room = { ..._room };
+    console.log(room);
+    axios
+      .post(
+        "http://14.45.204.153:7034/api/room/new",
+        {
+          title: title,
+          isSecret: secret,
+          pwd: pwd,
+          categoryid: categoryid,
+          tags: tags,
+          camera: camera
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
+          },
+        }
+      )
+      .then((response) => {
+        if(response.isSuccess === false){
+          window.alert(response.msg)
+        } else if(response.isSuccess===true){
+          dispatch(addRoom(room))
+          // history.push(`/detail/:roo`);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // if (RESPJ.MakeRoom.isSuccess === true) {
+    //   let title = RESPJ.MakeRoom.data.title;
+    //   let roomId = RESPJ.MakeRoom.data.id;
+    //   let secret = RESPJ.MakeRoom.data.isSecret;
+    //   let pwd = RESPJ.MakeRoom.data.pwd;
+    //   let masterUserId = RESPJ.MakeRoom.data.masterUserId;
+    //   let category = RESPJ.MakeRoom.data.category.name;
+    //   let tags = RESPJ.MakeRoom.data.Tags;
+    //   // .forEach((t)=>{
+    //   //   let tag = t
+    //   //   // console.log(tag)
+    //   //   dispatch(addRoom({tag}))
+    //   // })
+    //   dispatch(
+    //     addRoom({ title, roomId, secret, pwd, masterUserId, category, tags })
+    //   );
+    // }
   };
 };
 
