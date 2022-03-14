@@ -128,13 +128,13 @@ const hotRoomDB = () => {
 const searchRoomDB = (search) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`/api/rooms?q=${search}`, {
+      .get(`http://14.45.204.153:7034/api/rooms?q=${search}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('is_login')}`,
         },
       })
-      .then((response) => {
-        dispatch.searchRoom(response.data);
+      .then((res) => {
+        dispatch(getRoom(res.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -152,7 +152,6 @@ const categoryRoomDB = (categoryId) => {
       })
       .then((res) => {
         dispatch(getRoom(res.data.data));
-        // dispatch.searchRoom(response.data);
       })
       .catch((error) => {
         console.log(error);

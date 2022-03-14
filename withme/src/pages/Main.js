@@ -77,8 +77,6 @@ const Main = () => {
     }
   }, [choiceCate]);
 
-  ////////////////////////////////
-
   // 방 생성하기 함수
   function create() {
     const id = uuid();
