@@ -4,11 +4,11 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
 // redux import
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 //svg
-import { ReactComponent as UserNickIcon } from "../assets/modals/userNickIcon.svg";
-import {ReactComponent as Lock} from "../assets/modals/lockIcon.svg"
+import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
+import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 
 const LoginModal = ({ setIsM, setIsSignup }) => {
   const dispatch = useDispatch();

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as roomActions } from "../../redux/modules/room";
 
 //svg
-import {ReactComponent as Lock} from "../assets/modals/lockIcon.svg"
+import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 import { AiOutlineClose } from "react-icons/ai";
 
 const SecretRoomModal = ({ setSRoomM }) => {
