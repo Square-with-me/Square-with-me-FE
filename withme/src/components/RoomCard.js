@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BsFillPeopleFill } from 'react-icons/bs';
 import { FiLock, FiUnlock } from 'react-icons/fi';
 
@@ -7,10 +6,6 @@ import styled from 'styled-components';
 const RoomCard = (props) => {
   const { title, pwd, likeCnt, isSecret, id, createdAt, category, Tags } =
     props;
-
-  useEffect(() => {
-    console.log(title, isSecret, category, Tags);
-  }, []);
 
   return (
     <RoomCardContainer>

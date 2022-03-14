@@ -76,10 +76,6 @@ const Main = () => {
     }
   }, [choiceCate]);
 
-  useEffect(() => {
-    console.log('예아', roomList);
-  }, [roomList]);
-
   ////////////////////////////////
 
   // 방 생성하기 함수
@@ -382,7 +378,6 @@ const Main = () => {
 
           {roomList
             ? roomList.map((data, index) => {
-                console.log('히히', data);
                 return <RoomCard {...data} />;
               })
             : ''}
