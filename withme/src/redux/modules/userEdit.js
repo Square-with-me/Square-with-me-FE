@@ -97,7 +97,7 @@ const editNickDB = (userId, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://14.45.204.153:7034/api/user/${userId}/profile/nickname`,
+        `http://15.164.48.35:80/api/user/${userId}/profile/nickname`,
         { nickname },
         {
           headers: {
@@ -123,7 +123,7 @@ const editStatusDB = (userId, status) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://14.45.204.153:7034/api/user/${userId}/profile/statusMsg`,
+        `http://15.164.48.35:80/api/user/${userId}/profile/statusMsg`,
         { statusMsg: status },
         {
           headers: {
@@ -151,7 +151,7 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://14.45.204.153:7034/api/user/${userId}/records`, {
+      .get(`http://15.164.48.35:80/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

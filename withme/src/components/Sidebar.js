@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { history } from "../redux/configureStore";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { history } from '../redux/configureStore';
+import { useDispatch, useSelector } from 'react-redux';
 
 //style
-import styled from "styled-components";
+import styled from 'styled-components';
 
 //pages
-import SecretRoomModal from "../components/Modal/SecretRoomModal";
+import SecretRoomModal from '../components/Modal/SecretRoomModal';
 
 //svg
-import { ReactComponent as SidebarIcon } from "../assets/modals/sidebarIcon.svg";
-import { ReactComponent as UserNickIcon } from "../assets/modals/userNickIcon.svg";
-import { ReactComponent as ExitIcon } from "../assets/inRoom/exitIcon.svg";
+import { ReactComponent as SidebarIcon } from '../assets/modals/sidebarIcon.svg';
+import { ReactComponent as UserNickIcon } from '../assets/modals/userNickIcon.svg';
+import { ReactComponent as ExitIcon } from '../assets/inRoom/exitIcon.svg';
 
 //redux
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from '../redux/modules/user';
 
 const Sidebar = (props) => {
   const { open, close, header, setIsM } = props;
@@ -25,18 +25,18 @@ const Sidebar = (props) => {
 
   //login
   useEffect(() => {
-    console.log("로그인 췤");
+    console.log('로그인 췤');
     dispatch(userActions.logInCheckDB());
   }, []);
 
   const user = useSelector((state) => state.user.user);
 
   const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem("login-token") ? true : false;
+  const is_local = localStorage.getItem('login-token') ? true : false;
   React.useEffect(() => {}, [is_login]);
 
   const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem("notUser_is_login")
+  const notUser_is_local = localStorage.getItem('notUser_is_login')
     ? true
     : false;
   React.useEffect(() => {}, [notUser_is_login]);
@@ -55,13 +55,13 @@ const Sidebar = (props) => {
             />
           </SidebarHeader>
           <div
-            style={{ display: "flex", padding: "8px", alignItems: "center" }}
+            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
           >
             <UserNickIcon
               fill="#000000"
               width="32px"
               height="32px"
-              style={{ marginRight: "8px" }}
+              style={{ marginRight: '8px' }}
             />
             {is_local === true ? (
               <Text
@@ -84,38 +84,48 @@ const Sidebar = (props) => {
             )}
           </div>
           <div
-            style={{ display: "flex", padding: "8px", alignItems: "center" }}
+            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
           >
             <ExitIcon
               fill="#000000"
               width="32px"
               height="32px"
-              style={{ marginRight: "8px" }}
+              style={{ marginRight: '8px' }}
             />
-            {is_local === true 
-            ?<Text onClick={()=>{dispatch(userActions.logOutDB())}}>로그아웃</Text>
-            :<Text>나가기</Text>
-            }
-            
+            {is_local === true ? (
+              <Text
+                onClick={() => {
+                  dispatch(userActions.logOutDB());
+                }}
+              >
+                로그아웃
+              </Text>
+            ) : (
+              <Text>나가기</Text>
+            )}
           </div>
-          
+
           {notUser_is_local === true ? (
-            <div style={{ display: "flex", padding: "8px", alignItems: "center" }}>
-            <UserNickIcon
+            <div
+              style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
+            >
+              <UserNickIcon
                 fill="#000000"
                 width="32px"
                 height="32px"
-                style={{ marginRight: "8px" }}
+                style={{ marginRight: '8px' }}
               />
               <Text
                 onClick={() => {
                   dispatch(userActions.notUserLogOut());
                 }}
               >
-                비회원은<br/>그만 할래요
-              </Text>          
-              </div>
-            ) : null}
+                비회원은
+                <br />
+                그만 할래요
+              </Text>
+            </div>
+          ) : null}
           <div>
             <Text
               onClick={() => {
@@ -145,7 +155,7 @@ const Sidebar = (props) => {
         />
       </React.Fragment>
     );
-  } 
+  }
   return null;
 };
 
@@ -166,7 +176,7 @@ const Wrap = styled.div`
   background-color: #f7f7f7;
   position: absolute;
   right: 0px;
-  top:26px;
+  top: 26px;
   animation: modal-bg-show 0.6s;
 
   @keyframes modal-show {

@@ -37,7 +37,7 @@ const getRoomDB = () => {
   };
 };
 
-const addRoomDB = (title, secret, pwd, category,categoryid, tags, camera) => {
+const addRoomDB = (title, secret, pwd, category, categoryid, tags, camera) => {
   return function (dispatch, getState, { history }) {
     let _room = {
       title: title,
@@ -45,32 +45,32 @@ const addRoomDB = (title, secret, pwd, category,categoryid, tags, camera) => {
       pwd: pwd,
       category: category,
       tags: tags,
-      camera:camera
+      camera: camera,
     };
     const room = { ..._room };
     console.log(room);
     axios
       .post(
-        "http://14.45.204.153:7034/api/room/new",
+        'http://15.164.48.35:80/api/room/new',
         {
           title: title,
           isSecret: secret,
           pwd: pwd,
           categoryid: categoryid,
           tags: tags,
-          camera: camera
+          camera: camera,
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
+            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
           },
         }
       )
       .then((response) => {
-        if(response.isSuccess === false){
-          window.alert(response.msg)
-        } else if(response.isSuccess===true){
-          dispatch(addRoom(room))
+        if (response.isSuccess === false) {
+          window.alert(response.msg);
+        } else if (response.isSuccess === true) {
+          dispatch(addRoom(room));
           // history.push(`/detail/:roo`);
         }
       })
@@ -121,7 +121,7 @@ const hotRoomDB = () => {
 const searchRoomDB = (search) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://14.45.204.153:7034/api/rooms?q=${search}`, {
+      .get(`http://15.164.48.35:80/api/rooms?q=${search}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('is_login')}`,
         },
@@ -139,7 +139,7 @@ const searchRoomDB = (search) => {
 const categoryRoomDB = (categoryId) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://14.45.204.153:7034/api/rooms/category/${categoryId}`, {
+      .get(`http://15.164.48.35:80/api/rooms/category/${categoryId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('is_login')}`,
         },

@@ -69,7 +69,6 @@ const logOutDB = () => {
 
 //로그인 체크 미들웨어
 const logInCheckDB = () => {
-  console.log('로그인 췤 시작');
   return function (dispatch, getState, { history }) {
     apis.loginCheck().then((res) => {
       if (!res.data.isSuccess) {

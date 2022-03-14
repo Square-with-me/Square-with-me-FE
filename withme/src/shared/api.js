@@ -4,7 +4,7 @@ const token = localStorage.getItem('login-token');
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  baseURL: 'http://14.45.204.153:7034',
+  baseURL: 'http://15.164.48.35:80',
   headers: {
     Authorization: `Bearer ${token}`,
     'content-type': 'application/json;charset=UTF-8',
