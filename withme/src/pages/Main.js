@@ -73,6 +73,7 @@ const Main = () => {
       dispatch(roomActions.getRoomDB());
     } else {
       // 카테고리별 방 불러오기
+      dispatch(roomActions.categoryRoomDB(choiceCate));
     }
   }, [choiceCate]);
 

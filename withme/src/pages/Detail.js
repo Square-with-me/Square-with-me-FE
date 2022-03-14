@@ -313,12 +313,6 @@ const Container = styled.div`
 
     animation: show 1s;
     animation-fill-mode: forwards;
-    /* 
-    button {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    } */
 
     @keyframes show {
       from {

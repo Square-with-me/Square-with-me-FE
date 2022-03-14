@@ -142,6 +142,24 @@ const searchRoomDB = (search) => {
   };
 };
 
+const categoryRoomDB = (categoryId) => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(`http://14.45.204.153:7034/api/rooms/category/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
+        },
+      })
+      .then((res) => {
+        dispatch(getRoom(res.data.data));
+        // dispatch.searchRoom(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
 export default handleActions(
   {
     [GET_ROOM]: (state, action) =>
@@ -174,6 +192,7 @@ const actionCreators = {
   delRoomDB,
   hotRoomDB,
   searchRoomDB,
+  categoryRoomDB,
 };
 
 export { actionCreators };
