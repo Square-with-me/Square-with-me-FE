@@ -75,16 +75,15 @@ const ChattingBox = styled.div`
   height: 50vh;
   display: flex;
   flex-direction: column;
-  background-color: #ddd;
+  background: #f7f7f7;
   justify-content: space-between;
   box-sizing: border-box;
-  background-color: teal;
 
   #messageBox {
     width: 100%;
     background-color: transparent;
 
-    overflow: scroll;
+    overflow-y: scroll;
   }
 
   #inputBox {
