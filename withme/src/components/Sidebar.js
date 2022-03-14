@@ -112,7 +112,7 @@ const Sidebar = (props) => {
                   dispatch(userActions.notUserLogOut());
                 }}
               >
-                비회원은 그만 할래요
+                비회원은<br/>그만 할래요
               </Text>          
               </div>
             ) : null}
@@ -162,7 +162,7 @@ const ModalBackground = styled.div`
 const Wrap = styled.div`
   z-index: 30;
   padding: 16px;
-  width: 300px;
+  width: 200px;
   background-color: #f7f7f7;
   position: absolute;
   right: 0px;
