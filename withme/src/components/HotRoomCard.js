@@ -1,68 +1,149 @@
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import { useEffect } from "react";
+import styled from "styled-components";
 
 //icon
-import { BsFillPeopleFill } from 'react-icons/bs';
-import { FiLock, FiUnlock } from 'react-icons/fi';
-import { ReactComponent as HotRoomIcon } from '../assets/main/hotRoomIcon.svg'
-import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg'
-import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg'
+import { ReactComponent as LockIcon } from "../assets/main/lockIcon.svg";
+import { ReactComponent as HotRoomIcon } from "../assets/main/hotRoomIcon.svg";
+import { ReactComponent as UserNickIcon } from "../assets/main/userNickIcon.svg";
 
 const HotRoomCard = (props) => {
-  // const { title, pwd, likeCnt, isSecret, id, createdAt, category, Tags } =
-  //   props;
-  console.log(props)
-  // useEffect(() => {
-  //   console.log(title, isSecret, category, Tags);
-  // }, []);
+  const category = props.category.name;
   return (
-    <RoomCardContainer>
-      <div>
-        <CategoryText>{props.category.name}</CategoryText>
-        <TitleText className="title">{props.title}</TitleText>
-      </div>
-      <div>
-        {props.isSecret === "true" ? (
-          <div style={{display:"flex", alignItems:"center"}}>
-            {/* <div><LockIcon/></div>
-            <div>
-              <div><UserNickIcon width="20" fill="#8A8BA3"/></div>
-              <div>3/4</div>
-            </div> */}
-            <div>hi</div>
-        </div>
-        ) : (
-          <div style={{display:"flex", alignItems:"center"}}>
-            <div><UserNickIcon width="20" fill="#8A8BA3"/></div>
-            <div>3/4</div>
+    <Con>
+      <RoomCardContainer>
+        <div>
+          <div>
+            {props.isSecret === true ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {category === "뷰티" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "운동" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "스터디" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "상담" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "black", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "문화" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "기타" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : null}
+                <div style={{ display: "flex" }}>
+                  <HotRoomIcon
+                    width="19"
+                    fill="#E55C31"
+                    style={{ marginRight: "5px" }}
+                  />
+                  <LockIcon width="20" fill="#8A8BA3" />
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                {category === "뷰티" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "운동" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "스터디" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "상담" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "black", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "문화" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : category === "기타" ? (
+                  <CategoryText
+                    style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
+                  >
+                    {props.category.name}
+                  </CategoryText>
+                ) : null}
+                <HotRoomIcon width="19" fill="#E55C31" />
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <div className="tag">
-        {props.Tags.map((r, idx) => {
-          return <TagText>#{r.name}</TagText>;
-        })}
-      </div>
-    </RoomCardContainer>
+
+          <TitleText className="title">{props.title}</TitleText>
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            <UserNickIcon width="20" fill="#8A8BA3" />
+          </div>
+          <div>3/4</div>
+        </div>
+        <div className="tag">
+          {props.Tags.map((r, idx) => {
+            return <TagText>#{r.name}</TagText>;
+          })}
+        </div>
+      </RoomCardContainer>
+    </Con>
   );
 };
-
-const RoomCardContainer = styled.div`
+const Con = styled.div`
   width: 255px;
-  height: 175px;
+  height: 154px;
   border: none;
-  padding: 19px;
+  padding: 18px;
   border-radius: 4px;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+`;
+
+const RoomCardContainer = styled.div`
+  width: 227px;
+  height: 126px;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
   grid-gap: 8px;
+  overflow: auto;
   .tag {
     grid-column: 1/ 4;
     grid-row: 2 / 3;
     white-space: pre-line;
-    
+    margin-top: 5px;
   }
 `;
 
@@ -83,10 +164,13 @@ const CategoryText = styled.div`
 `;
 
 const TitleText = styled.div`
+  width: 171px;
   font-weight: 700;
   white-space: nowrap;
   display: block;
-  font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 20px;
   color: #33344b;
 `;
 
@@ -97,8 +181,9 @@ const TagText = styled.span`
   font-size: 12px;
   border: none;
   border-radius: 4px;
-  padding: 0px 14px;
-  margin-right: 10px;
+  padding: 6px 10px;
+  margin-right: 8px;
+  height: 24px;
 `;
 
 export default HotRoomCard;

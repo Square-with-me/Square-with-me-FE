@@ -54,25 +54,9 @@ const Main = () => {
   const [search, setSearch] = useState('');
   //참여가능한 방
   const [possible, setPossible] = useState(false);
-  const [title, setTitle] = useState('');
+  console.log(possible)
 
-  //side
-  const [side, setSide] = useState(false);
-  const onSetSide = (active) => {
-    setSide(active);
-  };
-
-  let roomList = useSelector((store) => store.room.list);
-  const hotRoom = useSelector((state) => state.room.hotList);
-
-  React.useEffect(() => {
-    dispatch(roomActions.hotRoomDB());
-  }, []);
-
-  // React.useEffect(()=>{
-  //   dispatch(userActions.NotMemberLoginCheckDB())
-  // },[])
-
+  //login
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
   const notUser_is_local = localStorage.getItem('notUser_is_login')
     ? true
@@ -83,9 +67,14 @@ const Main = () => {
   function NotLog() {
     window.alert('로그인 이후 이용 가능 합니다.');
   }
+  // React.useEffect(()=>{
+  //   dispatch(userActions.NotMemberLoginCheckDB())
+  // },[])
+    // React.useEffect(()=>{
+  //   dispatch(userActions.LoginCheckDB())
+  // },[])
 
-  // sumin ////////////////////////
-
+  //room
   const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
@@ -98,6 +87,17 @@ const Main = () => {
       dispatch(roomActions.categoryRoomDB(choiceCate));
     }
   }, [choiceCate]);
+
+  let roomList = useSelector((store) => store.room.list);
+  const hotRoom = useSelector((state) => state.room.hotList);
+  console.log(hotRoom)
+
+  React.useEffect(() => {
+    dispatch(roomActions.hotRoomDB());
+    // dispatch(roomActions.getRoomDB())
+    console.log('hot')
+  }, []);
+
 
   // 방 생성하기 함수
   function create() {
@@ -227,9 +227,9 @@ const Main = () => {
               </PossibleBtn>
             )}
 
-            <SpectatorBtn>
+            {/* <SpectatorBtn>
               <RoomText>관전 가능</RoomText>
-            </SpectatorBtn>
+            </SpectatorBtn> */}
 
             <Category>
               <div className="container">
@@ -381,14 +381,24 @@ const Main = () => {
             <Plus
               style={{
                 cursor: 'pointer',
-                width: '70px',
-                height: '70px',
-                margin: '2rem 4.5rem',
+                width: '64px',
+                height: '64px',
+                margin: '45 96',
                 fill: '#FFFFFF',
               }}
             />
           </RoomCardContainer>
           {MRooms && <MakeRoomModal setMRooms={setMRooms} create={create} />}
+
+          {hotRoom
+            ? hotRoom.map((data, index) => {
+                return (
+                  <div>
+                    <HotRoomCard {...data} />
+                  </div>
+                )
+              })
+            : ''}
           {/* 
           {possible === true
             ? jsonData.map((r, idx) => {
@@ -528,15 +538,15 @@ const Main = () => {
                   </div>
                 );
               })} */}
-          {hotRoom
-            ? hotRoom.map((data, index) => {
-                return <HotRoomCard {...data} />;
-              })
-            : ''}
+
 
           {roomList
             ? roomList.map((data, index) => {
-                return <RoomCard {...data} possible={possible} />;
+                return(
+                  <div>
+                    <RoomCard {...data} possible = {setPossible} />
+                  </div>
+                ) 
               })
             : ''}
         </RoomListContainer>
@@ -592,6 +602,7 @@ const Wrap = styled.div`
     grid-column: 1/13;
   }
   .morebtn {
+    grid-column: 1/13;
     margin: auto;
   }
   .footer {
@@ -615,7 +626,6 @@ const EXRoomMaker = styled.button`
 `;
 
 const AllBtn = styled.button`
-  padding: 14px 0px;
   width: 56px;
   height: 43px;
   border: 1px solid #8a8ba3;
@@ -668,7 +678,8 @@ const Btn = styled.button`
   height: 51px;
   border: 1px solid #8a8ba3;
   border-radius: 4px;
-  background-color: #edebf1;
+  background-color: #EDEBF1;
+  font-size: 16px;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
@@ -709,11 +720,11 @@ const DropBtn = styled.button`
   width: 200px;
   &:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #7b61ff;
+    border: 0.5px solid #7b61ff;
   }
-  .active {
+  /* .active {
     border: 1px solid #7b61ff;
-  }
+  } */
 `;
 
 const CategoryDText = styled.div`
@@ -735,6 +746,7 @@ const CategoryWrap = styled.div`
   justify-content: space-between;
   padding: 10px;
   align-items: center;
+  cursor: pointer;
   div {
     font-size: 16px;
     color: #8a8ba3;
@@ -792,20 +804,11 @@ const RoomListContainer = styled.div`
 
 const RoomCardContainer = styled.div`
   width: 255px;
-  height: 175px;
+  height: 154px;
   border: none;
-  padding: 19px;
   border-radius: 4px;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-auto-rows: 2fr;
-  grid-gap: 8px;
-  .tag {
-    grid-column: 1/ 4;
-    grid-row: 2 / 3;
-    white-space: pre-line;
-  }
+  position: relative;
 `;
 
 const CategoryText = styled.div`

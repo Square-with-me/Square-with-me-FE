@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {BsGithub} from "react-icons/bs"
 
 const Footer = () => {
   return (

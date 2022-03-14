@@ -37,7 +37,7 @@ const getRoomDB = () => {
   };
 };
 
-const addRoomDB = (title, secret, pwd, category, categoryid, tags, camera) => {
+const addRoomDB = (title, secret, pwd, category, categoryid, tags) => {
   return function (dispatch, getState, { history }) {
     let _room = {
       title: title,
@@ -45,7 +45,6 @@ const addRoomDB = (title, secret, pwd, category, categoryid, tags, camera) => {
       pwd: pwd,
       category: category,
       tags: tags,
-      camera: camera,
     };
     const room = { ..._room };
     console.log(room);
@@ -56,9 +55,8 @@ const addRoomDB = (title, secret, pwd, category, categoryid, tags, camera) => {
           title: title,
           isSecret: secret,
           pwd: pwd,
-          categoryid: categoryid,
+          categoryId: categoryid,
           tags: tags,
-          camera: camera,
         },
         {
           headers: {
@@ -71,29 +69,11 @@ const addRoomDB = (title, secret, pwd, category, categoryid, tags, camera) => {
           window.alert(response.msg);
         } else if (response.isSuccess === true) {
           dispatch(addRoom(room));
-          // history.push(`/detail/:roo`);
         }
       })
       .catch((error) => {
         console.log(error);
       });
-    // if (RESPJ.MakeRoom.isSuccess === true) {
-    //   let title = RESPJ.MakeRoom.data.title;
-    //   let roomId = RESPJ.MakeRoom.data.id;
-    //   let secret = RESPJ.MakeRoom.data.isSecret;
-    //   let pwd = RESPJ.MakeRoom.data.pwd;
-    //   let masterUserId = RESPJ.MakeRoom.data.masterUserId;
-    //   let category = RESPJ.MakeRoom.data.category.name;
-    //   let tags = RESPJ.MakeRoom.data.Tags;
-    //   // .forEach((t)=>{
-    //   //   let tag = t
-    //   //   // console.log(tag)
-    //   //   dispatch(addRoom({tag}))
-    //   // })
-    //   dispatch(
-    //     addRoom({ title, roomId, secret, pwd, masterUserId, category, tags })
-    //   );
-    // }
   };
 };
 
@@ -102,14 +82,10 @@ const delRoomDB = () => {};
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
-      .get('/api/rooms/hot', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
-        },
-      })
-      .then((response) => {
-        let searchRoom = response.data;
-        dispatch.hotRoom(searchRoom);
+      .get('http://15.164.48.35:80/api/rooms?q=hot', {})
+      .then((res) => {
+        console.log('핫한 방 불러오기', res.data.data);
+        dispatch(hotRoom(res.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -123,7 +99,7 @@ const searchRoomDB = (search) => {
     axios
       .get(`http://15.164.48.35:80/api/rooms?q=${search}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
+          Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
       })
       .then((res) => {
@@ -168,6 +144,7 @@ export default handleActions(
     [HOT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
+        console.log(draft.hotList)
       }),
   },
   initialState
