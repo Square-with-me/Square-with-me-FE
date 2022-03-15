@@ -202,9 +202,7 @@ const Mypage = (props) => {
           <div className="width100">
             <p>이번 주 참여 기록</p>
             <div id="endTopBox" className="boxStyle">
-              <WeekTimeBox>
-                <WeekTime week={week} />
-              </WeekTimeBox>
+              <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
             </div>
           </div>
           <div className="width100">
