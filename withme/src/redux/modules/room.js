@@ -7,13 +7,11 @@ const GET_ROOM = 'GET_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
 const DEL_ROOM = 'DEL_ROOM';
 const HOT_ROOM = 'HOT_ROOM';
-const SEARCH_ROOM = 'SEARCH_ROOM';
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
 const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
-const searchRoom = createAction(SEARCH_ROOM, (searchRoom) => ({ searchRoom }));
 
 const initialState = {
   list: [],
@@ -34,6 +32,7 @@ const getRoomDB = () => {
   };
 };
 
+// 방 생성하기
 const addRoomDB = (roomInfo, category) => {
   return function (dispatch, getState, { history }) {
     axios
@@ -50,6 +49,7 @@ const addRoomDB = (roomInfo, category) => {
       )
       .then((response) => {
         dispatch(addRoom(response.data.data));
+        history.push(`/room/${response.data.data.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -59,6 +59,7 @@ const addRoomDB = (roomInfo, category) => {
 
 const delRoomDB = () => {};
 
+// 핫한 방 불러오기
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
@@ -109,19 +110,35 @@ const categoryRoomDB = (categoryId) => {
   };
 };
 
-const PossibleRoomDB =()=>{
+// 방에 들어가기
+const enteringRoomDB = (roomId, userId) => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(`http://15.164.48.35:80/api/room/${roomId}/user/${userId}`, {
+        role: 'particpant',
+      })
+      .then((res) => {
+        console.log('방 들어가버려~~~', res);
+      })
+      .catch((error) => {
+        alert(error.response.data.msg);
+      });
+  };
+};
+
+const PossibleRoomDB = () => {
   return function (dispatch, getState, { history }) {
     apis
       .getRoomPossible()
       .then((res) => {
         dispatch(getRoom(res.data.data));
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-}
+};
 
 export default handleActions(
   {
@@ -144,10 +161,7 @@ export default handleActions(
 );
 
 const actionCreators = {
-  addRoom,
   delRoom,
-  hotRoom,
-  searchRoom,
 
   getRoomDB,
   addRoomDB,
@@ -155,7 +169,8 @@ const actionCreators = {
   hotRoomDB,
   searchRoomDB,
   categoryRoomDB,
-  PossibleRoomDB
+  PossibleRoomDB,
+  enteringRoomDB,
 };
 
 export { actionCreators };

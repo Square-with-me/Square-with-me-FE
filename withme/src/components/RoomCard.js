@@ -7,233 +7,330 @@ import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg'
 
 const RoomCard = (props) => {
   const category = props.category.name;
-  const participantCnt = props.participantCnt
+  const participantCnt = props.participantCnt;
   return (
     <div>
-      {participantCnt===4
-      ?    
-      <Container2>
-      <RoomCardContainer>
-        <div>
-          <div>
-            {props.isSecret === true ? (
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {category === "뷰티" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "운동" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "스터디" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "상담" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "black", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "문화" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "기타" ? (
-                  <CategoryText
-                    style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : null}
-                <div>
-                  <LockIcon width="20" fill="#33344B" />
-                </div>
-              </div>
-            ) : (
+      {participantCnt === 4 ? (
+        <Container2>
+          <RoomCardContainer>
+            <div>
               <div>
-                {category === "뷰티" ? (
-                  <CategoryText style={{ backgroundColor: "#FCEDB7" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "운동" ? (
-                  <CategoryText style={{ backgroundColor: "#FFC9C9" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "스터디" ? (
-                  <CategoryText style={{ backgroundColor: "#B9E8B5" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "상담" ? (
-                  <CategoryText style={{ backgroundColor: "black" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "문화" ? (
-                  <CategoryText style={{ backgroundColor: "#B5E3F8" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === "기타" ? (
-                  <CategoryText style={{ backgroundColor: "#B7CEFC" }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : null}
+                {props.isSecret === true ? (
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {category === '뷰티' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#FCEDB7',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '운동' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#FFC9C9',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '스터디' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B9E8B5',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '상담' ? (
+                      <CategoryText
+                        style={{ backgroundColor: 'black', marginRight: '8px' }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '문화' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B5E3F8',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '기타' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B7CEFC',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : null}
+                    <div>
+                      <LockIcon width="20" fill="#33344B" />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {category === '뷰티' ? (
+                      <CategoryText style={{ backgroundColor: '#FCEDB7' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '운동' ? (
+                      <CategoryText style={{ backgroundColor: '#FFC9C9' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '스터디' ? (
+                      <CategoryText style={{ backgroundColor: '#B9E8B5' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '상담' ? (
+                      <CategoryText style={{ backgroundColor: 'black' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '문화' ? (
+                      <CategoryText style={{ backgroundColor: '#B5E3F8' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '기타' ? (
+                      <CategoryText style={{ backgroundColor: '#B7CEFC' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : null}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          <TitleText className="title">{props.title}</TitleText>
-        </div>
+              <TitleText className="title">{props.title}</TitleText>
+            </div>
 
-        <div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{marginRight:'4px'}}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z" fill="#8A8BA3"/>
-            <path d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z" fill="#8A8BA3"/>
-            <path d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z" fill="#8A8BA3"/>
-            <path d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z" fill="#8A8BA3"/>
-            <path d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z" fill="#8A8BA3"/>
-            <path d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z" fill="#8A8BA3"/>
-            <path d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z" fill="#8A8BA3"/>
-            <path d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z" fill="#8A8BA3"/>
-            </svg>
-          </div>
-          <div>1/2</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <UserNickIcon width="19" fill="#8A8BA3" style={{marginRight:'4px'}} />
-          <div>{props.participantCnt}/4</div>
-        </div>
-        </div>
-
-
-        <div className="tag">
-          {props.Tags.map((r, idx) => {
-            return <TagText>#{r.name}</TagText>;
-          })}
-        </div>
-      </RoomCardContainer>
-      </Container2>
-      :    
-      <Container>
-      <RoomCardContainer>
-        <div>
-          <div>
-            {props.isSecret === true ? (
+            <div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                {category === '뷰티' ? (
-                  <CategoryText
-                    style={{ backgroundColor: '#FCEDB7', marginRight: '8px' }}
+                <div style={{ marginRight: '4px' }}>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '운동' ? (
-                  <CategoryText
-                    style={{ backgroundColor: '#FFC9C9', marginRight: '8px' }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '스터디' ? (
-                  <CategoryText
-                    style={{ backgroundColor: '#B9E8B5', marginRight: '8px' }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '상담' ? (
-                  <CategoryText
-                    style={{ backgroundColor: 'black', marginRight: '8px' }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '문화' ? (
-                  <CategoryText
-                    style={{ backgroundColor: '#B5E3F8', marginRight: '8px' }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '기타' ? (
-                  <CategoryText
-                    style={{ backgroundColor: '#B7CEFC', marginRight: '8px' }}
-                  >
-                    {props.category.name}
-                  </CategoryText>
-                ) : null}
-                <div>
-                  <LockIcon width="20" fill="#8A8BA3" />
+                    <path
+                      d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z"
+                      fill="#8A8BA3"
+                    />
+                  </svg>
                 </div>
+                <div>1/2</div>
               </div>
-            ) : (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <UserNickIcon
+                  width="19"
+                  fill="#8A8BA3"
+                  style={{ marginRight: '4px' }}
+                />
+                <div>{props.participantCnt}/4</div>
+              </div>
+            </div>
+
+            <div className="tag">
+              {props.Tags.map((r, idx) => {
+                return <TagText>#{r.name}</TagText>;
+              })}
+            </div>
+          </RoomCardContainer>
+        </Container2>
+      ) : (
+        <Container>
+          <RoomCardContainer>
+            <div>
               <div>
-                {category === '뷰티' ? (
-                  <CategoryText style={{ backgroundColor: '#FCEDB7' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '운동' ? (
-                  <CategoryText style={{ backgroundColor: '#FFC9C9' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '스터디' ? (
-                  <CategoryText style={{ backgroundColor: '#B9E8B5' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '상담' ? (
-                  <CategoryText style={{ backgroundColor: 'black' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '문화' ? (
-                  <CategoryText style={{ backgroundColor: '#B5E3F8' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : category === '기타' ? (
-                  <CategoryText style={{ backgroundColor: '#B7CEFC' }}>
-                    {props.category.name}
-                  </CategoryText>
-                ) : null}
+                {props.isSecret === true ? (
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {category === '뷰티' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#FCEDB7',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '운동' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#FFC9C9',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '스터디' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B9E8B5',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '상담' ? (
+                      <CategoryText
+                        style={{ backgroundColor: 'black', marginRight: '8px' }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '문화' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B5E3F8',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '기타' ? (
+                      <CategoryText
+                        style={{
+                          backgroundColor: '#B7CEFC',
+                          marginRight: '8px',
+                        }}
+                      >
+                        {props.category.name}
+                      </CategoryText>
+                    ) : null}
+                    <div>
+                      <LockIcon width="20" fill="#8A8BA3" />
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {category === '뷰티' ? (
+                      <CategoryText style={{ backgroundColor: '#FCEDB7' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '운동' ? (
+                      <CategoryText style={{ backgroundColor: '#FFC9C9' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '스터디' ? (
+                      <CategoryText style={{ backgroundColor: '#B9E8B5' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '상담' ? (
+                      <CategoryText style={{ backgroundColor: 'black' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '문화' ? (
+                      <CategoryText style={{ backgroundColor: '#B5E3F8' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : category === '기타' ? (
+                      <CategoryText style={{ backgroundColor: '#B7CEFC' }}>
+                        {props.category.name}
+                      </CategoryText>
+                    ) : null}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          <TitleText className="title">{props.title}</TitleText>
-        </div>
-        
-        <div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{marginRight:'4px'}}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z" fill="#8A8BA3"/>
-            <path d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z" fill="#8A8BA3"/>
-            <path d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z" fill="#8A8BA3"/>
-            <path d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z" fill="#8A8BA3"/>
-            <path d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z" fill="#8A8BA3"/>
-            <path d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z" fill="#8A8BA3"/>
-            <path d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z" fill="#8A8BA3"/>
-            <path d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z" fill="#8A8BA3"/>
-            </svg>
-          </div>
-          <div>1/2</div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <UserNickIcon width="19" fill="#8A8BA3" style={{marginRight:'4px'}} />
-          <div>{props.participantCnt}/4</div>
-        </div>
-        </div>
+              <TitleText className="title">{props.title}</TitleText>
+            </div>
 
-        <div className="tag">
-          {props.Tags.map((r, idx) => {
-            return <TagText>#{r.name}</TagText>;
-          })}
-        </div>
-      </RoomCardContainer>
-    </Container>}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ marginRight: '4px' }}>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z"
+                      fill="#8A8BA3"
+                    />
+                    <path
+                      d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z"
+                      fill="#8A8BA3"
+                    />
+                  </svg>
+                </div>
+                <div>1/2</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <UserNickIcon
+                  width="19"
+                  fill="#8A8BA3"
+                  style={{ marginRight: '4px' }}
+                />
+                <div>{props.participantCnt}/4</div>
+              </div>
+            </div>
+
+            <div className="tag">
+              {props.Tags.map((r, idx) => {
+                return <TagText>#{r.name}</TagText>;
+              })}
+            </div>
+          </RoomCardContainer>
+        </Container>
+      )}
     </div>
   );
 };
@@ -252,7 +349,7 @@ const Container2 = styled.div`
   padding: 18px;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.15);
-`
+`;
 
 const RoomCardContainer = styled.div`
   width: 227px;
@@ -304,7 +401,7 @@ const TagText = styled.span`
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom: 6px;
-  display : inline-block; 
+  display: inline-block;
   padding: 4px 8px;
 `;
 
