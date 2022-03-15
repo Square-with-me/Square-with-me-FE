@@ -13,6 +13,7 @@ import Peer from 'simple-peer';
 import {ReactComponent as OnMic} from "../assets/inRoom/onMicIcon.svg"
 import {ReactComponent as OffMic} from "../assets/inRoom/offMicIcon.svg"
 import {ReactComponent as OnCamera} from "../assets/inRoom/onCameraIcon.svg"
+import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
 // import {ReactComponent as Timer} from "../assets/inRoom/timerIcon.svg"
 // import {ReactComponent as UserList} from "../assets/inRoom/userListIcon.svg"
 // import {ReactComponent as Chatting} from "../assets/inRoom/chattingIcon.svg"
@@ -52,6 +53,7 @@ const Video = (props) => {
 
 const Detail = (props) => {
   const [mic, setMic] = useState("ok");
+  const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
   const [isSW, setIsSW] = useState(false); // 스톱워치
@@ -290,8 +292,18 @@ const Detail = (props) => {
           <>
             <div className="designBox" id="stopwatch">
               <div className="flex">
+              <Button>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
+              </Button>
                 <p>타이머</p>
-                <button></button>
+                <Button>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                  </svg>
+                </Button>
               </div>
               {isTimer ? <Timer roomId={roomID} /> : ''}
             </div>
@@ -302,8 +314,18 @@ const Detail = (props) => {
         {isPP ? (
           <div className="designBox">
             <div className="flex">
+              <Button>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
+              </Button>
               <p>참가자</p>
-              <button></button>
+              <Button>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                  <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
+              </Button>
             </div>
           </div>
         ) : (
@@ -313,15 +335,22 @@ const Detail = (props) => {
           <>
             <div className="designBox">
               <div className="flex">
-                <button
+                <Button
                   onClick={(e) => {
                     openChatting(e);
                   }}
                 >
-                  C
-                </button>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                  </svg>
+                </Button>
                 <p>채팅</p>
-                <button></button>
+                <Button>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                  </svg>
+                </Button>
               </div>
               {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
             </div>
@@ -335,7 +364,6 @@ const Detail = (props) => {
           <div
             style={{
               display: "flex",
-              height: "40px",
               margin: " 0px 16px",
               alignContent: "center",
               justifyContent: "center",
@@ -357,11 +385,29 @@ const Detail = (props) => {
             )}
           </div>
 
-          <OnCamera
-            style={{ marginRight: "20px" }}
-            width="32px"
-            fill="#8A8BA3"
-          />
+          <div
+            style={{
+              display: "flex",
+              marginRight: "20px",
+              alignContent: "center",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {camera === "ok" ? (
+              <OnCamera
+                width="32px"
+                fill="#8A8BA3"
+                onClick={() => setCamera("no")}
+              />
+            ) : (
+              <OffCamera
+                width="32px"
+                fill="#8A8BA3"
+                onClick={() => setCamera("ok")}
+              />
+            )}
+          </div>
 
           <ChooseEmotion
             style={{ marginRight: "15px" }}
@@ -483,7 +529,7 @@ const Container = styled.div`
     }
 
     .designBox {
-      background: #f7f7f7;
+      background: #F7F7F7;
       animation: slide-in 1s;
       animation-fill-mode: forwards;
       margin: 5%;
@@ -541,6 +587,14 @@ const Container = styled.div`
       }
     }
   }
+`;
+
+const Button = styled.button`
+  width: 16px;
+  height: 16px;
+  background-color: #F7F7F7;
+  margin: 0px;
+  border: none;
 `;
 
 export default Detail;
