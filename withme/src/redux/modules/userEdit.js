@@ -32,7 +32,7 @@ const editStatus = createAction(EDIT_STATUS, (status) => ({ status }));
 const editBadge = createAction(EDIT_BADGE, () => ({}));
 const getBadge = createAction(GET_BADGE, () => ({}));
 const todayTime = createAction(TODAY_TIME, () => ({}));
-const weekTime = createAction(WEEK_TIME, () => ({}));
+const weekTime = createAction(WEEK_TIME, (weekTime) => weekTime);
 const monthTime = createAction(MONTH_TIME, (monthTime) => monthTime);
 
 const initialState = {
@@ -51,7 +51,6 @@ const initialState = {
   week: '',
   month: [],
 };
-const resp = RESP;
 
 // //로그인 체크 미들웨어
 const logInCheckDB = () => {
@@ -159,7 +158,15 @@ const timeGetDB = (userId) => {
       .then(function (res) {
         console.log('timeGet :  ', res.data.data);
         const monthData = res.data.data.monthRecords;
-        const weekData = res.data.data.weekRecord;
+        const weekData = {
+          beautyRecord: res.data.data.beautyRecord,
+          counselingRecord: res.data.data.counselingRecord,
+          cultureRecord: res.data.data.cultureRecord,
+          etcRecord: res.data.data.etcRecord,
+          sportsRecord: res.data.data.sportsRecord,
+          studyRecord: res.data.data.studyRecord,
+        };
+        dispatch(weekTime(weekData));
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
@@ -190,9 +197,13 @@ export default handleActions(
         console.log('이미지 변경: ', action.payload);
         draft.user.profileImg = action.payload.profileUrl;
       }),
+    [WEEK_TIME]: (state, action) =>
+      produce(state, (draft) => {
+        console.log('요고요고', action.payload);
+        draft.week = action.payload;
+      }),
     [MONTH_TIME]: (state, action) =>
       produce(state, (draft) => {
-        console.log('액션 페이로드: ', action.payload);
         draft.month = action.payload;
       }),
   },

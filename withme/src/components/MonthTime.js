@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userEditActions } from '../redux/modules/userEdit';
-
-const MonthTime = ({ userId }) => {
-  const dispatch = useDispatch();
-
-  const month = useSelector((store) => store.userEdit.month);
-
-  console.log('month', month);
-
-  useEffect(() => {
-    console.log(userId);
-    dispatch(userEditActions.timeGetDB(userId));
-  }, []);
-
+const MonthTime = ({ month }) => {
   return (
     <Container>
       {month.map((data, index) => {

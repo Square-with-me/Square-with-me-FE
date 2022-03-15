@@ -1,8 +1,12 @@
 // chart.js
 import 'chart.js/auto';
+import { useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const WeekTime = () => {
+const WeekTime = (props) => {
+  useEffect(() => {
+    console.log('이거이거', props);
+  }, []);
   const data = {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [
