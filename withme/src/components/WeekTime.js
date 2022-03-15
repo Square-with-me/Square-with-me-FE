@@ -1,12 +1,82 @@
-// chart.js
 import 'chart.js/auto';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const WeekTime = (props) => {
+const WeekTime = ({ week }) => {
+  const {
+    beautyRecord,
+    counselingRecord,
+    cultureRecord,
+    etcRecord,
+    sportsRecord,
+    studyRecord,
+  } = week;
+
+  const [beauty, setBeauty] = useState([]);
+  const [counseling, setCounseling] = useState([]);
+  const [culture, setCulture] = useState([]);
+  const [etc, setEtc] = useState([]);
+  const [sports, setSports] = useState([]);
+  const [study, setStudy] = useState([]);
+
   useEffect(() => {
-    console.log('이거이거', props);
-  }, []);
+    console.log('이거이거', beautyRecord);
+
+    setBeauty([
+      beautyRecord.sun / 1000,
+      beautyRecord.mon / 1000,
+      beautyRecord.tue / 1000,
+      beautyRecord.wed / 1000,
+      beautyRecord.thur / 1000,
+      beautyRecord.fri / 1000,
+      beautyRecord.sat / 1000,
+    ]);
+    setCounseling([
+      counselingRecord.sun / 1000,
+      counselingRecord.mon / 1000,
+      counselingRecord.tue / 1000,
+      counselingRecord.wed / 1000,
+      counselingRecord.thur / 1000,
+      counselingRecord.fri / 1000,
+      counselingRecord.sat / 1000,
+    ]);
+    setCulture([
+      cultureRecord.sun / 1000,
+      cultureRecord.mon / 1000,
+      cultureRecord.tue / 1000,
+      cultureRecord.wed / 1000,
+      cultureRecord.thur / 1000,
+      cultureRecord.fri / 1000,
+      cultureRecord.sat / 1000,
+    ]);
+    setEtc([
+      etcRecord.sun / 1000,
+      etcRecord.mon / 1000,
+      etcRecord.tue / 1000,
+      etcRecord.wed / 1000,
+      etcRecord.thur / 1000,
+      etcRecord.fri / 1000,
+      etcRecord.sat / 1000,
+    ]);
+    setSports([
+      sportsRecord.sun / 1000,
+      sportsRecord.mon / 1000,
+      sportsRecord.tue / 1000,
+      sportsRecord.wed / 1000,
+      sportsRecord.thur / 1000,
+      sportsRecord.fri / 1000,
+      sportsRecord.sat / 1000,
+    ]);
+    setStudy([
+      studyRecord.sun / 1000,
+      studyRecord.mon / 1000,
+      studyRecord.tue / 1000,
+      studyRecord.wed / 1000,
+      studyRecord.thur / 1000,
+      studyRecord.fri / 1000,
+      studyRecord.sat / 1000,
+    ]);
+  }, [week]);
   const data = {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [
@@ -14,31 +84,37 @@ const WeekTime = (props) => {
         label: '뷰티',
         backgroundColor: '#FCEDB7',
         stack: 'Stack 0',
-        data: [66, 93, 31, 76, 39, 75, 36],
+        data: beauty,
       },
       {
         label: '운동',
         backgroundColor: '#FFC9C9',
         stack: 'Stack 0',
-        data: [76, 203, 41, 86, 49, 85, 46],
+        data: sports,
       },
       {
         label: '스터디',
         backgroundColor: '#B9E8B5',
         stack: 'Stack 0',
-        data: [76, 103, 41, 86, 49, 85, 46],
+        data: study,
       },
       {
         label: '문화',
         backgroundColor: '#B5E3F8',
         stack: 'Stack 0',
-        data: [56, 56, 83, 21, 66, 29, 65],
+        data: culture,
+      },
+      {
+        label: '상담',
+        backgroundColor: '#000',
+        stack: 'Stack 0',
+        data: counseling,
       },
       {
         label: '기타',
         backgroundColor: '#B7CEFC',
         stack: 'Stack 0',
-        data: [56, 56, 83, 21, 66, 29, 65],
+        data: etc,
       },
     ],
   };
@@ -73,6 +149,14 @@ const WeekTime = (props) => {
       },
     },
   };
-  return <Bar data={data} options={option} style={{ height: '100%' }} />;
+  return (
+    <>
+      {week ? (
+        <Bar data={data} options={option} style={{ height: '100%' }} />
+      ) : (
+        ''
+      )}
+    </>
+  );
 };
 export default WeekTime;

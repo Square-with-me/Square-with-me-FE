@@ -98,7 +98,7 @@ const categoryRoomDB = (categoryId) => {
     axios
       .get(`http://15.164.48.35:80/api/rooms/category/${categoryId}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('is_login')}`,
+          Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
       })
       .then((res) => {
@@ -114,11 +114,19 @@ const categoryRoomDB = (categoryId) => {
 const enteringRoomDB = (roomId, userId) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/room/${roomId}/user/${userId}`, {
-        role: 'particpant',
-      })
+      .post(
+        `http://15.164.48.35:80/api/room/${roomId}/user/${userId}`,
+        {
+          role: 'participant',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+          },
+        }
+      )
       .then((res) => {
-        console.log('방 들어가버려~~~', res);
+        history.push(`/room/${roomId}`);
       })
       .catch((error) => {
         alert(error.response.data.msg);
