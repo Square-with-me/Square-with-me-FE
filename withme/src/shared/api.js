@@ -27,4 +27,5 @@ export const apis = {
   // room
   getRoomHot: () => api.get('/api/rooms?q=hot'),
   getRoomAll: () => api.get('/api/rooms?q=all'),
+  getRoomPossible: () => api.get('/api/rooms?q=possible'),
 };

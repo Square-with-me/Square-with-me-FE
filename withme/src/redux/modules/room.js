@@ -109,6 +109,20 @@ const categoryRoomDB = (categoryId) => {
   };
 };
 
+const PossibleRoomDB =()=>{
+  return function (dispatch, getState, { history }) {
+    apis
+      .getRoomPossible()
+      .then((res) => {
+        dispatch(getRoom(res.data.data));
+        console.log(res.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+}
+
 export default handleActions(
   {
     [GET_ROOM]: (state, action) =>
@@ -141,6 +155,7 @@ const actionCreators = {
   hotRoomDB,
   searchRoomDB,
   categoryRoomDB,
+  PossibleRoomDB
 };
 
 export { actionCreators };

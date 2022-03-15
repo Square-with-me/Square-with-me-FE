@@ -1,35 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import '../styles/Drop.css';
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import "../styles/Drop.css";
 
 // main icons
-import { ReactComponent as Search } from '../assets/main/searchIcon.svg';
-import { ReactComponent as Plus } from '../assets/main/plusIcon.svg';
-import { ReactComponent as Refresh } from '../assets/main/refreshIcon.svg';
+import { ReactComponent as Search } from "../assets/main/searchIcon.svg";
+import { ReactComponent as Plus } from "../assets/main/plusIcon.svg";
+import { ReactComponent as Refresh } from "../assets/main/refreshIcon.svg";
 
 // category icon
-import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
-import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
-import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
-import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
-import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
+import { ReactComponent as Consulting } from "../assets/category/consultingIcon.svg";
+import { ReactComponent as Culture } from "../assets/category/cultureIcon.svg";
+import { ReactComponent as Exercise } from "../assets/category/exerciseIcon.svg";
+import { ReactComponent as Other } from "../assets/category/otherIcon.svg";
+import { ReactComponent as Study } from "../assets/category/studyIcon.svg";
 
 //pages/components
-import MakeRoomModal from '../components/Modal/MakeRoomModal';
-import Banner from '../components/Banner';
-import RoomCard from '../components/RoomCard';
-import FooterTest from '../components/FooterTest';
-import Header from '../components/Header';
+import MakeRoomModal from "../components/Modal/MakeRoomModal";
+import Banner from "../components/Banner";
+import RoomCard from "../components/RoomCard";
+import FooterTest from "../components/FooterTest";
+import Header from "../components/Header";
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as roomActions } from '../redux/modules/room';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // 방 생성하기
-import { v1 as uuid } from 'uuid';
-import { history } from '../redux/configureStore';
-import HotRoomCard from '../components/HotRoomCard';
+import { v1 as uuid } from "uuid";
+import { history } from "../redux/configureStore";
+import HotRoomCard from "../components/HotRoomCard";
+import TestRoom from "../components/TestRoom";
+import SecretRoomModal from "../components/Modal/SecretRoomModal";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -45,46 +47,53 @@ const Main = () => {
 
   const [MRooms, setMRooms] = useState(false);
   //검색
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   //참여가능한 방
   const [possible, setPossible] = useState(false);
-  console.log(possible);
+  //비밀 방
+  const [secret, setSecret] = useState(false)
+
 
   //login
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
+  const notUser_is_local = localStorage.getItem("notUser_is_login")
     ? true
     : false;
-  function Not() {
-    window.alert('비회원은 로그인 후에 이용 가능 합니다.');
-  }
-  function NotLog() {
-    window.alert('로그인 이후 이용 가능 합니다.');
-  }
-  // React.useEffect(()=>{
-  //   dispatch(userActions.NotMemberLoginCheckDB())
-  // },[])
-  // React.useEffect(()=>{
-  //   dispatch(userActions.LoginCheckDB())
-  // },[])
+  React.useEffect(() => {
+    dispatch(userActions.NotMemberLoginCheckDB());
+  }, []);
 
   //room
-  const [category, setCategory] = useState('카테고리');
+  const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
   useEffect(() => {
     if (choiceCate === 0) {
       // 전체 방 불러오기
       dispatch(roomActions.getRoomDB());
+      setCategory("카테고리");
     } else {
       // 카테고리별 방 불러오기
       dispatch(roomActions.categoryRoomDB(choiceCate));
     }
   }, [choiceCate]);
 
+  useEffect(() => {
+    if (possible === true) {
+      dispatch(roomActions.PossibleRoomDB());
+    } else {
+      dispatch(roomActions.getRoomDB());
+    }
+  }, []);
+
   let roomList = useSelector((store) => store.room.list);
   const hotRoom = useSelector((state) => state.room.hotList);
   console.log(hotRoom);
+
+  React.useEffect(() => {
+    dispatch(roomActions.hotRoomDB());
+    // dispatch(roomActions.getRoomDB())
+  }, []);
 
   // 방 생성하기 함수
   function create() {
@@ -102,7 +111,9 @@ const Main = () => {
         <div className="header">
           <Header />
         </div>
+
         <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
+
         <div className="logo">
           <svg
             width="130"
@@ -122,7 +133,7 @@ const Main = () => {
             viewBox="0 0 133 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ marginLeft: '35px' }}
+            style={{ marginLeft: "35px" }}
           >
             <path
               d="M22.5925 3.28134L20.4541 28.2734C18.9289 28.5274 16.4665 28.5777 14.798 28.4393C14.798 28.4393 14.798 28.4393 14.7985 28.3775C13.6626 24.8741 12.3194 20.2701 11.5484 16.3148C9.24701 23.7538 8.63081 28.0256 8.41301 28.3476C6.8878 28.6016 4.42689 28.4595 2.54344 28.2583L0.336043 3.11535C0.336043 3.11535 3.89418 2.61654 6.13729 3.08062C6.13729 3.08062 7.38311 11.5052 7.35637 15.1338C8.25626 10.9939 8.93026 8.27554 9.00188 7.95287C10.8199 7.63837 12.7754 7.45508 14.8714 8.04218C15.1504 9.85782 15.2092 11.2807 15.8368 14.8505C16.1564 11.1614 16.9344 3.7153 16.9388 3.13117C18.7563 2.87852 20.9258 2.88869 22.5237 3.21917C22.5237 3.2123 22.593 3.21262 22.5925 3.28134Z"
@@ -154,6 +165,7 @@ const Main = () => {
             />
           </svg>
         </div>
+
         <SearchBarWrap className="searchbar">
           <SearchBarInput
             placeholder="방 정보를 입력해주세요"
@@ -161,12 +173,12 @@ const Main = () => {
           />
           <Search
             style={{
-              cursor: 'pointer',
-              width: '32px',
-              height: '32px',
-              margin: 'auto 20px',
-              position: 'absolute',
-              fill: '#33344B',
+              cursor: "pointer",
+              width: "32px",
+              height: "32px",
+              margin: "auto 20px",
+              position: "absolute",
+              fill: "#33344B",
             }}
             onClick={() => {
               dispatch(roomActions.searchRoomDB(search));
@@ -184,6 +196,8 @@ const Main = () => {
               <AllBtn
                 onClick={() => {
                   setPossible(false);
+                  setChoiceCate(0);
+                  dispatch(roomActions.getRoomDB());
                 }}
               >
                 <RoomText>ALL</RoomText>
@@ -192,10 +206,12 @@ const Main = () => {
               <AllBtn
                 onClick={() => {
                   setPossible(false);
+                  setChoiceCate(0);
+                  dispatch(roomActions.getRoomDB());
                 }}
-                style={{ background: '#7179F0', border: 'none' }}
+                style={{ background: "#7179F0", border: "none" }}
               >
-                <RoomText style={{ color: '#FAFAFF' }}>ALL</RoomText>
+                <RoomText style={{ color: "#FAFAFF" }}>ALL</RoomText>
               </AllBtn>
             )}
 
@@ -203,15 +219,17 @@ const Main = () => {
               <PossibleBtn
                 onClick={() => {
                   setPossible(false);
+                  dispatch(roomActions.PossibleRoomDB());
                 }}
-                style={{ background: '#7179F0', border: 'none' }}
+                style={{ background: "#7179F0", border: "none" }}
               >
-                <RoomText style={{ color: '#FAFAFF' }}>참여 가능</RoomText>
+                <RoomText style={{ color: "#FAFAFF" }}>참여 가능</RoomText>
               </PossibleBtn>
             ) : (
               <PossibleBtn
                 onClick={() => {
                   setPossible(true);
+                  dispatch(roomActions.PossibleRoomDB());
                 }}
               >
                 <RoomText>참여 가능</RoomText>
@@ -227,9 +245,9 @@ const Main = () => {
                 <DropWrap>
                   <DropBtn
                     onClick={() => setIsActive(!isActive)}
-                    style={{ height: '40px' }}
+                    style={{ height: "40px" }}
                   >
-                    {category === '' ? (
+                    {category === "" ? (
                       <CategoryDText>카테고리</CategoryDText>
                     ) : (
                       <CategoryDText>{category}</CategoryDText>
@@ -253,11 +271,11 @@ const Main = () => {
                   </DropBtn>
                   <div
                     ref={dropdownRef}
-                    className={`menu ${isActive ? 'active' : 'inactive'}`}
+                    className={`menu ${isActive ? "active" : "inactive"}`}
                   >
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('뷰티');
+                        setCategory("뷰티");
                         setIsActive(!isActive);
                         setChoiceCate(1);
                       }}
@@ -283,7 +301,7 @@ const Main = () => {
 
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('운동');
+                        setCategory("운동");
                         setIsActive(!isActive);
                         setChoiceCate(2);
                       }}
@@ -294,7 +312,7 @@ const Main = () => {
 
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('스터디');
+                        setCategory("스터디");
                         setIsActive(!isActive);
                         setChoiceCate(3);
                       }}
@@ -305,7 +323,7 @@ const Main = () => {
 
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('상담');
+                        setCategory("상담");
                         setIsActive(!isActive);
                         setChoiceCate(4);
                       }}
@@ -316,7 +334,7 @@ const Main = () => {
 
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('문화');
+                        setCategory("문화");
                         setIsActive(!isActive);
                         setChoiceCate(5);
                       }}
@@ -329,7 +347,7 @@ const Main = () => {
 
                     <CategoryWrap
                       onClick={() => {
-                        setCategory('기타');
+                        setCategory("기타");
                         setIsActive(!isActive);
                         setChoiceCate(6);
                       }}
@@ -342,6 +360,7 @@ const Main = () => {
               </div>
             </Category>
           </div>
+          
           <Refresh
             style={{
               cursor: 'pointer',
@@ -353,28 +372,48 @@ const Main = () => {
             }}
             onClick={() => {
               dispatch(roomActions.getRoomDB());
+              dispatch(roomActions.hotRoomDB());
             }}
           />
         </MenuBar>
 
         <RoomListContainer className="roomlist">
           {/* 방 만들기 카드 */}
-          <RoomCardContainer
-            onClick={() => {
-              setMRooms(true);
-            }}
-            style={{ backgroundColor: '#BCC0FF' }}
-          >
-            <Plus
-              style={{
-                cursor: 'pointer',
-                width: '64px',
-                height: '64px',
-                margin: '45 96',
-                fill: '#FFFFFF',
+          {localStorage.getItem("login-token") ? (
+            <RoomCardContainer
+              onClick={() => {
+                setMRooms(true);
               }}
-            />
-          </RoomCardContainer>
+              style={{ backgroundColor: "#BCC0FF" }}
+            >
+              <Plus
+                style={{
+                  cursor: "pointer",
+                  width: "64px",
+                  height: "64px",
+                  margin: "45 96",
+                  fill: "#FFFFFF",
+                }}
+              />
+            </RoomCardContainer>
+          ) : (
+            <RoomCardContainer
+              onClick={() => {
+                window.alert("로그인해야 방 만들수 있을껄?");
+              }}
+              style={{ backgroundColor: "#BCC0FF" }}
+            >
+              <Plus
+                style={{
+                  cursor: "pointer",
+                  width: "64px",
+                  height: "64px",
+                  margin: "45 96",
+                  fill: "#FFFFFF",
+                }}
+              />
+            </RoomCardContainer>
+          )}
           {MRooms && <MakeRoomModal setMRooms={setMRooms} create={create} />}
 
           {hotRoom
@@ -385,17 +424,28 @@ const Main = () => {
                   </div>
                 );
               })
-            : ''}
+            : ""}
 
           {roomList
             ? roomList.map((data, index) => {
                 return (
                   <div>
-                    <RoomCard {...data} possible={setPossible} />
+                    {data.isSecret === true ? (
+                      <div onClick={()=>{setSecret(true)}}>
+                        <RoomCard {...data} setPossible={possible} />
+                      </div>
+                    ) : (
+                      <div>
+                        <RoomCard {...data} setPossible={possible} />
+                      </div>
+                    )}
+
                   </div>
                 );
               })
-            : ''}
+            : ""}
+          {/* <TestRoom/> */}
+          {secret && <SecretRoomModal setSecret={setSecret}/>}
         </RoomListContainer>
 
         <div className="morebtn">
