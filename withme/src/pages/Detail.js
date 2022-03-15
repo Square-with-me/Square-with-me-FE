@@ -80,96 +80,57 @@ const Detail = (props) => {
     }
   }, [sideCount]);
 
+  // 스톱워치 rightBox에 나타내기 없애기
   const onClickSW = (e) => {
     // 이미 있는 경우
     if (isSW) {
       setIsSW(false);
+      setCount(sideCount - 1);
     }
     // 없었던 경우
     else {
       setIsSW(true);
-      setIsPP(false);
-      setIsCT(false);
+      setCount(sideCount + 1);
     }
   }
 
+  // 참여자 명단 rightBox에 나타내기 없애기
   const onClickPP = (e) => {
     // 이미 있는 경우
     if (isPP) {
       setIsPP(false);
+      setCount(sideCount - 1);
     }
     // 없었던 경우
     else {
-      setIsSW(false);
       setIsPP(true);
-      setIsCT(false);
+      setCount(sideCount + 1);
     }
   }
 
+  // 채팅 rightBox에 나타내기 없애기
   const onClickCT = (e) => {
     // 이미 있는 경우
     if (isCT) {
       setIsCT(false);
+      setCount(sideCount - 1);
     }
     // 없었던 경우
     else {
-      setIsSW(false);
-      setIsPP(false);
       setIsCT(true);
+      setCount(sideCount + 1);
     }
   }
 
-  // 사이드바 여는 버튼 1개라도 눌렀을 경우
-  const onClickRight = (e) => {
-    // 스톱워치 버튼을 누른 경우
-    if (e.target.outerText === '1') {
-      // 이미 있는 경우
-      if (isSW) {
-        setIsSW(false);
-        setCount(sideCount - 1);
-      }
-      // 없었던 경우
-      else {
-        setIsSW(true);
-        setCount(sideCount + 1);
-      }
-    }
-
-    // 참가자 목록 버튼을 누른 경우
-    else if (e.target.outerText === '2') {
-      // 이미 있는 경우
-      if (isPP) {
-        setIsPP(false);
-        setCount(sideCount - 1);
-      }
-      // 없었던 경우
-      else {
-        setIsPP(true);
-        setCount(sideCount + 1);
-      }
-    }
-
-    // 채팅 버튼을 누른 경우
-    else if (e.target.outerText === '3') {
-      // 이미 있는 경우
-      if (isCT) {
-        setIsCT(false);
-        setCount(sideCount - 1);
-      }
-      // 없었던 경우
-      else {
-        setIsCT(true);
-        setCount(sideCount + 1);
-      }
-    }
-  };
-
+  // rightBox에서 스톱워치, 참여자 명단, 채팅 중 하나만 열리게 하기
   // 스톱워치 열기, 닫기
   const openTimer = (e) => {
     if (isTimer) {
       setIsTimer(false);
     } else {
       setIsTimer(true);
+      setIsUserList(false);
+      setIsChatting(false);
     }
   };
 
@@ -178,7 +139,9 @@ const Detail = (props) => {
     if (isUserList) {
       setIsUserList(false);
     } else {
+      setIsTimer(false);
       setIsUserList(true);
+      setIsChatting(false);
     }
   };
 
@@ -187,6 +150,8 @@ const Detail = (props) => {
     if (ischatting) {
       setIsChatting(false);
     } else {
+      setIsTimer(false);
+      setIsUserList(false);
       setIsChatting(true);
     }
   };
@@ -370,10 +335,12 @@ const Detail = (props) => {
               </Button>
                 <p>타이머</p>
                 <Button>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-                    <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-                  </svg>
+                  <div onClick={() => setIsSW(false) < setCount(sideCount - 1)}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                    </svg>
+                  </div>
                 </Button>
               </div>
               {isTimer ? <Timer roomId={roomID} /> : ''}
@@ -402,10 +369,12 @@ const Detail = (props) => {
               </Button>
               <p>참가자</p>
               <Button>
+              <div onClick={() => setIsPP(false) < setCount(sideCount - 1)}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
                   <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
+              </div>
               </Button>
             </div>
           </div>
@@ -433,10 +402,12 @@ const Detail = (props) => {
                 </Button>
                 <p>채팅</p>
                 <Button>
+                <div onClick={() => setIsCT(false) < setCount(sideCount - 1)}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
                     <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
                   </svg>
+                </div>
                 </Button>
               </div>
               {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
