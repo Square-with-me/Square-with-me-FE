@@ -20,6 +20,7 @@ import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
 
 // emotion icons
 import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmotion.svg"
+import RoomInfo from '../components/RoomInfo';
 // import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
 // import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
 // import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
@@ -278,7 +279,8 @@ const Detail = (props) => {
     <Container>
       <div id="top">
       <div className="logo">
-          <svg
+        <div>
+        <svg
             width="130"
             height="42"
             viewBox="0 0 130 42"
@@ -327,6 +329,10 @@ const Detail = (props) => {
               fill="#7179F0"
             />
           </svg>
+        </div>
+        <div>
+          <RoomInfo/>
+        </div>
         </div>
       </div>
       <div id="videoBox">
@@ -556,6 +562,7 @@ const Container = styled.div`
     margin: 0px auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   
   #videoBox {

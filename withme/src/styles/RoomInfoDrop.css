@@ -1,61 +1,12 @@
-.roomMenu-container {
+/* .roomMenu-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.roomMenu-trigger:hover {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-.roomMenu-trigger span {
-  font-weight: 700;
-  vertical-align: middle;
-  font-size: 14px;
-  margin: 0 10px;
-}
-
-.roomMenu-trigger img {
-  border-radius: 90px;
-}
-
-.roomMenu {
-  background: #ffffff;
-  border-radius: 8px;
-  position: absolute;
-  top: 65px;
-  width: 162px;
-  height: 334px;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
-  z-index: 999;
-}
-
 .roomMenu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-}
-
-.roomMenu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.roomMenu li {
-  border-bottom: 1px solid #dddddd;
-}
-
-.roomMenu li a {
-  text-decoration: none;
-  color: #333333;
-  padding: 15px 20px;
-  display: block;
-  cursor: pointer;
-  text-align: center;
-}
+} */
