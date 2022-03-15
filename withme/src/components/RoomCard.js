@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 //icon
-import { ReactComponent as LockIcon } from "../assets/main/lockIcon.svg";
-import { ReactComponent as UserNickIcon } from "../assets/main/userNickIcon.svg";
+import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg';
+import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg';
 
 const RoomCard = (props, { possible }) => {
-  console.log({ possible });
+  console.log(props);
   const category = props.category.name;
 
   return (
@@ -15,40 +15,40 @@ const RoomCard = (props, { possible }) => {
         <div>
           <div>
             {props.isSecret === true ? (
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {category === "뷰티" ? (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {category === '뷰티' ? (
                   <CategoryText
-                    style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
+                    style={{ backgroundColor: '#FCEDB7', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
-                ) : category === "운동" ? (
+                ) : category === '운동' ? (
                   <CategoryText
-                    style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
+                    style={{ backgroundColor: '#FFC9C9', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
-                ) : category === "스터디" ? (
+                ) : category === '스터디' ? (
                   <CategoryText
-                    style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
+                    style={{ backgroundColor: '#B9E8B5', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
-                ) : category === "상담" ? (
+                ) : category === '상담' ? (
                   <CategoryText
-                    style={{ backgroundColor: "black", marginRight: "8px" }}
+                    style={{ backgroundColor: 'black', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
-                ) : category === "문화" ? (
+                ) : category === '문화' ? (
                   <CategoryText
-                    style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
+                    style={{ backgroundColor: '#B5E3F8', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
-                ) : category === "기타" ? (
+                ) : category === '기타' ? (
                   <CategoryText
-                    style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
+                    style={{ backgroundColor: '#B7CEFC', marginRight: '8px' }}
                   >
                     {props.category.name}
                   </CategoryText>
@@ -59,28 +59,28 @@ const RoomCard = (props, { possible }) => {
               </div>
             ) : (
               <div>
-                {category === "뷰티" ? (
-                  <CategoryText style={{ backgroundColor: "#FCEDB7" }}>
+                {category === '뷰티' ? (
+                  <CategoryText style={{ backgroundColor: '#FCEDB7' }}>
                     {props.category.name}
                   </CategoryText>
-                ) : category === "운동" ? (
-                  <CategoryText style={{ backgroundColor: "#FFC9C9" }}>
+                ) : category === '운동' ? (
+                  <CategoryText style={{ backgroundColor: '#FFC9C9' }}>
                     {props.category.name}
                   </CategoryText>
-                ) : category === "스터디" ? (
-                  <CategoryText style={{ backgroundColor: "#B9E8B5" }}>
+                ) : category === '스터디' ? (
+                  <CategoryText style={{ backgroundColor: '#B9E8B5' }}>
                     {props.category.name}
                   </CategoryText>
-                ) : category === "상담" ? (
-                  <CategoryText style={{ backgroundColor: "black" }}>
+                ) : category === '상담' ? (
+                  <CategoryText style={{ backgroundColor: 'black' }}>
                     {props.category.name}
                   </CategoryText>
-                ) : category === "문화" ? (
-                  <CategoryText style={{ backgroundColor: "#B5E3F8" }}>
+                ) : category === '문화' ? (
+                  <CategoryText style={{ backgroundColor: '#B5E3F8' }}>
                     {props.category.name}
                   </CategoryText>
-                ) : category === "기타" ? (
-                  <CategoryText style={{ backgroundColor: "#B7CEFC" }}>
+                ) : category === '기타' ? (
+                  <CategoryText style={{ backgroundColor: '#B7CEFC' }}>
                     {props.category.name}
                   </CategoryText>
                 ) : null}
@@ -90,7 +90,7 @@ const RoomCard = (props, { possible }) => {
 
           <TitleText className="title">{props.title}</TitleText>
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <div>
             <UserNickIcon width="20" fill="#8A8BA3" />
           </div>

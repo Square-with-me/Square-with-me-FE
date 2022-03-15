@@ -48,7 +48,7 @@ const Main = () => {
   const [search, setSearch] = useState('');
   //참여가능한 방
   const [possible, setPossible] = useState(false);
-  console.log(possible)
+  console.log(possible);
 
   //login
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
@@ -64,7 +64,7 @@ const Main = () => {
   // React.useEffect(()=>{
   //   dispatch(userActions.NotMemberLoginCheckDB())
   // },[])
-    // React.useEffect(()=>{
+  // React.useEffect(()=>{
   //   dispatch(userActions.LoginCheckDB())
   // },[])
 
@@ -84,20 +84,17 @@ const Main = () => {
 
   let roomList = useSelector((store) => store.room.list);
   const hotRoom = useSelector((state) => state.room.hotList);
-  console.log(hotRoom)
-
-  React.useEffect(() => {
-    dispatch(roomActions.hotRoomDB());
-    // dispatch(roomActions.getRoomDB())
-    console.log('hot')
-  }, []);
-
+  console.log(hotRoom);
 
   // 방 생성하기 함수
   function create() {
     const id = uuid();
     history.push(`/room/${id}`);
   }
+
+  useEffect(() => {
+    console.log('룸룸룸', roomList);
+  }, [roomList]);
 
   return (
     <React.Fragment>
@@ -386,17 +383,17 @@ const Main = () => {
                   <div>
                     <HotRoomCard {...data} />
                   </div>
-                )
+                );
               })
             : ''}
 
           {roomList
             ? roomList.map((data, index) => {
-                return(
+                return (
                   <div>
-                    <RoomCard {...data} possible = {setPossible} />
+                    <RoomCard {...data} possible={setPossible} />
                   </div>
-                ) 
+                );
               })
             : ''}
         </RoomListContainer>
@@ -513,7 +510,7 @@ const Btn = styled.button`
   height: 51px;
   border: 1px solid #8a8ba3;
   border-radius: 4px;
-  background-color: #EDEBF1;
+  background-color: #edebf1;
   font-size: 16px;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);

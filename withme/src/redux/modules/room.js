@@ -3,8 +3,6 @@ import { produce } from 'immer';
 import axios from 'axios';
 import { apis } from '../../shared/api';
 
-import { RESPJ } from '../../shared/resopnseJ';
-
 const GET_ROOM = 'GET_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
 const DEL_ROOM = 'DEL_ROOM';
@@ -28,7 +26,6 @@ const getRoomDB = () => {
     apis
       .getRoomAll()
       .then((res) => {
-        console.log('전체 방 불러오기', res.data.data);
         dispatch(getRoom(res.data.data));
       })
       .catch(function (error) {
@@ -37,26 +34,13 @@ const getRoomDB = () => {
   };
 };
 
-const addRoomDB = (title, secret, pwd, category, categoryid, tags) => {
+const addRoomDB = (roomInfo, category) => {
   return function (dispatch, getState, { history }) {
-    let _room = {
-      title: title,
-      secret: secret,
-      pwd: pwd,
-      category: category,
-      tags: tags,
-    };
-    const room = { ..._room };
-    console.log(room);
     axios
       .post(
         'http://15.164.48.35:80/api/room/new',
         {
-          title: title,
-          isSecret: secret,
-          pwd: pwd,
-          categoryId: categoryid,
-          tags: tags,
+          ...roomInfo,
         },
         {
           headers: {
@@ -65,11 +49,7 @@ const addRoomDB = (title, secret, pwd, category, categoryid, tags) => {
         }
       )
       .then((response) => {
-        if (response.isSuccess === false) {
-          window.alert(response.msg);
-        } else if (response.isSuccess === true) {
-          dispatch(addRoom(room));
-        }
+        dispatch(addRoom(response.data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -137,14 +117,13 @@ export default handleActions(
       }),
     [ADD_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unShift(action.payload.rooms);
-        console.log(draft.list);
+        draft.list.unshift(action.payload.rooms);
       }),
     [DEL_ROOM]: (state, action) => produce(state, (draft) => {}),
     [HOT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
-        console.log(draft.hotList)
+        console.log(draft.hotList);
       }),
   },
   initialState
