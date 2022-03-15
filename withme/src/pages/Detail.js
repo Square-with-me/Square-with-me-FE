@@ -27,10 +27,7 @@ import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmo
 // import {ReactComponent as Sad} from "../assets/inRoomEmotion/sadFaceIcon.svg"
 // import {ReactComponent as Smile} from "../assets/inRoomEmotion/smileFaceIcon.svg"
 
-
 // sadFaceIcon (inRoomEmotion)
-// lowerAngleIcon (inRoom / main / modals)
-// rightAngleIcon (inRoom)
 
 const socket = io.connect('/');
 
@@ -60,9 +57,10 @@ const Detail = (props) => {
   const [isPP, setIsPP] = useState(false); // 참가자 목록
   const [isCT, setIsCT] = useState(false); // 채팅
 
-  const [ischatting, setIsChatting] = useState(false);
-  const [isTimer, setIsTimer] = useState(true);
-
+  const [isTimer, setIsTimer] = useState(false); // 스톱워치
+  const [isUserList, setIsUserList] = useState(false); // 참가자 목록
+  const [ischatting, setIsChatting] = useState(false); // 채팅
+  
   // 화상 채팅
   const [peers, setPeers] = useState([]);
   const socketRef = useRef();
@@ -80,6 +78,45 @@ const Detail = (props) => {
       videoBox.style.gridColumn = '1/10';
     }
   }, [sideCount]);
+
+  // const onClickSW = (e) => {
+  //   // 이미 있는 경우
+  //   if (isSW) {
+  //     setIsSW(false);
+  //   }
+  //   // 없었던 경우
+  //   else {
+  //     setIsSW(true);
+  //     setIsPP(false);
+  //     setIsCT(false);
+  //   }
+  // }
+
+  // const onClickSW = (e) => {
+  //   // 이미 있는 경우
+  //   if (isPP) {
+  //     setIsSW(false);
+  //   }
+  //   // 없었던 경우
+  //   else {
+  //     setIsSW(true);
+  //     setIsPP(false);
+  //     setIsCT(false);
+  //   }
+  // }
+
+  // const onClickSW = (e) => {
+  //   // 이미 있는 경우
+  //   if (isCT) {
+  //     setIsSW(false);
+  //   }
+  //   // 없었던 경우
+  //   else {
+  //     setIsSW(true);
+  //     setIsPP(false);
+  //     setIsCT(false);
+  //   }
+  // }
 
   // 사이드바 여는 버튼 1개라도 눌렀을 경우
   const onClickRight = (e) => {
@@ -123,6 +160,24 @@ const Detail = (props) => {
         setIsCT(true);
         setCount(sideCount + 1);
       }
+    }
+  };
+
+  // 스톱워치 열기, 닫기
+  const openTimer = (e) => {
+    if (isTimer) {
+      setIsTimer(false);
+    } else {
+      setIsTimer(true);
+    }
+  };
+
+  // 참여자 명단 열기, 닫기
+  const openUserList = (e) => {
+    if (isUserList) {
+      setIsUserList(false);
+    } else {
+      setIsUserList(true);
     }
   };
 
@@ -293,9 +348,19 @@ const Detail = (props) => {
             <div className="designBox" id="stopwatch">
               <div className="flex">
               <Button>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-                </svg>
+                { isTimer === false ? (
+                  <div onClick={() => openTimer(false)}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                    </svg>
+                  </div>
+                ) : (
+                  <div onClick={() => openTimer(true)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                    </svg>
+                  </div>
+                )}
               </Button>
                 <p>타이머</p>
                 <Button>
@@ -315,9 +380,19 @@ const Detail = (props) => {
           <div className="designBox">
             <div className="flex">
               <Button>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-                </svg>
+                { isUserList === false ? (
+                  <div onClick={() => openUserList(false)}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                    </svg>
+                  </div>
+                ) : (
+                  <div onClick={() => openUserList(true)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                    </svg>
+                  </div>
+                )}
               </Button>
               <p>참가자</p>
               <Button>
@@ -335,14 +410,20 @@ const Detail = (props) => {
           <>
             <div className="designBox">
               <div className="flex">
-                <Button
-                  onClick={(e) => {
-                    openChatting(e);
-                  }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-                  </svg>
+                <Button>
+                  { ischatting === false ? (
+                    <div onClick={() => openChatting(false)}>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      </svg>
+                    </div>
+                  ) : (
+                    <div onClick={() => openChatting(true)}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      </svg>
+                    </div>
+                  )}
                 </Button>
                 <p>채팅</p>
                 <Button>
