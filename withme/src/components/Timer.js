@@ -139,7 +139,7 @@ class Timer extends Component {
     const { hours, minutes, seconds } = this.state;
 
     return (
-      <div className="App">
+      <Container>
         <div className="inputGroup">
           <Input
             ref={this.hoursInput}
@@ -147,23 +147,32 @@ class Timer extends Component {
             name="hours"
             onChange={this.inputHandler}
           />
-          H:
+          <p>H</p>
           <Input
             ref={this.minutesInput}
             placeholder={0}
             name="minutes"
             onChange={this.inputHandler}
           />
-          M:
+          <p>M</p>
           <Input
             ref={this.secondsInput}
             placeholder={0}
             name="seconds"
             onChange={this.inputHandler}
           />
-          S
+          <p>S</p>
         </div>
-        <div>
+        <div className="outputGroup">
+          <Text>
+            {hours}
+            <span>H</span>
+            {minutes}
+            <span>M</span> {seconds}
+            <span>S</span>
+          </Text>
+        </div>
+        <div className="buttonGroup">
           <Btn onClick={this.startTimer} className="start">
             start
           </Btn>
@@ -174,33 +183,107 @@ class Timer extends Component {
             reset
           </Btn>
         </div>
-        <Text>
-          {hours} : {minutes} : {seconds}
-        </Text>
-      </div>
+      </Container>
     );
   }
 }
 
-const Input = styled.input`
-  width: 20px;
-  height: 40px;
-  margin: 0px 10px;
-  border: none;
-  border-radius: 4px;
+const Container = styled.div`
+  width: 100%;
+  height: 180px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-family: 'Noto Sans';
+
+  .inputGroup {
+    display: flex;
+    align-items: end;
+
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 19px;
+      margin: 0 5%;
+    }
+  }
+
+  .outputGroup {
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+
+    padding: 9px 20px 9px 20px;
+    background-color: #e3e5ff;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+  }
 `;
-const Btn = styled.button`
-  padding: 10px;
-  margin: 9px 5px 5px 5px;
-  border: none;
-  background-color: #aaf;
+
+const Input = styled.input`
+  width: 100%;
+  height: 42px;
+  border: 1px solid #8a8ba3;
   border-radius: 4px;
+  background: #ffffff;
+  text-align: center;
+
+  color: #8a8ba3;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 150%;
+
+  &::placeholder {
+    color: #8a8ba3;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 150%;
+  }
 `;
 
 const Text = styled.div`
-  font-weight: 600;
-  font-size: 2rem;
-  margin: 4px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #8a8ba3;
+
+  span {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 19px;
+    margin: 0 5%;
+  }
+`;
+
+const Btn = styled.button`
+  width: 100%;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #7179f0;
+
+  color: #fafaff;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
 `;
 
 export default Timer;

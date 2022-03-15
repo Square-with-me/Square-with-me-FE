@@ -12,6 +12,7 @@ const MonthTime = ({ userId }) => {
   console.log('month', month);
 
   useEffect(() => {
+    console.log(userId);
     dispatch(userEditActions.timeGetDB(userId));
   }, []);
 

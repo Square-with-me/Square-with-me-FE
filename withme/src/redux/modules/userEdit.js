@@ -158,7 +158,7 @@ const timeGetDB = (userId) => {
       })
       .then(function (res) {
         console.log('timeGet :  ', res.data.data);
-        const monthData = res.data.data.monthRecord;
+        const monthData = res.data.data.monthRecords;
         const weekData = res.data.data.weekRecord;
         dispatch(monthTime(monthData));
       })

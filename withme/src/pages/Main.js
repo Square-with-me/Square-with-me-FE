@@ -53,6 +53,7 @@ const Main = () => {
   //비밀 방
   const [secret, setSecret] = useState(false)
 
+
   //login
   const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
   const notUser_is_local = localStorage.getItem("notUser_is_login")
@@ -99,6 +100,10 @@ const Main = () => {
     const id = uuid();
     history.push(`/room/${id}`);
   }
+
+  useEffect(() => {
+    console.log('룸룸룸', roomList);
+  }, [roomList]);
 
   return (
     <React.Fragment>
@@ -355,25 +360,21 @@ const Main = () => {
               </div>
             </Category>
           </div>
-
-          <div>
-            <div>
-              <Refresh
-                style={{
-                  cursor: "pointer",
-                  width: "32px",
-                  height: "32px",
-                  margin: "auto",
-                  marginRight: "0px",
-                  fill: "#8A8BA3",
-                }}
-                onClick={() => {
-                  dispatch(roomActions.getRoomDB());
-                  dispatch(roomActions.hotRoomDB());
-                }}
-              />
-            </div>
-          </div>
+          
+          <Refresh
+            style={{
+              cursor: 'pointer',
+              width: '32px',
+              height: '32px',
+              margin: 'auto',
+              marginRight: '0px',
+              fill: '#8A8BA3',
+            }}
+            onClick={() => {
+              dispatch(roomActions.getRoomDB());
+              dispatch(roomActions.hotRoomDB());
+            }}
+          />
         </MenuBar>
 
         <RoomListContainer className="roomlist">
@@ -438,6 +439,7 @@ const Main = () => {
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
+
                   </div>
                 );
               })
