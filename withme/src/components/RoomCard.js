@@ -6,12 +6,8 @@ import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg';
 import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg';
 
 const RoomCard = (props) => {
-  console.log(  );
   const category = props.category.name;
   const participantCnt = props.participantCnt
-  useEffect(()=>{
-    console.log(props.setPossible)
-  })
   return (
     <div>
       {participantCnt===4 || props.isSecret===true
