@@ -80,44 +80,44 @@ const Detail = (props) => {
     }
   }, [sideCount]);
 
-  // const onClickSW = (e) => {
-  //   // 이미 있는 경우
-  //   if (isSW) {
-  //     setIsSW(false);
-  //   }
-  //   // 없었던 경우
-  //   else {
-  //     setIsSW(true);
-  //     setIsPP(false);
-  //     setIsCT(false);
-  //   }
-  // }
+  const onClickSW = (e) => {
+    // 이미 있는 경우
+    if (isSW) {
+      setIsSW(false);
+    }
+    // 없었던 경우
+    else {
+      setIsSW(true);
+      setIsPP(false);
+      setIsCT(false);
+    }
+  }
 
-  // const onClickSW = (e) => {
-  //   // 이미 있는 경우
-  //   if (isPP) {
-  //     setIsSW(false);
-  //   }
-  //   // 없었던 경우
-  //   else {
-  //     setIsSW(true);
-  //     setIsPP(false);
-  //     setIsCT(false);
-  //   }
-  // }
+  const onClickPP = (e) => {
+    // 이미 있는 경우
+    if (isPP) {
+      setIsPP(false);
+    }
+    // 없었던 경우
+    else {
+      setIsSW(false);
+      setIsPP(true);
+      setIsCT(false);
+    }
+  }
 
-  // const onClickSW = (e) => {
-  //   // 이미 있는 경우
-  //   if (isCT) {
-  //     setIsSW(false);
-  //   }
-  //   // 없었던 경우
-  //   else {
-  //     setIsSW(true);
-  //     setIsPP(false);
-  //     setIsCT(false);
-  //   }
-  // }
+  const onClickCT = (e) => {
+    // 이미 있는 경우
+    if (isCT) {
+      setIsCT(false);
+    }
+    // 없었던 경우
+    else {
+      setIsSW(false);
+      setIsPP(false);
+      setIsCT(true);
+    }
+  }
 
   // 사이드바 여는 버튼 1개라도 눌렀을 경우
   const onClickRight = (e) => {
@@ -511,27 +511,27 @@ const Detail = (props) => {
         </div>
 
         <div id="endButton">
-          <button onClick={onClickRight}>
-            {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button onClick={onClickSW}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M28.05 28H4V4H28.05V28ZM6 26H26.05V6H6V26Z" fill="#8A8BA3"/>
               <path d="M21.4999 18.04H14.9399V8H16.9399V16.04H21.4999V18.04Z" fill="#8A8BA3"/>
-            </svg> */}1
+            </svg>
           </button>
 
-          <button onClick={onClickRight}>
-            {/* <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button onClick={onClickPP}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21.0001 12H11.1001V2.08002H21.0001V12ZM13.1001 10H19.0001V4.08002H13.1001V10Z" fill="#8A8BA3"/>
               <path d="M24.96 29.98H6.04004V14.02H24.96V16.02H8.04004V27.98H24.96V29.98Z" fill="#8A8BA3"/>
               <path d="M30.0001 24H21.3601V26H30.0001V24Z" fill="#8A8BA3"/>
               <path d="M30.0001 21H21.3601V23H30.0001V21Z" fill="#8A8BA3"/>
               <path d="M30.0001 17.99H21.3601V19.99H30.0001V17.99Z" fill="#8A8BA3"/>
-            </svg> */}2
+            </svg>
           </button>
 
-          <button onClick={onClickRight}>
-            {/* <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <button onClick={onClickCT}>
+            <svg width="28" height="20" viewBox="0 0 28 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M28 20L20.4 17H0V0H28V20ZM2 15H20.78L26 17.05V2H2V15Z" fill="#8A8BA3"/>
-            </svg> */}3
+            </svg>
           </button>
         </div>
       </div>
