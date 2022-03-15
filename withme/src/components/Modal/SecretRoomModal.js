@@ -7,8 +7,8 @@ import { actionCreators as roomActions } from "../../redux/modules/room";
 //svg
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 
-const SecretRoomModal = ({ setSRoomM }) => {
-  console.log(setSRoomM);
+const SecretRoomModal = ({ setSecret }) => {
+  console.log(setSecret);
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState("");
@@ -17,13 +17,13 @@ const SecretRoomModal = ({ setSRoomM }) => {
     <React.Fragment>
       <ModalBackground
         onClick={() => {
-          setSRoomM(false);
+          setSecret(false);
         }}
       />
       <LoginWrap>
         <Headers         
         onClick={() => {
-          setSRoomM(false);
+          setSecret(false);
         }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>

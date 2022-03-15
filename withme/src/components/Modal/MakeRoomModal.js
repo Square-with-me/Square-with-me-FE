@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import '../../styles/Category.css';
@@ -42,6 +42,9 @@ const MakeRoomModal = ({ setMRooms , create}) => {
     updatedTagList.push(tagItem);
     setTagList(updatedTagList);
     setTagItem("");
+    if(updatedTagList.length > 5){
+      updatedTagList.pop()
+    }
   };
   //태그 지우기
   const deleteTagItem = (e) => {
@@ -61,7 +64,9 @@ const MakeRoomModal = ({ setMRooms , create}) => {
   const Visible = (active) => {
     setIsActive(active);
   };
-  
+  React.useEffect(()=>{
+    console.log(tagList)
+  },[tagList])
 
   return (
     <React.Fragment>
@@ -232,19 +237,18 @@ const MakeRoomModal = ({ setMRooms , create}) => {
               onChange={(e) => setTagItem(e.target.value)}
               value={tagItem}
               onKeyPress={onKeyPress}
+              maxLength={4}
             />
             <TagItemWrap>
               {tagList.map((tagItem, index) => {
-                return tagList.length < 6 ? (
-                  <TagItem key={index}>
-                    <p style={{ fontSize: "12px" }}>{tagItem}</p>
-                    <Button onClick={deleteTagItem}>X</Button>
-                  </TagItem>
-                ) : null;
+                return(                  
+                <TagItem key={index}>
+                  <p style={{ fontSize: "12px" }}>{tagItem}</p>
+                  <Button onClick={deleteTagItem}>X</Button>
+                </TagItem>)
               })}
             </TagItemWrap>
           </div>
-
           <Btn
             onClick={() =>
               dispatch(

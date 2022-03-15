@@ -111,7 +111,7 @@ const HotRoomCard = (props) => {
           <div>
             <UserNickIcon width="20" fill="#8A8BA3" />
           </div>
-          <div>3/4</div>
+          <div>{props.participantCnt}/4</div>
         </div>
         <div className="tag">
           {props.Tags.map((r, idx) => {
@@ -141,8 +141,7 @@ const RoomCardContainer = styled.div`
   overflow: auto;
   .tag {
     grid-column: 1/ 4;
-    grid-row: 2 / 3;
-    white-space: pre-line;
+    white-space: normal;
     margin-top: 5px;
   }
 `;
@@ -181,9 +180,10 @@ const TagText = styled.span`
   font-size: 12px;
   border: none;
   border-radius: 4px;
-  padding: 6px 10px;
-  margin-right: 8px;
-  height: 24px;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  display : inline-block; 
+  padding: 4px 8px;
 `;
 
 export default HotRoomCard;
