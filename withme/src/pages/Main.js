@@ -53,16 +53,6 @@ const Main = () => {
   //비밀 방
   const [secret, setSecret] = useState(false)
 
-
-  //login
-  const notUser_is_login = useSelector((store) => store.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem("notUser_is_login")
-    ? true
-    : false;
-  React.useEffect(() => {
-    dispatch(userActions.NotMemberLoginCheckDB());
-  }, []);
-
   //room
   const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
@@ -114,7 +104,8 @@ const Main = () => {
 
         <EXRoomMaker onClick={create}>방생성하기</EXRoomMaker>
 
-        <div className="logo">
+        <div className="logo"
+        onClick={()=>{history.push('/')}}>
           <svg
             width="130"
             height="42"

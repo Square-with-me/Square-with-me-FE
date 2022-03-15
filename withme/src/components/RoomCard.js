@@ -10,7 +10,7 @@ const RoomCard = (props) => {
   const participantCnt = props.participantCnt
   return (
     <div>
-      {participantCnt===4 || props.isSecret===true
+      {participantCnt===4
       ?    
       <Container2>
       <RoomCardContainer>
@@ -56,7 +56,7 @@ const RoomCard = (props) => {
                   </CategoryText>
                 ) : null}
                 <div>
-                  <LockIcon width="20" fill="#8A8BA3" />
+                  <LockIcon width="20" fill="#33344B" />
                 </div>
               </div>
             ) : (
@@ -92,12 +92,30 @@ const RoomCard = (props) => {
 
           <TitleText className="title">{props.title}</TitleText>
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div>
-            <UserNickIcon width="20" fill="#8A8BA3" />
+
+        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{marginRight:'4px'}}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z" fill="#8A8BA3"/>
+            <path d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z" fill="#8A8BA3"/>
+            <path d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z" fill="#8A8BA3"/>
+            <path d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z" fill="#8A8BA3"/>
+            <path d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z" fill="#8A8BA3"/>
+            <path d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z" fill="#8A8BA3"/>
+            <path d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z" fill="#8A8BA3"/>
+            <path d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z" fill="#8A8BA3"/>
+            </svg>
           </div>
+          <div>1/2</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <UserNickIcon width="19" fill="#8A8BA3" style={{marginRight:'4px'}} />
           <div>{props.participantCnt}/4</div>
         </div>
+        </div>
+
+
         <div className="tag">
           {props.Tags.map((r, idx) => {
             return <TagText>#{r.name}</TagText>;
@@ -186,12 +204,29 @@ const RoomCard = (props) => {
 
           <TitleText className="title">{props.title}</TitleText>
         </div>
+        
+        <div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div>
-            <UserNickIcon width="20" fill="#8A8BA3" />
+          <div style={{marginRight:'4px'}}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.75 13.8562H1.25V6.61865H8.75V13.8562ZM2.5 12.6062H7.5V7.86865H2.5V12.6062Z" fill="#8A8BA3"/>
+            <path d="M12.1501 8.66895H8.6001V9.91895H12.1501V8.66895Z" fill="#8A8BA3"/>
+            <path d="M12.1501 10.5811H8.6001V11.8311H12.1501V10.5811Z" fill="#8A8BA3"/>
+            <path d="M7.69764 8.6628L3.55347 12.8623L4.44319 13.7403L8.58736 9.5408L7.69764 8.6628Z" fill="#8A8BA3"/>
+            <path d="M6.82067 6.80043L1.48242 12.21L2.37215 13.088L7.7104 7.67843L6.82067 6.80043Z" fill="#8A8BA3"/>
+            <path d="M18.75 13.9313H11.1875V6.69385H18.75V13.9313ZM12.4625 12.6813H17.5V7.94385H12.4375L12.4625 12.6813Z" fill="#8A8BA3"/>
+            <path d="M15.5094 6.80635L11.3652 11.0059L12.255 11.8839L16.3991 7.68435L15.5094 6.80635Z" fill="#8A8BA3"/>
+            <path d="M17.5848 7.45424L12.2466 12.8638L13.1363 13.7418L18.4746 8.33224L17.5848 7.45424Z" fill="#8A8BA3"/>
+            </svg>
           </div>
+          <div>1/2</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <UserNickIcon width="19" fill="#8A8BA3" style={{marginRight:'4px'}} />
           <div>{props.participantCnt}/4</div>
         </div>
+        </div>
+
         <div className="tag">
           {props.Tags.map((r, idx) => {
             return <TagText>#{r.name}</TagText>;
@@ -225,7 +260,7 @@ const RoomCardContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
-  grid-gap: 8px;
+  grid-gap: 5px;
   .tag {
     grid-column: 1/ 4;
     white-space: normal;

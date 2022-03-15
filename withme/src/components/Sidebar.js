@@ -127,15 +127,7 @@ const Sidebar = (props) => {
             </div>
           ) : null}
           <div>
-            <Text
-              onClick={() => {
-                setSRoomM(true);
-                // close();
-              }}
-            >
-              비공개방 모달
-            </Text>
-            {SRoomM && <SecretRoomModal setSRoomM={setSRoomM} />}
+
           </div>
           <div>
             <Text
