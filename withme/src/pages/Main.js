@@ -397,7 +397,6 @@ const Main = () => {
               onClick={() => {
                 setMRooms(true);
               }}
-              style={{ backgroundColor: '#BCC0FF' }}
             >
               <Plus
                 style={{
@@ -414,7 +413,6 @@ const Main = () => {
               onClick={() => {
                 window.alert('로그인해야 방 만들수 있을껄?');
               }}
-              style={{ backgroundColor: '#BCC0FF' }}
             >
               <Plus
                 style={{
@@ -672,6 +670,8 @@ const RoomListContainer = styled.div`
   box-sizing: border-box;
   cursor: pointer;
   border: none;
+  place-items: center;
+
   @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
     row-gap: 32px;
@@ -698,6 +698,12 @@ const RoomCardContainer = styled.div`
   border-radius: 4px;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
   position: relative;
+  background-color: #bcc0ff;
+  transition: all ease 1s;
+
+  &:hover {
+    background-color: #7179f0;
+  }
 `;
 
 export default Main;
