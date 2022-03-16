@@ -127,7 +127,7 @@ const Mypage = (props) => {
                     }}
                   />
                   <button onClick={editNickname}>
-                    <BiPencil />
+                    <BiPencil size={20} />
                   </button>
                 </div>
                 <div className="statusBox">
@@ -141,7 +141,7 @@ const Mypage = (props) => {
                     }}
                   ></input>
                   <button onClick={editStatusMsg}>
-                    <BiPencil />
+                    <BiPencil size={20} />
                   </button>
                 </div>
               </div>
@@ -172,8 +172,6 @@ const Mypage = (props) => {
             <div id="middleTopBox" className="boxStyle">
               <BadgeContainer2>
                 <div className="badgeBox">
-                  <div className="badge"></div>
-                  <div className="badge"></div>
                   <div className="badge"></div>
                   <div className="badge"></div>
                   <div className="badge"></div>
@@ -220,16 +218,16 @@ const Mypage = (props) => {
 };
 
 const Root = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   background-color: #f7f7f7;
+  box-sizing: border-box;
 `;
 
 const Container = styled.div`
   max-width: 1110px;
-  height: 620px;
   margin: auto;
   display: grid;
   column-gap: 30px;
@@ -238,6 +236,7 @@ const Container = styled.div`
   background-color: #f7f7f7;
 
   #start {
+    width: 350px;
     height: 620px;
     display: flex;
     flex-direction: column;
@@ -254,10 +253,11 @@ const Container = styled.div`
 
     #startBox {
       height: 562px;
-      padding: 48px 26px 48px 26px;
+      padding: 26px 26px 48px 26px;
     }
   }
   #middle {
+    width: 255px;
     height: 620px;
     display: flex;
     flex-direction: column;
@@ -304,8 +304,10 @@ const Container = styled.div`
     }
 
     #endTopBox {
-      height: 267px;
+      min-height: 267px;
       width: 100%;
+      display: flex;
+      align-items: center;
     }
 
     #endBottomBox {
@@ -323,6 +325,27 @@ const Container = styled.div`
   .width100 {
     width: 100%;
   }
+
+  // 테블릿
+  @media screen and (max-width: 1199px) {
+    height: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 50px 0;
+
+    #end {
+      grid-column: 1 / 8;
+      p {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  // 모바일
+  @media screen and (max-width: 599px) {
+    /* height: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 50px 0; */
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -330,15 +353,13 @@ const ProfileContainer = styled.div`
   height: 30%;
   display: flex;
   flex-direction: row;
-  background-color: red;
   margin-bottom: 10px;
 
   .imageBox {
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: pink;
     justify-content: center;
 
     .filebox label {
@@ -377,21 +398,19 @@ const ProfileContainer = styled.div`
   }
 
   .textBox {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    background-color: skyblue;
     justify-content: center;
     gap: 10px;
 
     .nameBox {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
 
       #nickname {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 30px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
@@ -400,14 +419,31 @@ const ProfileContainer = styled.div`
     .statusBox {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
 
       #statusText {
-        font-size: 18px;
+        font-size: 14px;
         line-height: 24.52px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
+        white-space: pre-line;
       }
+    }
+    input {
+      height: 30px;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid #999;
+
+      &:focus {
+        background-color: transparent;
+        outline: none;
+        border-bottom: 3px solid #777;
+      }
+    }
+    button {
+      display: flex;
+      align-items: center;
+      margin: 3px;
     }
   }
 `;
@@ -455,23 +491,35 @@ const BadgeContainer = styled.div`
 
 const BadgeContainer2 = styled.div`
   height: 100%;
-  overflow-y: scroll;
+  display: flex;
+  align-items: center;
 
   .badgeBox {
-    height: 100%;
+    height: 80%;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-row-gap: 10px;
     place-items: center;
+
     overflow-y: scroll;
+    /* -ms-overflow-style: none; IE and Edge */
+    /* scrollbar-width: none; Firefox */
+
+    /* &::-webkit-scrollbar {
+      display: none; Chrome, Safari, Opera
+    } */
   }
 
   .badge {
-    width: 40px;
-    height: 40px;
-    background-color: red;
+    min-width: 50px;
+    min-height: 50px;
+    /* width: 50px;
+    height: 50px; */
+
+    background: #ffffff;
+    border: 1px solid #8a8ba3;
   }
 `;
 
