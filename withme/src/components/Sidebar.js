@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 //style
 import styled from 'styled-components';
 
-//pages
-import SecretRoomModal from '../components/Modal/SecretRoomModal';
 
 //svg
 import { ReactComponent as SidebarIcon } from '../assets/modals/sidebarIcon.svg';
@@ -19,15 +17,6 @@ import { actionCreators as userActions } from '../redux/modules/user';
 const Sidebar = (props) => {
   const { open, close, header, setIsM } = props;
   const dispatch = useDispatch();
-
-  const [MRooms, setMRooms] = useState(false);
-  const [SRoomM, setSRoomM] = useState(false);
-
-  //login
-  useEffect(() => {
-    console.log('로그인 췤');
-    dispatch(userActions.logInCheckDB());
-  }, []);
 
   const user = useSelector((state) => state.user.user);
 
@@ -95,7 +84,7 @@ const Sidebar = (props) => {
             {is_local === true ? (
               <Text
                 onClick={() => {
-                  dispatch(userActions.logOutDB());
+                  dispatch(userActions.logOut());
                 }}
               >
                 로그아웃
