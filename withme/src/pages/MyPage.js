@@ -447,13 +447,11 @@ const ProfileContainer = styled.div`
         line-height: 30px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
-        border: none;
-        border-bottom: 2px solid #999;
+        border: 2px solid #58596a;
 
         &:focus {
           background-color: transparent;
-          outline: none;
-          border-bottom: 3px solid #777;
+          outline-color: #7179f0;
         }
       }
     }
@@ -477,13 +475,11 @@ const ProfileContainer = styled.div`
         line-height: 24.52px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
-        border: none;
-        border-bottom: 2px solid #999;
+        border: 2px solid #58596a;
 
         &:focus {
           background-color: transparent;
-          outline: none;
-          border-bottom: 3px solid #777;
+          outline-color: #7179f0;
         }
       }
     }
