@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
 
 import { Image, Text, Input } from '../elements/Index';
@@ -12,6 +13,9 @@ import MonthTime from '../components/MonthTime';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as usereditActions } from '../redux/modules/userEdit';
 import { actionCreators as userEditActions } from '../redux/modules/userEdit';
+
+// badge
+import lockBadge from '../assets/badge/lockBadge.svg';
 
 const Mypage = (props) => {
   const dispatch = useDispatch();
@@ -79,9 +83,7 @@ const Mypage = (props) => {
     const img = e.target.files[0];
     const formData = new FormData();
     formData.append('image', img);
-    console.log('이미지 시작');
-    for (const keyValue of formData) console.log(keyValue);
-    dispatch(usereditActions.getImageUrlDB(formData));
+    dispatch(usereditActions.getImageUrlDB(userId, formData));
   };
 
   const onClickImage = () => {
@@ -172,15 +174,36 @@ const Mypage = (props) => {
             <div id="middleTopBox" className="boxStyle">
               <BadgeContainer2>
                 <div className="badgeBox">
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
-                  <div className="badge"></div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
+                  <div className="badge">
+                    <img src={lockBadge} />
+                  </div>
                 </div>
               </BadgeContainer2>
             </div>
@@ -504,19 +527,20 @@ const BadgeContainer2 = styled.div`
     place-items: center;
 
     overflow-y: scroll;
-    /* -ms-overflow-style: none; IE and Edge */
-    /* scrollbar-width: none; Firefox */
+    -ms-overflow-style: none; // IE and Edge
+    scrollbar-width: none; // Firefox
 
-    /* &::-webkit-scrollbar {
-      display: none; Chrome, Safari, Opera
-    } */
+    &::-webkit-scrollbar {
+      display: none; // Chrome, Safari, Opera
+    }
   }
 
   .badge {
     min-width: 50px;
     min-height: 50px;
-    /* width: 50px;
-    height: 50px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background: #ffffff;
     border: 1px solid #8a8ba3;

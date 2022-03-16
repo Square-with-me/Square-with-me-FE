@@ -106,7 +106,7 @@ const WeekTime = ({ week }) => {
       },
       {
         label: '상담',
-        backgroundColor: '#000',
+        backgroundColor: '#FFD9B6',
         stack: 'Stack 0',
         data: counseling,
       },
