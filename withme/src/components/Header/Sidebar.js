@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { history } from '../redux/configureStore';
+import { history } from '../../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 
 //style
 import styled from 'styled-components';
 
-
 //svg
-import { ReactComponent as SidebarIcon } from '../assets/modals/sidebarIcon.svg';
-import { ReactComponent as UserNickIcon } from '../assets/modals/userNickIcon.svg';
-import { ReactComponent as ExitIcon } from '../assets/inRoom/exitIcon.svg';
+import { ReactComponent as SidebarIcon } from '../../assets/modals/sidebarIcon.svg';
+import { ReactComponent as UserNickIcon } from '../../assets/modals/userNickIcon.svg';
+import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
 
 //redux
-import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as userActions } from '../../redux/modules/user';
 
 const Sidebar = (props) => {
   const { open, close, header, setIsM } = props;

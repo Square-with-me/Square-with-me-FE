@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import "../styles/RoomInfoDrop.css";
+import "../../styles/RoomInfoDrop.css";
 
 //pages/components
-import LoginModal from "../components/Modal/LoginModal";
-import SignupModal from "../components/Modal/SignupModal";
+import LoginModal from "../Modal/LoginModal";
+import SignupModal from "../Modal/SignupModal";
 import Sidebar from "./Sidebar";
 
 //icons
-import { ReactComponent as UserNickIcon } from "../assets/modals/sidebarIcon.svg";
+import { ReactComponent as UserNickIcon } from "../../assets/modals/sidebarIcon.svg";
 
 const Header = (props) => {
   //사이드바

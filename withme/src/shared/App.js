@@ -7,9 +7,8 @@ import styled from 'styled-components';
 import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
-import Kakao from '../components/Kakao';
+import Kakao from '../components/Header/Kakao';
 import Test from '../pages/Test';
-import TimerTest from '../pages/TimerTest';
 import Landing from '../pages/Landing';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
         <Route path="/test" exact component={Test} />
-        <Route path="/test2" exact component={TimerTest} />
         <Route path="/land" exact component={Landing}/>
       </ConnectedRouter>
     </React.Fragment>

@@ -79,7 +79,7 @@ const getImageUrlDB = (userId, file) => {
     apis
       .imageUpload(file)
       .then((res) => {
-        const data = `http://15.164.48.35:80/${res.data}`;
+        const data = `http://14.45.204.153:7034/${res.data}`;
         dispatch(editProfileDB(userId, data));
       })
       .catch(function (error) {
@@ -94,7 +94,7 @@ const editProfileDB = (userId, profileUrl) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/img`,
+        `http://14.45.204.153:7034/api/user/${userId}/profile/img`,
         { profileImg: profileUrl },
         {
           headers: {
@@ -117,7 +117,7 @@ const editNickDB = (userId, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/nickname`,
+        `http://14.45.204.153:7034/api/user/${userId}/profile/nickname`,
         { nickname },
         {
           headers: {
@@ -143,7 +143,7 @@ const editStatusDB = (userId, status) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/statusMsg`,
+        `http://14.45.204.153:7034/api/user/${userId}/profile/statusMsg`,
         { statusMsg: status },
         {
           headers: {
@@ -171,7 +171,7 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://15.164.48.35:80/api/user/${userId}/records`, {
+      .get(`http://14.45.204.153:7034/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
