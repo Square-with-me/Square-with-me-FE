@@ -19,16 +19,15 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
+  let type = user.type
 
   const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem('login-token') ? true : false;
-  React.useEffect(() => {}, [is_login]);
+  // const is_local = localStorage.getItem('login-token') ? true : false;
+  React.useEffect(() => {
+    console.log(is_login)
+    dispatch(userActions.logInCheckDB())
+  }, [is_login]);
 
-  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
-    ? true
-    : false;
-  React.useEffect(() => {}, [notUser_is_login]);
 
   if (open) {
     return (
@@ -52,7 +51,7 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {is_login === true ? (
               <Text
                 onClick={() => {
                   history.push(`/mypage/${user.id}`);
@@ -81,10 +80,11 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {is_login === true ? (
               <Text
                 onClick={() => {
-                  dispatch(userActions.logOut());
+                  // dispatch(userActions.logOut());
+                  dispatch(userActions.logOutDB(type));
                 }}
               >
                 로그아웃
@@ -92,31 +92,6 @@ const Sidebar = (props) => {
             ) : (
               <Text>나가기</Text>
             )}
-          </div>
-
-          {notUser_is_local === true ? (
-            <div
-              style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
-            >
-              <UserNickIcon
-                fill="#000000"
-                width="32px"
-                height="32px"
-                style={{ marginRight: '8px' }}
-              />
-              <Text
-                onClick={() => {
-                  dispatch(userActions.notUserLogOut());
-                }}
-              >
-                비회원은
-                <br />
-                그만 할래요
-              </Text>
-            </div>
-          ) : null}
-          <div>
-
           </div>
           <div>
             <Text
@@ -128,6 +103,7 @@ const Sidebar = (props) => {
               마이페이지
             </Text>
           </div>
+          <button onClick={()=>dispatch(userActions.logOutDB(user.type))}>로그아웃</button>
         </Wrap>
         <ModalBackground
           onClick={() => {

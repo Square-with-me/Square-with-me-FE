@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 //icon
-import { ReactComponent as LockIcon } from '../assets/main/lockIcon.svg';
-import { ReactComponent as UserNickIcon } from '../assets/main/userNickIcon.svg';
+import { ReactComponent as LockIcon } from '../../assets/main/lockIcon.svg';
+import { ReactComponent as UserNickIcon } from '../../assets/main/userNickIcon.svg';
 
 const RoomCard = (props) => {
   const category = props.category.name;

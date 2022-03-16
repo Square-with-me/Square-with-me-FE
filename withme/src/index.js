@@ -5,6 +5,8 @@ import App from './shared/App';
 import store from './redux/configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './shared/serviceWorker';
+import axios from 'axios'
+axios.defaults.withCredentials=true;
 
 ReactDOM.render(
   <React.StrictMode>

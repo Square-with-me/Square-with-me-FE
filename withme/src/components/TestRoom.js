@@ -10,8 +10,10 @@ const TestRoom = () => {
     <Con>
       <RoomCardContainer>
         <div>
-          <CategoryText style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}>운동</CategoryText>
-    
+          <div style={{display:'flex'}}>
+            <CategoryText style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}>운동</CategoryText>
+            <LockIcon width='19'/>
+          </div>
           <TitleText className="title">오늘 나 운동 하고싶은 밤인데 누구 없니?</TitleText>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
