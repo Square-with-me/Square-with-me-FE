@@ -20,66 +20,146 @@ const WeekTime = ({ week }) => {
   const [study, setStudy] = useState([]);
 
   useEffect(() => {
-    console.log('이거이거', beautyRecord);
+    console.log('이번 주 데이터', week);
+
+    const sun100 =
+      beautyRecord.sun +
+      counselingRecord.sun +
+      cultureRecord.sun +
+      etcRecord.sun +
+      sportsRecord.sun +
+      studyRecord.sun;
+
+    const mon100 =
+      beautyRecord.mon +
+      counselingRecord.mon +
+      cultureRecord.mon +
+      etcRecord.mon +
+      sportsRecord.mon +
+      studyRecord.mon;
+
+    const tue100 =
+      beautyRecord.tue +
+      counselingRecord.tue +
+      cultureRecord.tue +
+      etcRecord.tue +
+      sportsRecord.tue +
+      studyRecord.tue;
+
+    const wed100 =
+      beautyRecord.wed +
+      counselingRecord.wed +
+      cultureRecord.wed +
+      etcRecord.wed +
+      sportsRecord.wed +
+      studyRecord.wed;
+
+    const thur100 =
+      beautyRecord.thur +
+      counselingRecord.thur +
+      cultureRecord.thur +
+      etcRecord.thur +
+      sportsRecord.thur +
+      studyRecord.thur;
+
+    const fri100 =
+      beautyRecord.fri +
+      counselingRecord.fri +
+      cultureRecord.fri +
+      etcRecord.fri +
+      sportsRecord.fri +
+      studyRecord.fri;
+
+    const sat100 =
+      beautyRecord.sat +
+      counselingRecord.sat +
+      cultureRecord.sat +
+      etcRecord.sat +
+      sportsRecord.sat +
+      studyRecord.sat;
 
     setBeauty([
-      beautyRecord.sun / 1000,
-      beautyRecord.mon / 1000,
-      beautyRecord.tue / 1000,
-      beautyRecord.wed / 1000,
-      beautyRecord.thur / 1000,
-      beautyRecord.fri / 1000,
-      beautyRecord.sat / 1000,
+      (beautyRecord.sun / sun100) * 100,
+      (beautyRecord.mon / mon100) * 100,
+      (beautyRecord.tue / tue100) * 100,
+      (beautyRecord.wed / wed100) * 100,
+      (beautyRecord.thur / thur100) * 100,
+      (beautyRecord.fri / fri100) * 100,
+      (beautyRecord.sat / sat100) * 100,
     ]);
     setCounseling([
-      counselingRecord.sun / 1000,
-      counselingRecord.mon / 1000,
-      counselingRecord.tue / 1000,
-      counselingRecord.wed / 1000,
-      counselingRecord.thur / 1000,
-      counselingRecord.fri / 1000,
-      counselingRecord.sat / 1000,
+      (counselingRecord.sun / sun100) * 100,
+      (counselingRecord.mon / mon100) * 100,
+      (counselingRecord.tue / tue100) * 100,
+      (counselingRecord.wed / wed100) * 100,
+      (counselingRecord.thur / thur100) * 100,
+      (counselingRecord.fri / fri100) * 100,
+      (counselingRecord.sat / sat100) * 100,
     ]);
     setCulture([
-      cultureRecord.sun / 1000,
-      cultureRecord.mon / 1000,
-      cultureRecord.tue / 1000,
-      cultureRecord.wed / 1000,
-      cultureRecord.thur / 1000,
-      cultureRecord.fri / 1000,
-      cultureRecord.sat / 1000,
+      (cultureRecord.sun / sun100) * 100,
+      (cultureRecord.mon / mon100) * 100,
+      (cultureRecord.tue / tue100) * 100,
+      (cultureRecord.wed / wed100) * 100,
+      (cultureRecord.thur / thur100) * 100,
+      (cultureRecord.fri / fri100) * 100,
+      (cultureRecord.sat / sat100) * 100,
     ]);
     setEtc([
-      etcRecord.sun / 1000,
-      etcRecord.mon / 1000,
-      etcRecord.tue / 1000,
-      etcRecord.wed / 1000,
-      etcRecord.thur / 1000,
-      etcRecord.fri / 1000,
-      etcRecord.sat / 1000,
+      (etcRecord.sun / sun100) * 100,
+      (etcRecord.mon / mon100) * 100,
+      (etcRecord.tue / tue100) * 100,
+      (etcRecord.wed / wed100) * 100,
+      (etcRecord.thur / thur100) * 100,
+      (etcRecord.fri / fri100) * 100,
+      (etcRecord.sat / sat100) * 100,
     ]);
     setSports([
-      sportsRecord.sun / 1000,
-      sportsRecord.mon / 1000,
-      sportsRecord.tue / 1000,
-      sportsRecord.wed / 1000,
-      sportsRecord.thur / 1000,
-      sportsRecord.fri / 1000,
-      sportsRecord.sat / 1000,
+      (sportsRecord.sun / sun100) * 100,
+      (sportsRecord.mon / mon100) * 100,
+      (sportsRecord.tue / tue100) * 100,
+      (sportsRecord.wed / wed100) * 100,
+      (sportsRecord.thur / thur100) * 100,
+      (sportsRecord.fri / fri100) * 100,
+      (sportsRecord.sat / sat100) * 100,
     ]);
     setStudy([
-      studyRecord.sun / 1000,
-      studyRecord.mon / 1000,
-      studyRecord.tue / 1000,
-      studyRecord.wed / 1000,
-      studyRecord.thur / 1000,
-      studyRecord.fri / 1000,
-      studyRecord.sat / 1000,
+      (studyRecord.sun / sun100) * 100,
+      (studyRecord.mon / mon100) * 100,
+      (studyRecord.tue / tue100) * 100,
+      (studyRecord.wed / wed100) * 100,
+      (studyRecord.thur / thur100) * 100,
+      (studyRecord.fri / fri100) * 100,
+      (studyRecord.sat / sat100) * 100,
     ]);
   }, [week]);
   const data = {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [
+      {
+        label: '상담',
+        backgroundColor: '#FFD9B6',
+        stack: 'Stack 0',
+        data: counseling,
+      },
+      {
+        label: '문화',
+        backgroundColor: '#B5E3F8',
+        stack: 'Stack 0',
+        data: culture,
+      },
+      {
+        label: '기타',
+        backgroundColor: '#B7CEFC',
+        stack: 'Stack 0',
+        data: etc,
+      },
+      {
+        label: '스터디',
+        backgroundColor: '#B9E8B5',
+        stack: 'Stack 0',
+        data: study,
+      },
       {
         label: '뷰티',
         backgroundColor: '#FCEDB7',
@@ -92,43 +172,28 @@ const WeekTime = ({ week }) => {
         stack: 'Stack 0',
         data: sports,
       },
-      {
-        label: '스터디',
-        backgroundColor: '#B9E8B5',
-        stack: 'Stack 0',
-        data: study,
-      },
-      {
-        label: '문화',
-        backgroundColor: '#B5E3F8',
-        stack: 'Stack 0',
-        data: culture,
-      },
-      {
-        label: '상담',
-        backgroundColor: '#000',
-        stack: 'Stack 0',
-        data: counseling,
-      },
-      {
-        label: '기타',
-        backgroundColor: '#B7CEFC',
-        stack: 'Stack 0',
-        data: etc,
-      },
     ],
   };
   const option = {
     scales: {
       x: {
         stacked: true,
+        grid: {
+          display: false,
+        },
       },
       y: {
         stacked: true,
         scaleLabel: {
-          display: true,
-          labelString: 'Task Count',
+          display: false,
         },
+        ticks: {
+          display: false,
+        },
+        grid: {
+          display: false,
+        },
+        max: 100,
       },
     },
     plugins: {
@@ -136,7 +201,7 @@ const WeekTime = ({ week }) => {
         display: false,
       },
       tooltips: {
-        enabled: true,
+        // enabled: true,
         custom: function (tooltipModel) {},
       },
       animation: {

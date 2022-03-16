@@ -7,7 +7,7 @@ import { apis } from '../../shared/api';
 //프로필 가져오기
 const SET_USER = 'SET_USER';
 //프로필 업로드
-const EDIT_PROFILE = 'ADD_PROFILE';
+const EDIT_PROFILE = 'EDIT_PROFILE';
 //닉네임 변경
 const EDIT_NICK = 'EDIT_NICK';
 //상태메세지 변경
@@ -73,14 +73,14 @@ const logInCheckDB = () => {
 };
 
 // 이미지 주소 받아오기
-const getImageUrlDB = (file) => {
+const getImageUrlDB = (userId, file) => {
   return function (dispatch, getState, { history }) {
     console.log('디스패치', file);
     apis
       .imageUpload(file)
       .then((res) => {
-        console.log('주소받은', res);
-        //dispatch(editProfile(이미지주소));
+        const data = `http://15.164.48.35:80/${res.data}`;
+        dispatch(editProfileDB(userId, data));
       })
       .catch(function (error) {
         alert(error.response.data.msg);
@@ -89,7 +89,28 @@ const getImageUrlDB = (file) => {
 };
 
 // 프로필 사진 수정하기
-const editProfileDB = () => {};
+const editProfileDB = (userId, profileUrl) => {
+  console.log(userId, profileUrl);
+  return function (dispatch, getState, { history }) {
+    axios
+      .patch(
+        `http://15.164.48.35:80/api/user/${userId}/profile/img`,
+        { profileImg: profileUrl },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+          },
+        }
+      )
+      .then(function (res) {
+        console.log('이미지 변경 완료??', res);
+        dispatch(editProfile(profileUrl));
+      })
+      .catch(function (err) {
+        window.alert(err);
+      });
+  };
+};
 
 // 사용자 닉네임 수정하기
 const editNickDB = (userId, nickname) => {
@@ -194,7 +215,6 @@ export default handleActions(
       }),
     [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
-        console.log('이미지 변경: ', action.payload);
         draft.user.profileImg = action.payload.profileUrl;
       }),
     [WEEK_TIME]: (state, action) =>
@@ -214,8 +234,6 @@ const actionCreators = {
   editBadge,
   getBadge,
   todayTime,
-  weekTime,
-  monthTime,
 
   // 완료
   logInCheckDB,

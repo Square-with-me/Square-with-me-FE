@@ -156,7 +156,7 @@ export default handleActions(
       }),
     [ADD_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift(action.payload.rooms);
+        draft.list.push(action.payload.rooms);
       }),
     [DEL_ROOM]: (state, action) => produce(state, (draft) => {}),
     [HOT_ROOM]: (state, action) =>
