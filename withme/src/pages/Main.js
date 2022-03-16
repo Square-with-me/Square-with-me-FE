@@ -23,7 +23,7 @@ import Header from '../components/Header';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as roomActions } from '../redux/modules/room';
+import room, { actionCreators as roomActions } from '../redux/modules/room';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 // 방 생성하기
@@ -55,10 +55,12 @@ const Main = () => {
   const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
+  // 로그인 체크
   useEffect(() => {
     dispatch(userActions.logInCheckDB());
   }, []);
 
+  // 카테고리 선택하기ㄴ
   useEffect(() => {
     if (choiceCate === 0) {
       // 전체 방 불러오기
@@ -92,7 +94,31 @@ const Main = () => {
     // dispatch(roomActions.getRoomDB())
   }, []);
 
-  // const =/
+  const [startIndex, setStartIndex] = useState(8);
+  const [newList, setNewList] = useState([]);
+
+  useEffect(() => {
+    if (roomList === undefined) return;
+    setNewList(roomList.slice(0, 8));
+  }, [roomList]);
+
+  const morePage = () => {
+    if (roomList.length >= startIndex + 8) {
+      setNewList((list) => [
+        ...list,
+        ...roomList.slice(startIndex, startIndex + 8),
+      ]);
+      setStartIndex(startIndex + 8);
+    } else {
+      setNewList((list) => [
+        ...list,
+        ...roomList.slice(startIndex, roomList.length),
+      ]);
+      setStartIndex(roomList.length);
+    }
+
+    console.log(startIndex);
+  };
 
   return (
     <React.Fragment>
@@ -413,8 +439,8 @@ const Main = () => {
               })
             : ''}
 
-          {roomList
-            ? roomList.map((data, index) => {
+          {newList
+            ? newList.map((data, index) => {
                 return (
                   <div>
                     {data.isSecret === true ? (
@@ -442,7 +468,7 @@ const Main = () => {
           {secret && <SecretRoomModal setSecret={setSecret} />}
         </RoomListContainer>
 
-        <div className="morebtn">
+        <div className="morebtn" onClick={() => morePage()}>
           <Btn>더보기</Btn>
         </div>
 
@@ -603,6 +629,7 @@ const DropWrap = styled.div`
   border-radius: 4px;
   width: 140px;
 `;
+
 const CategoryWrap = styled.div`
   display: flex;
   justify-content: space-between;
