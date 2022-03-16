@@ -421,7 +421,7 @@ const ProfileContainer = styled.div`
   }
 
   .textBox {
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -438,6 +438,24 @@ const ProfileContainer = styled.div`
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
       }
+      input {
+        width: 100%;
+        height: 30px;
+        background-color: transparent;
+        border-radius: 4px;
+        font-size: 18px;
+        line-height: 30px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 700;
+        border: none;
+        border-bottom: 2px solid #999;
+
+        &:focus {
+          background-color: transparent;
+          outline: none;
+          border-bottom: 3px solid #777;
+        }
+      }
     }
     .statusBox {
       display: flex;
@@ -450,19 +468,26 @@ const ProfileContainer = styled.div`
         font-weight: 400;
         white-space: pre-line;
       }
-    }
-    input {
-      height: 30px;
-      background-color: transparent;
-      border: none;
-      border-bottom: 2px solid #999;
-
-      &:focus {
+      input {
+        width: 100%;
+        height: 30px;
         background-color: transparent;
-        outline: none;
-        border-bottom: 3px solid #777;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 24.52px;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-weight: 400;
+        border: none;
+        border-bottom: 2px solid #999;
+
+        &:focus {
+          background-color: transparent;
+          outline: none;
+          border-bottom: 3px solid #777;
+        }
       }
     }
+
     button {
       display: flex;
       align-items: center;
