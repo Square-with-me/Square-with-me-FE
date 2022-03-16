@@ -20,7 +20,7 @@ const WeekTime = ({ week }) => {
   const [study, setStudy] = useState([]);
 
   useEffect(() => {
-    console.log('이거이거', beautyRecord);
+    console.log('이번 주 데이터', week);
 
     const sun100 =
       beautyRecord.sun +
@@ -137,6 +137,30 @@ const WeekTime = ({ week }) => {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     datasets: [
       {
+        label: '상담',
+        backgroundColor: '#FFD9B6',
+        stack: 'Stack 0',
+        data: counseling,
+      },
+      {
+        label: '문화',
+        backgroundColor: '#B5E3F8',
+        stack: 'Stack 0',
+        data: culture,
+      },
+      {
+        label: '기타',
+        backgroundColor: '#B7CEFC',
+        stack: 'Stack 0',
+        data: etc,
+      },
+      {
+        label: '스터디',
+        backgroundColor: '#B9E8B5',
+        stack: 'Stack 0',
+        data: study,
+      },
+      {
         label: '뷰티',
         backgroundColor: '#FCEDB7',
         stack: 'Stack 0',
@@ -147,30 +171,6 @@ const WeekTime = ({ week }) => {
         backgroundColor: '#FFC9C9',
         stack: 'Stack 0',
         data: sports,
-      },
-      {
-        label: '스터디',
-        backgroundColor: '#B9E8B5',
-        stack: 'Stack 0',
-        data: study,
-      },
-      {
-        label: '문화',
-        backgroundColor: '#B5E3F8',
-        stack: 'Stack 0',
-        data: culture,
-      },
-      {
-        label: '상담',
-        backgroundColor: '#FFD9B6',
-        stack: 'Stack 0',
-        data: counseling,
-      },
-      {
-        label: '기타',
-        backgroundColor: '#B7CEFC',
-        stack: 'Stack 0',
-        data: etc,
       },
     ],
   };
