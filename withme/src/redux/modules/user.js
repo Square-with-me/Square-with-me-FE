@@ -1,9 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from 'axios';
-import { apis } from '../../shared/api';
+import { apis,api_token } from '../../shared/api';
+// import jwt_decode from "jwt-decode";
 
 import { RESPJ } from '../../shared/resopnseJ';
+import { setCookie } from '../../shared/Cookie';
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
@@ -25,19 +27,33 @@ const initialState = {
 //로그인 미들웨어
 const logInDB = (origin, pwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(origin, pwd);
     apis
       .login(origin, pwd)
       .then((res) => {
-        console.log(res);
-
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
-        window.location.replace('/');
+        window.location.reload('/')
       })
       .catch(function (error) {
         alert(error.response.data.msg);
       });
+    // apis.post('/api/auth',{
+    //   origin:origin,
+    //   pwd:pwd
+    // }).then((res)=>{
+    //   const accessToken ="Bearer" + res.data.token
+    //   setCookie('is_login', `${accessToken}`);
+    //   window.alert(res.data.msg)
+    //   window.location.reload('/')
+    //   // const {origin, nickname} =jwt_decode(res.data.token)
+    //   dispatch(setUser({
+    //     origin:origin,
+    //     // nickname:nickname
+    //   }))
+    // })
+    // .catch((err)=>{
+    //   console.log(err)
+    // })
   };
 };
 
@@ -48,24 +64,19 @@ const signUpDB = (origin, nickname, pwd) => {
     apis
       .signup(origin, nickname, pwd)
       .then((res) => {
-        console.log(res);
-
-        if (res.isSuccess === true) history.push('/login');
+        if (res.isSuccess === true) {
+          window.alert(res.msg)
+          window.location.reload('/')
+        } else {
+          window.alert(res.msg)
+        }
       })
       .catch(function (error) {
-        console.log(error.response);
-        alert(error.response.data.msg);
+        window.alert(error.response.data.msg);
       });
   };
 };
 
-//로그아웃 미들웨어
-const logOutDB = () => {
-  return function (dispatch, getState, { history }) {
-    dispatch(logOut());
-    history.push('/');
-  };
-};
 
 //로그인 체크 미들웨어
 const logInCheckDB = () => {
@@ -76,75 +87,71 @@ const logInCheckDB = () => {
         history.replace('/');
         return;
       }
-
       const user = res.data.data.user;
+      console.log(res)
       dispatch(
         setUser({
           ...user,
         })
       );
     });
+    // api_token.get(`/api/user/me`)
+    // .then((res)=>{
+    //   const user = res.data.data.user;
+    //   dispatch(setUser({...user}))
+    // })
+    // .catch((err)=>{
+    //   console.log(err)
+    // })
   };
 };
 
 //비회원 로그인
 const NotMemberloginDB = () => {
   return function (getState, dispatch, { history }) {
-    //  axios.get('/api/user/anon')
-    //  .then((response)=>{
-    //      let token = response.data.token
-    //      localStorage.setItem("notUser_is_login", token)
-    //      dispatch(notUser({
-    //         user_id : response.data.user.id,
-    //         nick : response.data.user.nickname,
-    //         statusMsg : response.data.user.statusMsg,
-    //         token : response.data.token
-    //      }))
-    //  })
-    //  .catch((error)=>{
-    //      console.log(error)
-    //  })
-    if (RESPJ.NotMemberLogin.isSuccess === true) {
-      localStorage.setItem('notUser_is_login', RESPJ.NotMemberLogin.data.token);
-      let user_id = RESPJ.NotMemberLogin.data.id;
-      let nick = RESPJ.NotMemberLogin.data.nickname;
-      let statusMsg = RESPJ.NotMemberLogin.data.statusMsg;
-      dispatch(notUser({ user_id, nick, statusMsg }));
-    }
+     apis.nonMemberLogin()
+     .then((response)=>{
+         let token = response.data.data.token
+         localStorage.setItem("notUser_is_login", token)
+         dispatch(notUser({
+            user_id : response.data.user.id,
+            nick : response.data.user.nickname,
+            statusMsg : response.data.user.statusMsg,
+            token : response.data.token
+         }))
+         window.location.reload('/')
+     })
+     .catch((error)=>{
+         console.log(error)
+     })
   };
 };
 
-//비회원 로그아웃
-const NotMemberlogOutDB = () => {
-  return function (getState, dispatch, { history }) {
-    dispatch(notUserLogOut());
-  };
-};
 //비회원 로그인 체킹 미들웨어
 const NotMemberLoginCheckDB = () => {
   return function (getState, dispatch, { history }) {
-    // axios
-    // .get('',{
-    //   headers:{
-    //     Authorization: `Bearer ${localStorage.getItem("notUser_is_login")}`
-    //   }
+    apis.nonMemberLoginCheck().then((res) => {
+      if (!res.data.isSuccess) {
+        alert('회원정보가 올바르지 않습니다.');
+        history.replace('/');
+        return;
+      }
+      const user = res.data.data.user;
+      console.log(res)
+      dispatch(
+        notUser({
+          ...user,
+        })
+      );
+    });
+    // api_token.get(`/api/user/me`)
+    // .then((res)=>{
+    //   const user = res.data.data.user;
+    //   dispatch(notUser({...user}))
     // })
-    // .then((response)=>{
-    //   dispatch(notUser({
-    //     user_id: response.data.user.origin,
-    //     nick : response.data.user.nickname,
-    //     statusMsg : response.data.user.statusMsg,
-    //   }))
+    // .catch((err)=>{
+    //   console.log(err)
     // })
-    // .catch((error)=>{
-    //   console.log(error)
-    // })
-    if (RESPJ.NotMemberLoginCheck.isSuccess === true) {
-      let user_id = RESPJ.NotMemberLoginCheck.data.user.id;
-      let nick = RESPJ.NotMemberLoginCheck.data.user.nickname;
-      let statusMsg = RESPJ.NotMemberLoginCheck.data.user.statusMsg;
-      dispatch(notUser({ user_id, nick, statusMsg }));
-    }
   };
 };
 
@@ -165,11 +172,13 @@ export default handleActions(
         draft.user = null;
         draft.is_login = false;
       }),
+
     [NOT_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.notUser = action.payload.user;
         draft.notUser_is_login = true;
       }),
+
     [NOT_USER_LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         console.log(draft.notUser);
@@ -184,12 +193,10 @@ export default handleActions(
 const actionCreators = {
   setUser,
   logOut,
-  logOutDB,
   logInDB,
   logInCheckDB,
   signUpDB,
   NotMemberloginDB,
-  NotMemberlogOutDB,
   NotMemberLoginCheckDB,
   notUserLogOut,
 };
