@@ -349,6 +349,7 @@ const Container2 = styled.div`
   padding: 18px;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
 `;
 
 const RoomCardContainer = styled.div`
