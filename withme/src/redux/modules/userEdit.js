@@ -94,7 +94,7 @@ const editProfileDB = (userId, profileUrl) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/image`,
+        `http://15.164.48.35:80/api/user/${userId}/profile/img`,
         { profileImg: profileUrl },
         {
           headers: {
@@ -106,8 +106,8 @@ const editProfileDB = (userId, profileUrl) => {
         console.log('이미지 변경 완료??', res);
         dispatch(editProfile(profileUrl));
       })
-      .catch(function (error) {
-        window.alert(error.response.data.msg);
+      .catch(function (err) {
+        window.alert(err);
       });
   };
 };
@@ -215,9 +215,7 @@ export default handleActions(
       }),
     [EDIT_PROFILE]: (state, action) =>
       produce(state, (draft) => {
-        // const data = `http://15.164.48.35:80/${action.payload.profileUrl}`;
-        // console.log('쭈소! ', data);
-        // draft.user.profileImg = data;
+        draft.user.profileImg = action.payload.profileUrl;
       }),
     [WEEK_TIME]: (state, action) =>
       produce(state, (draft) => {
