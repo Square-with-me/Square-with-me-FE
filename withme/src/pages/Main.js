@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as roomActions } from '../redux/modules/room';
 import { actionCreators as userActions } from '../redux/modules/user';
 
-
 const Main = () => {
   const dispatch = useDispatch();
 
@@ -109,7 +108,7 @@ const Main = () => {
         </div>
 
         <div className="logo">
-          <Logo style={{margin:"auto"}}/>
+          <Logo style={{ margin: 'auto' }} />
         </div>
 
         <div className="searchbar">
@@ -120,13 +119,19 @@ const Main = () => {
           <Banner />
         </div>
 
-        <div  className="menulist">
-          <MenuBar possible={possible} setPossible={setPossible} setChoiceCate={setChoiceCate} category={category} setCategory={setCategory}/>
+        <div className="menulist">
+          <MenuBar
+            possible={possible}
+            setPossible={setPossible}
+            setChoiceCate={setChoiceCate}
+            category={category}
+            setCategory={setCategory}
+          />
         </div>
 
         <RoomListContainer className="roomlist">
           <div>
-            <MakeRoomCard setMRooms={setMRooms} MRooms={MRooms}/>
+            <MakeRoomCard setMRooms={setMRooms} MRooms={MRooms} />
           </div>
 
           {hotRoom
@@ -258,6 +263,8 @@ const RoomListContainer = styled.div`
   box-sizing: border-box;
   cursor: pointer;
   border: none;
+  place-items: center;
+
   @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
     row-gap: 32px;
