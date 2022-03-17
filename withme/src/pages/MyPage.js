@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
 
-import { Image, Text, Input } from '../elements/Index';
+import { Image } from '../elements/Index';
 import styled from 'styled-components';
 import { BiPencil } from 'react-icons/bi';
 
 import TodayTime from '../components/Mypage/TodayTime';
 import WeekTime from '../components/Mypage/WeekTime';
 import MonthTime from '../components/Mypage/MonthTime';
-
+import MHeader from '../components/Header/MHeader';
+import Logo from '../components/Main/Logo';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as usereditActions } from '../redux/modules/userEdit';
@@ -94,6 +95,12 @@ const Mypage = (props) => {
   return (
     <Root>
       <Container>
+        <div className='header'>
+          <Logo/>
+          <div className="side">
+          <MHeader/>
+          </div>
+        </div>
         <div id="start">
           <p className="label">My Page</p>
           <div id="startBox" className="boxStyle">
@@ -170,7 +177,7 @@ const Mypage = (props) => {
         </div>
         <div id="middle">
           <div>
-            <p>더 많은 뱃지를 획득해보세요!</p>
+            <Text>더 많은 뱃지를 획득해보세요!</Text>
             <div id="middleTopBox" className="boxStyle">
               <BadgeContainer2>
                 <div className="badgeBox">
@@ -209,7 +216,7 @@ const Mypage = (props) => {
             </div>
           </div>
           <div>
-            <p>오늘의 참여 기록</p>
+            <Text>오늘의 참여 기록</Text>
             <div id="middleBottomBox" className="boxStyle">
               <TodayTimeBox>
                 <div className="chart">
@@ -221,13 +228,13 @@ const Mypage = (props) => {
         </div>
         <div id="end">
           <div className="width100">
-            <p>이번 주 참여 기록</p>
+            <Text>이번 주 참여 기록</Text>
             <div id="endTopBox" className="boxStyle">
               <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
             </div>
           </div>
           <div className="width100">
-            <p>이번 달 네모와 함께한 시간</p>
+            <Text>이번 달 네모와 함께한 시간</Text>
             <div id="endBottomBox" className="boxStyle">
               <MonthTimeBox>
                 <MonthTime month={month} />
@@ -254,13 +261,30 @@ const Container = styled.div`
   margin: auto;
   display: grid;
   column-gap: 30px;
+  row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
   background-color: #f7f7f7;
-
+  .header{
+    grid-column: 5/13;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    position: relative;
+    @media screen and (max-width: 1199px) {
+      grid-column: 1/8;
+      display: flex;
+      justify-content: center;
+      justify-content: space-between;
+    }
+    .side {
+      align-items: center;     
+      display: flex;
+    }
+  }
   #start {
     width: 350px;
-    height: 620px;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -268,20 +292,19 @@ const Container = styled.div`
 
     p.label {
       font-size: 24px;
-      line-height: 36px;
       font-weight: 700;
       font-family: 'Noto Sans KR', sans-serif;
-      color: #33344b;
+      color: #41414f;
     }
 
     #startBox {
-      height: 562px;
+      height: 65vh;
       padding: 26px 26px 48px 26px;
     }
   }
   #middle {
     width: 255px;
-    height: 620px;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     grid-column: 5 / 8;
@@ -298,18 +321,18 @@ const Container = styled.div`
     }
 
     #middleTopBox {
-      height: 212px;
-      padding: 32px 28px;
+      height: 20vh;
+      padding: 0px 30px;
     }
     #middleBottomBox {
-      height: 296px;
+      height: 40vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
   }
   #end {
-    height: 620px;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -327,14 +350,14 @@ const Container = styled.div`
     }
 
     #endTopBox {
-      min-height: 267px;
+      min-height: 25vh;
       width: 100%;
       display: flex;
       align-items: center;
     }
 
     #endBottomBox {
-      height: 238px;
+      height: 35vh;
       padding: 24px 32px;
     }
   }
@@ -523,16 +546,24 @@ const BadgeContainer = styled.div`
     width: 95px;
     height: 51px;
     padding: 12px 14px;
-    background: #7179f0;
+    background-color: #BCC0FF;
     border-radius: 4px;
     border: none;
-    color: #fff;
 
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 18px;
     line-height: 150%;
+    transition: all .3s;
+    color: #fff;
+    font-weight: 700;
+  
+  &:hover {
+    background-color:#7179F0;
+    color: #fff;
+    box-shadow: 0 1px 5px rgb(113, 121, 240);
+  }
   }
 `;
 
@@ -547,7 +578,7 @@ const BadgeContainer2 = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(auto-fill, 1fr);
-    grid-row-gap: 10px;
+    grid-row-gap: 20px;
     place-items: center;
 
     overflow-y: scroll;
@@ -586,6 +617,13 @@ const WeekTimeBox = styled.div`
 const MonthTimeBox = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const Text = styled.div`
+font-weight: 700;
+margin: 10px 0;
+margin-left: 5px;
+color: #575765;
 `;
 
 export default Mypage;

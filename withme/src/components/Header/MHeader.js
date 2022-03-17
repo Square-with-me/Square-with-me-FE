@@ -6,12 +6,12 @@ import "../../styles/RoomInfoDrop.css";
 //pages/components
 import LoginModal from "../Modal/LoginModal";
 import SignupModal from "../Modal/SignupModal";
-import Sidebar from "./Sidebar";
+import MSidebar from "./MSidebar";
 
 //icons
 import { ReactComponent as UserNickIcon } from "../../assets/modals/sidebarIcon.svg";
 
-const Header = (props) => {
+const MHeader = (props) => {
   //사이드바
   let [sidebaropen, setSidebarOpen] = useState(false);
 
@@ -39,12 +39,12 @@ const Header = (props) => {
           onClick={()=>openSidebar(true)}
         />
       </RightIcon>
-        <Sidebar
+        <MSidebar
           open={sidebaropen}
           close={closeSidebar}
           setIsM={setIsM}
           setIsSignup={setIsSignup}
-        ></Sidebar>
+        ></MSidebar>
       {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
       {SignupM && <SignupModal setIsSignup={setIsSignup} />}
     </React.Fragment>
@@ -57,7 +57,6 @@ const RightIcon = styled.button`
   max-width: 100%;
   justify-content: right;
   background-color: transparent;
-  margin: 45px 0px 0px 0px;
 `;
 
-export default Header;
+export default MHeader;

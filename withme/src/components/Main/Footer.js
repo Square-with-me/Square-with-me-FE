@@ -38,6 +38,7 @@ const P = styled.p`
   margin: 10px 0px;
   color: #8A8BA3;
   float: left;
+  font-weight: 650;
 `
 
 const A = styled.a`
@@ -47,6 +48,7 @@ const A = styled.a`
   color: #8A8BA3;
   float: left;
   padding:10px 0px;
+  font-weight: 650;
 `
 
 const Grid = styled.div`

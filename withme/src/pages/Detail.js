@@ -23,6 +23,7 @@ import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
 import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmotion.svg"
 import RoomInfo from '../components/Detail/RoomInfo';
 import { useSelector } from 'react-redux';
+import Logo from '../components/Main/Logo';
 // import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
 // import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
 // import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
@@ -411,7 +412,8 @@ useEffect(() => {
       {/* <Back/> */}
       <div id="top">
       <div className="logo">
-        <div style={{display:"flex",alignItems:"center"}}>
+        <Logo/>
+        {/* <div style={{display:"flex",alignItems:"center"}}>
         <svg
             width="130"
             height="42"
@@ -461,7 +463,7 @@ useEffect(() => {
               fill="#7179F0"
             />
           </svg>
-        </div>
+        </div> */}
         <div>
           <RoomInfo room={room}/>
         </div>
@@ -676,12 +678,6 @@ useEffect(() => {
     </Container>
   );
 };
-// const Back = styled.div`
-// width: 100%;
-// height: 100%;
-// z-index: -100;
-// background-color: #F7F7F7;
-// `
 
 const Container = styled.div`
   box-sizing: border-box;
