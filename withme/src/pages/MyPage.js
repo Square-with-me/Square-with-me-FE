@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Image } from '../elements/Index';
 import styled from 'styled-components';
@@ -18,7 +19,9 @@ import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 // badge
 import lockBadge from '../assets/badge/lockBadge.svg';
 
+
 const Mypage = (props) => {
+  const history =useHistory()
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userEdit.user);
@@ -96,7 +99,9 @@ const Mypage = (props) => {
     <Root>
       <Container>
         <div className='header'>
-          <Logo/>
+          <div onClick={()=>history.replace('/')}>
+            <Logo/>
+          </div> 
           <div className="side">
           <MHeader/>
           </div>
@@ -258,13 +263,13 @@ const Root = styled.div`
 
 const Container = styled.div`
   max-width: 1110px;
-  margin: auto;
+  margin:  auto;
   display: grid;
   column-gap: 30px;
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
   .header{
     grid-column: 5/13;
     display: flex;

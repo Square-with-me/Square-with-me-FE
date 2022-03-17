@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import '../styles/Drop.css';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 //pages/components
 import Banner from '../components/Main/Banner';
@@ -15,12 +17,12 @@ import SearchBar from '../components/Main/SearchBar';
 import MakeRoomCard from '../components/Main/MakeRoomCard';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as roomActions } from '../redux/modules/room';
 import { actionCreators as userActions } from '../redux/modules/user';
 
 const Main = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [MRooms, setMRooms] = useState(false);
   //검색
@@ -101,13 +103,13 @@ const Main = () => {
   };
 
   return (
-    <React.Fragment>
+    <Back>
       <Wrap>
         <div className="header">
           <Header />
         </div>
 
-        <div className="logo">
+        <div className="logo" onClick={()=>history.replace('/')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
 
@@ -116,10 +118,10 @@ const Main = () => {
         </div>
 
         <div className="banner">
-          <Banner />
+          <Banner/>
         </div>
-
-        <div className="menulist">
+         
+        <div className="menuList">
           <MenuBar
             possible={possible}
             setPossible={setPossible}
@@ -137,7 +139,7 @@ const Main = () => {
           {hotRoom
             ? hotRoom.map((data, index) => {
                 return (
-                  <div>
+                  <div key="{data.id}">
                     <HotRoomCard {...data} />
                   </div>
                 );
@@ -153,6 +155,7 @@ const Main = () => {
                         onClick={() => {
                           setSecret(true);
                         }}
+                      key="{data.id}"
                       >
                         <RoomCard {...data} setPossible={possible} />
                       </div>
@@ -161,6 +164,7 @@ const Main = () => {
                         onClick={() => {
                           goRoom(data.id);
                         }}
+                        key="{data.id}"
                       >
                         <RoomCard {...data} setPossible={possible} />
                       </div>
@@ -181,10 +185,14 @@ const Main = () => {
           <FooterTest />
         </div>
       </Wrap>
-    </React.Fragment>
+    </Back>
   );
 };
 
+const Back =styled.div`
+height: 100%;
+background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
+`
 //share
 const Wrap = styled.div`
   display: grid;
@@ -214,7 +222,7 @@ const Wrap = styled.div`
   .hotroomlist {
     grid-column: 1/13;
   }
-  .menulist {
+  .menuList {
     grid-column: 1/13;
     align-items: center;
     display: flex;

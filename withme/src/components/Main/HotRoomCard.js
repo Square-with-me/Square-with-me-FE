@@ -191,8 +191,8 @@ const TitleText = styled.div`
 
 const TagText = styled.span`
   background-color: #fafaff;
-  color: #33344b;
-  font-weight: 400;
+  color: #4c4d60;
+  font-weight: 600;
   font-size: 12px;
   border: none;
   border-radius: 4px;

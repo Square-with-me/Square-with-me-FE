@@ -15,23 +15,11 @@ import {ReactComponent as OnMic} from "../assets/inRoom/onMicIcon.svg"
 import {ReactComponent as OffMic} from "../assets/inRoom/offMicIcon.svg"
 import {ReactComponent as OnCamera} from "../assets/inRoom/onCameraIcon.svg"
 import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
-// import {ReactComponent as Timer} from "../assets/inRoom/timerIcon.svg"
-// import {ReactComponent as UserList} from "../assets/inRoom/userListIcon.svg"
-// import {ReactComponent as Chatting} from "../assets/inRoom/chattingIcon.svg"
-
 // emotion icons
 import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmotion.svg"
 import RoomInfo from '../components/Detail/RoomInfo';
 import { useSelector } from 'react-redux';
 import Logo from '../components/Main/Logo';
-// import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
-// import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
-// import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
-// import {ReactComponent as LoveEyes} from "../assets/inRoomEmotion/loveEyesFaceIcon.svg"
-// import {ReactComponent as Sad} from "../assets/inRoomEmotion/sadFaceIcon.svg"
-// import {ReactComponent as Smile} from "../assets/inRoomEmotion/smileFaceIcon.svg"
-
-// sadFaceIcon (inRoomEmotion)
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -408,6 +396,7 @@ useEffect(() => {
 }, [peers]);
 
   return (
+    <Back>
     <Container>
       {/* <Back/> */}
       <div id="top">
@@ -676,9 +665,17 @@ useEffect(() => {
         </div>
       </div>
     </Container>
+    </Back>
   );
 };
-
+const Back =styled.div`
+position: relative;
+top:500;
+width: 100%;
+height: auto;
+background-color: #F7F7F7;
+z-index: -10;
+`
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */

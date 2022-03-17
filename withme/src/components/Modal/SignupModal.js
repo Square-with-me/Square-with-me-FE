@@ -98,10 +98,7 @@ const SignupModal = ({  setIsSignup }) => {
                 value={pwd_check}
                 />
               </div>
-        <div style={{display:"flex"}}>
         <LoginButton onClick={Signup}>회원가입</LoginButton>
-        <LoginButton onClick={()=>{dispatch(userActions.NotMemberloginDB())}} >비회원으로 즐기기</LoginButton>
-        </div>
       </Contents>
     </LoginWrap>
   </>
@@ -149,10 +146,10 @@ const HelloText = styled.div`
   margin-top: 50px;
   margin-bottom: 32px;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 28px;
   align-items: center;
-  color: #33344B;
+  color: #4a4a58;
 `
 const Input = styled.input`
 border: 1px solid #8A8BA3;
@@ -172,6 +169,7 @@ border: none;
 border-radius: 4px;
 margin:  0px 0px 0px 16px;
 padding: 12px 14px;
+font-weight: 600;
 &:hover{
   background-color:#BCC0FF ;
 }
@@ -183,10 +181,11 @@ background-color: #7179F0;
 margin: 24px auto;
 border: none;
 height: 51px;
-width: 200px;
+width: 351px;
 border-radius: 4px;
 color: #FAFAFF;
 font-size: 18px;
+font-weight: 600;
 &:hover{
   background-color:#BCC0FF ;
 }
