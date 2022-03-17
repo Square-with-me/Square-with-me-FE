@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import $ from 'jquery';
 import TypeIt from 'typeit';
 
-import sqaure from '../assets/landing/sqaure.svg';
-import SlickSlider from '../components/Landing/SimpleSlider';
-
 import { ReactComponent as Logo } from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
 import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
@@ -13,8 +10,11 @@ import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
 import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
 import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
+import exVideo from '../assets/videos/exVideo.mov';
+import iMac from '../assets/videos/imac.png';
 
 const Landing = () => {
+  // TypeIt
   useEffect(() => {
     new TypeIt('#typing', {
       strings: ['운동', '뷰티', '스터디', '상담', '문화', '기타'],
@@ -25,6 +25,95 @@ const Landing = () => {
       loop: true,
     }).go();
   }, []);
+
+  useEffect(() => {
+    slide();
+    slide2();
+  });
+
+  const slide = () => {
+    var bannerLeft = 0;
+    var first = 1;
+    var last;
+    var imgCnt = 0;
+    var $img = $('.categorySlider .category-box');
+    var $first;
+    var $last;
+
+    $img.each(function () {
+      // 5px 간격으로 배너 처음 위치 시킴
+      $(this).css('left', bannerLeft);
+      bannerLeft += $(this).width() + 5;
+      $(this).attr('id', 'banner' + ++imgCnt); // img에 id 속성 추가
+    });
+
+    if (imgCnt > 8) {
+      //배너 8개 이상이면 이동시킴
+      last = imgCnt;
+
+      setInterval(function () {
+        $img.each(function () {
+          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+        });
+        $first = $('#banner' + first);
+        $last = $('#banner' + last);
+        if ($first.position().left < -300) {
+          // 제일 앞에 배너 제일 뒤로 옮김
+          $first.css('left', $last.position().left + $last.width() + 5);
+          first++;
+          last++;
+          if (last > imgCnt) {
+            last = 1;
+          }
+          if (first > imgCnt) {
+            first = 1;
+          }
+        }
+      }, 50); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
+    }
+  };
+
+  const slide2 = () => {
+    var bannerLeft = 0;
+    var first = 1;
+    var last;
+    var imgCnt = 0;
+    var $img = $('.categorySlider2 .category-box');
+    var $first;
+    var $last;
+
+    $img.each(function () {
+      // 5px 간격으로 배너 처음 위치 시킴
+      $(this).css('left', bannerLeft);
+      bannerLeft += $(this).width() + 5;
+      $(this).attr('id', 'banner2' + ++imgCnt); // img에 id 속성 추가
+    });
+
+    if (imgCnt > 8) {
+      //배너 8개 이상이면 이동시킴
+      last = imgCnt;
+
+      setInterval(function () {
+        $img.each(function () {
+          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+        });
+        $first = $('#banner2' + first);
+        $last = $('#banner2' + last);
+        if ($first.position().left < -300) {
+          // 제일 앞에 배너 제일 뒤로 옮김
+          $first.css('left', $last.position().left + $last.width() + 5);
+          first++;
+          last++;
+          if (last > imgCnt) {
+            last = 1;
+          }
+          if (first > imgCnt) {
+            first = 1;
+          }
+        }
+      }, 25); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
+    }
+  };
 
   return (
     <Container>
@@ -76,15 +165,208 @@ const Landing = () => {
           <span className="wheele"></span>
         </div>
       </section>
-      <section className="vision"></section>
-      <section className="feature"></section>
-      <section className="vision"></section>
-      <section className="faq"></section>
-      <section className="review"></section>
-      <section className="focus"></section>
-      <section className="guide"></section>
-      <section className="news"></section>
+      <section className="focus">
+        <div className="focus-inner">
+          <div className="focus-content">
+            <div className="focus-item">
+              <div className="img-box">
+                <img src=""></img>
+              </div>
+              <div>
+                <p>
+                  <span>서로를 응원</span>하며 집중력과
+                </p>
+                <p>성취도를 높여봐요</p>
+              </div>
+            </div>
+            <div className="focus-item">
+              <div className="img-box">
+                <img src=""></img>
+              </div>
+              <div>
+                <p>얻고 싶거나 알려주고 싶은</p>
+                <p>
+                  <span>팁을 쉽게 공유</span>헤요
+                </p>
+              </div>
+            </div>
 
+            <div className="focus-item">
+              <div className="img-box">
+                <img src=""></img>
+              </div>
+              <div>
+                <p>
+                  <span>공통 관심사</span>를 가지고 있는
+                </p>
+                <p>
+                  친구와 <span>소통</span>해요
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="slider">
+            <div className="categorySlider">
+              <div className="category-box">
+                <div className="category">
+                  운동
+                  <Exercise width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category" fill="#7179f0">
+                  뷰티
+                  <Beauty width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  스터디
+                  <Study width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  상담
+                  <Consulting width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  문화
+                  <Culture width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  기타
+                  <Other width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  운동
+                  <Exercise width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category" fill="#7179f0">
+                  뷰티
+                  <Beauty width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  스터디
+                  <Study width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  상담
+                  <Consulting width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  문화
+                  <Culture width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  기타
+                  <Other width="32px" fill="#7179f0" />
+                </div>
+              </div>
+            </div>
+            <div className="categorySlider2">
+              <div className="category-box">
+                <div className="category" fill="#7179f0">
+                  뷰티
+                  <Beauty width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  스터디
+                  <Study width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  상담
+                  <Consulting width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  문화
+                  <Culture width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  기타
+                  <Other width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  운동
+                  <Exercise width="32px" fill="#7179f0" />
+                </div>
+              </div>
+
+              <div className="category-box">
+                <div className="category" fill="#7179f0">
+                  뷰티
+                  <Beauty width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  스터디
+                  <Study width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  상담
+                  <Consulting width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  문화
+                  <Culture width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  기타
+                  <Other width="32px" fill="#7179f0" />
+                </div>
+              </div>
+              <div className="category-box">
+                <div className="category">
+                  운동
+                  <Exercise width="32px" fill="#7179f0" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="msg">
+            다양한 카테고리! 수 많은 방 중 원하는 곳에 참여하세요.
+          </p>
+        </div>
+      </section>
+      <section className="tutorial">
+        <p>방을 만들고, 함께 시작해볼까요?</p>
+        <img src={iMac} alt="imac" />
+        <video src={exVideo} autoPlay muted loop></video>
+      </section>
+      <section className="vision"></section>
       <footer></footer>
     </Container>
   );
@@ -93,13 +375,16 @@ const Landing = () => {
 const Container = styled.div`
   background-color: #fbfbfb;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
   header {
     position: fixed;
     top: 0;
     left: 0%;
     width: 100%;
     z-index: 999;
+    background-color: yellow;
 
     .header-inner {
       max-width: 1300px;
@@ -132,7 +417,7 @@ const Container = styled.div`
     row-gap: 10%;
 
     .logo-inner {
-      width: 1100px;
+      width: 100%;
       height: 300px;
       position: relative;
 
@@ -266,25 +551,141 @@ const Container = styled.div`
       }
     }
   }
-  .vision {
-  }
-  .banner {
-  }
-  .feature {
-  }
-
-  .faq {
-  }
-  .review {
-  }
   .focus {
-  }
-  .guide {
-  }
-  .news {
-  }
+    .focus-inner {
+      width: 1100px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      row-gap: 50px;
 
-  footer {
+      .focus-content {
+        width: 80%;
+        height: 280px;
+        display: flex;
+        justify-content: space-around;
+
+        .focus-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          .img-box {
+            width: 196px;
+            height: 196px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+            padding: 6px;
+          }
+          p {
+            font-size: 20px;
+            line-height: 25px;
+            font-weight: 700;
+            text-align: center;
+
+            span {
+              position: relative;
+            }
+            span::after {
+              content: '';
+              width: 100%;
+              height: 15px;
+              background-color: rgba(188, 192, 255, 0.5);
+              position: absolute;
+              display: inline-block;
+              bottom: 1px;
+              left: 0;
+            }
+          }
+        }
+      }
+
+      .slider {
+        width: 100%;
+        height: 170px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .categorySlider {
+          width: 100%;
+          height: 78px;
+          display: flex;
+          position: relative;
+          overflow: hidden;
+          align-items: center;
+        }
+
+        .categorySlider2 {
+          width: 100%;
+          height: 78px;
+          display: flex;
+          position: relative;
+          overflow: hidden;
+          align-items: center;
+        }
+
+        .category-box {
+          width: 160px;
+          height: 100%;
+          position: absolute;
+
+          .category {
+            box-sizing: border-box;
+            width: 150px;
+            height: 100%;
+            border: 4px solid #7179f0;
+            border-radius: 50px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 10%;
+
+            font-size: 28px;
+            font-weight: 700;
+            color: #7179f0;
+          }
+        }
+      }
+
+      p.msg {
+        font-size: 24px;
+        font-weight: 700;
+        color: #33344b;
+      }
+    }
+  }
+  .tutorial {
+    width: 1100px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    position: relative;
+
+    p {
+      font-size: 24px;
+      line-height: 36px;
+      font-weight: 700;
+    }
+
+    img {
+      width: 50%;
+      position: relative;
+    }
+
+    video {
+      width: 510px;
+      position: absolute;
+      top: 220px;
+    }
   }
 `;
 export default Landing;
