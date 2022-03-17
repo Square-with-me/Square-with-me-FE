@@ -453,6 +453,7 @@ const ProfileContainer = styled.div`
         &:focus {
           background-color: transparent;
           outline-color: #7179f0;
+          box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
         }
       }
     }
@@ -481,6 +482,7 @@ const ProfileContainer = styled.div`
         &:focus {
           background-color: transparent;
           outline-color: #7179f0;
+          box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
         }
       }
     }
