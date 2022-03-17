@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import $ from 'jquery';
 import TypeIt from 'typeit';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { ReactComponent as Logo } from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
@@ -30,6 +33,17 @@ const Landing = () => {
     slide();
     slide2();
   });
+
+  // review slider
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true, // 자동 스크롤 사용 여부
+    autoplaySpeed: 5000,
+  };
 
   const slide = () => {
     var bannerLeft = 0;
@@ -366,7 +380,73 @@ const Landing = () => {
         <img src={iMac} alt="imac" />
         <video src={exVideo} autoPlay muted loop></video>
       </section>
-      <section className="vision"></section>
+      <section className="review">
+        <Slider {...settings}>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+          <div>
+            <div className="review-box">
+              <p className="content">
+                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
+                무얼하니 더 즐거워요 !“
+              </p>
+              <p className="nickname">- 지금 잘 시간</p>
+            </div>
+          </div>
+        </Slider>
+      </section>
       <footer></footer>
     </Container>
   );
@@ -384,7 +464,7 @@ const Container = styled.div`
     left: 0%;
     width: 100%;
     z-index: 999;
-    background-color: yellow;
+    background-color: #c4c4c4;
 
     .header-inner {
       max-width: 1300px;
@@ -685,6 +765,43 @@ const Container = styled.div`
       width: 510px;
       position: absolute;
       top: 220px;
+    }
+  }
+
+  .review {
+    width: 1100px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+
+    div {
+      width: 100%;
+      height: 302px;
+
+      .review-box {
+        width: 80%;
+        height: 100%;
+        margin: auto;
+        background-color: #f7f7f7;
+        box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+        padding: 18px 19px 18px 19px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .content {
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 30px;
+        }
+
+        .nickname {
+          color: #000000;
+        }
+      }
     }
   }
 `;
