@@ -1,15 +1,16 @@
-import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 // category icon
-import { ReactComponent as Consulting } from "../../assets/category/consultingIcon.svg";
-import { ReactComponent as Culture } from "../../assets/category/cultureIcon.svg";
-import { ReactComponent as Exercise } from "../../assets/category/exerciseIcon.svg";
-import { ReactComponent as Other } from "../../assets/category/otherIcon.svg";
-import { ReactComponent as Study } from "../../assets/category/studyIcon.svg";
-import { actionCreators as roomActions } from "../../redux/modules/room";
-import { ReactComponent as Refresh } from "../../assets/main/refreshIcon.svg";
+import { ReactComponent as Beauty } from '../../assets/category/beautyIcon.svg';
+import { ReactComponent as Consulting } from '../../assets/category/consultingIcon.svg';
+import { ReactComponent as Culture } from '../../assets/category/cultureIcon.svg';
+import { ReactComponent as Exercise } from '../../assets/category/exerciseIcon.svg';
+import { ReactComponent as Other } from '../../assets/category/otherIcon.svg';
+import { ReactComponent as Study } from '../../assets/category/studyIcon.svg';
+import { actionCreators as roomActions } from '../../redux/modules/room';
+import { ReactComponent as Refresh } from '../../assets/main/refreshIcon.svg';
 
 const MenuBar = (props) => {
   //드롭다운 부분
@@ -41,9 +42,9 @@ const MenuBar = (props) => {
               props.setChoiceCate(0);
               props.dispatch(roomActions.getRoomDB());
             }}
-            style={{ background: "#7179F0", border: "none" }}
+            style={{ background: '#7179F0', border: 'none' }}
           >
-            <RoomText style={{ color: "#FAFAFF" }}>ALL</RoomText>
+            <RoomText style={{ color: '#FAFAFF' }}>ALL</RoomText>
           </AllBtn>
         )}
 
@@ -53,9 +54,9 @@ const MenuBar = (props) => {
               props.setPossible(false);
               dispatch(roomActions.PossibleRoomDB());
             }}
-            style={{ background: "#7179F0", border: "none" }}
+            style={{ background: '#7179F0', border: 'none' }}
           >
-            <RoomText style={{ color: "#FAFAFF" }}>참여 가능</RoomText>
+            <RoomText style={{ color: '#FAFAFF' }}>참여 가능</RoomText>
           </PossibleBtn>
         ) : (
           <PossibleBtn
@@ -77,9 +78,9 @@ const MenuBar = (props) => {
             <DropWrap>
               <DropBtn
                 onClick={() => setIsActive(!isActive)}
-                style={{ height: "40px" }}
+                style={{ height: '40px' }}
               >
-                {props.category === "" ? (
+                {props.category === '' ? (
                   <CategoryDText>카테고리</CategoryDText>
                 ) : (
                   <CategoryDText>{props.category}</CategoryDText>
@@ -103,17 +104,17 @@ const MenuBar = (props) => {
               </DropBtn>
               <div
                 ref={dropdownRef}
-                className={`menu ${isActive ? "active" : "inactive"}`}
+                className={`menu ${isActive ? 'active' : 'inactive'}`}
               >
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("뷰티");
+                    props.setCategory('뷰티');
                     setIsActive(!isActive);
                     props.setChoiceCate(1);
                   }}
                 >
                   <div>뷰티</div>
-                  <svg
+                  {/* <svg
                     width="24px"
                     height="32"
                     viewBox="0 0 32 32"
@@ -128,12 +129,13 @@ const MenuBar = (props) => {
                       d="M23.7799 15.34L21.9999 11H19.5499L17.7699 15.32L14.6699 17.44V20.2L17.7699 22.32L19.6999 27H21.8599L23.7799 22.32L26.6699 20.32V17.32L23.7799 15.34ZM22.1599 21L20.7799 24.36L19.3899 21L16.2099 18.82L19.3899 16.65L20.7799 13.28L22.1599 16.65L25.3399 18.82L22.1599 21Z"
                       fill="#8A8BA3"
                     />
-                  </svg>
+                  </svg> */}
+                  <Beauty fill="#8A8BA3" width="24px" />
                 </CategoryWrap>
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("운동");
+                    props.setCategory('운동');
                     setIsActive(!isActive);
                     props.setChoiceCate(2);
                   }}
@@ -144,7 +146,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("스터디");
+                    props.setCategory('스터디');
                     setIsActive(!isActive);
                     props.setChoiceCate(3);
                   }}
@@ -155,7 +157,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("상담");
+                    props.setCategory('상담');
                     setIsActive(!isActive);
                     props.setChoiceCate(4);
                   }}
@@ -166,7 +168,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("문화");
+                    props.setCategory('문화');
                     setIsActive(!isActive);
                     props.setChoiceCate(5);
                   }}
@@ -179,7 +181,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory("기타");
+                    props.setCategory('기타');
                     setIsActive(!isActive);
                     props.setChoiceCate(6);
                   }}
@@ -194,11 +196,11 @@ const MenuBar = (props) => {
       </div>
       <Refresh
         style={{
-          cursor: "pointer",
-          width: "32px",
-          height: "32px",
-          margin: "auto 0px",
-          fill: "#8A8BA3",
+          cursor: 'pointer',
+          width: '32px',
+          height: '32px',
+          margin: 'auto 0px',
+          fill: '#8A8BA3',
         }}
         onClick={() => {
           dispatch(roomActions.getRoomDB());
@@ -301,8 +303,13 @@ const CategoryWrap = styled.div`
   div {
     font-size: 16px;
     color: #8a8ba3;
-    &:hover {
+  }
+
+  &:hover {
+    div {
       color: #7179f0;
+    }
+    svg {
       fill: #7179f0;
     }
   }
