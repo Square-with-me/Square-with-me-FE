@@ -110,26 +110,81 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                   style={{ height: '40px' }}
                 >
                   {category === '' ? (
-                    <CategoryDText>카테고리</CategoryDText>
+                    <div style={{display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+                      <CategoryDText>카테고리</CategoryDText>
+                      <div>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 32 32"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M24.9001 10.5498L16.0001 19.4498L7.1001 10.5498"
+                            stroke="#8A8BA3"
+                            strokeWidth="2"
+                            strokeMiterlimit="10"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    
                   ) : (
-                    <CategoryDText>{category}</CategoryDText>
-                  )}
-                  <div>
-                    <svg
-                      width="24"
-                      height="24"
+                    <div>
+                    {category === '뷰티' ? (
+                      <div  style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                      <CategoryDText>{category}</CategoryDText>
+                      <svg
+                      width="24px"
                       viewBox="0 0 32 32"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M24.9001 10.5498L16.0001 19.4498L7.1001 10.5498"
-                        stroke="#8A8BA3"
-                        stroke-width="2"
-                        stroke-miterlimit="10"
+                        d="M13.11 9.32L11.33 5H8.88L7.1 9.32L4 11.44V14.18L7.1 16.3L9 21H11.16L13.08 16.32L15.97 14.32V11.32L13.11 9.32ZM11.49 15L10.11 18.36L8.72 15L5.54 12.81L8.72 10.64L10.11 7.27L11.49 10.64L14.67 12.81L11.49 15Z"
+                        fill="#8A8BA3"
                       />
-                    </svg>
+                      <path
+                        d="M23.7799 15.34L21.9999 11H19.5499L17.7699 15.32L14.6699 17.44V20.2L17.7699 22.32L19.6999 27H21.8599L23.7799 22.32L26.6699 20.32V17.32L23.7799 15.34ZM22.1599 21L20.7799 24.36L19.3899 21L16.2099 18.82L19.3899 16.65L20.7799 13.28L22.1599 16.65L25.3399 18.82L22.1599 21Z"
+                        fill="#8A8BA3"
+                      />
+                      </svg>
+                      </div>
+
+                    ) : category === '운동' ? (
+                      <div  style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                        <CategoryDText>{category}</CategoryDText>
+                        <ExerciseIcon fill="#8A8BA3" width="24px" />
+                      </div>
+
+                    ) : category === '스터디' ? (
+                      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                      <CategoryDText>{category}</CategoryDText>
+                      <StudyIcon fill="#8A8BA3" width="24px" />
+                      </div>
+
+                    ) : category === '상담' ? (
+                      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                        <CategoryDText>{category}</CategoryDText>
+                        <ConsultingIcon fill="#8A8BA3" width="24px" />
+                      </div>
+
+                    ) : category === '문화' ? (
+                      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                     <CategoryDText>{category}</CategoryDText>
+                     <CultureIcon fill="#8A8BA3" width="24px" />
+                      </div>
+ 
+                    ) : category === '기타' ? (
+                      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                      <CategoryDText CategoryDText>{category}</CategoryDText>
+                      <OtherIcon fill="#8A8BA3" width="24px" />
+                      </div>
+                    ) : null}
                   </div>
+                  )}
+
                 </DropBtn>
                 <div
                   ref={dropdownRef}
@@ -145,7 +200,6 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                     <div>뷰티</div>
                     <svg
                       width="24px"
-                      height="32"
                       viewBox="0 0 32 32"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +214,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                       />
                     </svg>
                   </CategoryWrap>
-
+                  <Line/>
                   <CategoryWrap
                     onClick={() => {
                       setCategory('운동');
@@ -171,7 +225,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                     <div>운동</div>
                     <ExerciseIcon fill="#8A8BA3" width="24px" />
                   </CategoryWrap>
-
+                  <Line/>
                   <CategoryWrap
                     onClick={() => {
                       setCategory('스터디');
@@ -182,7 +236,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                     <div>스터디</div>
                     <StudyIcon fill="#8A8BA3" width="24px" />
                   </CategoryWrap>
-
+                  <Line/>
                   <CategoryWrap
                     onClick={() => {
                       setCategory('상담');
@@ -193,7 +247,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                     <div>상담</div>
                     <ConsultingIcon fill="#8A8BA3" width="24px" />
                   </CategoryWrap>
-
+                  <Line/>
                   <CategoryWrap
                     onClick={() => {
                       setCategory('문화');
@@ -206,7 +260,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                       <CultureIcon fill="#8A8BA3" width="24px" />
                     </div>
                   </CategoryWrap>
-
+                  <Line/>
                   <CategoryWrap
                     onClick={() => {
                       setCategory('기타');
@@ -352,18 +406,12 @@ const LoginWrap = styled.div`
   padding: 26px;
   position: fixed;
   width: 540px;
-  /* max-height: 700px; */
   min-height: 555px;
-  /* max-height: 547px; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fafafa;
   z-index: 100;
-
-  div {
-    font-weight:700;
-  }
 `;
 //모달창 헤더
 const Headers = styled.div`
@@ -412,7 +460,7 @@ const TagItem = styled.div`
   color: #33344b;
   font-size: 12px;
   width: 83px;
-  font-weight: 400;
+  font-weight: 600;
   margin-right: 10px;
   margin: 0px 10px 30px 0px;
 `;
@@ -483,24 +531,22 @@ const Input = styled.input`
 `;
 
 //드롭부분 css
-const DropBtn = styled.button`
-  display: flex;
-  justify-content: space-between;
-  background-color: #ffffff;
-  align-items: center;
+const DropBtn = styled.div`
+  background-color: #fff;
+  box-sizing: border-box;
   border-radius: 4px;
-  border: 1px solid #8a8ba3;
-  padding: 15px;
-  border: none;
+  margin: auto;
+  padding: 9px;
   width: 200px;
+  font-weight:700;
   &:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-    border: 0.5px solid #7b61ff;
   }
 `;
 const CategoryDText = styled.div`
   font-size: 16px;
   color: #8a8ba3;
+  font-weight:600;
 `;
 
 const DropWrap = styled.div`
@@ -515,16 +561,32 @@ const DropWrap = styled.div`
 const CategoryWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 12px 15px;
   align-items: center;
+  cursor: pointer;
   div {
     font-size: 16px;
     color: #8a8ba3;
-    &:hover {
+    font-weight:700;
+  }
+
+  &:hover {
+    div {
       color: #7179f0;
+    }
+    svg {
+      fill: #7179f0;
+    }
+    path{
       fill: #7179f0;
     }
   }
 `;
+
+const Line = styled.hr`
+width: 88%;
+margin: auto;
+border: 0.5px solid #E4E2EB;
+`
 
 export default MakeRoomModal;

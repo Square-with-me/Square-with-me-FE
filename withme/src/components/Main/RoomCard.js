@@ -325,7 +325,11 @@ const RoomCard = (props) => {
 
             <div className="tag">
               {props.Tags.map((r, idx) => {
-                return <TagText>#{r.name}</TagText>;
+                return (
+                  <span key="{r.id}">
+                      <TagText>#{r.name}</TagText>
+                  </span>
+                )
               })}
             </div>
           </RoomCardContainer>
@@ -395,15 +399,15 @@ const TitleText = styled.div`
 
 const TagText = styled.span`
   background-color: #fafaff;
-  color: #33344b;
-  font-weight: 400;
+  color: #4c4d60;
+  font-weight: 600;
   font-size: 12px;
   border: none;
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom: 6px;
   display: inline-block;
-  padding: 4px 8px;
+  padding: 4px 10px;
 `;
 
 export default RoomCard;

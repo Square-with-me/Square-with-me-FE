@@ -158,7 +158,7 @@ const Wrap = styled.div`
   right: -25px;
   top:19px;
   animation: modal-bg-show 0.6s;
-  font-weight: 600;
+  font-weight: 500;
 
   @keyframes modal-show {
     from {

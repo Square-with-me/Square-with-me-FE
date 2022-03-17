@@ -34,51 +34,36 @@ const Bug =()=>{
   )
 }
 const Container = styled.div`
-  max-width: 1110px;
-  width: auto;
-  margin: auto;
-  /* background-color: #F7F7F7; */
-  /* display: grid;
-  column-gap: 30px;
-  grid-template-rows: repeat(4 1fr 1fr 2fr);
+  display: grid;
   grid-template-columns: repeat(12, 1fr);
+  max-width: 1110px;
+  margin: auto;
+  grid-gap: 30px;
+  margin: auto;
+  position: relative;
   .logo{
-    grid-column:1/13;
-    grid-row: 1fr;
-    background-color: #F7F7F7;
-    width: 100%;
-    height: 200px;
-    align-items: center;
-  }
-  .input{
     grid-column: 1/13;
-    grid-row: 1fr; 
-    background-color: antiquewhite;
-
-  } */
-  .logo{
-    background-color: aliceblue;
   }
   .title{
+    grid-column: 1/13;
     font-size: 40px;
     font-weight: 700;
-    background-color: aqua;
+    margin: auto;
   }
   .inputWrap{
+    grid-column: 1/13;
     display: flex;
     width: 100%;
     margin: auto;
-    background-color: aquamarine;
     .input{
-      width: 400px;
+      width: 100%;
       height: 100px;
     }
   }
   .area{
+    grid-column: 1/13;
     display: flex;
-    background-color: beige;
     .text{
-      background-color: rebeccapurple;
       border-radius: 10px;
       padding: 10px;
       margin-left: 20px;

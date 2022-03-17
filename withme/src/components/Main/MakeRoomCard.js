@@ -53,7 +53,7 @@ const RoomCardContainer = styled.div`
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
   position: relative;
   background-color: #bcc0ff;
-  transition: all ease-in 1s;
+  transition: all ease-in .3s;
 
   &:hover {
     background-color: #7179f0;
