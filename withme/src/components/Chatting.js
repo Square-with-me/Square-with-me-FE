@@ -72,15 +72,13 @@ const Chatting = ({ socket, roomId }) => {
 
   return (
     <ChattingBox>
-      {nickname ? (
-        <div id="messageBox">
-          {messageList.map((data, index) => {
-            return <Message key={index} data={data}></Message>;
-          })}
-        </div>
-      ) : (
-        ''
-      )}
+      <div id="messageBox">
+        {nickname
+          ? messageList.map((data, index) => {
+              return <Message key={index} data={data}></Message>;
+            })
+          : ''}
+      </div>
       <div className="inputBox">
         <form action="#" className="flex">
           <label for="choiceReceiver">TO.</label>

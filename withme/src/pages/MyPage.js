@@ -357,6 +357,7 @@ const Container = styled.div`
 
     #end {
       grid-column: 1 / 8;
+      height: 100%;
       p {
         margin-top: 10px;
       }
