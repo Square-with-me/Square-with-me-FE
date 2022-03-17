@@ -5,6 +5,7 @@ import Chatting from '../components/Detail/Chatting';
 import { useParams } from 'react-router-dom';
 
 import { history } from '../redux/configureStore';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 // 방 입장
 import io from 'socket.io-client';
@@ -15,11 +16,23 @@ import {ReactComponent as OnMic} from "../assets/inRoom/onMicIcon.svg"
 import {ReactComponent as OffMic} from "../assets/inRoom/offMicIcon.svg"
 import {ReactComponent as OnCamera} from "../assets/inRoom/onCameraIcon.svg"
 import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
+// import {ReactComponent as Timer} from "../assets/inRoom/timerIcon.svg"
+// import {ReactComponent as UserList} from "../assets/inRoom/userListIcon.svg"
+// import {ReactComponent as Chatting} from "../assets/inRoom/chattingIcon.svg"
+
 // emotion icons
 import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmotion.svg"
 import RoomInfo from '../components/Detail/RoomInfo';
-import { useSelector } from 'react-redux';
-import Logo from '../components/Main/Logo';
+import { useDispatch, useSelector } from 'react-redux';
+import Parti from '../components/Detail/Parti';
+// import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
+// import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
+// import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
+// import {ReactComponent as LoveEyes} from "../assets/inRoomEmotion/loveEyesFaceIcon.svg"
+// import {ReactComponent as Sad} from "../assets/inRoomEmotion/sadFaceIcon.svg"
+// import {ReactComponent as Smile} from "../assets/inRoomEmotion/smileFaceIcon.svg"
+
+// sadFaceIcon (inRoomEmotion)
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -44,6 +57,7 @@ const Video = (props) => {
 
 
 const Detail = (props) => {
+  const dispatch =useDispatch()
   // const [mic, setMic] = useState("ok");
   // const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
@@ -153,6 +167,11 @@ const Detail = (props) => {
     }
   };
 
+
+  const user = useSelector((store) => store.user.user);
+  console.log(user)
+  
+
 /** @memo stream 받는 effect */
 useEffect(() => {
   // socketRef.current = io.connect('http://175.112.86.142:8088/');
@@ -167,9 +186,17 @@ useEffect(() => {
     const roomId = params.id;
     const nickname = "닉네임이다.";
 
+    const today = new Date()
+    const date = today.getDate()
+
     const data = {
       roomId,
       nickname,
+      userId,
+      categoryId:room.category.id,
+      date,
+      profileImg:user.profileImg,
+      statusMsg: user.statusMsg,
     };
 
     socketRef.current.emit('join room', data, roomFull);
@@ -196,8 +223,12 @@ useEffect(() => {
     return ;
   };
 
-  function onSendUsers(users) {
-    users.map((user) => {
+  function onSendUsers(payload) {
+    console.log(payload.otherUsers)
+    if(payload.otherUsers.length !== 0) {
+      dispatch(userActions.userInfo(payload.otherUsers))
+    }
+    payload.otherSockets.map((user) => {
       const peer = createPeer(user.socketId, socketRef.current.id, stream);
 
       const peerObj = {
@@ -224,6 +255,8 @@ useEffect(() => {
   };
 
   const onUserJoined = (payload) => {
+    // console.log(payload.userInfo)
+    dispatch(userActions.userInfo( [ payload.userInfo ] ))
     const peer = addPeer(payload.signal, payload.callerId, stream);
     const newPeer = {
       peerId: payload.callerId,
@@ -268,7 +301,8 @@ useEffect(() => {
   };
 
   const onUserLeft = (payload) => {
-    console.log(payload.nickname, "님이 나갔습니다.");  // 참가자 나감 알림 용
+    console.log(payload.userInfo, "님이 나갔습니다.");  // 참가자 나감 알림 용
+    dispatch(userActions.deleteUserInfo(payload.userInfo.id))
     const peerObj = peersRef.current.find(p => p.peerId === payload.socketId);
     if(peerObj) {
       peerObj.peer.on("close", () => {
@@ -316,7 +350,6 @@ function addPeer(incomingSignal, callerId, stream) {
   });
 
   peer.on("signal", (signal) => {
-    console.log("return signal 보낸다");
     socketRef.current.emit("returning signal", { signal, callerId });
   });
 
@@ -334,6 +367,7 @@ const [videoOn, setVideoOn] = useState(true);
 const [audioOn, setAudioOn] = useState(false);
 
 const handleVideoOnOff = () => {
+
   userVideo.current.srcObject.getVideoTracks().forEach(track => (
     track.enabled = !track.enabled
   ));
@@ -354,55 +388,54 @@ const handleAudioOnOff = () => {
   }
 }
 
+//흐른 시간 체크
+const [openTime, setOpenTime] = useState(new Date().toString())
+const [diffTime, setDiffTime] = useState();
+
+const interval = useRef();
+function saveTime() {
+  const closeTime = new Date();
+  
+  setDiffTime(Math.abs( closeTime - Date.parse(openTime) ) / 60000);
+  setTimeout(() => {
+    socketRef.current.emit("save_time", diffTime)
+  }, [1500])
+}
+
+useEffect(() => {
+  interval.current = setInterval(saveTime, 180000);
+
+  return () => {
+    clearInterval(interval.current);
+  }
+}, [diffTime])
+  
 const [date, setDate] = useState(0)
-const [openTime, setOpenTime] = useState('')
-// const [closeTime, setCloseTime] = useState('')
 
 useEffect(()=>{
   const today = new Date()
   const date = today.getDate()
   setDate(date)
-  setOpenTime(today.toString())
 },[])
 
 const userId = useSelector((store) => store.user.user.id);
 const room = useSelector((store) => store.room.myRoom);
-console.log(room)
 
 function handleEnd() {
-  const closeTime = new Date()
-  
-  const diffTime = Math.abs( closeTime - Date.parse(openTime) );
-
-  const data = {
-    roomId: params.id,
-    userId: userId,
-    date: date, // 시작일 담아서 보내기
-    time: diffTime / 60000,
-    categoryId: room.category.id,
-  }
-
-  socketRef.current.emit("end", data, handleExitRoom);
+  window.location.replace('/')
 };
 
-function handleExitRoom() {
-  // socketRef.current.close();
-  history.replace("/");
-}
-
-useEffect(() => {
-  console.log('peers table')
-  console.table(peers);
-}, [peers]);
+// useEffect(() => {
+//   console.log('peers table')
+//   console.table(peers);
+// }, [peers]);
 
   return (
-    <Back>
     <Container>
       {/* <Back/> */}
       <div id="top">
       <div className="logo">
-        <Logo/>
-        {/* <div style={{display:"flex",alignItems:"center"}}>
+        <div style={{display:"flex",alignItems:"center"}}>
         <svg
             width="130"
             height="42"
@@ -452,7 +485,7 @@ useEffect(() => {
               fill="#7179F0"
             />
           </svg>
-        </div> */}
+        </div>
         <div>
           <RoomInfo room={room}/>
         </div>
@@ -535,6 +568,7 @@ useEffect(() => {
               </div>
               </Button>
             </div>
+            {isUserList?<Parti me={user} />:null}
           </div>
         ) : (
           ''
@@ -631,11 +665,13 @@ useEffect(() => {
             fill="#8A8BA3"
           />
 
-          <button onClick={handleEnd}>
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 4L20 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-              <path d="M20 4L4 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
+          <button>
+            <a href="/">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4L20 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M20 4L4 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+              </svg>
+            </a>
           </button>
         </div>
 
@@ -665,17 +701,15 @@ useEffect(() => {
         </div>
       </div>
     </Container>
-    </Back>
   );
 };
-const Back =styled.div`
-position: relative;
-top:500;
-width: 100%;
-height: auto;
-background-color: #F7F7F7;
-z-index: -10;
-`
+// const Back = styled.div`
+// width: 100%;
+// height: 100%;
+// z-index: -100;
+// background-color: #F7F7F7;
+// `
+
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
@@ -687,13 +721,11 @@ const Container = styled.div`
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
-
   #top {
     background-color: #F7F7F7;
     grid-row: 1/2;
     grid-column: 1 / 13;
   }
-
   .logo {
     grid-column: 1/13;
     margin: 0px auto;
@@ -708,7 +740,6 @@ const Container = styled.div`
     grid-row: 2 / 3;
     grid-column: 1 / 13;
     box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(40%, 1fr));
@@ -716,14 +747,12 @@ const Container = styled.div`
     justify-content: space-between;
     align-content: space-between;
   }
-
   .videoContainer {
     display: flex;
     align-items: center;
     background-color: #F7F7F7;
     border-radius: 5px;
   }
-
   #rightBox {
     visibility: hidden;
     width: 100%;
@@ -731,10 +760,8 @@ const Container = styled.div`
     background-color: #F7F7F7;
     grid-column: 10/13;
     box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-
     animation: show 1s;
     animation-fill-mode: forwards;
-
     @keyframes show {
       from {
         visibility: hidden;
@@ -743,7 +770,6 @@ const Container = styled.div`
         visibility: visible;
       }
     }
-
     @keyframes slide-in {
       from {
         visibility: hidden;
@@ -753,7 +779,6 @@ const Container = styled.div`
         visibility: visible;
       }
     }
-
     .designBox {
       background: #F7F7F7;
       animation: slide-in 1s;
@@ -761,10 +786,8 @@ const Container = styled.div`
       margin: 5%;
       padding: 5%;
       border-radius: 13px;
-
       filter: drop-shadow(-6px -6px 8px #ffffff)
         drop-shadow(6px 6px 8px rgba(0, 0, 0, 0.15));
-
       .flex {
         display: flex;
         justify-content: space-between;
@@ -772,22 +795,18 @@ const Container = styled.div`
       }
     }
   }
-
   #bottom {
     background-color: #F7F7F7;
     grid-row: 3/4;
     grid-column: 1/13;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
     #centerButton {
       height: 60px;
       grid-column: 2/3;
       display: flex;
       justify-self: center;
       align-items: center;
-
       button {
         width: 32px;
         height: 32px;
@@ -796,7 +815,6 @@ const Container = styled.div`
         border: none;
       }
     }
-
     #endButton {
       height: 60px;
       grid-column: 3/4;
@@ -805,7 +823,6 @@ const Container = styled.div`
       align-items: center;
       margin-right: 50px;
       padding: 10px;
-
       button {
         width: 32px;
         height: 32px;

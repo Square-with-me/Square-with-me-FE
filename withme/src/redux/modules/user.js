@@ -11,17 +11,22 @@ const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
 const NOT_USER = 'NOT_USER';
 const NOT_USER_LOG_OUT = 'NOT_USER_LOG_OUT';
+const USER_INFO = 'USER_INFO'
+const DELETE_USER_INFO = 'DELETE_USER_INFO'
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const notUser = createAction(NOT_USER, (user) => ({ user }));
 const notUserLogOut = createAction(NOT_USER_LOG_OUT, (user) => ({ user }));
+const userInfo = createAction(USER_INFO, (userInfo)=>({userInfo}))
+const deleteUserInfo =createAction(DELETE_USER_INFO, (userid)=>({userid}))
 
 const initialState = {
   user: { origin: null, nick: null },
   is_login: false,
   notUser_is_login: false,
   notUser: null,
+  userInfo:[]
 };
 
 //로그인 미들웨어
@@ -171,21 +176,18 @@ export default handleActions(
         localStorage.removeItem('login-token');
         draft.user = null;
         draft.is_login = false;
+        window.location.reload('/')
       }),
 
-    [NOT_USER]: (state, action) =>
-      produce(state, (draft) => {
-        draft.notUser = action.payload.user;
-        draft.notUser_is_login = true;
+      [USER_INFO]:(state,action)=>
+      produce(state,(draft)=>{
+        draft.userInfo = [...draft.userInfo, ...action.payload.userInfo]
       }),
 
-    [NOT_USER_LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(draft.notUser);
-        localStorage.clear();
-        draft.notUser = null;
-        draft.notUser_is_login = false;
-      }),
+      [DELETE_USER_INFO]:(state, action)=>
+      produce(state,(draft)=>{
+        draft.userInfo = draft.userInfo.filter((user) => user.id !== action.payload.userid)
+      })
   },
   initialState
 );
@@ -199,6 +201,8 @@ const actionCreators = {
   NotMemberloginDB,
   NotMemberLoginCheckDB,
   notUserLogOut,
+  userInfo,
+  deleteUserInfo
 };
 
 export { actionCreators };

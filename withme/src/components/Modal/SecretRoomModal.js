@@ -7,8 +7,9 @@ import { actionCreators as roomActions } from "../../redux/modules/room";
 //svg
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 
-const SecretRoomModal = ({ setSecret }) => {
-  console.log(setSecret);
+const SecretRoomModal = (props) => {
+  const userId = useSelector((store) => store.user.user.id);
+  console.log(props.data);
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState("");
@@ -16,14 +17,14 @@ const SecretRoomModal = ({ setSecret }) => {
   return (
     <React.Fragment>
       <ModalBackground
-        onClick={() => {
-          setSecret(false);
-        }}
+        onClick={() => (
+          props.setSecret(false)
+        )}
       />
       <LoginWrap>
         <Headers         
         onClick={() => {
-          setSecret(false);
+          props.setSecret(false);
         }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
@@ -32,7 +33,7 @@ const SecretRoomModal = ({ setSecret }) => {
         </Headers>
         <Contents>
           <HelloText>
-            '헤진이랑 한바탕 놀아봐요' 방은 비공개 방입니다 <br /> 입장하시려면
+            '{props.data.title}' 방은 비공개 방입니다 <br /> 입장하시려면
             비밀번호를 입력해주세요
           </HelloText>
           <div style={{position:"relative"}}>
@@ -48,7 +49,7 @@ const SecretRoomModal = ({ setSecret }) => {
             />
           </div>
 
-          <LoginButton>입장</LoginButton>
+          <LoginButton onClick={()=>dispatch(roomActions.CheckPwdDB(pwd, props.data.id,userId))}>입장</LoginButton>
         </Contents>
       </LoginWrap>
     </React.Fragment>
