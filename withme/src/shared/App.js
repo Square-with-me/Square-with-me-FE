@@ -9,7 +9,6 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import Kakao from '../components/Header/Kakao';
 import Landing from '../pages/Landing';
-import Bug from '../pages/Bug';
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
         <Route path="/land" exact component={Landing}/>
-        <Route path="/bug" exact component={Bug}/>
       </ConnectedRouter>
     </React.Fragment>
   );

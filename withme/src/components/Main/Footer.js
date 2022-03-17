@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import BugModal from "../Modal/BugModal";
 
 const Footer = () => {
-  const history =useHistory()
+  const [bug, setBug] =useState(false)
   return (
     <Wrap>
         <Div>
@@ -26,7 +27,8 @@ const Footer = () => {
                 ㅁwith me 깃허브 &nbsp; | &nbsp; 
               </A>
               <P>ㅁwith me 인스타그램 &nbsp; | &nbsp; </P>
-              <P onClick={()=>history.replace('/bug')}>버그제보</P>
+              <P onClick={()=>{setBug(true)}}>버그제보/리뷰</P>
+              {bug && <BugModal/>}
             </div>
           </Grid>
         </Div>

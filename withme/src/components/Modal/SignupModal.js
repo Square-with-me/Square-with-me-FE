@@ -72,7 +72,6 @@ const SignupModal = ({  setIsSignup }) => {
                   }}
                   value={nickname}
                 />
-              <Btn>중복확인</Btn>
               </div>
               <div style={{position:"relative"}}>
                 <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>

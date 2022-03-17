@@ -69,7 +69,7 @@ const Main = () => {
 
   let roomList = useSelector((store) => store.room.list);
   const hotRoom = useSelector((state) => state.room.hotList);
-  console.log(hotRoom);
+ 
 
   React.useEffect(() => {
     dispatch(roomActions.hotRoomDB());
@@ -147,15 +147,14 @@ const Main = () => {
             : ''}
 
           {newList
-            ? newList.map((data, index) => {
+            ? newList.map((data) => {
                 return (
-                  <div>
+                  <div key={data.id}>
                     {data.isSecret === true ? (
                       <div
                         onClick={() => {
                           setSecret(true);
                         }}
-                      key="{data.id}"
                       >
                         <RoomCard {...data} setPossible={possible} />
                       </div>
@@ -164,17 +163,16 @@ const Main = () => {
                         onClick={() => {
                           goRoom(data.id);
                         }}
-                        key="{data.id}"
                       >
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
+                    {secret && <SecretRoomModal setSecret={setSecret} data={data}/>}
                   </div>
                 );
               })
             : ''}
           {/* <TestRoom/> */}
-          {secret && <SecretRoomModal setSecret={setSecret} />}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>

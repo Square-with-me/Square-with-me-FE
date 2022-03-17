@@ -151,6 +151,24 @@ const PossibleRoomDB = () => {
   };
 };
 
+// 일반 방 => 방 참가 요청
+// 비번 방 => 비번확인 요청 => 방 참가 요청
+
+const CheckPwdDB =(pwd, roomId,userId)=>{
+  return function(dispatch, getState,{history}){
+    apis
+    .checkPwd(pwd, roomId)
+    .then((res)=>{
+      console.log(res)
+      dispatch(enteringRoomDB(roomId,userId))
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+}
+
+
 export default handleActions(
   {
     [GET_ROOM]: (state, action) =>
@@ -185,6 +203,7 @@ const actionCreators = {
   categoryRoomDB,
   PossibleRoomDB,
   enteringRoomDB,
+  CheckPwdDB
 };
 
 export { actionCreators };
