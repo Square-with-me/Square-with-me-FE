@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const token = localStorage.getItem('login-token');
-const accessToken = document.cookie.split("=")[1];
+const accessToken = document.cookie.split('=')[1];
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  // baseURL: 'http://15.164.48.35:80',
-  baseURL: 'http://14.45.204.153:7034',
+  baseURL: 'http://15.164.48.35:80',
+  // baseURL: 'http://14.45.204.153:7034',
   headers: {
     Authorization: `Bearer ${token}`,
     'content-type': 'application/json;charset=UTF-8',
