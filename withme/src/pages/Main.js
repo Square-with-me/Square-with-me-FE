@@ -109,7 +109,7 @@ const Main = () => {
         </div>
 
         <div className="logo">
-        <Logo style={{margin:"auto"}}/>
+          <Logo style={{margin:"auto"}}/>
         </div>
 
         <div className="searchbar">
@@ -191,6 +191,8 @@ const Wrap = styled.div`
   position: relative;
   .header {
     grid-column: 12/13;
+    display: flex;
+    justify-content: end;
   }
   .logo {
     grid-column: 1/13;
@@ -234,12 +236,18 @@ const Btn = styled.button`
   padding: 12px 14px;
   width: 78px;
   height: 51px;
-  border: 1px solid #8a8ba3;
+  border:none;
   border-radius: 4px;
-  background-color: #edebf1;
+  background-color: #BCC0FF;
   font-size: 16px;
+  transition: all .3s;
+  color: #fff;
+  font-weight: 700;
+  
   :hover {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    background-color:#7179F0;
+    color: #fff;
+    box-shadow: 0 1px 5px rgb(113, 121, 240);
   }
 `;
 

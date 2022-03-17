@@ -48,7 +48,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
   //태그 지우기
   const deleteTagItem = (e) => {
     const deleteTagItem = e.target.parentElement.firstChild.innerText;
-    console.log(deleteTagItem);
+    // console.log(e);
     const filteredTagList = tagList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
@@ -284,7 +284,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
           <div>
             <TagInput
               type="text"
-              placeholder="태그를 입력해주세요"
+              placeholder="태그를 입력해주세요 (최대 5개)"
               tabIndex={2}
               onChange={(e) => setTagItem(e.target.value)}
               value={tagItem}
@@ -301,7 +301,9 @@ const MakeRoomModal = ({ setMRooms, create }) => {
               })}
             </TagItemWrap>
           </div>
-          <Btn
+  
+        </Contents>
+        <Btn
             onClick={() =>
               dispatch(
                 roomActions.addRoomDB(
@@ -320,7 +322,6 @@ const MakeRoomModal = ({ setMRooms, create }) => {
           >
             방 만들기
           </Btn>
-        </Contents>
       </LoginWrap>
       <ModalBackground
         onClick={() => {
@@ -347,16 +348,22 @@ const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 26px;
   position: fixed;
   width: 540px;
-  height: 700px;
-  max-height: 547px;
+  /* max-height: 700px; */
+  min-height: 555px;
+  /* max-height: 547px; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fafafa;
   z-index: 100;
+
+  div {
+    font-weight:700;
+  }
 `;
 //모달창 헤더
 const Headers = styled.div`
@@ -368,6 +375,8 @@ const Headers = styled.div`
 const Contents = styled.div`
   width: 100%;
   height: 100%;
+  display:flex;
+  flex-direction:column;
 `;
 //방설정
 const Category = styled.div`
@@ -410,6 +419,7 @@ const TagItem = styled.div`
 const Button = styled.button`
   background-color: transparent;
   border: none;
+  margin-right: 3px;
 `;
 const TagInput = styled.input`
   display: flex;
@@ -441,8 +451,9 @@ const Btn = styled.button`
   border-radius: 4px;
   /* margin:  0px 0px 0px 16px; */
   padding: 12px 14px;
-  position: fixed;
-  right: 26px;
+  align-self: end;
+  justify-self: end;
+  font-weight: 600;
   &:hover {
     background-color: #bcc0ff;
   }
@@ -452,10 +463,10 @@ const HelloText = styled.div`
   margin-top: 50px;
   margin-bottom: 32px;
   font-size: 24px;
-  font-weight: 400;
   line-height: 28px;
   align-items: center;
-  color: #33344b;
+  color: #4a4a58;
+  font-weight: 700;
 `;
 const Input = styled.input`
   border: 1px solid #8a8ba3;

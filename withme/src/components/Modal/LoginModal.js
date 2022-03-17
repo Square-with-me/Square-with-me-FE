@@ -154,7 +154,7 @@ const HelloText = styled.div`
   font-weight: 400;
   line-height: 28px;
   align-items: center;
-  color: #33344b;
+  color: #575765;
 `;
 const Input = styled.input`
   border: 1px solid #8a8ba3;

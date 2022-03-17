@@ -8,8 +8,8 @@ import Detail from '../pages/Detail';
 import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import Kakao from '../components/Header/Kakao';
-import Test from '../pages/Test';
 import Landing from '../pages/Landing';
+import Bug from '../pages/Bug';
 
 function App() {
   return (
@@ -19,18 +19,10 @@ function App() {
         <Route path="/room/:id" exact component={Detail} />
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
-        <Route path="/test" exact component={Test} />
         <Route path="/land" exact component={Landing}/>
+        <Route path="/bug" exact component={Bug}/>
       </ConnectedRouter>
     </React.Fragment>
   );
 }
-const Back = styled.div`
-z-index: -10;
-width: 100%;
-height: 100%;
-position: absolute;
-top: 530px;
-background-color: #F7F7F7;
-`
 export default App;

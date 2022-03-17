@@ -13,7 +13,7 @@ import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
 //redux
 import { actionCreators as userActions } from '../../redux/modules/user';
 
-const Sidebar = (props) => {
+const MSidebar = (props) => {
   const { open, close, header, setIsM } = props;
   const dispatch = useDispatch();
 
@@ -155,8 +155,8 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
+  top: -23px;
   right: -25px;
-  top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 600;
 
@@ -195,4 +195,4 @@ const Text = styled.div`
   cursor: pointer;
 `;
 
-export default Sidebar;
+export default MSidebar;

@@ -41,9 +41,9 @@ const MenuBar = (props) => {
               props.setChoiceCate(0);
               props.dispatch(roomActions.getRoomDB());
             }}
-            style={{ background: "#7179F0", border: "none" }}
+            style={{ background: "#7179F0", border: "none",  fontWeight: "700" }}
           >
-            <RoomText style={{ color: "#FAFAFF" }}>ALL</RoomText>
+            <RoomText style={{ color: "#FAFAFF",fontWeight: "700" }}>ALL</RoomText>
           </AllBtn>
         )}
 
@@ -53,9 +53,9 @@ const MenuBar = (props) => {
               props.setPossible(false);
               dispatch(roomActions.PossibleRoomDB());
             }}
-            style={{ background: "#7179F0", border: "none" }}
+            style={{ background: "#7179F0", border: "none",fontWeight: "700" }}
           >
-            <RoomText style={{ color: "#FAFAFF" }}>참여 가능</RoomText>
+            <RoomText style={{ color: "#FAFAFF",fontWeight: "700" }}>참여 가능</RoomText>
           </PossibleBtn>
         ) : (
           <PossibleBtn
@@ -214,6 +214,10 @@ const Menu = styled.div`
   margin-bottom: 25px;
   justify-content: space-between;
   width: 100%;
+
+  div{
+    font-weight: 700;
+  }
 `;
 
 const AllBtn = styled.button`
@@ -237,7 +241,7 @@ const PossibleBtn = styled.button`
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 16px;
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
@@ -280,6 +284,8 @@ const DropBtn = styled.button`
 
 const CategoryDText = styled.div`
   font-size: 16px;
+  font-weight: 700;
+
   color: #8a8ba3;
 `;
 
