@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 //icon
-import { ReactComponent as LockIcon } from "../assets/main/lockIcon.svg";
-import { ReactComponent as HotRoomIcon } from "../assets/main/hotRoomIcon.svg";
-import { ReactComponent as UserNickIcon } from "../assets/main/userNickIcon.svg";
+import { ReactComponent as LockIcon } from "../../assets/main/lockIcon.svg";
+import { ReactComponent as HotRoomIcon } from "../../assets/main/hotRoomIcon.svg";
+import { ReactComponent as UserNickIcon } from "../../assets/main/userNickIcon.svg";
 
 const HotRoomCard = (props) => {
   const category = props.category.name;

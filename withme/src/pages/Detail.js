@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Timer from '../components/Timer';
-import Chatting from '../components/Chatting';
+import Timer from '../components/Detail/Timer';
+import Chatting from '../components/Detail/Chatting';
+import { useParams } from 'react-router-dom';
 
 import { history } from '../redux/configureStore';
 
@@ -20,7 +21,8 @@ import {ReactComponent as OffCamera} from "../assets/inRoom/offCameraIcon.svg"
 
 // emotion icons
 import {ReactComponent as ChooseEmotion} from "../assets/inRoomEmotion/chooseEmotion.svg"
-import RoomInfo from '../components/RoomInfo';
+import RoomInfo from '../components/Detail/RoomInfo';
+import { useSelector } from 'react-redux';
 // import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
 // import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
 // import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
@@ -29,8 +31,6 @@ import RoomInfo from '../components/RoomInfo';
 // import {ReactComponent as Smile} from "../assets/inRoomEmotion/smileFaceIcon.svg"
 
 // sadFaceIcon (inRoomEmotion)
-
-const socket = io.connect('/');
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -41,17 +41,22 @@ const Video = (props) => {
   const ref = useRef();
 
   useEffect(() => {
-    props.peer.on('stream', (stream) => {
+    function onStream(stream) {
       ref.current.srcObject = stream;
-    });
-  }, []);
+    }
+    props.peer.on('stream', onStream);
+    return () => {
+      props.peer.off('stream', onStream);
+    }
+  }, [props.peer]);
 
   return <StyledVideo playsInline autoPlay ref={ref} />;
 };
 
+
 const Detail = (props) => {
-  const [mic, setMic] = useState("ok");
-  const [camera, setCamera] = useState("ok");
+  // const [mic, setMic] = useState("ok");
+  // const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
   const [isSW, setIsSW] = useState(false); // 스톱워치
@@ -67,7 +72,10 @@ const Detail = (props) => {
   const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
-  const roomID = props.match.params.id;
+
+  const [stream, setStream] = useState(null)
+
+  let params = useParams();
 
   // 사이드바 컨트롤
   useEffect(() => {
@@ -156,95 +164,254 @@ const Detail = (props) => {
     }
   };
 
-  // 비디오 연결, 채팅 연결
-  useEffect(() => {
-    socket.emit('join_room', roomID);
+/** @memo stream 받는 effect */
+useEffect(() => {
+  // socketRef.current = io.connect('http://175.112.86.142:8088/');
+  socketRef.current = io.connect('http://14.45.204.153:7034/');
+  navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false,
+  }).then(stream => {
+    setStream(stream);
+    userVideo.current.srcObject = stream;
 
-    socketRef.current = io.connect('http://175.112.86.142:8000/');
+    const roomId = params.id;
+    const nickname = "닉네임이다.";
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        userVideo.current.srcObject = stream;
-        socketRef.current.emit('join room', roomID);
-        //
-        socketRef.current.on('all users', (users) => {
-          const peers = [];
-          users.forEach((userID) => {
-            const peer = createPeer(userID, socketRef.current.id, stream);
-            peersRef.current.push({
-              peerID: userID,
-              peer,
-            });
-            peers.push(peer);
-          });
-          setPeers(peers);
-        });
-        socketRef.current.on('user joined', (payload) => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          });
+    const data = {
+      roomId,
+      nickname,
+    };
 
-          setPeers((users) => [...users, peer]);
-        });
+    socketRef.current.emit('join room', data, roomFull);
+  });
+}, [params.id]);
 
-        socketRef.current.on('receiving returned signal', (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
-        });
+/** @memo join room 했을 때 데이터 제대로 전달 안 됐을 경우 */
+useEffect(() => {
+  function noData() {
+    alert("데이터 전달 오류");
+    history.push("/");
+  };
+
+  socketRef.current.on("no data", noData);
+
+  return () => {
+    socketRef.current.off("no data", noData);
+  };
+}, []);
+
+/** @memo 새로 들어온 사람이 다른 유저 목록 받는 effect */
+useEffect(() => {
+  if(stream == null) {
+    return ;
+  };
+
+  function onSendUsers(users) {
+    users.map((user) => {
+      const peer = createPeer(user.socketId, socketRef.current.id, stream);
+
+      const peerObj = {
+        peerId: user.socketId,
+        peerNickname: user.nickname,
+        peer,
+      };
+
+      peersRef.current.push(peerObj);
+      setPeers(prevPeers => [...prevPeers, peerObj]);
+    });
+  }
+  socketRef.current.on("send users", onSendUsers);
+
+  return () => {
+    socketRef.current.off("send users", onSendUsers);
+  };
+}, [stream]);
+
+/** @memo 피어 연결 위해 새로 들어온 유저 정보 받는 effect */
+useEffect(() => {
+  if(stream == null) {
+    return ;
+  };
+
+  const onUserJoined = (payload) => {
+    const peer = addPeer(payload.signal, payload.callerId, stream);
+    const newPeer = {
+      peerId: payload.callerId,
+      peerNickname: payload.callerNickname,
+      peer,
+    };
+
+    peersRef.current.push(newPeer);
+
+    setPeers(prevPeers => [...prevPeers, newPeer]);
+  };
+
+  socketRef.current.on("user joined", onUserJoined);
+
+  return () => {
+    socketRef.current.off("user joined", onUserJoined);
+  }
+}, [stream, peers])
+
+/** @memo return signal effect */
+useEffect(() => {
+  if(stream == null) {
+    return ;
+  };
+
+  const onReturnSignal = (payload) => {
+    const item = peersRef.current.find((p) => p.peerId === payload.id);
+    item.peer.signal(payload.signal);
+  };
+
+  socketRef.current.on("receive returned signal", onReturnSignal);
+
+  return () => {
+    socketRef.current.off("receive returned signal", onReturnSignal);
+  };
+}, [stream]);
+
+/** @memo exit effect */
+useEffect(() => {
+  if(stream == null) {
+    return ;
+  };
+
+  const onUserLeft = (payload) => {
+    console.log(payload.nickname, "님이 나갔습니다.");  // 참가자 나감 알림 용
+    const peerObj = peersRef.current.find(p => p.peerId === payload.socketId);
+    if(peerObj) {
+      peerObj.peer.on("close", () => {
+        peerObj.peer.destroy();
       });
-  }, []);
+    };
+    const newPeers = peersRef.current.filter(p => p.peerId !== payload.socketId);
+    peersRef.current = newPeers;
 
-  function createPeer(userToSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
+    setPeers(oldPeers => oldPeers.filter(p => p.peerId !== payload.socketId));
+  };
+
+  socketRef.current.on("user left", onUserLeft);
+
+  return () => {
+   socketRef.current.off("user left", onUserLeft);
+  };
+}, [stream, peers]);
+
+function createPeer(userToSignal, callerId, stream) {
+  const peer = new Peer({
+    initiator: true,
+    trickle: false,
+    stream,
+  });
+
+  peer.on('signal', (signal) => {
+    socketRef.current.emit('send signal', {
+      config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
+      userToSignal,
+      callerId,
+      signal,
     });
+  });
 
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('sending signal', {
-        userToSignal,
-        callerID,
-        signal,
-      });
-    });
+  return peer;
+}
 
-    return peer;
+function addPeer(incomingSignal, callerId, stream) {
+  const peer = new Peer({
+    config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
+    initiator: false,
+    trickle: false,
+    stream,
+  });
+
+  peer.on("signal", (signal) => {
+    console.log("return signal 보낸다");
+    socketRef.current.emit("returning signal", { signal, callerId });
+  });
+
+  peer.signal(incomingSignal);
+
+  return peer;
+}
+
+const roomFull = () => {
+  alert("꽉 찼단다 애송아");
+  history.push("/");
+};
+
+const [videoOn, setVideoOn] = useState(true);
+const [audioOn, setAudioOn] = useState(false);
+
+const handleVideoOnOff = () => {
+  userVideo.current.srcObject.getVideoTracks().forEach(track => (
+    track.enabled = !track.enabled
+  ));
+  if (videoOn) {
+    setVideoOn(false);
+  } else {
+    setVideoOn(true);
+  }
+}
+const handleAudioOnOff = () => {
+  userVideo.current.srcObject.getAudioTracks().forEach(track => (
+    track.enabled = !track.enabled
+  ));
+  if (audioOn) {
+    setAudioOn(false);
+  } else {
+    setAudioOn(true);
+  }
+}
+
+const [date, setDate] = useState(0)
+const [openTime, setOpenTime] = useState('')
+// const [closeTime, setCloseTime] = useState('')
+
+useEffect(()=>{
+  const today = new Date()
+  const date = today.getDate()
+  setDate(date)
+  setOpenTime(today.toString())
+},[])
+
+const userId = useSelector((store) => store.user.user.id);
+const room = useSelector((store) => store.room.myRoom);
+console.log(room)
+
+function handleEnd() {
+  const closeTime = new Date()
+  
+  const diffTime = Math.abs( closeTime - Date.parse(openTime) );
+
+  const data = {
+    roomId: params.id,
+    userId: userId,
+    date: date, // 시작일 담아서 보내기
+    time: diffTime / 60000,
+    categoryId: room.category.id,
   }
 
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream,
-    });
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('returning signal', { signal, callerID });
-    });
+  socketRef.current.emit("end", data, handleExitRoom);
+};
 
-    peer.signal(incomingSignal);
+function handleExitRoom() {
+  // socketRef.current.close();
+  history.replace("/");
+}
 
-    return peer;
-  }
-
-  function exit() {
-    console.log('나갈꺼임 말리지마라');
-  }
-
-  function leavingRoom() {
-    socketRef.current.emit('byebye', exit);
-
-    history.push('/');
-  }
+useEffect(() => {
+  console.log('peers table')
+  console.table(peers);
+}, [peers]);
 
   return (
     <Container>
+      {/* <Back/> */}
       <div id="top">
       <div className="logo">
-        <div>
+        <div style={{display:"flex",alignItems:"center"}}>
         <svg
             width="130"
             height="42"
@@ -263,7 +430,7 @@ const Detail = (props) => {
             viewBox="0 0 133 30"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ marginLeft: '35px' }}
+            style={{ marginLeft: '35px'}}
           >
             <path
               d="M22.5925 3.28134L20.4541 28.2734C18.9289 28.5274 16.4665 28.5777 14.798 28.4393C14.798 28.4393 14.798 28.4393 14.7985 28.3775C13.6626 24.8741 12.3194 20.2701 11.5484 16.3148C9.24701 23.7538 8.63081 28.0256 8.41301 28.3476C6.8878 28.6016 4.42689 28.4595 2.54344 28.2583L0.336043 3.11535C0.336043 3.11535 3.89418 2.61654 6.13729 3.08062C6.13729 3.08062 7.38311 11.5052 7.35637 15.1338C8.25626 10.9939 8.93026 8.27554 9.00188 7.95287C10.8199 7.63837 12.7754 7.45508 14.8714 8.04218C15.1504 9.85782 15.2092 11.2807 15.8368 14.8505C16.1564 11.1614 16.9344 3.7153 16.9388 3.13117C18.7563 2.87852 20.9258 2.88869 22.5237 3.21917C22.5237 3.2123 22.593 3.21262 22.5925 3.28134Z"
@@ -296,19 +463,19 @@ const Detail = (props) => {
           </svg>
         </div>
         <div>
-          <RoomInfo/>
+          <RoomInfo room={room}/>
         </div>
         </div>
       </div>
       <div id="videoBox">
-        <div id="videoContainer">
+      <div key="my-video" className="videoContainer">
           {/* 본인 비디오 */}
           <StyledVideo muted ref={userVideo} autoPlay playsInline />
         </div>
-        {peers.map((peer, index) => {
+        {peers.map((peer) => {
           return (
-            <div id="videoContainer">
-              <Video key={index} peer={peer} />
+            <div key={peer.peerId} className="videoContainer">
+               <Video peer={peer.peer} />
             </div>
           );
         })}
@@ -343,7 +510,7 @@ const Detail = (props) => {
                   </div>
                 </Button>
               </div>
-              {isTimer ? <Timer roomId={roomID} /> : ''}
+              {isTimer ? <Timer socketRef={socketRef} roomId={params.id} /> : ''}
             </div>
           </>
         ) : (
@@ -410,7 +577,7 @@ const Detail = (props) => {
                 </div>
                 </Button>
               </div>
-              {ischatting ? <Chatting socket={socket} roomId={roomID} /> : ''}
+              {ischatting ? <Chatting socketRef={socketRef} roomId={params.id} /> : ''}
             </div>
           </>
         ) : (
@@ -428,17 +595,17 @@ const Detail = (props) => {
               alignItems: "center",
             }}
           >
-            {mic === "ok" ? (
+            {audioOn ? (
               <OnMic
                 width="32px"
                 fill="#8A8BA3"
-                onClick={() => setMic("no")}
+                onClick={handleAudioOnOff}
               />
             ) : (
               <OffMic
                 width="32px"
                 fill="#8A8BA3"
-                onClick={() => setMic("ok")}
+                onClick={handleAudioOnOff}
               />
             )}
           </div>
@@ -452,17 +619,17 @@ const Detail = (props) => {
               alignItems: "center",
             }}
           >
-            {camera === "ok" ? (
+            {videoOn ? (
               <OnCamera
                 width="32px"
                 fill="#8A8BA3"
-                onClick={() => setCamera("no")}
+                onClick={handleVideoOnOff}
               />
             ) : (
               <OffCamera
                 width="32px"
                 fill="#8A8BA3"
-                onClick={() => setCamera("ok")}
+                onClick={handleVideoOnOff}
               />
             )}
           </div>
@@ -473,7 +640,7 @@ const Detail = (props) => {
             fill="#8A8BA3"
           />
 
-          <button onClick={leavingRoom}>
+          <button onClick={handleEnd}>
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 4L20 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
               <path d="M20 4L4 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
@@ -509,6 +676,12 @@ const Detail = (props) => {
     </Container>
   );
 };
+// const Back = styled.div`
+// width: 100%;
+// height: 100%;
+// z-index: -100;
+// background-color: #F7F7F7;
+// `
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -534,6 +707,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 10px;
   }
   
   #videoBox {
@@ -550,7 +724,7 @@ const Container = styled.div`
     align-content: space-between;
   }
 
-  #videoContainer {
+  .videoContainer {
     display: flex;
     align-items: center;
     background-color: #F7F7F7;
@@ -636,6 +810,8 @@ const Container = styled.div`
       display: flex;
       justify-self: end;
       align-items: center;
+      margin-right: 50px;
+      padding: 10px;
 
       button {
         width: 32px;

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/banner.css"
+import "../../styles/banner.css"
 
 const Banner =()=>{
 
@@ -23,7 +23,7 @@ const Banner =()=>{
       <label for="pos4">4</label>
     </p>
   </div> */}
-    <div class="slide">
+    <div className="slide">
     <ul>
       <li></li>
       <li></li>

@@ -5,9 +5,9 @@ import { Image, Text, Input } from '../elements/Index';
 import styled from 'styled-components';
 import { BiPencil } from 'react-icons/bi';
 
-import TodayTime from '../components/TodayTime';
-import WeekTime from '../components/WeekTime';
-import MonthTime from '../components/MonthTime';
+import TodayTime from '../components/Mypage/TodayTime';
+import WeekTime from '../components/Mypage/WeekTime';
+import MonthTime from '../components/Mypage/MonthTime';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';

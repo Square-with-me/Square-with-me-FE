@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userEditActions } from '../redux/modules/userEdit';
+import { actionCreators as userEditActions } from '../../redux/modules/userEdit';
 
 const Message = (props) => {
   const {
@@ -20,12 +20,12 @@ const Message = (props) => {
   );
 };
 
-const Chatting = ({ socket, roomId }) => {
+const Chatting = ({ socketRef, roomId }) => {
   const dispatch = useDispatch();
 
   const [userMessage, setUserMessage] = useState('');
-  const [nickname, setnickName] = useState('네모네모');
-  const [messageList, setMassageList] = useState([]);
+  const [nickname, setNickName] = useState('');
+  const [messageList, setMessageList] = useState([]);
   const userNickname = useSelector((store) => store.user.user.nickname);
 
   useEffect(() => {
@@ -33,24 +33,25 @@ const Chatting = ({ socket, roomId }) => {
   }, []);
 
   useEffect(() => {
-    setnickName(userNickname);
+    setNickName(userNickname);
   }, [userNickname]);
 
   useEffect(() => {
-    socket.on('receive_message', (data) => {
-      setMassageList((list) => [...list, data]);
+    socketRef.current.on('receive_message', (data) => {
+      setMessageList((list) => [...list, data]);
     });
-  }, [socket]);
+  }, [socketRef]);
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (userMessage === '') return;
     const data = {
       roomId: roomId,
       sender: nickname,
       message: userMessage,
     };
-    setMassageList((list) => [...list, data]);
-    await socket.emit('send_message', data);
+    setMessageList((list) => [...list, data]);
+
+    socketRef.current.emit('send_message', data);
   };
 
   const onKeyPress = (e) => {
@@ -73,11 +74,9 @@ const Chatting = ({ socket, roomId }) => {
   return (
     <ChattingBox>
       <div id="messageBox">
-        {nickname
-          ? messageList.map((data, index) => {
-              return <Message key={index} data={data}></Message>;
-            })
-          : ''}
+        {messageList.map((data, index) => (
+          <Message key={index} data={data}></Message>
+        ))}
       </div>
       <div className="inputBox">
         <form action="#" className="flex">
@@ -110,6 +109,7 @@ const ChattingBox = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   font-family: 'Noto Sans';
+  margin-top: 20px;
 
   #messageBox {
     width: 100%;

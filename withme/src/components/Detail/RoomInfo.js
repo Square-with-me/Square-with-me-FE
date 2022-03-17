@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import "../styles/RoomInfoDrop.css";
+import "../../styles/RoomInfoDrop.css";
 import styled from "styled-components";
 
 //icon
-import { ReactComponent as LockIcon } from "../assets/main/lockIcon.svg";
+import { ReactComponent as LockIcon } from "../../assets/main/lockIcon.svg";
 
-const RoomInfo = () => {
+const RoomInfo = ({ room }) => {
   //드롭다운 부분
   const dropdownRef = useRef(null);
 
@@ -22,19 +22,23 @@ const RoomInfo = () => {
         ref={dropdownRef}
         className={`menu ${isActive ? "active" : "inactive"}`}
       >
+        {room.isSecret === false
+        ?        
+        <div className="category" >{room.category.name}</div>
+        :        
         <div style={{ display: "flex", alignItems: "center" }}>
-          <div className="category">카테고리</div>
-          <div>
-            <LockIcon fill="#8A8BA3" width="18px" />
-          </div>
+        <div className="category">{room.category.name}</div>
+        <div>
+          <LockIcon fill="#8A8BA3" width="18px" />
         </div>
-        <div className="title">여긴 방제목이 들어갈거야!!!!</div>
+      </div>}
+
+        <div className="title">{room.title}</div>
 
         <div>
-          <div className="tags">#여긴태그</div>
-          <div className="tags">#여긴태그</div>
-          <div className="tags">#여긴태그</div>
-          <div className="tags">#여긴태그</div>
+          {room.Tags.map((tag, idx) => (
+            <div key={idx} className="tags">#{tag.name}</div>
+          ))}
         </div>
 
         <button className="btn">방 링크 복사</button>
@@ -120,6 +124,7 @@ const DropWrap = styled.div`
     border-radius: 4px;
     align-items: center;
     font-size: 10px;
+    width: 100%;
   }
   .title {
     width: 134px;

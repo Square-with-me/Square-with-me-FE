@@ -5,25 +5,12 @@ const accessToken = document.cookie.split("=")[1];
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  baseURL: 'http://15.164.48.35:80',
+  // baseURL: 'http://15.164.48.35:80',
+  baseURL: 'http://14.45.204.153:7034',
   headers: {
     Authorization: `Bearer ${token}`,
     'content-type': 'application/json;charset=UTF-8',
     accept: 'application/json,',
-  },
-  // headers: {
-  //   "content-type": "application/json;charset=UTF-8",
-  //   accept: "application/json,",
-  //   authorization: `${accessToken}`,
-  // },
-});
-
-export const api_token = axios.create({
-  baseURL: "http://15.164.48.35:80",
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json,",
-    authorization: `${accessToken}`,
   },
 });
 

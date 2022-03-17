@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import io from 'socket.io-client';
-const socket = io.connect('/');
 
 class Timer extends Component {
   constructor(props) {
@@ -14,6 +12,7 @@ class Timer extends Component {
     this.hoursInput = React.createRef();
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
+    console.log(props.socketRef.current)
   }
 
   inputHandler = (e) => {
@@ -34,8 +33,8 @@ class Timer extends Component {
       seconds: this.secondsInput.current.value,
     };
 
-    console.log('스타트 버튼 누름');
-    await socket.emit('start_timer', data);
+    console.log('스타트 버튼 누름', data);
+    this.props.socketRef.current.emit('start_timer', data);
   };
 
   receiveStartTimer = () => {
@@ -44,10 +43,10 @@ class Timer extends Component {
   };
 
   componentWillMount() {
-    socket.emit('join_room', this.props.roomId);
+    this.props.socketRef.current.emit('join_room', this.props.roomId);
 
     // 시작 신호 받음
-    socket.on('start_receive', (data) => {
+    this.props.socketRef.current.on('start_receive', (data) => {
       this.setState({ hours: data.hours });
       this.setState({ minutes: data.minutes });
       this.setState({ seconds: data.seconds });
@@ -57,12 +56,13 @@ class Timer extends Component {
   }
 
   componentDidUpdate() {
-    socket.on('stop_receive', () => {
+    this.props.socketRef.current.on('stop_receive', () => {
       this.receiveStopTimer();
     });
 
-    socket.on('reset_receive', () => {
-      this.receiveresetTimer();
+    this.props.socketRef.current.on('reset_receive', () => {
+      console.log("리셋 받음")
+      this.receiverSetTimer();
     });
   }
 
@@ -104,7 +104,7 @@ class Timer extends Component {
 
   stopTimer = async () => {
     clearInterval(this.timer);
-    await socket.emit('stop_time', this.props.roomId);
+    this.props.socketRef.current.emit('stop_time', this.props.roomId);
   };
 
   resetTimer = async () => {
@@ -117,14 +117,14 @@ class Timer extends Component {
     this.minutesInput.current.value = 0;
     this.secondsInput.current.value = 0;
 
-    await socket.emit('reset_time', this.props.roomId);
+    this.props.socketRef.current.emit('reset_time', this.props.roomId);
   };
 
   receiveStopTimer = () => {
     clearInterval(this.timer);
   };
 
-  receiveresetTimer = () => {
+  receiverSetTimer = () => {
     this.setState({
       hours: 0,
       minutes: 0,
@@ -174,13 +174,13 @@ class Timer extends Component {
         </div>
         <div className="buttonGroup">
           <Btn onClick={this.startTimer} className="start">
-            start
+            <div>start</div>
           </Btn>
           <Btn onClick={this.stopTimer} className="stop">
-            stop
+            <div>stop</div>
           </Btn>
           <Btn onClick={this.resetTimer} className="reset">
-            reset
+            <div>reset</div>
           </Btn>
         </div>
       </Container>
@@ -190,13 +190,14 @@ class Timer extends Component {
 
 const Container = styled.div`
   width: 100%;
-  height: 180px;
+  height: 200px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
   font-family: 'Noto Sans';
+  margin-top: 20px;
 
   .inputGroup {
     display: flex;
@@ -216,7 +217,7 @@ const Container = styled.div`
     height: 60px;
     box-sizing: border-box;
 
-    padding: 9px 20px 9px 20px;
+    padding: 8px 10px;
     background-color: #e3e5ff;
 
     display: flex;
@@ -226,17 +227,17 @@ const Container = styled.div`
   .buttonGroup {
     display: flex;
     justify-content: space-between;
-    height: 30px;
   }
 `;
 
 const Input = styled.input`
-  width: 100%;
+  width: 20%;
   height: 42px;
   border: 1px solid #8a8ba3;
   border-radius: 4px;
   background: #ffffff;
   text-align: center;
+  margin: auto;
 
   color: #8a8ba3;
   font-weight: 800;
@@ -247,7 +248,7 @@ const Input = styled.input`
     color: #8a8ba3;
     font-weight: 800;
     font-size: 16px;
-    line-height: 150%;
+    /* line-height: 150%; */
   }
 `;
 
@@ -275,15 +276,17 @@ const Text = styled.div`
 
 const Btn = styled.button`
   width: 100%;
-  margin: 0 5px;
+  margin: auto 5px;
+  padding: 4px;
   border: none;
   border-radius: 4px;
   background-color: #7179f0;
-
+  align-items: center;
+  align-content: center;
   color: #fafaff;
   font-size: 18px;
   font-weight: 400;
-  line-height: 27px;
+  /* line-height: 27px; */
 `;
 
 export default Timer;
