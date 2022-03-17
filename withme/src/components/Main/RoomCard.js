@@ -70,7 +70,7 @@ const RoomCard = (props) => {
                       </CategoryText>
                     ) : null}
                     <div>
-                      <LockIcon width="20" fill="#33344B" />
+                      <LockIcon width="20" fill="#000" />
                     </div>
                   </div>
                 ) : (
@@ -230,7 +230,7 @@ const RoomCard = (props) => {
                       </CategoryText>
                     ) : null}
                     <div>
-                      <LockIcon width="20" fill="#8A8BA3" />
+                      <LockIcon width="20" fill="#000" />
                     </div>
                   </div>
                 ) : (

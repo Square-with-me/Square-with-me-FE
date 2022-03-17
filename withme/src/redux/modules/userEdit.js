@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from 'axios';
-import { RESP } from '../../shared/responseP';
 import { apis } from '../../shared/api';
 
 //프로필 가져오기
@@ -61,7 +60,7 @@ const logInCheckDB = () => {
         history.replace('/');
         return;
       }
-
+      // console.log(res);
       const user = res.data.data.user;
       dispatch(
         setUser({

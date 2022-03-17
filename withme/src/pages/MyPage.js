@@ -357,6 +357,7 @@ const Container = styled.div`
 
     #end {
       grid-column: 1 / 8;
+      height: 100%;
       p {
         margin-top: 10px;
       }
@@ -447,13 +448,12 @@ const ProfileContainer = styled.div`
         line-height: 30px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
-        border: none;
-        border-bottom: 2px solid #999;
+        border: 2px solid #58596a;
 
         &:focus {
           background-color: transparent;
-          outline: none;
-          border-bottom: 3px solid #777;
+          outline-color: #7179f0;
+          box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
         }
       }
     }
@@ -477,13 +477,12 @@ const ProfileContainer = styled.div`
         line-height: 24.52px;
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
-        border: none;
-        border-bottom: 2px solid #999;
+        border: 2px solid #58596a;
 
         &:focus {
           background-color: transparent;
-          outline: none;
-          border-bottom: 3px solid #777;
+          outline-color: #7179f0;
+          box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
         }
       }
     }

@@ -43,7 +43,7 @@ const Chatting = ({ socketRef, roomId }) => {
   }, [socketRef]);
 
   const sendMessage = () => {
-    if (userMessage === '') return ;
+    if (userMessage === '') return;
     const data = {
       roomId: roomId,
       sender: nickname,
