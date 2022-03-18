@@ -57,6 +57,9 @@ const Video = (props) => {
 
 
 const Detail = (props) => {
+  const user = useSelector((store) => store.user.user);
+  const room = useSelector((store) => store.room.myRoom);
+
   const dispatch =useDispatch()
   // const [mic, setMic] = useState("ok");
   // const [camera, setCamera] = useState("ok");
@@ -167,11 +170,6 @@ const Detail = (props) => {
     }
   };
 
-
-  const user = useSelector((store) => store.user.user);
-  console.log(user)
-  
-
 /** @memo stream 받는 effect */
 useEffect(() => {
   // socketRef.current = io.connect('http://175.112.86.142:8088/');
@@ -192,7 +190,7 @@ useEffect(() => {
     const data = {
       roomId,
       nickname,
-      userId,
+      userId:user.id,
       categoryId:room.category.id,
       date,
       profileImg:user.profileImg,
@@ -393,10 +391,49 @@ const [openTime, setOpenTime] = useState(new Date().toString())
 const [diffTime, setDiffTime] = useState();
 
 const interval = useRef();
+
 function saveTime() {
   const closeTime = new Date();
-  
+
   setDiffTime(Math.abs( closeTime - Date.parse(openTime) ) / 60000);
+
+  const prevTime = localStorage.getItem("time")
+  if(prevTime){
+    const today =new Date().getDate();
+    if(prevTime.date === today){
+      //기존 데이터에 새운 데이터 추가해서 저장
+      const newTime = prevTime[room.category.id]+ diffTime
+      localStorage.setItem("time", JSON.stringify(newTime))
+    }else{
+      //기존 데이터 초기화 하고 새로 저장
+      const data ={
+        date : new Date().getDate(),
+        1:0,
+        2:0,
+        3:0,
+        4:0,
+        5:0,
+        6:0,
+      }
+      data[room.category.id] = diffTime;
+      localStorage.setItem("time", JSON.stringify(data))
+    }
+  }
+  else{
+    const data ={
+      date : new Date().getDate(),
+      1:0,
+      2:0,
+      3:0,
+      4:0,
+      5:0,
+      6:0,
+    }
+    data[room.category.id] = diffTime;
+    localStorage.setItem("time", JSON.stringify(data))
+  }
+
+
   setTimeout(() => {
     socketRef.current.emit("save_time", diffTime)
   }, [1500])
@@ -417,9 +454,6 @@ useEffect(()=>{
   const date = today.getDate()
   setDate(date)
 },[])
-
-const userId = useSelector((store) => store.user.user.id);
-const room = useSelector((store) => store.room.myRoom);
 
 function handleEnd() {
   window.location.replace('/')
@@ -513,13 +547,13 @@ function handleEnd() {
                 { isTimer === false ? (
                   <div onClick={() => openTimer(false)}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                     </svg>
                   </div>
                 ) : (
                   <div onClick={() => openTimer(true)}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                     </svg>
                   </div>
                 )}
@@ -528,8 +562,8 @@ function handleEnd() {
                 <Button>
                   <div onClick={() => setIsSW(false) < setCount(sideCount - 1)}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-                      <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+                      <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
                     </svg>
                   </div>
                 </Button>
@@ -547,13 +581,13 @@ function handleEnd() {
                 { isUserList === false ? (
                   <div onClick={() => openUserList(false)}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                     </svg>
                   </div>
                 ) : (
                   <div onClick={() => openUserList(true)}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                      <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                     </svg>
                   </div>
                 )}
@@ -562,8 +596,8 @@ function handleEnd() {
               <Button>
               <div onClick={() => setIsPP(false) < setCount(sideCount - 1)}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-                  <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                  <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+                  <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
                 </svg>
               </div>
               </Button>
@@ -581,13 +615,13 @@ function handleEnd() {
                   { ischatting === false ? (
                     <div onClick={() => openChatting(false)}>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M5 2.06689L10.9333 8.00023L5 13.9336" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                       </svg>
                     </div>
                   ) : (
                     <div onClick={() => openChatting(true)}>
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                        <path d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
                       </svg>
                     </div>
                   )}
@@ -596,8 +630,8 @@ function handleEnd() {
                 <Button>
                 <div onClick={() => setIsCT(false) < setCount(sideCount - 1)}>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-                    <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M2.66675 2.6665L13.3334 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+                    <path d="M13.3334 2.6665L2.66675 13.3332" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
                   </svg>
                 </div>
                 </Button>

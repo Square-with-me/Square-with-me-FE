@@ -205,7 +205,7 @@ const Main = () => {
 
 const Back =styled.div`
 height: 100%;
-background: linear-gradient(to top, #F7F7F7 62vh, #fff 3vh);
+background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
 @media screen and (min-width: 1607px) {
   background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
   }
