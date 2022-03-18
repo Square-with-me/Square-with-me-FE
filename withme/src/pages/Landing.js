@@ -5,6 +5,7 @@ import TypeIt from 'typeit';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import WOW from 'wowjs';
 
 import { ReactComponent as Logo } from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
@@ -30,6 +31,15 @@ const Landing = () => {
     }).go();
   }, []);
 
+  // WOW
+  useEffect(() => {
+    new WOW.WOW({
+      boxClass: 'wow',
+      offset: 150,
+      mobile: true,
+    }).init();
+  }, []);
+
   // focus slier
   useEffect(() => {
     slide();
@@ -44,7 +54,7 @@ const Landing = () => {
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true, // 자동 스크롤 사용 여부
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
   };
 
   const slide = () => {
@@ -145,26 +155,26 @@ const Landing = () => {
           </div>
         </header>
         <section className="welcome">
-          <div className="logo-inner">
-            <div className="logo">
+          <div className="logo-inner utd wow">
+            <div className="logo ">
               <Logo />
             </div>
-            <div className="sports">
+            <div className="sports ltr wow">
               <Exercise fill="#E4E2EB" width="105px" />
             </div>
-            <div className="culture">
+            <div className="culture ltr wow">
               <Culture fill="#E4E2EB" width="61px" />
             </div>
-            <div className="study">
+            <div className="study ltr wow">
               <Study fill="#E4E2EB" width="81px" />
             </div>
-            <div className="beauty">
+            <div className="beauty rtl wow">
               <Beauty fill="#E4E2EB" width="60px" />
             </div>
-            <div className="counseling">
+            <div className="counseling rtl wow">
               <Consulting fill="#E4E2EB" width="95px" />
             </div>
-            <div className="etc">
+            <div className="etc rtl wow">
               <Other fill="#E4E2EB" width="77px" />
             </div>
           </div>
@@ -185,7 +195,7 @@ const Landing = () => {
         <section className="focus" id="feature1">
           <div className="focus-inner">
             <div className="focus-content">
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0">
                 <div className="img-box">
                   <img src=""></img>
                 </div>
@@ -196,7 +206,7 @@ const Landing = () => {
                   <p>성취도를 높여봐요</p>
                 </div>
               </div>
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0.25s">
                 <div className="img-box">
                   <img src=""></img>
                 </div>
@@ -207,8 +217,7 @@ const Landing = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0.5s">
                 <div className="img-box">
                   <img src=""></img>
                 </div>
@@ -827,7 +836,51 @@ const Container = styled.div`
     width: 1100px;
   }
 
+  .ltr {
+    animation: ltr 0.5s linear both; // both가 없으면 0 -> 100 -> 0 이 된다.
+  }
+
+  .rtl {
+    animation: rtl 0.5s linear both;
+  }
+
+  .utd {
+    animation: utd 0.5s linear both;
+  }
+
+  // 왼쪽에서 오른쪽
   @keyframes ltr {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0); // 제자리
+      opacity: 1;
+    }
+  }
+  // 오른쪽에서 왼쪽
+  @keyframes rtl {
+    0% {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0); // 제자리
+      opacity: 1;
+    }
+  }
+
+  // 위에서 아래로
+  @keyframes utd {
+    0% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0); // 제자리
+      opacity: 1;
+    }
   }
 `;
 
