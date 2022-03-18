@@ -175,7 +175,7 @@ const Detail = (props) => {
 /** @memo stream 받는 effect */
 useEffect(() => {
   // socketRef.current = io.connect('http://175.112.86.142:8088/');
-  socketRef.current = io.connect('http://14.45.204.153:7034/');
+  socketRef.current = io.connect('15.164.48.35:80');
   navigator.mediaDevices.getUserMedia({
     video: true,
     audio: false,

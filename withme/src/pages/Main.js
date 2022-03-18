@@ -139,7 +139,7 @@ const Main = () => {
           {hotRoom
             ? hotRoom.map((data, index) => {
                 return (
-                  <div key="{data.id}">
+                  <div key={data.id}>
                     <HotRoomCard {...data} />
                   </div>
                 );
@@ -172,7 +172,6 @@ const Main = () => {
                 );
               })
             : ''}
-          {/* <TestRoom/> */}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>
@@ -189,13 +188,35 @@ const Main = () => {
 
 const Back =styled.div`
 height: 100%;
-background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
+background: linear-gradient(to top, #F7F7F7 62vh, #fff 3vh);
+@media screen and (min-width: 1607px) {
+  background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
+  }
+  @media screen and (min-width: 1232px) and (max-width: 1607px) {
+    background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
+  }
+  @media screen and (min-width: 878px) and (max-width: 1232px) {
+    background: linear-gradient(to top, #F7F7F7 66.5%, #fff 30%);
+  }
+  @media screen and (min-width: 790px) and (max-width: 878px) {
+    background: linear-gradient(to top, #F7F7F7 72.9%, #fff 20%);
+  }
+  @media screen and (min-width: 551px) and (max-width: 790px) {
+    background: linear-gradient(to top, #F7F7F7 73.5%, #fff 20%);
+  }
+  @media screen and (min-width: 550px) and (max-width: 551px) {
+    background: linear-gradient(to top, #F7F7F7 80%, #fff 20%);
+  }
+  @media screen and (min-width: 0px) and (max-width: 550px) {
+    background: linear-gradient(to top, #F7F7F7 83%, #fff 20%);
+  }
 `
 //share
 const Wrap = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   max-width: 1110px;
+  min-width: 470px;
   margin: auto;
   grid-gap: 30px;
   margin: auto;
@@ -273,11 +294,11 @@ const RoomListContainer = styled.div`
 
   @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
-    row-gap: 32px;
+    /* row-gap: 32px; */
   }
   @media screen and (min-width: 1232px) and (max-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
-    row-gap: 32px;
+    /* row-gap: 32px; */
   }
   @media screen and (min-width: 878px) and (max-width: 1232px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;

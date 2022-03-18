@@ -13,15 +13,7 @@ const MakeRoomCard = (props) => {
             props.setMRooms(true);
           }}
         >
-          <Plus
-            style={{
-              cursor: 'pointer',
-              width: '64px',
-              height: '64px',
-              margin: '45 96',
-              fill: '#FFFFFF',
-            }}
-          />
+          <Plus className="plus"/>
         </RoomCardContainer>
       ) : (
         <RoomCardContainer
@@ -29,15 +21,7 @@ const MakeRoomCard = (props) => {
             window.alert('로그인해야 방 만들수 있을껄?');
           }}
         >
-          <Plus
-            style={{
-              cursor: 'pointer',
-              width: '64px',
-              height: '64px',
-              margin: '45 96',
-              fill: '#FFFFFF',
-            }}
-          />
+          <Plus className="plus"/>
         </RoomCardContainer>
       )}
       {props.MRooms && <MakeRoomModal setMRooms={props.setMRooms} />}
@@ -57,6 +41,13 @@ const RoomCardContainer = styled.div`
 
   &:hover {
     background-color: #7179f0;
+  }
+  .plus{
+    cursor: pointer;
+    width: 64px;
+    height: 64px;
+    margin: 45px 96px; 
+    fill: #FFFFFF;
   }
 `;
 

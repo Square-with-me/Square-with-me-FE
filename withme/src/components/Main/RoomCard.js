@@ -324,9 +324,9 @@ const RoomCard = (props) => {
             </div>
 
             <div className="tag">
-              {props.Tags.map((r, idx) => {
+              {props.Tags.map((r) => {
                 return (
-                  <span key="{r.id}">
+                  <span key={r.id}>
                       <TagText>#{r.name}</TagText>
                   </span>
                 )
