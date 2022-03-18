@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userEditActions } from '../../redux/modules/userEdit';
+import { actionCreators as roomActions } from '../../redux/modules/room';
 
 const Message = (props) => {
   const {
-    data: { sender, message, time = '오후 6:04' },
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
   } = props;
 
   return (
@@ -19,14 +22,36 @@ const Message = (props) => {
     </MessageBox>
   );
 };
+// 내가 보냈을 때
+const MyMessage = (props) => {
+  const {
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
+  } = props;
+
+  return (
+    <MyMessageBox>
+      <div id="userInfo">
+        <p id="userName">{sender}</p>
+        <p id="toText">모두에게</p>
+        <p>{time}</p>
+      </div>
+      <p id="message">{message}</p>
+    </MyMessageBox>
+  );
+};
 
 const Chatting = ({ socketRef, roomId }) => {
   const dispatch = useDispatch();
+
+  const saveList = useSelector((store) => store.room.chattingList);
 
   const [userMessage, setUserMessage] = useState('');
   const [nickname, setNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
   const userNickname = useSelector((store) => store.user.user.nickname);
+  const userId = useSelector((store) => store.user.user.id);
 
   useEffect(() => {
     dispatch(userEditActions.logInCheckDB());
@@ -34,22 +59,34 @@ const Chatting = ({ socketRef, roomId }) => {
 
   useEffect(() => {
     setNickName(userNickname);
-  }, [userNickname]);
+    console.log('와우 친구들 안녕', userId);
+  }, [userNickname, userId]);
+
+  useEffect(() => {
+    setMessageList(saveList);
+  }, [saveList]);
 
   useEffect(() => {
     socketRef.current.on('receive_message', (data) => {
-      setMessageList((list) => [...list, data]);
+      dispatch(roomActions.savechat(data));
     });
   }, [socketRef]);
 
   const sendMessage = () => {
-    if (userMessage === '') return;
+    const today = new Date();
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    var timeString = hours + ':' + minutes;
+
+    if (userMessage === '' || userMessage === '\n') return;
     const data = {
       roomId: roomId,
       sender: nickname,
       message: userMessage,
+      time: timeString,
+      id: userId,
     };
-    setMessageList((list) => [...list, data]);
+    dispatch(roomActions.savechat(data));
 
     socketRef.current.emit('send_message', data);
   };
@@ -74,9 +111,13 @@ const Chatting = ({ socketRef, roomId }) => {
   return (
     <ChattingBox>
       <div id="messageBox">
-        {messageList.map((data, index) => (
-          <Message key={index} data={data}></Message>
-        ))}
+        {messageList.map((data, index) =>
+          data.chattingList.id === userId ? (
+            <MyMessage key={index} data={data}></MyMessage>
+          ) : (
+            <Message key={index} data={data}></Message>
+          )
+        )}
       </div>
       <div className="inputBox">
         <form action="#" className="flex">
@@ -143,6 +184,50 @@ const MessageBox = styled.div`
   justify-content: center;
   padding: 2.5% 5% 2.5%;
   font-family: 'Noto Sans';
+
+  #userInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 2.5%;
+
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    color: #8a8ba3;
+    font-style: normal;
+
+    #userName {
+      text-align: center;
+    }
+    #toText {
+      font-family: 'Noto Sans';
+      font-style: normal;
+    }
+  }
+
+  #message {
+    padding: 1%;
+    word-break: break-all;
+  }
+
+  p#message {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: #000;
+  }
+`;
+
+const MyMessageBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 58px;
+  justify-content: center;
+  padding: 2.5% 5% 2.5%;
+  font-family: 'Noto Sans';
+  background-color: #e3e5ff;
 
   #userInfo {
     display: flex;
