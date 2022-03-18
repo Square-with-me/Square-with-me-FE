@@ -218,7 +218,7 @@ const WeekTime = ({ week }) => {
   return (
     <>
       {week ? (
-        <Bar data={data} options={option} style={{ height: '100%' }} />
+        <Bar data={data} options={option} style={{ margin:'auto', width:'80%', height:'70%'}} />
       ) : (
         ''
       )}
