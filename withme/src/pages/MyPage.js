@@ -251,7 +251,7 @@ const Mypage = (props) => {
               <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
             </div>
           </div>
-          <div className="width100">
+          <div className="width100 endBottomBoxWrap">
             <Text>이번 달 네모와 함께한 시간</Text>
             <div id="endBottomBox" className="boxStyle">
               <MonthTimeBox>
@@ -392,6 +392,9 @@ const Container = styled.div`
       height: 100%;
       p {
         margin-top: 10px;
+      }
+      .endBottomBoxWrap {
+        margin-top: 40px;
       }
     }
   }

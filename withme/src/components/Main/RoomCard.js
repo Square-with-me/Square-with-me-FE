@@ -350,6 +350,7 @@ const Container = styled.div`
   border: none;
   padding: 18px;
   border-radius: 4px;
+  background-color: #F7F7F7;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
 `;
 

@@ -154,7 +154,6 @@ const RoomCardContainer = styled.div`
   grid-template-columns: 2fr 1fr;
   grid-auto-rows: 2fr;
   grid-gap: 5px;
-  overflow: auto;
   .tag {
     grid-column: 1/ 4;
     white-space: normal;
