@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 
 import { history } from '../redux/configureStore';
 import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as roomActions } from '../redux/modules/room';
 
 // 방 입장
 import io from 'socket.io-client';
@@ -171,13 +172,21 @@ const Detail = (props) => {
     }
   };
 
+  useEffect(()=>{
+    const  myRoomInLS = JSON.parse(localStorage.getItem("myRoom"))
+    if(!room && myRoomInLS){
+      dispatch(roomActions.setMyRoom(myRoomInLS))
+    }
+  },[])
+
 /** @memo stream 받는 effect */
 useEffect(() => {
+  if(!room || !user){return}
   // socketRef.current = io.connect('http://175.112.86.142:8088/');
   socketRef.current = io.connect('15.164.48.35:80');
   navigator.mediaDevices.getUserMedia({
     video: true,
-    audio: false,
+    audio: true,
   }).then(stream => {
     setStream(stream);
     userVideo.current.srcObject = stream;
@@ -200,10 +209,11 @@ useEffect(() => {
 
     socketRef.current.emit('join room', data, roomFull);
   });
-}, [params.id]);
+}, [params.id, room, user]);
 
 /** @memo join room 했을 때 데이터 제대로 전달 안 됐을 경우 */
 useEffect(() => {
+  if(!socketRef.current){return}
   function noData() {
     alert("데이터 전달 오류");
     history.push("/");
@@ -363,7 +373,7 @@ const roomFull = () => {
 };
 
 const [videoOn, setVideoOn] = useState(true);
-const [audioOn, setAudioOn] = useState(false);
+const [audioOn, setAudioOn] = useState(true);
 
 const handleVideoOnOff = () => {
 
@@ -377,6 +387,9 @@ const handleVideoOnOff = () => {
   }
 }
 const handleAudioOnOff = () => {
+  console.log("커런트",userVideo.current)
+  console.log("커런트오브젝트", userVideo.current.srcObject)
+  console.log("오디오", userVideo.current.srcObject.getAudioTracks() )
   userVideo.current.srcObject.getAudioTracks().forEach(track => (
     track.enabled = !track.enabled
   ));
@@ -436,7 +449,7 @@ function saveTime() {
 
 
   setTimeout(() => {
-    socketRef.current.emit("save_time", diffTime)
+    socketRef.current.emit("save_time", parseInt(diffTime) + 1)
   }, [1500])
 }
 
@@ -467,11 +480,12 @@ function handleEnd() {
 
   return (
     <Back>
-    <Container>
+      {room &&    
+      <Container>
       {/* <Back/> */}
       <div id="top">
-      <div className="logo" onClick={() => history.replace('/')}>
-        <Logo/>
+      <div className="logo">
+        <Logo onClick={() => history.replace('/')}/>
       <div>
           <RoomInfo room={room}/>
         </div>
@@ -654,8 +668,8 @@ function handleEnd() {
           <button>
             <a href="/">
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4L20 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
-                <path d="M20 4L4 20" stroke="#8A8BA3" stroke-width="2" stroke-miterlimit="10"/>
+                <path d="M4 4L20 20" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
+                <path d="M20 4L4 20" stroke="#8A8BA3" strokeWidth="2" strokeMiterlimit="10"/>
               </svg>
             </a>
           </button>
@@ -686,7 +700,8 @@ function handleEnd() {
           </button>
         </div>
       </div>
-    </Container>
+    </Container>}
+
     </Back>
   );
 };

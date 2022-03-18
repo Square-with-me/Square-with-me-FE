@@ -38,9 +38,9 @@ const Main = () => {
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
   // 로그인 체크
-  useEffect(() => {
-    dispatch(userActions.logInCheckDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userActions.logInCheckDB());
+  // }, []);
 
   // 카테고리 선택하기ㄴ
   useEffect(() => {
