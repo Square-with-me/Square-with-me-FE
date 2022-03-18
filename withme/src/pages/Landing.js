@@ -800,7 +800,7 @@ const Container = styled.div`
 
       .review-box {
         width: 80%;
-        height: 100%;
+        height: 98%;
         margin: auto;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
