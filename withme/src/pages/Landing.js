@@ -806,7 +806,6 @@ const Container = styled.div`
 
   .review {
     width: 1100px;
-    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
