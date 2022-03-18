@@ -661,7 +661,7 @@ const Container = styled.div`
     }
   }
   .focus {
-    padding-top: 40px;
+    padding-top: 30px;
     .focus-inner {
       width: 1100px;
       height: 100vh;
