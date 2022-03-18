@@ -30,7 +30,7 @@ const MenuBar = (props) => {
             onClick={() => {
               props.setPossible(false);
               props.setChoiceCate(0);
-              props.dispatch(roomActions.getRoomDB());
+              dispatch(roomActions.getRoomDB());
             }}
           >
             <RoomText>ALL</RoomText>
@@ -40,7 +40,7 @@ const MenuBar = (props) => {
             onClick={() => {
               props.setPossible(false);
               props.setChoiceCate(0);
-              props.dispatch(roomActions.getRoomDB());
+              dispatch(roomActions.getRoomDB());
             }}
             style={{ background: "#7179F0", border: "none",  fontWeight: "700" }}
           >

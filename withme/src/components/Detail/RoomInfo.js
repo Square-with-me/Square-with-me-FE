@@ -109,7 +109,7 @@ const RoomInfo = ({ room }) => {
 
         <div>
           {room.Tags.map((tag, idx) => (
-            <div key={idx} className="tags">#{tag.name}</div>
+            <div key={idx} className="tags"># {tag.name}</div>
           ))}
         </div>
 

@@ -137,10 +137,27 @@ const Main = () => {
           </div>
 
           {hotRoom
-            ? hotRoom.map((data, index) => {
+            ? hotRoom.map((data) => {
                 return (
                   <div key={data.id}>
-                    <HotRoomCard {...data} />
+                    {data.isSecret === true ?(
+                      <div 
+                        onClick={()=>{
+                          setSecret(true);
+                        }}
+                      >
+                        <HotRoomCard {...data}/>
+                      </div>
+                    ) : (
+                      <div 
+                        onClick={()=>{
+                          goRoom(data.id);
+                        }}
+                      >
+                        <HotRoomCard {...data}/>
+                      </div>
+                    )}
+                    {secret && <SecretRoomModal setSecret={setSecret} data={data}/>}
                   </div>
                 );
               })
