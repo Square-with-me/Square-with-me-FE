@@ -184,7 +184,7 @@ useEffect(() => {
     userVideo.current.srcObject = stream;
 
     const roomId = params.id;
-    const nickname = "닉네임이다.";
+    const nickname = user.nickname;
 
     const today = new Date()
     const date = today.getDate()

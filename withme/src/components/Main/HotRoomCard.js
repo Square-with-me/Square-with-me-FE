@@ -35,7 +35,7 @@ const HotRoomCard = (props) => {
                   </CategoryText>
                 ) : category === "상담" ? (
                   <CategoryText
-                    style={{ backgroundColor: "black", marginRight: "8px" }}
+                    style={{ backgroundColor: "#FFD9B6", marginRight: "8px" }}
                   >
                     {props.category.name}
                   </CategoryText>
@@ -58,7 +58,7 @@ const HotRoomCard = (props) => {
                     fill="#E55C31"
                     style={{ marginRight: "5px" }}
                   />
-                  <LockIcon width="20" fill="#8A8BA3" />
+                  <LockIcon width="20" fill="#000" />
                 </div>
               </div>
             ) : (
@@ -83,7 +83,7 @@ const HotRoomCard = (props) => {
                   </CategoryText>
                 ) : category === "상담" ? (
                   <CategoryText
-                    style={{ backgroundColor: "black", marginRight: "8px" }}
+                    style={{ backgroundColor: "#FFD9B6", marginRight: "8px" }}
                   >
                     {props.category.name}
                   </CategoryText>
@@ -131,7 +131,7 @@ const HotRoomCard = (props) => {
 
         <div className="tag">
           {props.Tags.map((r, idx) => {
-            return <TagText>#{r.name}</TagText>;
+            return <TagText># {r.name}</TagText>;
           })}
         </div>
       </RoomCardContainer>

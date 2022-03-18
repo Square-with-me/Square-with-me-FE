@@ -35,8 +35,8 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
           setIsM(false);
           }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M4 4L20 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
         </svg>
         </Headers>
         <Contents>

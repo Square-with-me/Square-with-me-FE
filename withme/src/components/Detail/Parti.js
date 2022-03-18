@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Parti =({me})=>{
   const userInfo = useSelector((store)=>store.user.userInfo)
+  console.log(userInfo)
   
   return(
     <React.Fragment>

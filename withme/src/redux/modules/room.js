@@ -186,7 +186,6 @@ export default handleActions(
     [HOT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
-        console.log(draft.hotList);
       }),
   },
   initialState
