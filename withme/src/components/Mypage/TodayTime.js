@@ -1,24 +1,16 @@
 // chart.js
 import 'chart.js/auto';
 import { Pie } from 'react-chartjs-2';
-import{ useEffect ,useState} from 'react';
+import { useEffect, useState } from 'react';
 
 const TodayTime = () => {
-  const [dayList, setDayList] = useState([]);
+  const [dayList, setDayList] = useState([0, 0, 0, 0, 0, 0]);
 
-  useEffect(()=>{
-    const day = JSON.parse(localStorage.getItem('time'))
-
-    setDayList(
-      [
-        day[1],
-        day[2],
-        day[3],
-        day[4],
-        day[5],
-        day[6],
-    ])
-    },[setDayList])
+  useEffect(() => {
+    const day = JSON.parse(localStorage.getItem('time'));
+    if (day) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
+    else return;
+  }, [setDayList]);
   const data = {
     labels: ['뷰티', '운동', '스터디', '문화', '상담', '기타'],
     datasets: [
