@@ -13,7 +13,6 @@ import MHeader from '../components/Header/MHeader';
 import Logo from '../components/Main/Logo';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as usereditActions } from '../redux/modules/userEdit';
 import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
 // badge
@@ -63,7 +62,7 @@ const Mypage = (props) => {
       // 수정 끝
       nicknameText.classList.remove('hidden');
       inputNickname.classList.add('hidden');
-      dispatch(usereditActions.editNickDB(user.id, editNick));
+      dispatch(userEditActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
   };
@@ -83,7 +82,7 @@ const Mypage = (props) => {
       // 수정 끝
       statusText.classList.remove('hidden');
       inputStatus.classList.add('hidden');
-      dispatch(usereditActions.editStatusDB(user.id, editStatus));
+      dispatch(userEditActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
   };
@@ -93,7 +92,7 @@ const Mypage = (props) => {
     const img = e.target.files[0];
     const formData = new FormData();
     formData.append('image', img);
-    dispatch(usereditActions.getImageUrlDB(userId, formData));
+    dispatch(userEditActions.getImageUrlDB(userId, formData));
   };
 
   const onClickImage = () => {

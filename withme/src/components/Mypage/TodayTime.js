@@ -1,13 +1,29 @@
 // chart.js
 import 'chart.js/auto';
 import { Pie } from 'react-chartjs-2';
+import{ useEffect ,useState} from 'react';
 
 const TodayTime = () => {
+  const [dayList, setDayList] = useState([]);
+
+  useEffect(()=>{
+    const day = JSON.parse(localStorage.getItem('time'))
+
+    setDayList(
+      [
+        day[1],
+        day[2],
+        day[3],
+        day[4],
+        day[5],
+        day[6],
+    ])
+    },[setDayList])
   const data = {
     labels: ['뷰티', '운동', '스터디', '문화', '상담', '기타'],
     datasets: [
       {
-        data: [300, 50, 100, 60, 150, 10],
+        data: dayList,
         backgroundColor: [
           '#FCEDB7',
           '#FFC9C9',
@@ -29,8 +45,7 @@ const TodayTime = () => {
       tooltip: {
         callbacks: {
           label: function (context) {
-            let label = context.label + ': ' + context.formattedValue + 's';
-            // 초를 HH MM SS로 표현하는 정규식함수 파일을 만들어서 변경하자!
+            let label = context.label + ': ' + context.formattedValue + '분';
             return label;
           },
         },
