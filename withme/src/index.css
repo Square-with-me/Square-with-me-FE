@@ -156,3 +156,8 @@ table {
 * {
   box-sizing: border-box;
 }
+
+/* 페이지 이동시 부드럽게 해줌 */
+html {
+  scroll-behavior: smooth;
+}
