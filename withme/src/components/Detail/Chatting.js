@@ -43,11 +43,17 @@ const Chatting = ({ socketRef, roomId }) => {
   }, [socketRef]);
 
   const sendMessage = () => {
+    const today = new Date();
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    var timeString = hours + ':' + minutes;
+
     if (userMessage === '') return;
     const data = {
       roomId: roomId,
       sender: nickname,
       message: userMessage,
+      time: timeString,
     };
     setMessageList((list) => [...list, data]);
 
