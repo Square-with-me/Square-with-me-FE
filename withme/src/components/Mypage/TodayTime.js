@@ -9,7 +9,7 @@ const TodayTime = () => {
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
     if (day) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
-  }, [dayList]);
+  }, []);
 
   const data = {
     labels: ['뷰티', '운동', '스터디', '문화', '상담', '기타'],
