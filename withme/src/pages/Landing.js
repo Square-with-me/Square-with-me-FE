@@ -15,6 +15,10 @@ import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg'
 import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 import exVideo from '../assets/videos/exVideo.mov';
+import landing1 from '../assets/landing/landing.jpeg';
+import landing2 from '../assets/landing/landing2.jpeg';
+import landing3 from '../assets/landing/landing3.jpeg';
+
 import iMac from '../assets/videos/imac.png';
 import Footer from '../components/Main/Footer';
 
@@ -197,7 +201,7 @@ const Landing = () => {
             <div className="focus-content">
               <div className="focus-item utd wow" data-wow-delay="0">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing1}></img>
                 </div>
                 <div>
                   <p>
@@ -208,7 +212,7 @@ const Landing = () => {
               </div>
               <div className="focus-item utd wow" data-wow-delay="0.25s">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing2}></img>
                 </div>
                 <div>
                   <p>얻고 싶거나 알려주고 싶은</p>
@@ -219,7 +223,7 @@ const Landing = () => {
               </div>
               <div className="focus-item utd wow" data-wow-delay="0.5s">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing3}></img>
                 </div>
                 <div>
                   <p>
@@ -686,6 +690,12 @@ const Container = styled.div`
             border-radius: 50%;
             box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
             padding: 6px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+            }
           }
           p {
             font-size: 20px;
