@@ -18,10 +18,16 @@ import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
 // badge
 import lockBadge from '../assets/badge/lockBadge.svg';
-
+import bugBadge from '../assets/badge/bugBadge.svg';
+import consultationBadge from '../assets/badge/consultationBadge.svg';
+import firstComeBadge from '../assets/badge/firstComeBadge.svg';
+import beautyBadge from '../assets/badge/beautyBadge.svg';
+import cultureBadge from '../assets/badge/cultureBadge.svg';
+import exerciseBadge from '../assets/badge/exerciseBadge.svg';
+import otherBadge from '../assets/badge/otherBadge.svg';
 
 const Mypage = (props) => {
-  const history =useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userEdit.user);
@@ -98,12 +104,12 @@ const Mypage = (props) => {
   return (
     <Root>
       <Container>
-        <div className='header'>
-          <div onClick={()=>history.replace('/')}>
-            <Logo/>
-          </div> 
+        <div className="header">
+          <div onClick={() => history.replace('/')}>
+            <Logo />
+          </div>
           <div className="side">
-          <MHeader/>
+            <MHeader />
           </div>
         </div>
         <div id="start">
@@ -162,19 +168,27 @@ const Mypage = (props) => {
             </ProfileContainer>
             <BadgeContainer>
               <div className="badgeBox">
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
-                <div className="badge"></div>
+                <div className="badge">
+                  <img src={bugBadge} />
+                </div>
+                <div className="badge">
+                  <img src={consultationBadge} />
+                </div>
+                <div className="badge">
+                  <img src={firstComeBadge} />
+                </div>
+                <div className="badge">
+                  <img src={beautyBadge} />
+                </div>
+                <div className="badge">
+                  <img src={cultureBadge} />
+                </div>
+                <div className="badge">
+                  <img src={exerciseBadge} />
+                </div>
+                <div className="badge">
+                  <img src={otherBadge} />
+                </div>
               </div>
               <button>수정하기</button>
             </BadgeContainer>
@@ -263,18 +277,18 @@ const Root = styled.div`
 
 const Container = styled.div`
   max-width: 1110px;
-  margin:  auto;
+  margin: auto;
   display: grid;
   column-gap: 30px;
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
   /* background-color: #f7f7f7; */
-  .header{
+  .header {
     grid-column: 5/13;
     display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     position: relative;
     @media screen and (max-width: 1199px) {
       grid-column: 1/8;
@@ -283,7 +297,7 @@ const Container = styled.div`
       justify-content: space-between;
     }
     .side {
-      align-items: center;     
+      align-items: center;
       display: flex;
     }
   }
@@ -304,6 +318,7 @@ const Container = styled.div`
 
     #startBox {
       height: 65vh;
+      min-height: 660px;
       padding: 26px 26px 48px 26px;
     }
   }
@@ -328,9 +343,11 @@ const Container = styled.div`
     #middleTopBox {
       height: 20vh;
       padding: 0px 30px;
+      min-height: 212px;
     }
     #middleBottomBox {
       height: 40vh;
+      min-height: 296px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -359,10 +376,12 @@ const Container = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
+      min-height: 267px;
     }
 
     #endBottomBox {
       height: 35vh;
+      min-height: 238px;
       padding: 24px 32px;
     }
   }
@@ -544,14 +563,13 @@ const BadgeContainer = styled.div`
   .badge {
     width: 64px;
     height: 64px;
-    background-color: red;
   }
 
   button {
-    width: 95px;
+    width: fit-content;
     height: 51px;
     padding: 12px 14px;
-    background-color: #BCC0FF;
+    background-color: #bcc0ff;
     border-radius: 4px;
     border: none;
 
@@ -560,15 +578,15 @@ const BadgeContainer = styled.div`
     font-weight: 600;
     font-size: 18px;
     line-height: 150%;
-    transition: all .3s;
+    transition: all 0.3s;
     color: #fff;
     font-weight: 700;
-  
-  &:hover {
-    background-color:#7179F0;
-    color: #fff;
-    box-shadow: 0 1px 5px rgb(113, 121, 240);
-  }
+
+    &:hover {
+      background-color: #7179f0;
+      color: #fff;
+      box-shadow: 0 1px 5px rgb(113, 121, 240);
+    }
   }
 `;
 
@@ -625,10 +643,10 @@ const MonthTimeBox = styled.div`
 `;
 
 const Text = styled.div`
-font-weight: 700;
-margin: 10px 0;
-margin-left: 5px;
-color: #575765;
+  font-weight: 700;
+  margin: 10px 0;
+  margin-left: 5px;
+  color: #575765;
 `;
 
 export default Mypage;

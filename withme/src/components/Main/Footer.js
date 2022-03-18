@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import BugModal from "../Modal/BugModal";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import BugModal from '../Modal/BugModal';
 
 const Footer = () => {
-  const [bug, setBug] =useState(false)
+  const [bug, setBug] = useState(false);
   return (
     <Wrap>
         <Div>
@@ -40,94 +40,92 @@ const P = styled.p`
   font-size: 100%;
   font-weight: 500;
   margin: 10px 0px;
-  color: #8A8BA3;
+  color: #8a8ba3;
   float: left;
   font-weight: 650;
   cursor: pointer;
-`
+`;
 
 const A = styled.a`
   text-decoration-line: none;
   font-weight: 500;
   font-size: 100%;
-  color: #8A8BA3;
+  color: #8a8ba3;
   float: left;
-  padding:10px 0px;
+  padding: 10px 0px;
   font-weight: 650;
-`
+`;
 
 const Grid = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const Div = styled.div`
   margin: 20px 0px;
-  border-top: 1px solid #C7C7C7;
+  border-top: 1px solid #c7c7c7;
   padding: 20px 30px;
   @media screen and (min-width: 935px) {
-    /* margin: 15px 0px; */
     border-bottom: none;
   }
-`
+`;
 
 const Wrap = styled.div`
-  bottom:0;
-  width:100%;
-  height:6%;
-  background-color:#F7F7F7 ;
+  bottom: 0;
+  width: 100%;
+  height: 6%;
+  background-color: #f7f7f7;
   display: contents;
   padding: 30px;
 
   .footerLogo {
-      width: 204px;
+      width: 200px;
       height: 31px;
     }
 
-  @media screen and (min-width: 900px) {
+  @media only screen and (min-width: 898px) {
     bottom: 0;
+    justify-items: space-between;
     width: 100%;
     height: 6%;
     background-color: #F7F7F7;
   }
 
-  @media screen and (min-width: 746px) and (max-width: 900px) {
+  @media only screen and (min-width: 691px) and (max-width: 898px) {
     bottom: 0;
     justify-items: space-between;
     margin: auto;
     width: 100%;
     height: 6%;
     background-color: #F7F7F7;
-    font-size: 85%;
+    font-size: 80%;
 
     .footerLogo {
-      width: 150px;
-      height: 26px;
-      margin-top: 5px;
+      width: 120px;
+      height: 21px;
+      margin-top: 7px;
     }
   } 
 
-  @media screen and (min-width: 625px) and (max-width: 746px) {
-    bottom: 0;
-    justify-items: space-between;
-    margin: auto;
+  @media only screen and (min-width: 525px) and (max-width: 691px) {
+    display: flex;
+    justify-content: center;
     width: 100%;
     background-color: #F7F7F7;
-    font-size: 75%;
+    font-size: 10px;
 
     .footerLogo {
-      width: 100px;
-      height: 19px;
-      margin-top: 9px;
+      display: none;
     }
+  }
 
-  @media screen and (min-width: 0px) and (max-width: 625px) {
-    bottom: 0;
+  @media only screen and (min-width: 0px) and (max-width: 525px) {
+    position: relative;
     justify-items: center;
-    margin: auto;
-    width: 90%;
+    justify-content: center;
+    width: 100%;
     background-color: #F7F7F7;
-    font-size: 70%;
+    font-size: 10px;
 
     .footerLogo {
       display: none;

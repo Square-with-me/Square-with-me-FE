@@ -15,6 +15,7 @@ import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 import exVideo from '../assets/videos/exVideo.mov';
 import iMac from '../assets/videos/imac.png';
+import Footer from '../components/Main/Footer';
 
 const Landing = () => {
   // TypeIt
@@ -29,6 +30,7 @@ const Landing = () => {
     }).go();
   }, []);
 
+  // focus slier
   useEffect(() => {
     slide();
     slide2();
@@ -130,325 +132,329 @@ const Landing = () => {
   };
 
   return (
-    <Container>
-      <header>
-        <div className="header-inner">
-          <div className="gnb">
-            <a href="#none">서비스 설명</a>
-            <a href="#none">튜토리얼</a>
-            <a href="#none">사용후기</a>
-            <a href="#none">시작하기</a>
-          </div>
-        </div>
-      </header>
-      <section className="welcome">
-        <div className="logo-inner">
-          <div className="logo">
-            <Logo />
-          </div>
-          <div className="sports">
-            <Exercise fill="#E4E2EB" width="105px" />
-          </div>
-          <div className="culture">
-            <Culture fill="#E4E2EB" width="61px" />
-          </div>
-          <div className="study">
-            <Study fill="#E4E2EB" width="81px" />
-          </div>
-          <div className="beauty">
-            <Beauty fill="#E4E2EB" width="60px" />
-          </div>
-          <div className="counseling">
-            <Consulting fill="#E4E2EB" width="95px" />
-          </div>
-          <div className="etc">
-            <Other fill="#E4E2EB" width="77px" />
-          </div>
-        </div>
-        <div className="welcome-heading">
-          <span> 여러분의 일상을 실시간으로 생생하게 공유해봐요.</span>
-          <h1>
-            무엇이든 좋아요! 네모 안에 함께 하고 싶은걸 넣어봐요.
-            <div className="typingBox">
-              <em id="typing"></em>
-              <p>WITH ME.</p>
-            </div>
-          </h1>
-        </div>
-        <div className="mouse">
-          <span className="wheele"></span>
-        </div>
-      </section>
-      <section className="focus">
-        <div className="focus-inner">
-          <div className="focus-content">
-            <div className="focus-item">
-              <div className="img-box">
-                <img src=""></img>
-              </div>
-              <div>
-                <p>
-                  <span>서로를 응원</span>하며 집중력과
-                </p>
-                <p>성취도를 높여봐요</p>
-              </div>
-            </div>
-            <div className="focus-item">
-              <div className="img-box">
-                <img src=""></img>
-              </div>
-              <div>
-                <p>얻고 싶거나 알려주고 싶은</p>
-                <p>
-                  <span>팁을 쉽게 공유</span>헤요
-                </p>
-              </div>
-            </div>
-
-            <div className="focus-item">
-              <div className="img-box">
-                <img src=""></img>
-              </div>
-              <div>
-                <p>
-                  <span>공통 관심사</span>를 가지고 있는
-                </p>
-                <p>
-                  친구와 <span>소통</span>해요
-                </p>
-              </div>
+    <>
+      <Container>
+        <header className="active">
+          <div className="header-inner">
+            <div className="gnb">
+              <a href="#feature1">서비스 설명</a>
+              <a href="#feature2">튜토리얼</a>
+              <a href="#feature3">사용후기</a>
+              <a href="/">시작하기</a>
             </div>
           </div>
-          <div className="slider">
-            <div className="categorySlider">
-              <div className="category-box">
-                <div className="category">
-                  운동
-                  <Exercise width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category" fill="#7179f0">
-                  뷰티
-                  <Beauty width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  스터디
-                  <Study width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  상담
-                  <Consulting width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  문화
-                  <Culture width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  기타
-                  <Other width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  운동
-                  <Exercise width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category" fill="#7179f0">
-                  뷰티
-                  <Beauty width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  스터디
-                  <Study width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  상담
-                  <Consulting width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  문화
-                  <Culture width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  기타
-                  <Other width="32px" fill="#7179f0" />
-                </div>
-              </div>
+        </header>
+        <section className="welcome">
+          <div className="logo-inner">
+            <div className="logo">
+              <Logo />
             </div>
-            <div className="categorySlider2">
-              <div className="category-box">
-                <div className="category" fill="#7179f0">
-                  뷰티
-                  <Beauty width="32px" fill="#7179f0" />
+            <div className="sports">
+              <Exercise fill="#E4E2EB" width="105px" />
+            </div>
+            <div className="culture">
+              <Culture fill="#E4E2EB" width="61px" />
+            </div>
+            <div className="study">
+              <Study fill="#E4E2EB" width="81px" />
+            </div>
+            <div className="beauty">
+              <Beauty fill="#E4E2EB" width="60px" />
+            </div>
+            <div className="counseling">
+              <Consulting fill="#E4E2EB" width="95px" />
+            </div>
+            <div className="etc">
+              <Other fill="#E4E2EB" width="77px" />
+            </div>
+          </div>
+          <div className="welcome-heading">
+            <span> 여러분의 일상을 실시간으로 생생하게 공유해봐요.</span>
+            <h1>
+              무엇이든 좋아요! 네모 안에 함께 하고 싶은걸 넣어봐요.
+              <div className="typingBox">
+                <em id="typing"></em>
+                <p>WITH ME.</p>
+              </div>
+            </h1>
+          </div>
+          <div className="mouse">
+            <span className="wheele"></span>
+          </div>
+        </section>
+        <section className="focus" id="feature1">
+          <div className="focus-inner">
+            <div className="focus-content">
+              <div className="focus-item">
+                <div className="img-box">
+                  <img src=""></img>
+                </div>
+                <div>
+                  <p>
+                    <span>서로를 응원</span>하며 집중력과
+                  </p>
+                  <p>성취도를 높여봐요</p>
                 </div>
               </div>
-              <div className="category-box">
-                <div className="category">
-                  스터디
-                  <Study width="32px" fill="#7179f0" />
+              <div className="focus-item">
+                <div className="img-box">
+                  <img src=""></img>
                 </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  상담
-                  <Consulting width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  문화
-                  <Culture width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  기타
-                  <Other width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  운동
-                  <Exercise width="32px" fill="#7179f0" />
+                <div>
+                  <p>얻고 싶거나 알려주고 싶은</p>
+                  <p>
+                    <span>팁을 쉽게 공유</span>헤요
+                  </p>
                 </div>
               </div>
 
-              <div className="category-box">
-                <div className="category" fill="#7179f0">
-                  뷰티
-                  <Beauty width="32px" fill="#7179f0" />
+              <div className="focus-item">
+                <div className="img-box">
+                  <img src=""></img>
                 </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  스터디
-                  <Study width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  상담
-                  <Consulting width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  문화
-                  <Culture width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  기타
-                  <Other width="32px" fill="#7179f0" />
-                </div>
-              </div>
-              <div className="category-box">
-                <div className="category">
-                  운동
-                  <Exercise width="32px" fill="#7179f0" />
+                <div>
+                  <p>
+                    <span>공통 관심사</span>를 가지고 있는
+                  </p>
+                  <p>
+                    친구와 <span>소통</span>해요
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
-          <p className="msg">
-            다양한 카테고리! 수 많은 방 중 원하는 곳에 참여하세요.
-          </p>
-        </div>
-      </section>
-      <section className="tutorial">
-        <p>방을 만들고, 함께 시작해볼까요?</p>
-        <img src={iMac} alt="imac" />
-        <video src={exVideo} autoPlay muted loop></video>
-      </section>
-      <section className="review">
-        <Slider {...settings}>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div className="slider">
+              <div className="categorySlider">
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+              </div>
+              <div className="categorySlider2">
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+              </div>
             </div>
+            <p className="msg">
+              다양한 카테고리! 수 많은 방 중 원하는 곳에 참여하세요.
+            </p>
           </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+        </section>
+        <section className="tutorial" id="feature2">
+          <p>방을 만들고, 함께 시작해볼까요?</p>
+          <img src={iMac} alt="imac" />
+          {/* <video src={exVideo} autoPlay muted loop></video> */}
+        </section>
+        <section className="review" id="feature3">
+          <Slider {...settings}>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="review-box">
-              <p className="content">
-                “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한 주제로
-                무얼하니 더 즐거워요 !“
-              </p>
-              <p className="nickname">- 지금 잘 시간</p>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
             </div>
-          </div>
-        </Slider>
-      </section>
-      <footer></footer>
-    </Container>
+            <div>
+              <div className="review-box">
+                <p className="content">
+                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
+                  주제로 무얼하니 더 즐거워요 !“
+                </p>
+                <p className="nickname">- 지금 잘 시간</p>
+              </div>
+            </div>
+          </Slider>
+        </section>
+        <footer>
+          <Footer />
+        </footer>
+      </Container>
+    </>
   );
 };
 
@@ -458,13 +464,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  section {
+    margin-top: 100px;
+  }
+
   header {
     position: fixed;
     top: 0;
     left: 0%;
     width: 100%;
     z-index: 999;
-    background-color: #c4c4c4;
 
     .header-inner {
       max-width: 1300px;
@@ -479,13 +488,19 @@ const Container = styled.div`
         a {
           margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
           font-size: 25px;
-          font-weight: 700;
-          color: #000;
+          font-weight: 500;
           text-decoration: none;
+          color: #000;
         }
       }
     }
   }
+
+  header.active {
+    background-color: #fff;
+    box-shadow: -6px -6px 8px #ffffff, 0px 0px 8px rgba(0, 0, 0, 0.15);
+  }
+
   .welcome {
     width: 1100px;
     height: 100vh;
@@ -495,6 +510,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     row-gap: 10%;
+    margin-top: 0;
 
     .logo-inner {
       width: 100%;
@@ -632,6 +648,7 @@ const Container = styled.div`
     }
   }
   .focus {
+    padding-top: 40px;
     .focus-inner {
       width: 1100px;
       height: 100vh;
@@ -775,6 +792,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     padding: 30px;
+    margin-top: 0;
 
     div {
       width: 100%;
@@ -782,7 +800,7 @@ const Container = styled.div`
 
       .review-box {
         width: 80%;
-        height: 100%;
+        height: 98%;
         margin: auto;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
@@ -804,5 +822,13 @@ const Container = styled.div`
       }
     }
   }
+
+  footer {
+    width: 1100px;
+  }
+
+  @keyframes ltr {
+  }
 `;
+
 export default Landing;

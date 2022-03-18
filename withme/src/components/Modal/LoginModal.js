@@ -43,8 +43,8 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
           <HelloText>
             반갑습니다 <br /> 오늘도 즐거운 만남을 위해 잘 오셨어요
           </HelloText>
-          <div style={{position:"relative"}}>          
-            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+          <div style={{position:"relative"}}>       
+            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
             <Input
             label=""
             placeholder="이메일을 입력해주세요."
@@ -55,7 +55,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
           />
         </div>
         <div style={{position:"relative"}}>
-          <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+          <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
           <Input
               label=""
               placeholder="비밀번호를 입력해주세요."
@@ -75,7 +75,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
           </LineWrap>
           <LoginButtonWrap>
             <div style={{position:"relative"}}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute", left:'12', top:'8'}}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",margin: '8px 12px'}}>
                   <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="#F0DB24"/>
                   <path d="M15.9302 7.76001C10.8302 7.76001 6.7002 11.02 6.7002 15.05C6.7002 17.67 8.4502 19.97 11.0802 21.26C10.8902 21.98 10.3802 23.87 10.2802 24.26C10.1802 24.65 10.4602 24.76 10.6702 24.62L14.2202 22.21C14.7863 22.2946 15.3578 22.338 15.9302 22.34C21.0302 22.34 25.1602 19.07 25.1602 15.04C25.1602 11.01 21.0002 7.76001 15.9302 7.76001Z" fill="#381B1A"/>
                   <path d="M12.2201 12.8999H9.52006C9.39886 12.9025 9.28333 12.9517 9.19761 13.0375C9.11189 13.1232 9.06261 13.2387 9.06006 13.3599C9.06006 13.4203 9.07196 13.4801 9.09507 13.5359C9.11819 13.5917 9.15207 13.6425 9.19479 13.6852C9.2375 13.7279 9.28821 13.7618 9.34402 13.7849C9.39983 13.808 9.45965 13.8199 9.52006 13.8199H10.4001V17.0499C10.3978 17.1094 10.4082 17.1687 10.4306 17.2239C10.4531 17.2791 10.4869 17.3288 10.5301 17.3699C10.6133 17.4508 10.724 17.4972 10.8401 17.4999H10.9401C11.0592 17.4978 11.1732 17.4514 11.2601 17.3699C11.3433 17.2842 11.3899 17.1694 11.3901 17.0499V13.8199H12.2201C12.3421 13.8199 12.4591 13.7714 12.5453 13.6852C12.6316 13.5989 12.6801 13.4819 12.6801 13.3599C12.6775 13.2387 12.6282 13.1232 12.5425 13.0375C12.4568 12.9517 12.3413 12.9025 12.2201 12.8999Z" fill="#F0DB24"/>
@@ -93,7 +93,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
               </SocalLoginBtn>
             </div>
             <div style={{position:"relative"}}>
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute", left:"12", top:"8"}}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",margin: '8px 12px'}}>
               <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="#3DAF43"/>
               <path d="M14.0898 15.94V21.52H10.0098V10.48H14.0898L17.9698 16V10.48H21.9898V21.52H17.9098L14.0898 15.94Z" fill="white"/>
             </svg>
@@ -226,8 +226,7 @@ const Line = styled.hr`
 
 //회원가입 문장쪽
 const SignupWrap = styled.div`
-  width: 228px;
-  height: 37px;
+  width: fit-content;
   margin: 40px auto 8px auto;
   div {
     color: #8a8ba3;
