@@ -175,6 +175,7 @@ const WeekTime = ({ week }) => {
     ],
   };
   const option = {
+    responsive: false,
     scales: {
       x: {
         stacked: true,

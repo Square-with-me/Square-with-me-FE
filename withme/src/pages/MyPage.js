@@ -304,6 +304,7 @@ const Container = styled.div`
   #start {
     width: 350px;
     height: 70vh;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -363,7 +364,7 @@ const Container = styled.div`
       margin-bottom: 10px;
     }
     #endTopBox {
-      min-height: 25vh;
+      height: 25vh;
       width: 100%;
       display: flex;
       align-items: center;
