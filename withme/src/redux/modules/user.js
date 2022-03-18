@@ -4,20 +4,13 @@ import axios from 'axios';
 import { apis,api_token } from '../../shared/api';
 // import jwt_decode from "jwt-decode";
 
-import { RESPJ } from '../../shared/resopnseJ';
-import { setCookie } from '../../shared/Cookie';
-
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
-const NOT_USER = 'NOT_USER';
-const NOT_USER_LOG_OUT = 'NOT_USER_LOG_OUT';
 const USER_INFO = 'USER_INFO'
 const DELETE_USER_INFO = 'DELETE_USER_INFO'
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const notUser = createAction(NOT_USER, (user) => ({ user }));
-const notUserLogOut = createAction(NOT_USER_LOG_OUT, (user) => ({ user }));
 const userInfo = createAction(USER_INFO, (userInfo)=>({userInfo}))
 const deleteUserInfo =createAction(DELETE_USER_INFO, (userid)=>({userid}))
 
@@ -35,6 +28,7 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
+        alert("로그인에 성공하였습니다!")
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
         window.location.reload('/')
@@ -111,54 +105,6 @@ const logInCheckDB = () => {
   };
 };
 
-//비회원 로그인
-const NotMemberloginDB = () => {
-  return function (getState, dispatch, { history }) {
-     apis.nonMemberLogin()
-     .then((response)=>{
-         let token = response.data.data.token
-         localStorage.setItem("notUser_is_login", token)
-         dispatch(notUser({
-            user_id : response.data.user.id,
-            nick : response.data.user.nickname,
-            statusMsg : response.data.user.statusMsg,
-            token : response.data.token
-         }))
-         window.location.reload('/')
-     })
-     .catch((error)=>{
-         console.log(error)
-     })
-  };
-};
-
-//비회원 로그인 체킹 미들웨어
-const NotMemberLoginCheckDB = () => {
-  return function (getState, dispatch, { history }) {
-    apis.nonMemberLoginCheck().then((res) => {
-      if (!res.data.isSuccess) {
-        alert('회원정보가 올바르지 않습니다.');
-        history.replace('/');
-        return;
-      }
-      const user = res.data.data.user;
-      console.log(res)
-      dispatch(
-        notUser({
-          ...user,
-        })
-      );
-    });
-    // api_token.get(`/api/user/me`)
-    // .then((res)=>{
-    //   const user = res.data.data.user;
-    //   dispatch(notUser({...user}))
-    // })
-    // .catch((err)=>{
-    //   console.log(err)
-    // })
-  };
-};
 
 //리덕스
 export default handleActions(
@@ -198,9 +144,6 @@ const actionCreators = {
   logInDB,
   logInCheckDB,
   signUpDB,
-  NotMemberloginDB,
-  NotMemberLoginCheckDB,
-  notUserLogOut,
   userInfo,
   deleteUserInfo
 };

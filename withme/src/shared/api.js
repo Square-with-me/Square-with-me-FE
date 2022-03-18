@@ -5,8 +5,8 @@ const accessToken = document.cookie.split("=")[1];
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  // baseURL: 'http://15.164.48.35:80',
-  baseURL: "http://14.45.204.153:7034",
+  baseURL: 'http://15.164.48.35:80',
+  // baseURL: "http://14.45.204.153:7034",
   headers: {
     Authorization: `Bearer ${token}`,
     "content-type": "application/json;charset=UTF-8",
@@ -33,5 +33,9 @@ export const apis = {
   getRoomPossible: () => api.get("/api/rooms?q=possible"),
 
   //checkPwd
-  checkPwd:(pwd, roomId)=> api.get(`/api/room/${roomId}/pwd/${pwd}`)
+  checkPwd:(pwd, roomId)=> api.get(`/api/room/${roomId}/pwd/${pwd}`),
+
+  //edit
+  getBadges:()=>api.get("/api/user/:userId/badges"),
+  editBadge :(userId)=>api.patch(`/api/user/${userId}/profile/masterBadge`)
 };

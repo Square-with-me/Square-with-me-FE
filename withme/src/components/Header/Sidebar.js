@@ -117,7 +117,7 @@ const Sidebar = (props) => {
           <div>
 
           </div>
-          <div>
+          {/* <div>
             <Text
               onClick={() => {
                 history.push(`/mypage/${user.id}`);
@@ -126,7 +126,7 @@ const Sidebar = (props) => {
             >
               마이페이지
             </Text>
-          </div>
+          </div> */}
         </Wrap>
         <ModalBackground
           onClick={() => {

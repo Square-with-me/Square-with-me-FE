@@ -45,14 +45,14 @@ const SignupModal = ({  setIsSignup }) => {
         setIsSignup(false)
       }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M4 4L20 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
         </svg>
       </Headers>
       <Contents>
         <HelloText>환영합니다 <br/> 저희와 재미있는 만남을 만들어봐요!</HelloText>
           <div style={{position:"relative"}}>
-            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+            <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
             <Input
                   label=""
                   placeholder="이메일을 입력해주세요."
@@ -63,7 +63,7 @@ const SignupModal = ({  setIsSignup }) => {
                 />
           </div>
               <div style={{display:"flex",position:"relative"}}>
-                <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
                 <Input
                   label=""
                   placeholder="닉네임을 입력해주세요"
@@ -74,7 +74,7 @@ const SignupModal = ({  setIsSignup }) => {
                 />
               </div>
               <div style={{position:"relative"}}>
-                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
                 <Input
                   label=""
                   placeholder="비밀번호를 입력해주세요."
@@ -86,7 +86,7 @@ const SignupModal = ({  setIsSignup }) => {
                 />
               </div>
               <div style={{position:"relative"}}>
-                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute", left:"12", top:"8"}}/>
+                <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
                 <Input
                 label=""
                 placeholder="비밀번호를 다시 입력해주세요."

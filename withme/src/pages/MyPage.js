@@ -304,6 +304,7 @@ const Container = styled.div`
 
     #startBox {
       height: 65vh;
+      min-height: 660px;
       padding: 26px 26px 48px 26px;
     }
   }
@@ -328,9 +329,11 @@ const Container = styled.div`
     #middleTopBox {
       height: 20vh;
       padding: 0px 30px;
+      min-height: 212px;
     }
     #middleBottomBox {
       height: 40vh;
+      min-height: 296px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -359,10 +362,12 @@ const Container = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
+      min-height: 267px;
     }
 
     #endBottomBox {
       height: 35vh;
+      min-height: 238px;
       padding: 24px 32px;
     }
   }
@@ -548,7 +553,7 @@ const BadgeContainer = styled.div`
   }
 
   button {
-    width: 95px;
+    width: fit-content;
     height: 51px;
     padding: 12px 14px;
     background-color: #BCC0FF;

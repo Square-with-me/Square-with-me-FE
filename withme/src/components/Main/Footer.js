@@ -28,7 +28,7 @@ const Footer = () => {
               </A>
               <P>ㅁwith me 인스타그램 &nbsp; | &nbsp; </P>
               <P onClick={()=>{setBug(true)}}>버그제보/리뷰</P>
-              {bug && <BugModal/>}
+              {bug && <BugModal setBug={setBug}/>}
             </div>
           </Grid>
         </Div>
