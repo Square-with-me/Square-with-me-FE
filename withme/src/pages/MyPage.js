@@ -308,17 +308,14 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
     grid-column: 1 / 5;
-
     p.label {
       font-size: 24px;
       font-weight: 700;
       font-family: 'Noto Sans KR', sans-serif;
       color: #41414f;
     }
-
     #startBox {
       height: 65vh;
-      min-height: 660px;
       padding: 26px 26px 48px 26px;
     }
   }
@@ -329,7 +326,6 @@ const Container = styled.div`
     flex-direction: column;
     grid-column: 5 / 8;
     justify-content: space-between;
-
     p {
       font-family: 'Noto Sans';
       font-style: normal;
@@ -339,15 +335,12 @@ const Container = styled.div`
       color: #33344b;
       margin-bottom: 10px;
     }
-
     #middleTopBox {
       height: 20vh;
       padding: 0px 30px;
-      min-height: 212px;
     }
     #middleBottomBox {
       height: 40vh;
-      min-height: 296px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -360,7 +353,6 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     grid-column: 8 / 13;
-
     p {
       font-family: 'Noto Sans';
       font-style: normal;
@@ -370,38 +362,30 @@ const Container = styled.div`
       color: #33344b;
       margin-bottom: 10px;
     }
-
     #endTopBox {
       min-height: 25vh;
       width: 100%;
       display: flex;
       align-items: center;
-      min-height: 267px;
     }
-
     #endBottomBox {
       height: 35vh;
-      min-height: 238px;
       padding: 24px 32px;
     }
   }
-
   .boxStyle {
     background-color: #f7f7f7;
     box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
   }
-
   .width100 {
     width: 100%;
   }
-
   // 테블릿
   @media screen and (max-width: 1199px) {
     height: 100%;
     grid-template-columns: repeat(7, 1fr);
     padding: 50px 0;
-
     #end {
       grid-column: 1 / 8;
       height: 100%;
@@ -410,7 +394,6 @@ const Container = styled.div`
       }
     }
   }
-
   // 모바일
   @media screen and (max-width: 599px) {
     /* height: 100%;
@@ -425,14 +408,12 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
-
   .imageBox {
     width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     .filebox label {
       display: inline-block;
       /* padding: 0.5em 0.75em; */
@@ -458,16 +439,13 @@ const ProfileContainer = styled.div`
       border: 0;
     }
   }
-
   .hidden {
     display: none;
   }
-
   button {
     background-color: transparent;
     border: none;
   }
-
   .textBox {
     width: 60%;
     display: flex;
@@ -475,11 +453,9 @@ const ProfileContainer = styled.div`
     padding: 10px;
     justify-content: center;
     gap: 10px;
-
     .nameBox {
       display: flex;
       flex-direction: row;
-
       #nickname {
         font-size: 18px;
         line-height: 30px;
@@ -496,7 +472,6 @@ const ProfileContainer = styled.div`
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
         border: 2px solid #58596a;
-
         &:focus {
           background-color: transparent;
           outline-color: #7179f0;
@@ -507,7 +482,6 @@ const ProfileContainer = styled.div`
     .statusBox {
       display: flex;
       flex-direction: row;
-
       #statusText {
         font-size: 14px;
         line-height: 24.52px;
@@ -525,7 +499,6 @@ const ProfileContainer = styled.div`
         font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
         border: 2px solid #58596a;
-
         &:focus {
           background-color: transparent;
           outline-color: #7179f0;
@@ -533,7 +506,6 @@ const ProfileContainer = styled.div`
         }
       }
     }
-
     button {
       display: flex;
       align-items: center;
@@ -548,7 +520,6 @@ const BadgeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
   .badgeBox {
     height: 240px;
     width: 100%;
@@ -559,20 +530,17 @@ const BadgeContainer = styled.div`
     place-items: center;
     overflow-y: scroll;
   }
-
   .badge {
     width: 64px;
     height: 64px;
   }
-
   button {
-    width: fit-content;
+    width: 95px;
     height: 51px;
     padding: 12px 14px;
     background-color: #bcc0ff;
     border-radius: 4px;
     border: none;
-
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
@@ -581,7 +549,6 @@ const BadgeContainer = styled.div`
     transition: all 0.3s;
     color: #fff;
     font-weight: 700;
-
     &:hover {
       background-color: #7179f0;
       color: #fff;
@@ -594,7 +561,6 @@ const BadgeContainer2 = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-
   .badgeBox {
     height: 80%;
     width: 100%;
@@ -603,23 +569,19 @@ const BadgeContainer2 = styled.div`
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-row-gap: 20px;
     place-items: center;
-
     overflow-y: scroll;
     -ms-overflow-style: none; // IE and Edge
     scrollbar-width: none; // Firefox
-
     &::-webkit-scrollbar {
       display: none; // Chrome, Safari, Opera
     }
   }
-
   .badge {
     min-width: 50px;
     min-height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-
     background: #ffffff;
     border: 1px solid #8a8ba3;
   }

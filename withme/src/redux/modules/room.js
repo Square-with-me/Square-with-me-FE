@@ -193,7 +193,6 @@ export default handleActions(
       }),
     [SAVE_CHAT]: (state, action) =>
       produce(state, (draft) => {
-        console.log('세이브 챗', action.payload);
         draft.chattingList.push(action.payload);
       }),
   },
