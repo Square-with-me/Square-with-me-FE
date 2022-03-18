@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userEditActions } from '../../redux/modules/userEdit';
+import room, { actionCreators as roomActions } from '../../redux/modules/room';
 
 const Message = (props) => {
   const {
-    data: { sender, message, time = '오후 6:04' },
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
   } = props;
 
   return (
@@ -23,6 +26,8 @@ const Message = (props) => {
 const Chatting = ({ socketRef, roomId }) => {
   const dispatch = useDispatch();
 
+  const saveList = useSelector((store) => store.room.chattingList);
+
   const [userMessage, setUserMessage] = useState('');
   const [nickname, setNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -37,8 +42,12 @@ const Chatting = ({ socketRef, roomId }) => {
   }, [userNickname]);
 
   useEffect(() => {
+    setMessageList(saveList);
+  }, [saveList]);
+
+  useEffect(() => {
     socketRef.current.on('receive_message', (data) => {
-      setMessageList((list) => [...list, data]);
+      dispatch(roomActions.savechat(data));
     });
   }, [socketRef]);
 
@@ -55,7 +64,7 @@ const Chatting = ({ socketRef, roomId }) => {
       message: userMessage,
       time: timeString,
     };
-    setMessageList((list) => [...list, data]);
+    dispatch(roomActions.savechat(data));
 
     socketRef.current.emit('send_message', data);
   };

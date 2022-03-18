@@ -7,18 +7,21 @@ const GET_ROOM = 'GET_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
 const DEL_ROOM = 'DEL_ROOM';
 const HOT_ROOM = 'HOT_ROOM';
-const ENTER_ROOM ='ENTER_ROOM'
+const ENTER_ROOM = 'ENTER_ROOM';
+const SAVE_CHAT = 'SAVE_CHAT';
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
 const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
-const enterRoom = createAction(ENTER_ROOM,(roomInfo)=>({roomInfo}))
+const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
+const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
 
 const initialState = {
   list: [],
   hotList: [],
   myRoom: null,
+  chattingList: [],
 };
 
 // 방 정보 가져오기
@@ -120,7 +123,7 @@ const enteringRoomDB = (roomId, userId) => {
     axios
       .post(
         `http://15.164.48.35:80/api/room/${roomId}/user/${userId}`,
-        { },
+        {},
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('login-token')}`,
@@ -128,7 +131,7 @@ const enteringRoomDB = (roomId, userId) => {
         }
       )
       .then((res) => {
-        dispatch(enterRoom(res.data.data))
+        dispatch(enterRoom(res.data.data));
         history.push(`/room/${roomId}`);
       })
       .catch((error) => {
@@ -154,20 +157,19 @@ const PossibleRoomDB = () => {
 // 일반 방 => 방 참가 요청
 // 비번 방 => 비번확인 요청 => 방 참가 요청
 
-const CheckPwdDB =(pwd, roomId,userId)=>{
-  return function(dispatch, getState,{history}){
+const CheckPwdDB = (pwd, roomId, userId) => {
+  return function (dispatch, getState, { history }) {
     apis
-    .checkPwd(pwd, roomId)
-    .then((res)=>{
-      console.log(res)
-      dispatch(enteringRoomDB(roomId,userId))
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-}
-
+      .checkPwd(pwd, roomId)
+      .then((res) => {
+        console.log(res);
+        dispatch(enteringRoomDB(roomId, userId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 export default handleActions(
   {
@@ -179,14 +181,20 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(action.payload.rooms);
       }),
-    [ENTER_ROOM]: (state,action) => produce(state,(draft)=>{
+    [ENTER_ROOM]: (state, action) =>
+      produce(state, (draft) => {
         draft.myRoom = action.payload.roomInfo;
-    }),
+      }),
     [DEL_ROOM]: (state, action) => produce(state, (draft) => {}),
     [HOT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
         console.log(draft.hotList);
+      }),
+    [SAVE_CHAT]: (state, action) =>
+      produce(state, (draft) => {
+        console.log('세이브 챗', action.payload);
+        draft.chattingList.push(action.payload);
       }),
   },
   initialState
@@ -202,7 +210,9 @@ const actionCreators = {
   categoryRoomDB,
   PossibleRoomDB,
   enteringRoomDB,
-  CheckPwdDB
+  CheckPwdDB,
+
+  savechat,
 };
 
 export { actionCreators };
