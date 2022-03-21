@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(userActions.logInCheckDB())
-  })
+  },[])
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
