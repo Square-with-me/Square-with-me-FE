@@ -748,7 +748,6 @@ const Container = styled.div`
     align-content: space-between;
     position: relative;
     overflow: hidden;
-    // max-width: 100%;
     object-fit: cover;
   }
   .videoContainer {
@@ -757,10 +756,6 @@ const Container = styled.div`
     justify-content: center;
     background-color: #F7F7F7;
     border-radius: 5px;
-    // position: relative;
-    // overflow: hidden;
-    // max-width: 100%;
-    // object-fit: cover;
   }
   #rightBox {
     visibility: hidden;
