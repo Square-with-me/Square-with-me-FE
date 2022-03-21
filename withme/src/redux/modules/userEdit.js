@@ -74,11 +74,10 @@ const logInCheckDB = () => {
 // 이미지 주소 받아오기
 const getImageUrlDB = (userId, file) => {
   return function (dispatch, getState, { history }) {
-    console.log('디스패치', file);
     apis
       .imageUpload(file)
       .then((res) => {
-        const data = `http://15.164.48.35:80/${res.data}`;
+        const data = res.data;
         dispatch(editProfileDB(userId, data));
       })
       .catch(function (error) {
@@ -89,7 +88,7 @@ const getImageUrlDB = (userId, file) => {
 
 // 프로필 사진 수정하기
 const editProfileDB = (userId, profileUrl) => {
-  console.log(userId, profileUrl);
+  console.log('fgasgfsadf', userId, profileUrl);
   return function (dispatch, getState, { history }) {
     axios
       .patch(
@@ -102,7 +101,6 @@ const editProfileDB = (userId, profileUrl) => {
         }
       )
       .then(function (res) {
-        console.log('이미지 변경 완료??', res);
         dispatch(editProfile(profileUrl));
       })
       .catch(function (err) {
