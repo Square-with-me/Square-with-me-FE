@@ -43,7 +43,6 @@ const Mypage = (props) => {
   const week = useSelector((store) => store.userEdit.week);
 
   useEffect(() => {
-    dispatch(userEditActions.logInCheckDB());
     dispatch(userEditActions.timeGetDB(userId));
   }, []);
 
@@ -133,6 +132,7 @@ const Mypage = (props) => {
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
               </div>
+              <div className="badgeImg"></div>
               <div className="textBox">
                 <div className="nameBox">
                   <div id="nickname"> {user ? user.nickname : ''}</div>
@@ -422,6 +422,7 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
+  position: relative;
   .imageBox {
     width: 40%;
     display: flex;
@@ -453,6 +454,17 @@ const ProfileContainer = styled.div`
       border: 0;
     }
   }
+  .badgeImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 80px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+  }
+
   .hidden {
     display: none;
   }

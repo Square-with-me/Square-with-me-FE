@@ -478,10 +478,17 @@ const Container = styled.div`
   align-items: center;
 
   section {
-    margin-top: 100px;
+    width: 80vw;
+
+    @media screen and (max-width: 767px) {
+      margin-top: 0;
+      width: 100vw;
+    }
   }
 
   header {
+    width: 80vw;
+
     position: fixed;
     top: 0;
     left: 0%;
@@ -489,22 +496,18 @@ const Container = styled.div`
     z-index: 999;
 
     .header-inner {
-      max-width: 1300px;
-      min-width: 660px;
       margin: auto;
       overflow: hidden;
       height: 80px;
       display: flex;
       justify-content: right;
       align-items: center;
-      .gnb {
-        a {
-          margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
-          font-size: 25px;
-          font-weight: 500;
-          text-decoration: none;
-          color: #000;
-        }
+      .gnb a {
+        margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
+        font-size: 25px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #000;
       }
     }
   }
@@ -515,7 +518,6 @@ const Container = styled.div`
   }
 
   .welcome {
-    width: 1100px;
     height: 100vh;
     position: relative;
     display: flex;
@@ -539,8 +541,8 @@ const Container = styled.div`
 
       .sports {
         position: absolute;
-        left: 150px;
-        top: 0px;
+        left: 15%;
+        top: 0%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -659,12 +661,60 @@ const Container = styled.div`
         top: 10px;
       }
     }
+
+    // 로고 없애기
+    @media screen and (max-width: 1400px) {
+      .logo-inner {
+        height: 100px;
+
+        .sports {
+          display: none;
+        }
+        .culture {
+          display: none;
+        }
+        .study {
+          display: none;
+        }
+        .beauty {
+          display: none;
+        }
+        .counseling {
+          display: none;
+        }
+        .etc {
+          display: none;
+        }
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      height: auto;
+
+      .logo-inner {
+        height: 100px;
+      }
+      .welcome-heading {
+        width: auto;
+        word-break: keep-all;
+
+        span {
+          font-size: 16px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+      }
+      .mouse {
+        display: none;
+      }
+    }
   }
+
   .focus {
     padding-top: 30px;
     .focus-inner {
-      width: 1100px;
-      height: 100vh;
+      height: 764px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -773,11 +823,30 @@ const Container = styled.div`
         font-size: 24px;
         font-weight: 700;
         color: #33344b;
+        word-break: keep-all;
+        text-align: center;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: auto;
+      word-break: keep-all;
+
+      .focus-inner {
+        .focus-content {
+          width: 100%;
+
+          .focus-item {
+            .img-box {
+              width: 150px;
+              height: 150px;
+            }
+          }
+        }
       }
     }
   }
   .tutorial {
-    width: 1100px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -793,7 +862,7 @@ const Container = styled.div`
     }
 
     img {
-      width: 50%;
+      width: 70%;
       position: relative;
     }
 
@@ -805,7 +874,6 @@ const Container = styled.div`
   }
 
   .review {
-    width: 1100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -842,7 +910,6 @@ const Container = styled.div`
   }
 
   footer {
-    width: 1100px;
   }
 
   .ltr {

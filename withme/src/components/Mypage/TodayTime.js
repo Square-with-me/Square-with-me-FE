@@ -71,7 +71,7 @@ const TodayTime = () => {
   };
 
   if (dayList === null) return <Pie data={emptyData} options={emptyOption} />;
-  else return <Pie data={data} options={option} />;
+  return <Pie data={data} options={option} />;
 };
 
 export default TodayTime;
