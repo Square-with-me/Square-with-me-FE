@@ -9,6 +9,7 @@ const DEL_ROOM = 'DEL_ROOM';
 const HOT_ROOM = 'HOT_ROOM';
 const ENTER_ROOM = 'ENTER_ROOM';
 const SAVE_CHAT = 'SAVE_CHAT';
+const SET_MY_ROOM = 'SET_MY_ROOM'
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
@@ -16,6 +17,7 @@ const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
 const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
 const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
+const setMyRoom = createAction(SET_MY_ROOM, (roomInfo)=>({roomInfo}))
 
 const initialState = {
   list: [],
@@ -56,6 +58,7 @@ const addRoomDB = (roomInfo, category) => {
       .then((response) => {
         dispatch(addRoom(response.data.data));
         dispatch(enterRoom(response.data.data));
+        localStorage.setItem("myRoom", JSON.stringify(response.data.data))
         history.push(`/room/${response.data.data.id}`);
       })
       .catch((error) => {
@@ -132,6 +135,7 @@ const enteringRoomDB = (roomId, userId) => {
       )
       .then((res) => {
         dispatch(enterRoom(res.data.data));
+        localStorage.setItem("myRoom", JSON.stringify(res.data.data))
         history.push(`/room/${roomId}`);
       })
       .catch((error) => {
@@ -194,6 +198,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.chattingList.push(action.payload);
       }),
+    [SET_MY_ROOM]:(state, action)=>
+      produce(state,(draft)=>{
+        draft.myRoom =action.payload.roomInfo
+      })
   },
   initialState
 );
@@ -211,6 +219,7 @@ const actionCreators = {
   CheckPwdDB,
 
   savechat,
+  setMyRoom
 };
 
 export { actionCreators };

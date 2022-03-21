@@ -57,7 +57,8 @@ const Footer = () => {
               />
             </svg>
           </div>
-          <div>
+
+          <div className='text'>
             <P>네모위드미 소개 &nbsp; | &nbsp; </P>
             <A href="https://github.com/Square-with-me">
               네모위드미 깃허브 &nbsp; | &nbsp;
@@ -116,63 +117,53 @@ const Wrap = styled.div`
   bottom: 0;
   width: 100%;
   height: 6%;
-  background-color: #f7f7f7;
   display: contents;
   padding: 30px;
 
   .footerLogo {
-      width: 200px;
-      height: 31px;
-    }
-
-  @media only screen and (min-width: 898px) {
-    bottom: 0;
-    justify-items: space-between;
-    width: 100%;
-    height: 6%;
-    background-color: #F7F7F7;
+    width: 200px;
+    height: 31px;
   }
 
-  @media only screen and (min-width: 691px) and (max-width: 898px) {
+  @media screen and (min-width:1024px) {
     bottom: 0;
     justify-items: space-between;
     margin: auto;
     width: 100%;
     height: 6%;
-    background-color: #F7F7F7;
     font-size: 80%;
+
+    .footerLogo {
+      width: 200px;
+      height: 31px;
+    }
+  }
+
+  @media screen and (min-width:768px) and (max-width: 1023px)  {
+    /* display: flex; */
+    justify-items: space-between;
+    width: 100%;
+    font-size: 10px;
+    margin: auto;
 
     .footerLogo {
       width: 120px;
       height: 21px;
       margin-top: 7px;
     }
-  } 
+  }
 
-  @media only screen and (min-width: 525px) and (max-width: 691px) {
-    display: flex;
-    justify-content: center;
+  @media screen and (max-width:767px) {
+    .text{
+      margin: auto;
+    }
     width: 100%;
-    background-color: #F7F7F7;
     font-size: 10px;
 
     .footerLogo {
       display: none;
     }
   }
-
-  @media only screen and (min-width: 0px) and (max-width: 525px) {
-    position: relative;
-    justify-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #F7F7F7;
-    font-size: 10px;
-
-    .footerLogo {
-      display: none;
-    }
-  } 
-`
+`;
 
 export default Footer;

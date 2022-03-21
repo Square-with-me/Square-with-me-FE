@@ -99,9 +99,10 @@ const Sidebar = (props) => {
             >
               <UserNickIcon
                 fill="#000000"
-                width="32px"
-                height="32px"
-                style={{ marginRight: '8px' }}
+                width="30px"
+                height="30px"
+                style={{ 
+                  marginRight: '8px' }}
               />
               <Text
                 onClick={() => {
@@ -117,7 +118,7 @@ const Sidebar = (props) => {
           <div>
 
           </div>
-          {/* <div>
+          <div>
             <Text
               onClick={() => {
                 history.push(`/mypage/${user.id}`);
@@ -126,7 +127,7 @@ const Sidebar = (props) => {
             >
               마이페이지
             </Text>
-          </div> */}
+          </div>
         </Wrap>
         <ModalBackground
           onClick={() => {
@@ -159,6 +160,10 @@ const Wrap = styled.div`
   top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
+  @media screen and (max-width:767px){ 
+    right: -16px;
+    top:19px;
+  }
 
   @keyframes modal-show {
     from {
@@ -193,6 +198,9 @@ const Text = styled.div`
   font-size: 18px;
   color: #000000;
   cursor: pointer;
+  @media screen and (max-width:767px){ 
+    font-size: 15px;
+  }
 `;
 
 export default Sidebar;

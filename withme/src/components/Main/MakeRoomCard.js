@@ -7,7 +7,6 @@ import { ReactComponent as Plus } from '../../assets/main/plusIcon.svg';
 const MakeRoomCard = (props) => {
   return (
     <div>
-      {localStorage.getItem('login-token') ? (
         <RoomCardContainer
           onClick={() => {
             props.setMRooms(true);
@@ -15,19 +14,30 @@ const MakeRoomCard = (props) => {
         >
           <Plus className="plus"/>
         </RoomCardContainer>
-      ) : (
-        <RoomCardContainer
-          onClick={() => {
-            window.alert('로그인해야 방 만들수 있을껄?');
-          }}
-        >
-          <Plus className="plus"/>
-        </RoomCardContainer>
-      )}
       {props.MRooms && <MakeRoomModal setMRooms={props.setMRooms} />}
     </div>
   );
 };
+{/* <div>
+{localStorage.getItem('login-token') ? (
+  <RoomCardContainer
+    onClick={() => {
+      props.setMRooms(true);
+    }}
+  >
+    <Plus className="plus"/>
+  </RoomCardContainer>
+) : (
+  <RoomCardContainer
+    onClick={() => {
+      window.alert('로그인해야 방 만들수 있을껄?');
+    }}
+  >
+    <Plus className="plus"/>
+  </RoomCardContainer>
+)}
+{props.MRooms && <MakeRoomModal setMRooms={props.setMRooms} />}
+</div> */}
 
 const RoomCardContainer = styled.div`
   width: 255px;

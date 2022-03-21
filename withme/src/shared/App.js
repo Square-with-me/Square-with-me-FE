@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/configureStore';
@@ -9,16 +9,22 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import Kakao from '../components/Header/Kakao';
 import Landing from '../pages/Landing';
+import { useDispatch } from 'react-redux';
+import {actionCreators as userActions} from '../redux/modules/user'
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(userActions.logInCheckDB())
+  },[])
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-        <Route path="/" exact component={Main} />
+        <Route path="/" exact component={Landing}/>
+        <Route path="/main" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
-        <Route path="/land" exact component={Landing}/>
       </ConnectedRouter>
     </React.Fragment>
   );

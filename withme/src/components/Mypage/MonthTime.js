@@ -39,15 +39,16 @@ const Container = styled.div`
 `;
 
 const Cell = styled.div`
-  width: 30px;
-  height: 30px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background-color: ${(props) => props.bg};
   text-align: center;
-  line-height: 30px;
+  line-height: 2.5rem;
   color: #33344b;
   font-size: 14px;
   font-family: 'Noto Sans';
+  font-weight: 700;
 `;
 
 export default MonthTime;
