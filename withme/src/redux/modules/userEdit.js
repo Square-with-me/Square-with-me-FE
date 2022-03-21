@@ -28,8 +28,8 @@ const editProfile = createAction(EDIT_PROFILE, (profileUrl) => ({
 }));
 const editNick = createAction(EDIT_NICK, (nickname) => ({ nickname }));
 const editStatus = createAction(EDIT_STATUS, (status) => ({ status }));
-const editBadge = createAction(EDIT_BADGE, () => ({}));
-const getBadge = createAction(GET_BADGE, () => ({}));
+const editBadge = createAction(EDIT_BADGE, (badge) => ({badge}));
+const getBadge = createAction(GET_BADGE, (badgeList) => ({badgeList}));
 const todayTime = createAction(TODAY_TIME, () => ({}));
 const weekTime = createAction(WEEK_TIME, (weekTime) => weekTime);
 const monthTime = createAction(MONTH_TIME, (monthTime) => monthTime);
@@ -45,10 +45,12 @@ const initialState = {
       id: '',
       name: '',
     },
+    MyBadge:[]
   },
   today: '',
   week: '',
   month: [],
+  badges:[]
 };
 
 // //로그인 체크 미들웨어
@@ -159,9 +161,36 @@ const editStatusDB = (userId, status) => {
   };
 };
 
-const editBadgeDB = () => {};
+const editBadgeDB = (userId) => {
+  return function(dispatch, getState, {history}){
+    apis
+    .editBadge(userId)
+    .then((res)=>{
+      console.log(res)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+};
 
-const getBadgeDB = () => {};
+//전체 뱃지 가져오기
+const getBadgeDB = (userId) => {
+  return function(dispatch, getState, {history}){
+    apis
+    .getBadges(userId)
+    .then((res)=>{
+      console.log(res.data.data)
+      dispatch(getBadge(res.data.data))
+      if(res.data.data.newBadge){
+        alert("새로운 뱃지가 열렸습니다!")
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+};
 
 // 시간 받아오기
 const timeGetDB = (userId) => {
@@ -223,6 +252,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.month = action.payload;
       }),
+    [GET_BADGE] :(state, action)=>
+      produce(state, (draft)=>{
+        draft.badges = action.payload.badgeList
+      }),
+    [EDIT_BADGE]:(state, action)=>
+      produce(state, (draft)=>{
+
+      })
   },
   initialState
 );

@@ -30,6 +30,10 @@ const Mypage = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.userEdit.user);
+  const badges = useSelector((store)=>store.userEdit.badges)
+  useEffect(()=>{
+    dispatch(userEditActions.getBadgeDB(userId))
+  },[])
 
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
@@ -167,29 +171,15 @@ const Mypage = (props) => {
             </ProfileContainer>
             <BadgeContainer>
               <div className="badgeBox">
-                <div className="badge">
-                  <img src={bugBadge} />
-                </div>
-                <div className="badge">
-                  <img src={consultationBadge} />
-                </div>
-                <div className="badge">
-                  <img src={firstComeBadge} />
-                </div>
-                <div className="badge">
-                  <img src={beautyBadge} />
-                </div>
-                <div className="badge">
-                  <img src={cultureBadge} />
-                </div>
-                <div className="badge">
-                  <img src={exerciseBadge} />
-                </div>
-                <div className="badge">
-                  <img src={otherBadge} />
-                </div>
+                {badges && badges.map((b)=>{
+                  console.log(b.imageUrl)
+                  return (                
+                  <div className="badge">
+                  <img src={b.imageUrl} />
+                </div>)
+                })}
               </div>
-              <button>수정하기</button>
+              <button onClick={()=>{dispatch(userEditActions.editBadgeDB(userId))}}>수정하기</button>
             </BadgeContainer>
           </div>
         </div>

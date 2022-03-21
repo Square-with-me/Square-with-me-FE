@@ -36,7 +36,7 @@ const TodayTime = () => {
       tooltip: {
         callbacks: {
           label: function (context) {
-            let label = context.label + ': ' + context.formattedValue + '분';
+            let label = context.label + ': ' + Math.floor(context.formattedValue) + '분';
             return label;
           },
         },

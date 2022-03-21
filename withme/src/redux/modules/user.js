@@ -15,10 +15,8 @@ const userInfo = createAction(USER_INFO, (userInfo) => ({ userInfo }));
 const deleteUserInfo = createAction(DELETE_USER_INFO, (userid) => ({ userid }));
 
 const initialState = {
-  user: { origin: null, nick: null },
+  user: {},
   is_login: false,
-  notUser_is_login: false,
-  notUser: null,
   userInfo: [],
 };
 
