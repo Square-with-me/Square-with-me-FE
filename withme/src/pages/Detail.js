@@ -181,48 +181,6 @@ const Detail = (props) => {
   //   }
   // };
 
-  // 이모티콘 보내기
-  const sendEmoji = (emojiId) => {
-    const data = {
-      roomId: params.id,
-      id: socketRef.current.id,
-      emoji: emojiId,
-    };
-    showEmoji(data);
-    console.log(data);
-  };
-
-  // 아모티콘 보여주기
-  const showEmoji = (data) => {
-    socketRef.current.emit('send_message', data);
-    const { id, emoji } = data;
-    const targetVideo = document.getElementById(id);
-    if (emoji === 'happy') {
-      targetVideo.childNodes[1].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[1].classList.add('hidden'), 3000);
-    } else if (emoji === 'love') {
-      targetVideo.childNodes[2].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[2].classList.add('hidden'), 3000);
-    } else if (emoji === 'bad') {
-      targetVideo.childNodes[3].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[3].classList.add('hidden'), 3000);
-    } else if (emoji === 'sad') {
-      targetVideo.childNodes[4].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[4].classList.add('hidden'), 3000);
-    }
-  };
-
-  // 상대방 이모티콘 받기
-  useEffect(() => {
-    if (!socketRef.current) {
-      return;
-    }
-    socketRef.current.on('receive_message', (data) => {
-      console.log('받았당');
-      showEmoji(data);
-    });
-  }, [socketRef]);
-
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
     if (!room && myRoomInLS) {
@@ -235,8 +193,8 @@ const Detail = (props) => {
     if (!room || !user) {
       return;
     }
-    socketRef.current = io.connect('http://14.45.204.153:7034');
-    // // socketRef.current = io.connect('15.164.48.35:80');
+    // socketRef.current = io.connect('http://175.112.86.142:8088/');
+    socketRef.current = io.connect('14.45.204.153:7034');
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -449,9 +407,6 @@ const Detail = (props) => {
     }
   };
   const handleAudioOnOff = () => {
-    console.log('커런트', userVideo.current);
-    console.log('커런트오브젝트', userVideo.current.srcObject);
-    console.log('오디오', userVideo.current.srcObject.getAudioTracks());
     userVideo.current.srcObject
       .getAudioTracks()
       .forEach((track) => (track.enabled = !track.enabled));
@@ -532,6 +487,53 @@ const Detail = (props) => {
   function handleEnd() {
     window.location.replace('/');
   }
+
+  // 이모티콘 보내기
+  const sendEmoji = (emojiId) => {
+    const data = {
+      roomId: params.id,
+      id: socketRef.current.id,
+      emoji: emojiId,
+    };
+    console.log(data);
+    socketRef.current.emit('send_emoji', data);
+    showEmoji(data);
+  };
+
+  // 아모티콘 보여주기
+  const showEmoji = (data) => {
+    const { id, emoji } = data;
+    const targetVideo = document.getElementById(id);
+    if (emoji === 'happy') {
+      targetVideo.childNodes[1].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[1].classList.add('hidden'), 3000);
+    } else if (emoji === 'love') {
+      targetVideo.childNodes[2].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[2].classList.add('hidden'), 3000);
+    } else if (emoji === 'bad') {
+      targetVideo.childNodes[3].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[3].classList.add('hidden'), 3000);
+    } else if (emoji === 'sad') {
+      targetVideo.childNodes[4].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[4].classList.add('hidden'), 3000);
+    }
+  };
+
+  // function test(data) {
+  //   console.log("data", data)
+  // }
+
+  // 상대방 이모티콘 받기
+  useEffect(() => {
+    if (!socketRef.current) {
+      return;
+    }
+    socketRef.current.on('receive_emoji', showEmoji);
+
+    return () => {
+      socketRef.current.off('receive_emoji', showEmoji);
+    };
+  }, []);
 
   // useEffect(() => {
   //   console.log('peers table')
