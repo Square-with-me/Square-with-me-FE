@@ -327,7 +327,7 @@ useEffect(() => {
   socketRef.current.on("user left", onUserLeft);
 
   return () => {
-   socketRef.current.off("user left", onUserLeft);
+    socketRef.current.off("user left", onUserLeft);
   };
 }, [stream, peers]);
 
@@ -499,7 +499,7 @@ function handleEnd() {
         {peers.map((peer) => {
           return (
             <div key={peer.peerId} className="videoContainer">
-               <Video peer={peer.peer} />
+                <Video peer={peer.peer} />
             </div>
           );
         })}
@@ -753,12 +753,21 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
+    position: relative;
+    overflow: hidden;
+    // max-width: 100%;
+    object-fit: cover;
   }
   .videoContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #F7F7F7;
     border-radius: 5px;
+    // position: relative;
+    // overflow: hidden;
+    // max-width: 100%;
+    // object-fit: cover;
   }
   #rightBox {
     visibility: hidden;

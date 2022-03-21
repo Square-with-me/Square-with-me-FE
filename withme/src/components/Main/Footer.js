@@ -57,6 +57,7 @@ const Footer = () => {
               />
             </svg>
           </div>
+
           <div className='text'>
             <P>네모위드미 소개 &nbsp; | &nbsp; </P>
             <A href="https://github.com/Square-with-me">
