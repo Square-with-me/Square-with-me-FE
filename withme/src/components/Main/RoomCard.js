@@ -12,7 +12,7 @@ const RoomCard = (props) => {
     <div>
       {participantCnt === 4 ? (
         <Container2>
-          <RoomCardContainer>
+          <div className='roomcardcontainer'>
             <div>
               <div>
                 {props.isSecret === true ? (
@@ -171,7 +171,7 @@ const RoomCard = (props) => {
                 <TagText key={idx}>#{r.name}</TagText>
               ))}
             </div>
-          </RoomCardContainer>
+          </div>
         </Container2>
       ) : (
         <Container>
@@ -365,17 +365,17 @@ const Container = styled.div`
     margin-top: 5px;
   }
   }
-  @media screen and (max-width:550px){ 
-    width: 370px;
+  /* @media screen and (max-width:550px){ 
+    width: 100%;
     .roomcardcontainer{
-      width: 340px;
+      width: 100%;
       .icons{
         display: block;
         margin-left: 50px;
         margin-top: 6px;
       }
     }
-  }
+  } */
 `;
 
 const Container2 = styled.div`
@@ -384,20 +384,30 @@ const Container2 = styled.div`
   padding: 18px;
   border-radius: 4px;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-`;
-
-const RoomCardContainer = styled.div`
-  width: 227px;
-  height: 126px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-auto-rows: 2fr;
-  grid-gap: 5px;
-  .tag {
+  .roomcardcontainer{
+    width: 227px;
+    height: 126px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-auto-rows: 2fr;
+    grid-gap: 5px;
+    .tag {
     grid-column: 1/ 4;
     white-space: normal;
     margin-top: 5px;
   }
+  }
+  /* @media screen and (max-width:550px){ 
+    width: 100%;
+    .roomcardcontainer{
+      width: 100%;
+      .icons{
+        display: block;
+        margin-left: 50px;
+        margin-top: 6px;
+      }
+    }
+  } */
 `;
 
 const CategoryText = styled.div`

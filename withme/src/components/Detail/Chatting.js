@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userEditActions } from '../../redux/modules/userEdit';
+import { actionCreators as userActions } from '../../redux/modules/user';
 import { actionCreators as roomActions } from '../../redux/modules/room';
 
 const Message = (props) => {
@@ -46,16 +46,12 @@ const Chatting = ({ socketRef, roomId }) => {
   const dispatch = useDispatch();
 
   const saveList = useSelector((store) => store.room.chattingList);
+  const userNickname = useSelector((store) => store.user.user.nickname);
+  const userId = useSelector((store) => store.user.user.id);
 
   const [userMessage, setUserMessage] = useState('');
   const [nickname, setNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
-  const userNickname = useSelector((store) => store.user.user.nickname);
-  const userId = useSelector((store) => store.user.user.id);
-
-  // useEffect(() => {
-  //   dispatch(userEditActions.logInCheckDB());
-  // }, []);
 
   useEffect(() => {
     setNickName(userNickname);
