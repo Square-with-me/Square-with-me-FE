@@ -28,13 +28,16 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
-        alert('로그인에 성공하였습니다!');
+        console.log(res)
+        alert("로그인에 성공하였습니다!")
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
-        window.location.reload('/');
+        window.location.reload('/main')
       })
       .catch(function (error) {
+        console.log(error)
         alert(error.response.data.msg);
+
       });
     // apis.post('/api/auth',{
     //   origin:origin,
@@ -59,13 +62,12 @@ const logInDB = (origin, pwd) => {
 //회원가입 미들웨어
 const signUpDB = (origin, nickname, pwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(origin, nickname, pwd);
     apis
       .signup(origin, nickname, pwd)
       .then((res) => {
         window.alert(res.data.msg);
         console.log(res);
-        window.location.reload('/');
+        window.location.reload('/main');
       })
       .catch(function (error) {
         window.alert(error.response.data.msg);
@@ -79,7 +81,7 @@ const logInCheckDB = () => {
     apis.loginCheck().then((res) => {
       if (!res.data.isSuccess) {
         alert('회원정보가 올바르지 않습니다.');
-        history.replace('/');
+        history.replace('/main');
         return;
       }
       const user = res.data.data.user;
@@ -117,7 +119,7 @@ export default handleActions(
         localStorage.removeItem('login-token');
         draft.user = null;
         draft.is_login = false;
-        window.location.reload('/');
+        window.location.reload('/main')
       }),
 
     [USER_INFO]: (state, action) =>

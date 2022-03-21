@@ -154,7 +154,7 @@ const Landing = () => {
               <a href="#feature1">서비스 설명</a>
               <a href="#feature2">튜토리얼</a>
               <a href="#feature3">사용후기</a>
-              <a href="/">시작하기</a>
+              <a href="/main">시작하기</a>
             </div>
           </div>
         </header>

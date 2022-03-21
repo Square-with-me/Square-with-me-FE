@@ -78,7 +78,6 @@ const MenuBar = (props) => {
             <DropWrap>
               <DropBtn
                 onClick={() => setIsActive(!isActive)}
-                style={{ height: '40px' }}
               >
                 {props.category === '' ? (
                   <CategoryDText>카테고리</CategoryDText>
@@ -87,8 +86,8 @@ const MenuBar = (props) => {
                 )}
                 <div>
                   <svg
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 28 28"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -201,8 +200,8 @@ const MenuBar = (props) => {
       <Refresh
         style={{
           cursor: 'pointer',
-          width: '32px',
-          height: '32px',
+          width: '30px',
+          height: '30px',
           margin: 'auto 0px',
           fill: '#8A8BA3',
         }}
@@ -238,6 +237,11 @@ const AllBtn = styled.button`
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
+    width: 50px;
+    height: 38px;
+  }
 `;
 
 const PossibleBtn = styled.button`
@@ -252,6 +256,10 @@ const PossibleBtn = styled.button`
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
+    height: 38px;
+  }
 `;
 
 const Category = styled.div`
@@ -259,15 +267,20 @@ const Category = styled.div`
   select {
     width: 148px;
     height: 40px;
-    border: 1px solid #8a8ba3;
+    border: none;
     border-radius: 4px;
     & :focus {
-      border: 1px solid #7179f0;
+      border: 1px none;
     }
   }
   select > option {
     width: 100%;
     background-color: blue;
+  }
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
+    width: 90px;
+    height: 38px;
   }
 `;
 
@@ -282,8 +295,15 @@ const DropBtn = styled.button`
   padding: 15px;
   border: none;
   width: 200px;
+  height: 43px;
   &:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  }
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
+    height: 38px;
+    width: 100px;
+    border: 1px solid #8a8ba3;
   }
 `;
 
@@ -292,6 +312,9 @@ const CategoryDText = styled.div`
   font-weight: 700;
 
   color: #8a8ba3;
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
+  }
 `;
 
 const DropWrap = styled.div`
@@ -299,9 +322,13 @@ const DropWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #8a8ba3;
+  border: 1px solid  #8a8ba3;
   border-radius: 4px;
   width: 140px;
+  @media screen and (max-width:767px){ 
+    width: fit-content;
+    border: none;
+  }
 `;
 const CategoryWrap = styled.div`
   display: flex;
@@ -312,6 +339,9 @@ const CategoryWrap = styled.div`
   div {
     font-size: 16px;
     color: #8a8ba3;
+    @media screen and (max-width:767px){ 
+    font-size: 13px;
+  }
   }
 
   &:hover {

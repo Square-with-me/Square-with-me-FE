@@ -128,6 +128,9 @@ const LoginWrap = styled.div`
   transform: translate(-50%, -50%);
   background: #FAFAFA;
   z-index: 100;
+  @media screen and (max-width:767px){ 
+	  width: 350px;
+}
 `
 //모달창 헤더
 const Headers = styled.div`
@@ -149,6 +152,9 @@ const HelloText = styled.div`
   line-height: 28px;
   align-items: center;
   color: #4a4a58;
+  @media screen and (max-width:767px){
+    font-size: 19px;
+  }
 `
 const Input = styled.input`
 border: 1px solid #8A8BA3;
@@ -157,6 +163,11 @@ height: 48px;
 margin-bottom: 16px;
 padding: 12px 12px 12px 50px;
 border-radius: 4px;
+@media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
 `
 const Btn = styled.button`
 width: 120px;
@@ -187,6 +198,10 @@ font-size: 18px;
 font-weight: 600;
 &:hover{
   background-color:#BCC0FF ;
+}
+@media screen and (max-width:767px){ 
+    width: 100%;
+    font-size: 15px;
 }
 `
 export default SignupModal;

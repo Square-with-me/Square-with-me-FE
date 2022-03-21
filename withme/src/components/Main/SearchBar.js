@@ -14,11 +14,12 @@ const SearchBar = (props) => {
           onChange={(e) => props.setSearch(e.target.value)}
         />
         <Search
+          className ="search"
           style={{
             cursor: 'pointer',
-            width: '32px',
-            height: '32px',
-            margin: 'auto 20px',
+            width: '30px',
+            height: '30px',
+            margin: 'auto 10px',
             position: 'absolute',
             fill: '#33344B',
           }}
@@ -48,6 +49,11 @@ const SearchBarInput = styled.input`
   border: 1px solid #8a8ba3;
   border-radius: 4px;
   padding: 10px;
+  @media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
 
   &:focus {
     background-color: transparent;

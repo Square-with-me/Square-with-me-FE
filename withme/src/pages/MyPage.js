@@ -103,7 +103,7 @@ const Mypage = (props) => {
     <Root>
       <Container>
         <div className="header">
-          <div onClick={() => history.replace('/')}>
+          <div onClick={() => history.replace('/main')} className="logo">
             <Logo />
           </div>
           <div className="side">
@@ -400,9 +400,19 @@ const Container = styled.div`
   }
   // 모바일
   @media screen and (max-width: 599px) {
-    /* height: 100%;
+    height: 100%;
     grid-template-columns: repeat(4, 1fr);
-    padding: 50px 0; */
+    margin: auto;
+    .header{
+      grid-column: 1/5;
+    }
+    #middle{
+      grid-column: 1 / 5;
+      width: 100%;
+    }
+    #end{
+      grid-column: 1 / 5;
+    }
   }
 `;
 

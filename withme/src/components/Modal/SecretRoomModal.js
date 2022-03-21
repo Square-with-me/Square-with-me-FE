@@ -80,6 +80,9 @@ const LoginWrap = styled.div`
   transform: translate(-50%, -50%);
   background: #fafafa;
   z-index: 100;
+  @media screen and (max-width:767px){ 
+	  width: 350px;
+}
 `;
 //모달창 헤더
 const Headers = styled.div`
@@ -101,6 +104,9 @@ const HelloText = styled.div`
   line-height: 28px;
   align-items: center;
   color: #33344b;
+  @media screen and (max-width:767px){
+    font-size: 19px;
+  }
 `;
 const Input = styled.input`
   border: 1px solid #8a8ba3;
@@ -109,6 +115,11 @@ const Input = styled.input`
   margin-bottom: 16px;
   padding: 12px 12px 12px 50px;
   border-radius: 4px;
+  @media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
 `;
 const LoginButton = styled.button`
   display: block;
@@ -120,6 +131,11 @@ const LoginButton = styled.button`
   border-radius: 4px;
   color: #fafaff;
   font-size: 18px;
+  @media screen and (max-width:767px){ 
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
+}
 `;
 
 export default SecretRoomModal;

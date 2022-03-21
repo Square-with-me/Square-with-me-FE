@@ -412,6 +412,9 @@ const LoginWrap = styled.div`
   transform: translate(-50%, -50%);
   background: #fafafa;
   z-index: 100;
+  @media screen and (max-width:767px){ 
+	  width: 350px;
+}
 `;
 //모달창 헤더
 const Headers = styled.div`
@@ -481,6 +484,11 @@ const TagInput = styled.input`
   margin-bottom: 16px;
   border: 1px solid #8a8ba3;
   padding: 12px 12px 12px 14px;
+  @media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
   &:focus-within {
     border: none;
     outline: 1px solid #7179f0;
@@ -515,6 +523,9 @@ const HelloText = styled.div`
   align-items: center;
   color: #4a4a58;
   font-weight: 700;
+  @media screen and (max-width:767px){
+    font-size: 19px;
+  }
 `;
 const Input = styled.input`
   border: 1px solid #8a8ba3;
@@ -523,6 +534,11 @@ const Input = styled.input`
   margin-bottom: 16px;
   padding: 12px 12px 12px 14px;
   border-radius: 4px;
+  @media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
   &:focus {
     border: none;
     outline: 1px solid #7179f0;
@@ -547,6 +563,9 @@ const CategoryDText = styled.div`
   font-size: 16px;
   color: #8a8ba3;
   font-weight:600;
+  @media screen and (max-width:767px){
+    font-size: 14px;
+  }
 `;
 
 const DropWrap = styled.div`
@@ -568,6 +587,9 @@ const CategoryWrap = styled.div`
     font-size: 16px;
     color: #8a8ba3;
     font-weight:700;
+    @media screen and (max-width:767px){
+    font-size: 14px;
+  }
   }
 
   &:hover {
