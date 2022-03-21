@@ -189,6 +189,7 @@ const Detail = (props) => {
       emoji: emojiId,
     };
     showEmoji(data);
+    console.log(data);
   };
 
   // 아모티콘 보여주기
@@ -234,8 +235,8 @@ const Detail = (props) => {
     if (!room || !user) {
       return;
     }
-    // socketRef.current = io.connect('http://175.112.86.142:8088/');
-    socketRef.current = io.connect('15.164.48.35:80');
+    socketRef.current = io.connect('http://14.45.204.153:7034');
+    // // socketRef.current = io.connect('15.164.48.35:80');
     navigator.mediaDevices
       .getUserMedia({
         video: true,
