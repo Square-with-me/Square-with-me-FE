@@ -313,14 +313,27 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
+  @media screen and (min-width:1024px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr))
+  }
+  @media screen and (min-width:813px) and (max-width: 1023px) {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    margin: 0px 20px;
+  }
+  @media screen and (min-width:550px) and (max-width:812px){ 
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  @media screen and (max-width:550px){ 
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+  }
 
-  @media screen and (min-width: 1607px) {
+  /* @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
-    /* row-gap: 32px; */
+    row-gap: 32px;
   }
   @media screen and (min-width: 1232px) and (max-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
-    /* row-gap: 32px; */
+    row-gap: 32px;
   }
   @media screen and (min-width: 878px) and (max-width: 1232px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
@@ -330,6 +343,6 @@ const RoomListContainer = styled.div`
   }
   @media screen and (min-width: 0px) and (max-width: 551px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
-  }
+  } */
 `;
 export default Main;

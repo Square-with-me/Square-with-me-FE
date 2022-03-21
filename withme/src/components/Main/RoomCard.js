@@ -110,7 +110,7 @@ const RoomCard = (props) => {
               <TitleText className="title">{props.title}</TitleText>
             </div>
 
-            <div>
+            <div className="icons">
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ marginRight: '4px' }}>
                   <svg
@@ -175,7 +175,7 @@ const RoomCard = (props) => {
         </Container2>
       ) : (
         <Container>
-          <RoomCardContainer>
+          <div className='roomcardcontainer'>
             <div>
               <div>
                 {props.isSecret === true ? (
@@ -273,7 +273,7 @@ const RoomCard = (props) => {
               <TitleText className="title">{props.title}</TitleText>
             </div>
 
-            <div>
+            <div className="icons">
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ marginRight: '4px' }}>
                   <svg
@@ -338,7 +338,7 @@ const RoomCard = (props) => {
                 );
               })}
             </div>
-          </RoomCardContainer>
+          </div>
         </Container>
       )}
     </div>
@@ -352,6 +352,30 @@ const Container = styled.div`
   border-radius: 4px;
   background-color: #F7F7F7;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+  .roomcardcontainer{
+    width: 227px;
+    height: 126px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-auto-rows: 2fr;
+    grid-gap: 5px;
+    .tag {
+    grid-column: 1/ 4;
+    white-space: normal;
+    margin-top: 5px;
+  }
+  }
+  @media screen and (max-width:550px){ 
+    width: 370px;
+    .roomcardcontainer{
+      width: 340px;
+      .icons{
+        display: block;
+        margin-left: 50px;
+        margin-top: 6px;
+      }
+    }
+  }
 `;
 
 const Container2 = styled.div`
