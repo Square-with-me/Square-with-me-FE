@@ -708,19 +708,26 @@ function handleEnd() {
 const Back =styled.div`
 height: 100%;
 background-color: #F7F7F7;
+@media all and (min-width:480px) and (max-width:767px) {
+    height: fit-content;
+  }
 `
 
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
-  width: 1110px;
-  height: 100vh;
+  max-width: 1110px;
+  min-width: 480px;
   background-color: #F7F7F7;
   margin: auto;
   display: grid;
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
+  @media all and (min-width:480px) and (max-width:767px) {
+    height: fit-content;
+  }
+
   #top {
     background-color: #F7F7F7;
     grid-row: 1/2;

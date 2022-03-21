@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import "../../styles/banner.css"
 
 const Banner =()=>{
@@ -34,4 +35,5 @@ const Banner =()=>{
    </React.Fragment>
  )
 }
+
 export default Banner;

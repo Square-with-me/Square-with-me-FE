@@ -20,11 +20,11 @@ function App() {
   return (
     <React.Fragment>
       <ConnectedRouter history={history}>
-        <Route path="/" exact component={Main} />
+        <Route path="/" exact component={Landing}/>
+        <Route path="/main" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />
         <Route path="/api/auth/kakao/callback" element={<Kakao />} />
         <Route path="/mypage/:id" exact component={MyPage} />
-        <Route path="/land" exact component={Landing}/>
       </ConnectedRouter>
     </React.Fragment>
   );
