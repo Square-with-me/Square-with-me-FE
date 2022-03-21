@@ -46,7 +46,10 @@ const RoomCard = (props) => {
                       </CategoryText>
                     ) : category === '상담' ? (
                       <CategoryText
-                        style={{ backgroundColor: '#FFD9B6', marginRight: '8px' }}
+                        style={{
+                          backgroundColor: '#FFD9B6',
+                          marginRight: '8px',
+                        }}
                       >
                         {props.category.name}
                       </CategoryText>
@@ -206,7 +209,10 @@ const RoomCard = (props) => {
                       </CategoryText>
                     ) : category === '상담' ? (
                       <CategoryText
-                        style={{ backgroundColor: '#FFD9B6', marginRight: '8px' }}
+                        style={{
+                          backgroundColor: '#FFD9B6',
+                          marginRight: '8px',
+                        }}
                       >
                         {props.category.name}
                       </CategoryText>
@@ -327,9 +333,9 @@ const RoomCard = (props) => {
               {props.Tags.map((r) => {
                 return (
                   <span key={r.id}>
-                      <TagText># {r.name}</TagText>
+                    <TagText># {r.name}</TagText>
                   </span>
-                )
+                );
               })}
             </div>
           </RoomCardContainer>
@@ -344,6 +350,7 @@ const Container = styled.div`
   border: none;
   padding: 18px;
   border-radius: 4px;
+  background-color: #F7F7F7;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
 `;
 

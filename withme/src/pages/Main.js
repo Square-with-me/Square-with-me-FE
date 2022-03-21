@@ -38,9 +38,9 @@ const Main = () => {
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
   // 로그인 체크
-  useEffect(() => {
-    dispatch(userActions.logInCheckDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userActions.logInCheckDB());
+  // }, []);
 
   // 카테고리 선택하기ㄴ
   useEffect(() => {
@@ -109,7 +109,7 @@ const Main = () => {
           <Header />
         </div>
 
-        <div className="logo" onClick={()=>history.replace('/')}>
+        <div className="logo" onClick={()=>history.replace('/main')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
 
@@ -205,35 +205,14 @@ const Main = () => {
 
 const Back =styled.div`
 height: 100%;
-background: linear-gradient(to top, #F7F7F7 62vh, #fff 3vh);
-@media screen and (min-width: 1607px) {
-  background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
-  }
-  @media screen and (min-width: 1232px) and (max-width: 1607px) {
-    background: linear-gradient(to top, #F7F7F7 62%, #fff 30%);
-  }
-  @media screen and (min-width: 878px) and (max-width: 1232px) {
-    background: linear-gradient(to top, #F7F7F7 66.5%, #fff 30%);
-  }
-  @media screen and (min-width: 790px) and (max-width: 878px) {
-    background: linear-gradient(to top, #F7F7F7 72.9%, #fff 20%);
-  }
-  @media screen and (min-width: 551px) and (max-width: 790px) {
-    background: linear-gradient(to top, #F7F7F7 73.5%, #fff 20%);
-  }
-  @media screen and (min-width: 550px) and (max-width: 551px) {
-    background: linear-gradient(to top, #F7F7F7 80%, #fff 20%);
-  }
-  @media screen and (min-width: 0px) and (max-width: 550px) {
-    background: linear-gradient(to top, #F7F7F7 83%, #fff 20%);
-  }
+background-color: #F7F7F7;
 `
 //share
 const Wrap = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   max-width: 1110px;
-  min-width: 470px;
+  min-width: 390px;
   margin: auto;
   grid-gap: 30px;
   margin: auto;
@@ -242,6 +221,12 @@ const Wrap = styled.div`
     grid-column: 12/13;
     display: flex;
     justify-content: end;
+    @media screen and (min-width:768px) and (max-width: 1023px) {
+      margin: 0px 10px;
+    }
+    @media screen and (max-width:767px){ 
+      margin: 0px 10px;
+    }
   }
   .logo {
     grid-column: 1/13;
@@ -251,9 +236,20 @@ const Wrap = styled.div`
   }
   .searchbar {
     grid-column: 4/10;
+    @media screen and (max-width:767px){ 
+      grid-column: 1/13;
+      width: 200px;
+      margin: auto;
+    }
   }
   .banner {
     grid-column: 1/13;
+    @media screen and (min-width:768px) and (max-width: 1023px) {
+      margin: 0px 10px;
+    }
+    @media screen and (max-width:767px){ 
+      margin: 0px 10px;
+    }
   }
   .hotroomlist {
     grid-column: 1/13;
@@ -264,6 +260,12 @@ const Wrap = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media screen and (min-width:768px) and (max-width: 1023px) {
+      margin: 0px 10px;
+    }
+    @media screen and (max-width:767px){ 
+      margin: 0px 10px;
+    }
   }
   .roomlist {
     grid-column: 1/13;
@@ -297,6 +299,9 @@ const Btn = styled.button`
     background-color:#7179F0;
     color: #fff;
     box-shadow: 0 1px 5px rgb(113, 121, 240);
+  }
+  @media screen and (max-width:767px){ 
+    font-size: 13px;
   }
 `;
 

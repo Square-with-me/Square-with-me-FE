@@ -13,7 +13,6 @@ import MHeader from '../components/Header/MHeader';
 import Logo from '../components/Main/Logo';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as usereditActions } from '../redux/modules/userEdit';
 import { actionCreators as userEditActions } from '../redux/modules/userEdit';
 
 // badge
@@ -44,7 +43,6 @@ const Mypage = (props) => {
   const week = useSelector((store) => store.userEdit.week);
 
   useEffect(() => {
-    dispatch(userEditActions.logInCheckDB());
     dispatch(userEditActions.timeGetDB(userId));
   }, []);
 
@@ -63,7 +61,7 @@ const Mypage = (props) => {
       // 수정 끝
       nicknameText.classList.remove('hidden');
       inputNickname.classList.add('hidden');
-      dispatch(usereditActions.editNickDB(user.id, editNick));
+      dispatch(userEditActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
   };
@@ -83,7 +81,7 @@ const Mypage = (props) => {
       // 수정 끝
       statusText.classList.remove('hidden');
       inputStatus.classList.add('hidden');
-      dispatch(usereditActions.editStatusDB(user.id, editStatus));
+      dispatch(userEditActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
   };
@@ -93,7 +91,7 @@ const Mypage = (props) => {
     const img = e.target.files[0];
     const formData = new FormData();
     formData.append('image', img);
-    dispatch(usereditActions.getImageUrlDB(userId, formData));
+    dispatch(userEditActions.getImageUrlDB(userId, formData));
   };
 
   const onClickImage = () => {
@@ -105,7 +103,7 @@ const Mypage = (props) => {
     <Root>
       <Container>
         <div className="header">
-          <div onClick={() => history.replace('/')}>
+          <div onClick={() => history.replace('/main')} className="logo">
             <Logo />
           </div>
           <div className="side">
@@ -134,6 +132,7 @@ const Mypage = (props) => {
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
               </div>
+              <div className="badgeImg"></div>
               <div className="textBox">
                 <div className="nameBox">
                   <div id="nickname"> {user ? user.nickname : ''}</div>
@@ -252,7 +251,7 @@ const Mypage = (props) => {
               <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
             </div>
           </div>
-          <div className="width100">
+          <div className="width100 endBottomBoxWrap">
             <Text>이번 달 네모와 함께한 시간</Text>
             <div id="endBottomBox" className="boxStyle">
               <MonthTimeBox>
@@ -304,6 +303,7 @@ const Container = styled.div`
   #start {
     width: 350px;
     height: 70vh;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -363,10 +363,11 @@ const Container = styled.div`
       margin-bottom: 10px;
     }
     #endTopBox {
-      min-height: 25vh;
+      height: 25vh;
       width: 100%;
       display: flex;
       align-items: center;
+      padding: 10px;
     }
     #endBottomBox {
       height: 35vh;
@@ -392,13 +393,26 @@ const Container = styled.div`
       p {
         margin-top: 10px;
       }
+      .endBottomBoxWrap {
+        margin-top: 40px;
+      }
     }
   }
   // 모바일
   @media screen and (max-width: 599px) {
-    /* height: 100%;
+    height: 100%;
     grid-template-columns: repeat(4, 1fr);
-    padding: 50px 0; */
+    margin: auto;
+    .header{
+      grid-column: 1/5;
+    }
+    #middle{
+      grid-column: 1 / 5;
+      width: 100%;
+    }
+    #end{
+      grid-column: 1 / 5;
+    }
   }
 `;
 
@@ -408,6 +422,7 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
+  position: relative;
   .imageBox {
     width: 40%;
     display: flex;
@@ -439,6 +454,17 @@ const ProfileContainer = styled.div`
       border: 0;
     }
   }
+  .badgeImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 80px;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+  }
+
   .hidden {
     display: none;
   }

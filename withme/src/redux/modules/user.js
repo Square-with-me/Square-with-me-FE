@@ -1,25 +1,25 @@
 import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import axios from 'axios';
-import { apis,api_token } from '../../shared/api';
+import { apis, api_token } from '../../shared/api';
 // import jwt_decode from "jwt-decode";
 
 const SET_USER = 'SET_USER';
 const LOG_OUT = 'LOG_OUT';
-const USER_INFO = 'USER_INFO'
-const DELETE_USER_INFO = 'DELETE_USER_INFO'
+const USER_INFO = 'USER_INFO';
+const DELETE_USER_INFO = 'DELETE_USER_INFO';
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const userInfo = createAction(USER_INFO, (userInfo)=>({userInfo}))
-const deleteUserInfo =createAction(DELETE_USER_INFO, (userid)=>({userid}))
+const userInfo = createAction(USER_INFO, (userInfo) => ({ userInfo }));
+const deleteUserInfo = createAction(DELETE_USER_INFO, (userid) => ({ userid }));
 
 const initialState = {
   user: { origin: null, nick: null },
   is_login: false,
   notUser_is_login: false,
   notUser: null,
-  userInfo:[]
+  userInfo: [],
 };
 
 //로그인 미들웨어
@@ -28,13 +28,16 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
+        console.log(res)
         alert("로그인에 성공하였습니다!")
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
-        window.location.reload('/')
+        window.location.reload('/main')
       })
       .catch(function (error) {
+        console.log(error)
         alert(error.response.data.msg);
+
       });
     // apis.post('/api/auth',{
     //   origin:origin,
@@ -59,16 +62,12 @@ const logInDB = (origin, pwd) => {
 //회원가입 미들웨어
 const signUpDB = (origin, nickname, pwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(origin, nickname, pwd);
     apis
       .signup(origin, nickname, pwd)
       .then((res) => {
-        if (res.isSuccess === true) {
-          window.alert(res.msg)
-          window.location.reload('/')
-        } else {
-          window.alert(res.msg)
-        }
+        window.alert(res.data.msg);
+        console.log(res);
+        window.location.reload('/main');
       })
       .catch(function (error) {
         window.alert(error.response.data.msg);
@@ -76,18 +75,17 @@ const signUpDB = (origin, nickname, pwd) => {
   };
 };
 
-
 //로그인 체크 미들웨어
 const logInCheckDB = () => {
   return function (dispatch, getState, { history }) {
     apis.loginCheck().then((res) => {
       if (!res.data.isSuccess) {
         alert('회원정보가 올바르지 않습니다.');
-        history.replace('/');
+        history.replace('/main');
         return;
       }
       const user = res.data.data.user;
-      console.log(res)
+      console.log(res);
       dispatch(
         setUser({
           ...user,
@@ -105,7 +103,6 @@ const logInCheckDB = () => {
   };
 };
 
-
 //리덕스
 export default handleActions(
   {
@@ -122,18 +119,20 @@ export default handleActions(
         localStorage.removeItem('login-token');
         draft.user = null;
         draft.is_login = false;
-        window.location.reload('/')
+        window.location.reload('/main')
       }),
 
-      [USER_INFO]:(state,action)=>
-      produce(state,(draft)=>{
-        draft.userInfo = [...draft.userInfo, ...action.payload.userInfo]
+    [USER_INFO]: (state, action) =>
+      produce(state, (draft) => {
+        draft.userInfo = [...draft.userInfo, ...action.payload.userInfo];
       }),
 
-      [DELETE_USER_INFO]:(state, action)=>
-      produce(state,(draft)=>{
-        draft.userInfo = draft.userInfo.filter((user) => user.id !== action.payload.userid)
-      })
+    [DELETE_USER_INFO]: (state, action) =>
+      produce(state, (draft) => {
+        draft.userInfo = draft.userInfo.filter(
+          (user) => user.id !== action.payload.userid
+        );
+      }),
   },
   initialState
 );
@@ -145,7 +144,7 @@ const actionCreators = {
   logInCheckDB,
   signUpDB,
   userInfo,
-  deleteUserInfo
+  deleteUserInfo,
 };
 
 export { actionCreators };

@@ -175,6 +175,7 @@ const WeekTime = ({ week }) => {
     ],
   };
   const option = {
+    maintainAspectRatio: false,
     scales: {
       x: {
         stacked: true,
@@ -214,14 +215,6 @@ const WeekTime = ({ week }) => {
       },
     },
   };
-  return (
-    <>
-      {week ? (
-        <Bar data={data} options={option} style={{ height: '100%' }} />
-      ) : (
-        ''
-      )}
-    </>
-  );
+  return <>{week ? <Bar data={data} options={option} /> : ''}</>;
 };
 export default WeekTime;

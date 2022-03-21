@@ -53,9 +53,9 @@ const Chatting = ({ socketRef, roomId }) => {
   const userNickname = useSelector((store) => store.user.user.nickname);
   const userId = useSelector((store) => store.user.user.id);
 
-  useEffect(() => {
-    dispatch(userEditActions.logInCheckDB());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userEditActions.logInCheckDB());
+  // }, []);
 
   useEffect(() => {
     setNickName(userNickname);

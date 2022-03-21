@@ -5,6 +5,7 @@ import TypeIt from 'typeit';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import WOW from 'wowjs';
 
 import { ReactComponent as Logo } from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
@@ -14,6 +15,10 @@ import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg'
 import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
 import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
 import exVideo from '../assets/videos/exVideo.mov';
+import landing1 from '../assets/landing/landing.jpeg';
+import landing2 from '../assets/landing/landing2.jpeg';
+import landing3 from '../assets/landing/landing3.jpeg';
+
 import iMac from '../assets/videos/imac.png';
 import Footer from '../components/Main/Footer';
 
@@ -30,6 +35,15 @@ const Landing = () => {
     }).go();
   }, []);
 
+  // WOW
+  useEffect(() => {
+    new WOW.WOW({
+      boxClass: 'wow',
+      offset: 150,
+      mobile: true,
+    }).init();
+  }, []);
+
   // focus slier
   useEffect(() => {
     slide();
@@ -44,7 +58,7 @@ const Landing = () => {
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true, // 자동 스크롤 사용 여부
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
   };
 
   const slide = () => {
@@ -140,31 +154,31 @@ const Landing = () => {
               <a href="#feature1">서비스 설명</a>
               <a href="#feature2">튜토리얼</a>
               <a href="#feature3">사용후기</a>
-              <a href="/">시작하기</a>
+              <a href="/main">시작하기</a>
             </div>
           </div>
         </header>
         <section className="welcome">
-          <div className="logo-inner">
-            <div className="logo">
+          <div className="logo-inner utd wow">
+            <div className="logo ">
               <Logo />
             </div>
-            <div className="sports">
+            <div className="sports ltr wow">
               <Exercise fill="#E4E2EB" width="105px" />
             </div>
-            <div className="culture">
+            <div className="culture ltr wow">
               <Culture fill="#E4E2EB" width="61px" />
             </div>
-            <div className="study">
+            <div className="study ltr wow">
               <Study fill="#E4E2EB" width="81px" />
             </div>
-            <div className="beauty">
+            <div className="beauty rtl wow">
               <Beauty fill="#E4E2EB" width="60px" />
             </div>
-            <div className="counseling">
+            <div className="counseling rtl wow">
               <Consulting fill="#E4E2EB" width="95px" />
             </div>
-            <div className="etc">
+            <div className="etc rtl wow">
               <Other fill="#E4E2EB" width="77px" />
             </div>
           </div>
@@ -185,9 +199,9 @@ const Landing = () => {
         <section className="focus" id="feature1">
           <div className="focus-inner">
             <div className="focus-content">
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing1}></img>
                 </div>
                 <div>
                   <p>
@@ -196,9 +210,9 @@ const Landing = () => {
                   <p>성취도를 높여봐요</p>
                 </div>
               </div>
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0.25s">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing2}></img>
                 </div>
                 <div>
                   <p>얻고 싶거나 알려주고 싶은</p>
@@ -207,10 +221,9 @@ const Landing = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="focus-item">
+              <div className="focus-item utd wow" data-wow-delay="0.5s">
                 <div className="img-box">
-                  <img src=""></img>
+                  <img src={landing3}></img>
                 </div>
                 <div>
                   <p>
@@ -465,10 +478,17 @@ const Container = styled.div`
   align-items: center;
 
   section {
-    margin-top: 100px;
+    width: 80vw;
+
+    @media screen and (max-width: 767px) {
+      margin-top: 0;
+      width: 100vw;
+    }
   }
 
   header {
+    width: 80vw;
+
     position: fixed;
     top: 0;
     left: 0%;
@@ -476,22 +496,18 @@ const Container = styled.div`
     z-index: 999;
 
     .header-inner {
-      max-width: 1300px;
-      min-width: 660px;
       margin: auto;
       overflow: hidden;
       height: 80px;
       display: flex;
       justify-content: right;
       align-items: center;
-      .gnb {
-        a {
-          margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
-          font-size: 25px;
-          font-weight: 500;
-          text-decoration: none;
-          color: #000;
-        }
+      .gnb a {
+        margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
+        font-size: 25px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #000;
       }
     }
   }
@@ -502,7 +518,6 @@ const Container = styled.div`
   }
 
   .welcome {
-    width: 1100px;
     height: 100vh;
     position: relative;
     display: flex;
@@ -526,8 +541,8 @@ const Container = styled.div`
 
       .sports {
         position: absolute;
-        left: 150px;
-        top: 0px;
+        left: 15%;
+        top: 0%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -646,12 +661,60 @@ const Container = styled.div`
         top: 10px;
       }
     }
+
+    // 로고 없애기
+    @media screen and (max-width: 1400px) {
+      .logo-inner {
+        height: 100px;
+
+        .sports {
+          display: none;
+        }
+        .culture {
+          display: none;
+        }
+        .study {
+          display: none;
+        }
+        .beauty {
+          display: none;
+        }
+        .counseling {
+          display: none;
+        }
+        .etc {
+          display: none;
+        }
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      height: auto;
+
+      .logo-inner {
+        height: 100px;
+      }
+      .welcome-heading {
+        width: auto;
+        word-break: keep-all;
+
+        span {
+          font-size: 16px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+      }
+      .mouse {
+        display: none;
+      }
+    }
   }
+
   .focus {
-    padding-top: 40px;
+    padding-top: 30px;
     .focus-inner {
-      width: 1100px;
-      height: 100vh;
+      height: 764px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -677,6 +740,12 @@ const Container = styled.div`
             border-radius: 50%;
             box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
             padding: 6px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+            }
           }
           p {
             font-size: 20px;
@@ -754,11 +823,30 @@ const Container = styled.div`
         font-size: 24px;
         font-weight: 700;
         color: #33344b;
+        word-break: keep-all;
+        text-align: center;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      width: 100vw;
+      height: auto;
+      word-break: keep-all;
+
+      .focus-inner {
+        .focus-content {
+          width: 100%;
+
+          .focus-item {
+            .img-box {
+              width: 150px;
+              height: 150px;
+            }
+          }
+        }
       }
     }
   }
   .tutorial {
-    width: 1100px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -774,7 +862,7 @@ const Container = styled.div`
     }
 
     img {
-      width: 50%;
+      width: 70%;
       position: relative;
     }
 
@@ -786,8 +874,6 @@ const Container = styled.div`
   }
 
   .review {
-    width: 1100px;
-    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -824,10 +910,53 @@ const Container = styled.div`
   }
 
   footer {
-    width: 1100px;
   }
 
+  .ltr {
+    animation: ltr 0.5s linear both; // both가 없으면 0 -> 100 -> 0 이 된다.
+  }
+
+  .rtl {
+    animation: rtl 0.5s linear both;
+  }
+
+  .utd {
+    animation: utd 0.5s linear both;
+  }
+
+  // 왼쪽에서 오른쪽
   @keyframes ltr {
+    0% {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0); // 제자리
+      opacity: 1;
+    }
+  }
+  // 오른쪽에서 왼쪽
+  @keyframes rtl {
+    0% {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0); // 제자리
+      opacity: 1;
+    }
+  }
+
+  // 위에서 아래로
+  @keyframes utd {
+    0% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0); // 제자리
+      opacity: 1;
+    }
   }
 `;
 

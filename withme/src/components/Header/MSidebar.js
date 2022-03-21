@@ -193,6 +193,9 @@ const Text = styled.div`
   font-size: 18px;
   color: #000000;
   cursor: pointer;
+  @media screen and (max-width:767px){ 
+    font-size: 15px;
+  }
 `;
 
 export default MSidebar;
