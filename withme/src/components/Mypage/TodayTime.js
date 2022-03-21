@@ -70,7 +70,7 @@ const TodayTime = () => {
     },
   };
 
-  // if (dayList === null) return <Pie data={emptyData} options={emptyOption} />;
+  if (dayList === null) return <Pie data={emptyData} options={emptyOption} />;
   return <Pie data={data} options={option} />;
 };
 
