@@ -81,15 +81,63 @@ ul,li{
 #pos3:checked ~ .bullet label:nth-child(3),
 #pos4:checked ~ .bullet label:nth-child(4){background:#aaf;} */
 
-*{margin:0;padding:0;}
+*{
+  margin:0;
+  padding:0;}
 ul,li{list-style:none;}
-.slide{height:231px;overflow:hidden;}
-.slide ul{width:calc(100% * 4);display:flex;animation:slide 30s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
-.slide li{width:calc(100% / 4);height:231px;}
-.slide li:nth-child(1){background:#ffa;}
-.slide li:nth-child(2){background:#faa;}
-.slide li:nth-child(3){background:#afa;}
-.slide li:nth-child(4){background:#aaf;}
+.slide{
+  height:183px;
+  overflow:hidden;
+}
+.slide ul{
+  width:calc(100% * 4);
+  display:flex;
+  animation:slide 45s infinite;} /* slide를 8초동안 진행하며 무한반복 함 */
+
+.slide li{
+  width:calc(100% / 4);
+  height:183px;}
+.slide li:nth-child(1){
+  background-image: url("../assets/banner/banner1.png");}
+.slide li:nth-child(2){
+  background-image: url("../assets/banner/banner2.png")}
+.slide li:nth-child(3){
+  background-image: url("../assets/banner/banner3.png")}
+.slide li:nth-child(4){
+  background-image: url("../assets/banner/banner4.png")}
+
+@media all and (max-width:767px) {
+  .slide{
+    height: 65px;
+    width: 390px;
+  }
+  .slide ul{
+    width: calc(100% * 4);
+    display: flex;
+    animation:slide 45s infinite;
+  }
+  .slide li{
+    width:calc(100% / 4);
+    height: 65px;
+  }
+  .slide li:nth-child(1){
+    background-size: 390px;
+    height: 65px;
+  }
+  .slide li:nth-child(2){
+    background-size: 390px;
+    height: 65px;
+  }
+  .slide li:nth-child(3){
+    background-size: 390px;
+    height: 65px;
+  }
+  .slide li:nth-child(4){
+    background-size: 390px;
+    height: 65px;
+  }
+}
+
 @keyframes slide {
   0% {margin-left:0;} /* 0 ~ 10  : 정지 */
   10% {margin-left:0;} /* 10 ~ 25 : 변이 */

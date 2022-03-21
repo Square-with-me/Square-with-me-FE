@@ -9,7 +9,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { actionCreators as roomActions } from '../redux/modules/room';
 
 // 방 입장
-import io, { Socket } from 'socket.io-client';
+import io from 'socket.io-client';
 import Peer from 'simple-peer';
 
 // icons
@@ -20,10 +20,6 @@ import { ReactComponent as OffCamera } from '../assets/inRoom/offCameraIcon.svg'
 // import {ReactComponent as Timer} from "../assets/inRoom/timerIcon.svg"
 // import {ReactComponent as UserList} from "../assets/inRoom/userListIcon.svg"
 // import {ReactComponent as Chatting} from "../assets/inRoom/chattingIcon.svg"
-import { ReactComponent as HappyEmoji } from '../assets/emoji/happy.svg';
-import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
-import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
-import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
 
 // emotion icons
 import { ReactComponent as ChooseEmotion } from '../assets/inRoomEmotion/chooseEmotion.svg';
@@ -70,15 +66,13 @@ const Detail = (props) => {
   // const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
-  const [isSW, setIsSW] = useState(false); // 스톱워치 박스
-  const [isPP, setIsPP] = useState(false); // 참가자 목록 박스
-  const [isCT, setIsCT] = useState(false); // 채팅 박스
+  const [isSW, setIsSW] = useState(false); // 스톱워치
+  const [isPP, setIsPP] = useState(false); // 참가자 목록
+  const [isCT, setIsCT] = useState(false); // 채팅
 
   const [isTimer, setIsTimer] = useState(false); // 스톱워치
   const [isUserList, setIsUserList] = useState(false); // 참가자 목록
   const [ischatting, setIsChatting] = useState(false); // 채팅
-
-  const [isEmoji, setIsEmoji] = useState(false);
 
   // 화상 채팅
   const [peers, setPeers] = useState([]);
@@ -89,8 +83,6 @@ const Detail = (props) => {
   const [stream, setStream] = useState(null);
 
   let params = useParams();
-
-  // const socket = Socket()
 
   // 사이드바 컨트롤
   useEffect(() => {
@@ -178,37 +170,6 @@ const Detail = (props) => {
       setIsChatting(true);
     }
   };
-
-  // 이모티콘 창 열기, 닫기
-  const emojiFunc = () => {
-    if (isEmoji === true) {
-      setIsEmoji(false);
-    } else {
-      setIsEmoji(true);
-    }
-  };
-
-  // 이모티콘 보내기
-  const sendEmoji = (emojiId) => {
-    const data = {
-      roomId: params.id,
-      id: socketRef.id,
-      emoji: emojiId,
-    };
-    showEmoji('와우', data);
-    socketRef.current.emit('send_message', data);
-  };
-
-  // 아모티콘 보여주기
-  const showEmoji = (data) => {
-    console.log(data);
-  };
-
-  useEffect(() => {
-    socketRef.current.on('receive_message', (data) => {
-      console.log('이모지 데이타!!!킷타!!!');
-    });
-  }, [socketRef]);
 
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
@@ -545,11 +506,7 @@ const Detail = (props) => {
             </div>
             {peers.map((peer) => {
               return (
-                <div
-                  key={peer.peerId}
-                  className="videoContainer"
-                  id={peer.peerId}
-                >
+                <div key={peer.peerId} className="videoContainer">
                   <Video peer={peer.peer} />
                 </div>
               );
@@ -788,34 +745,6 @@ const Detail = (props) => {
               ''
             )}
           </div>
-          {isEmoji ? (
-            <div className="emojiBox">
-              <HappyEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-
-              <LoveEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-              <BadEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-              <SadEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-            </div>
-          ) : (
-            ''
-          )}
-
           <div id="bottom">
             <div id="centerButton">
               <div
@@ -870,9 +799,6 @@ const Detail = (props) => {
                 style={{ marginRight: '15px' }}
                 width="32px"
                 fill="#8A8BA3"
-                onClick={() => {
-                  emojiFunc();
-                }}
               />
 
               <button>
@@ -970,19 +896,26 @@ const Detail = (props) => {
 const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
+  @media all and (min-width: 480px) and (max-width: 767px) {
+    height: fit-content;
+  }
 `;
 
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
-  width: 1110px;
-  height: 100vh;
+  max-width: 1110px;
+  min-width: 480px;
   background-color: #f7f7f7;
   margin: auto;
   display: grid;
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
+  @media all and (min-width: 480px) and (max-width: 767px) {
+    height: fit-content;
+  }
+
   #top {
     background-color: #f7f7f7;
     grid-row: 1/2;
@@ -1008,12 +941,21 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
+    position: relative;
+    overflow: hidden;
+    // max-width: 100%;
+    object-fit: cover;
   }
   .videoContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #f7f7f7;
     border-radius: 5px;
+    // position: relative;
+    // overflow: hidden;
+    // max-width: 100%;
+    // object-fit: cover;
   }
   #rightBox {
     visibility: hidden;
@@ -1057,26 +999,6 @@ const Container = styled.div`
       }
     }
   }
-
-  .emojiBox {
-    width: 200px;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    background-color: #f7f7f7;
-    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-    position: absolute;
-    bottom: 10%;
-    left: 40%;
-
-    .emoji {
-      width: 100px;
-      display: flex;
-      justify-content: center;
-    }
-  }
-
   #bottom {
     background-color: #f7f7f7;
     grid-row: 3/4;

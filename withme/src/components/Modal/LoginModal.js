@@ -74,7 +74,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
             <div>또는</div>
           </LineWrap>
           <LoginButtonWrap>
-            <div style={{position:"relative"}}>
+            <div style={{position:"relative"}} className='kakao'>
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",margin: '8px 12px'}}>
                   <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="#F0DB24"/>
                   <path d="M15.9302 7.76001C10.8302 7.76001 6.7002 11.02 6.7002 15.05C6.7002 17.67 8.4502 19.97 11.0802 21.26C10.8902 21.98 10.3802 23.87 10.2802 24.26C10.1802 24.65 10.4602 24.76 10.6702 24.62L14.2202 22.21C14.7863 22.2946 15.3578 22.338 15.9302 22.34C21.0302 22.34 25.1602 19.07 25.1602 15.04C25.1602 11.01 21.0002 7.76001 15.9302 7.76001Z" fill="#381B1A"/>
@@ -92,7 +92,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                 카카오로 로그인
               </SocalLoginBtn>
             </div>
-            <div style={{position:"relative"}}>
+            <div style={{position:"relative"}} className='kakao'>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",margin: '8px 12px'}}>
               <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="#3DAF43"/>
               <path d="M14.0898 15.94V21.52H10.0098V10.48H14.0898L17.9698 16V10.48H21.9898V21.52H17.9098L14.0898 15.94Z" fill="white"/>
@@ -144,6 +144,9 @@ const LoginWrap = styled.div`
   transform: translate(-50%, -50%);
   background: #fafafa;
   z-index: 100;
+  @media screen and (max-width:767px){ 
+	  width: 350px;
+}
 `;
 //모달창 헤더
 const Headers = styled.div`
@@ -165,6 +168,9 @@ const HelloText = styled.div`
   line-height: 28px;
   align-items: center;
   color: #4a4a58;
+  @media screen and (max-width:767px){
+    font-size: 19px;
+  }
 `;
 const Input = styled.input`
   border: 1px solid #8a8ba3;
@@ -173,6 +179,11 @@ const Input = styled.input`
   margin-bottom: 16px;
   padding: 12px 12px 12px 50px;
   border-radius: 4px;
+  @media screen and (max-width:767px){ 
+    ::placeholder {
+      font-size: 11px;
+    }
+  }
 `;
 
 const LoginButton = styled.button`
@@ -186,6 +197,11 @@ const LoginButton = styled.button`
   color: #fafaff;
   font-size: 18px;
   font-weight: 600;
+  @media screen and (max-width:767px){ 
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
+}
 `;
 const LoginButtonWrap = styled.div`
   display: flex;
@@ -193,6 +209,9 @@ const LoginButtonWrap = styled.div`
   align-items: center;
   width: auto;
   margin: 13px auto 0px auto;
+  @media screen and (max-width:767px){ 
+    width: 100%;
+}
 `;
 const SocalLoginBtn = styled.button`
   width: 173px;
@@ -203,6 +222,11 @@ const SocalLoginBtn = styled.button`
   margin: 0px 8px 0px 8px;
   font-size: 16px;
   font-weight: 600;
+  @media screen and (max-width:767px){ 
+    padding: 12px 0px 12px 25px;
+    width: 130px;
+    font-size: 12px;
+}
 `;
 const LineWrap = styled.div`
   display: flex;
@@ -231,6 +255,9 @@ const SignupWrap = styled.div`
   div {
     color: #8a8ba3;
     font-size: 14px;
+    @media screen and (max-width:767px){
+      font-size: 12px;
+    }
   }
   a {
     padding-left: 21px;
