@@ -27,12 +27,11 @@ import RoomInfo from '../components/Detail/RoomInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import Parti from '../components/Detail/Parti';
 import Logo from '../components/Main/Logo';
-// import {ReactComponent as Angry} from "../assets/inRoomEmotion/angryFaceIcon.svg"
-// import {ReactComponent as Heart} from "../assets/inRoomEmotion/heartIcon.svg"
-// import {ReactComponent as Like} from "../assets/inRoomEmotion/likeIcon.svg"
-// import {ReactComponent as LoveEyes} from "../assets/inRoomEmotion/loveEyesFaceIcon.svg"
-// import {ReactComponent as Sad} from "../assets/inRoomEmotion/sadFaceIcon.svg"
-// import {ReactComponent as Smile} from "../assets/inRoomEmotion/smileFaceIcon.svg"
+
+import { ReactComponent as HappyEmoji } from '../assets/emoji/happy.svg';
+import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
+import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
+import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
 
 // sadFaceIcon (inRoomEmotion)
 
@@ -66,13 +65,15 @@ const Detail = (props) => {
   // const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
-  const [isSW, setIsSW] = useState(false); // 스톱워치
-  const [isPP, setIsPP] = useState(false); // 참가자 목록
-  const [isCT, setIsCT] = useState(false); // 채팅
+  const [isSW, setIsSW] = useState(false); // 스톱워치 박스
+  const [isPP, setIsPP] = useState(false); // 참가자 목록 박스
+  const [isCT, setIsCT] = useState(false); // 채팅 박스
 
   const [isTimer, setIsTimer] = useState(false); // 스톱워치
   const [isUserList, setIsUserList] = useState(false); // 참가자 목록
   const [ischatting, setIsChatting] = useState(false); // 채팅
+
+  const [isEmoji, setIsEmoji] = useState(false);
 
   // 화상 채팅
   const [peers, setPeers] = useState([]);
@@ -170,6 +171,56 @@ const Detail = (props) => {
       setIsChatting(true);
     }
   };
+
+  // // 이모티콘 창 열기, 닫기
+  // const emojiFunc = () => {
+  //   if (isEmoji === true) {
+  //     setIsEmoji(false);
+  //   } else {
+  //     setIsEmoji(true);
+  //   }
+  // };
+
+  // 이모티콘 보내기
+  const sendEmoji = (emojiId) => {
+    const data = {
+      roomId: params.id,
+      id: socketRef.current.id,
+      emoji: emojiId,
+    };
+    showEmoji(data);
+  };
+
+  // 아모티콘 보여주기
+  const showEmoji = (data) => {
+    socketRef.current.emit('send_message', data);
+    const { id, emoji } = data;
+    const targetVideo = document.getElementById(id);
+    if (emoji === 'happy') {
+      targetVideo.childNodes[1].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[1].classList.add('hidden'), 3000);
+    } else if (emoji === 'love') {
+      targetVideo.childNodes[2].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[2].classList.add('hidden'), 3000);
+    } else if (emoji === 'bad') {
+      targetVideo.childNodes[3].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[3].classList.add('hidden'), 3000);
+    } else if (emoji === 'sad') {
+      targetVideo.childNodes[4].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[4].classList.add('hidden'), 3000);
+    }
+  };
+
+  // 상대방 이모티콘 받기
+  useEffect(() => {
+    if (!socketRef.current) {
+      return;
+    }
+    socketRef.current.on('receive_message', (data) => {
+      console.log('받았당');
+      showEmoji(data);
+    });
+  }, [socketRef]);
 
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
@@ -380,7 +431,7 @@ const Detail = (props) => {
 
   const roomFull = () => {
     alert('꽉 찼단다 애송아');
-    history.push('/');
+    history.push('/main');
   };
 
   const [videoOn, setVideoOn] = useState(true);
@@ -502,12 +553,46 @@ const Detail = (props) => {
           <div id="videoBox">
             <div key="my-video" className="videoContainer">
               {/* 본인 비디오 */}
-              <StyledVideo muted ref={userVideo} autoPlay playsInline />
+              {socketRef.current ? (
+                <div className="videoContainer" id={socketRef.current.id}>
+                  <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                  <div className="myEmoji myHappyEmoji hidden">
+                    <HappyEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji myLoveEmoji hidden">
+                    <LoveEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji myBadEmoji hidden">
+                    <BadEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji mySadEmoji hidden">
+                    <SadEmoji width="40px" height="40px" />
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             {peers.map((peer) => {
               return (
-                <div key={peer.peerId} className="videoContainer">
+                <div
+                  key={peer.peerId}
+                  className="videoContainer"
+                  id={peer.peerId}
+                >
                   <Video peer={peer.peer} />
+                  <div className="myEmoji myHappyEmoji hidden">
+                    <HappyEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji myLoveEmoji hidden">
+                    <LoveEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji myBadEmoji hidden">
+                    <BadEmoji width="40px" height="40px" />
+                  </div>
+                  <div className="myEmoji mySadEmoji hidden">
+                    <SadEmoji width="40px" height="40px" />
+                  </div>
                 </div>
               );
             })}
@@ -745,6 +830,33 @@ const Detail = (props) => {
               ''
             )}
           </div>
+          {isEmoji ? (
+            <div className="emojiBox">
+              <HappyEmoji
+                onClick={(e) => {
+                  sendEmoji(e.target.id);
+                }}
+              />
+
+              <LoveEmoji
+                onClick={(e) => {
+                  sendEmoji(e.target.id);
+                }}
+              />
+              <BadEmoji
+                onClick={(e) => {
+                  sendEmoji(e.target.id);
+                }}
+              />
+              <SadEmoji
+                onClick={(e) => {
+                  sendEmoji(e.target.id);
+                }}
+              />
+            </div>
+          ) : (
+            ''
+          )}
           <div id="bottom">
             <div id="centerButton">
               <div
@@ -799,6 +911,7 @@ const Detail = (props) => {
                 style={{ marginRight: '15px' }}
                 width="32px"
                 fill="#8A8BA3"
+                onClick={() => setIsEmoji(!isEmoji)}
               />
 
               <button>
@@ -956,6 +1069,23 @@ const Container = styled.div`
     // overflow: hidden;
     // max-width: 100%;
     // object-fit: cover;
+    position: relative;
+
+    .myEmoji {
+      background-color: #f7f7f7;
+      border-radius: 5px;
+      z-index: 999;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+      bottom: 50px;
+      left: 0;
+    }
+
+    .hidden {
+      display: none;
+    }
   }
   #rightBox {
     visibility: hidden;
@@ -999,6 +1129,26 @@ const Container = styled.div`
       }
     }
   }
+
+  .emojiBox {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #f7f7f7;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    bottom: 10%;
+    left: 40%;
+
+    .emoji {
+      width: 100px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
   #bottom {
     background-color: #f7f7f7;
     grid-row: 3/4;
