@@ -237,7 +237,7 @@ const AllBtn = styled.button`
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
     width: 50px;
     height: 38px;
@@ -256,7 +256,7 @@ const PossibleBtn = styled.button`
   :hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
     height: 38px;
   }
@@ -277,7 +277,7 @@ const Category = styled.div`
     width: 100%;
     background-color: blue;
   }
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
     width: 90px;
     height: 38px;
@@ -299,7 +299,7 @@ const DropBtn = styled.button`
   &:hover {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
     height: 38px;
     width: 100px;
@@ -312,7 +312,7 @@ const CategoryDText = styled.div`
   font-weight: 700;
 
   color: #8a8ba3;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
   }
 `;
@@ -325,7 +325,7 @@ const DropWrap = styled.div`
   border: 1px solid  #8a8ba3;
   border-radius: 4px;
   width: 140px;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     width: fit-content;
     border: none;
   }
@@ -339,7 +339,7 @@ const CategoryWrap = styled.div`
   div {
     font-size: 16px;
     color: #8a8ba3;
-    @media screen and (max-width:767px){ 
+    @media screen and (max-width:550px){ 
     font-size: 13px;
   }
   }
