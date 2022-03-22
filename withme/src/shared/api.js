@@ -5,7 +5,8 @@ const accessToken = document.cookie.split("=")[1];
 
 const api = axios.create({
   // http://14.45.204.153:7034/
-  baseURL: 'http://15.164.48.35:80',
+  // baseURL: 'http://15.164.48.35:80',
+  baseURL: 'http://52.79.234.176/',
   // baseURL: "http://14.45.204.153:7034",
   headers: {
     Authorization: `Bearer ${token}`,

@@ -28,11 +28,6 @@ import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
 import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
 import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
 
-const StyledVideo = styled.video`
-  width: 100%;
-  background-color: steelblue;
-`;
-
 const Video = (props) => {
   const ref = useRef();
 
@@ -1014,18 +1009,15 @@ const Back = styled.div`
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
-  max-width: 1110px;
-  min-width: 480px;
-  background-color: #f7f7f7;
+  width: 1110px;
+  height: 100vh;
+//   min-width: 480px;
+  background-color: #F7F7F7;
   margin: auto;
   display: grid;
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
-  @media all and (min-width: 480px) and (max-width: 550px) {
-    height: fit-content;
-    width: 100%;
-  }
 
   #top {
     background-color: #f7f7f7;
@@ -1052,21 +1044,15 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
-    position: relative;
-    overflow: hidden;
-    // max-width: 100%;
-    object-fit: cover;
   }
   .videoContainer {
+    height:100%;
     display: flex;
+    justify-content:center;
     align-items: center;
     justify-content: center;
     background-color: #f7f7f7;
     border-radius: 5px;
-    // position: relative;
-    // overflow: hidden;
-    // max-width: 100%;
-    // object-fit: cover;
     position: relative;
 
     .myEmoji {
@@ -1184,6 +1170,9 @@ const Container = styled.div`
       }
     }
   }
+`;
+const StyledVideo = styled.video`
+  height : 100%;
 `;
 
 const Button = styled.button`

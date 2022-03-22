@@ -45,7 +45,8 @@ const addRoomDB = (roomInfo, category) => {
   return function (dispatch, getState, { history }) {
     axios
       .post(
-        'http://15.164.48.35:80/api/room/new',
+        // 'http://15.164.48.35:80/api/room/new',
+        'http://52.79.234.176//api/room/new',
         {
           ...roomInfo,
         },
@@ -73,7 +74,8 @@ const delRoomDB = () => {};
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
-      .get('http://15.164.48.35:80/api/rooms?q=hot', {})
+      // .get('http://15.164.48.35:80/api/rooms?q=hot', {})
+      .get('http://52.79.234.176//api/rooms?q=hot', {})
       .then((res) => {
         dispatch(hotRoom(res.data.data));
       })
@@ -87,7 +89,8 @@ const hotRoomDB = () => {
 const searchRoomDB = (search) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms?q=${search}`, {
+      // .get(`http://15.164.48.35:80/api/rooms?q=${search}`, {
+      .get(`http://52.79.234.176//api/rooms?q=${search}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
@@ -105,7 +108,8 @@ const searchRoomDB = (search) => {
 const categoryRoomDB = (categoryId) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms/category/${categoryId}`, {
+      // .get(`http://15.164.48.35:80/api/rooms/category/${categoryId}`, {
+      .get(`http://52.79.234.176//api/rooms/category/${categoryId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
@@ -124,7 +128,8 @@ const enteringRoomDB = (roomId, userId) => {
   return function (dispatch, getState, { history }) {
     axios
       .post(
-        `http://15.164.48.35:80/api/room/${roomId}/user/${userId}`,
+        // `http://15.164.48.35:80/api/room/${roomId}/user/${userId}`,
+        `http://52.79.234.176/api/room/${roomId}/user/${userId}`,
         {},
         {
           headers: {
