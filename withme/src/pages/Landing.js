@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import WOW from 'wowjs';
 
 import { ReactComponent as Logo } from '../assets/landing/logo.svg';
+import logo from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
 import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
 import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
@@ -21,6 +22,8 @@ import landing3 from '../assets/landing/landing3.jpeg';
 
 import iMac from '../assets/videos/imac.png';
 import Footer from '../components/Main/Footer';
+
+import { HiOutlineMenu } from 'react-icons/hi';
 
 const Landing = () => {
   // TypeIt
@@ -148,8 +151,11 @@ const Landing = () => {
   return (
     <>
       <Container>
-        <header className="active">
+        <header>
           <div className="header-inner">
+            <div className="logo ">
+              <img src={logo} />
+            </div>
             <div className="gnb">
               <a href="#feature1">서비스 설명</a>
               <a href="#feature2">튜토리얼</a>
@@ -487,8 +493,8 @@ const Container = styled.div`
   }
 
   header {
-    width: 80vw;
-
+    background-color: #fff;
+    box-shadow: -6px -6px 8px #ffffff, 0px 0px 8px rgba(0, 0, 0, 0.15);
     position: fixed;
     top: 0;
     left: 0%;
@@ -497,24 +503,36 @@ const Container = styled.div`
 
     .header-inner {
       margin: auto;
+      width: 90vw;
+
       overflow: hidden;
       height: 80px;
       display: flex;
-      justify-content: right;
+      justify-content: space-between;
       align-items: center;
+
+      .logo img {
+        width: 200px;
+      }
+
       .gnb a {
-        margin: 30px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
+        margin: 20px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
         font-size: 25px;
-        font-weight: 500;
+        font-weight: 900;
         text-decoration: none;
-        color: #000;
+        color: #666;
+        word-break: keep-all;
       }
     }
-  }
+    @media screen and (max-width: 820px) {
+      background-color: gold;
+      .header-inner {
+        width: 100%;
 
-  header.active {
-    background-color: #fff;
-    box-shadow: -6px -6px 8px #ffffff, 0px 0px 8px rgba(0, 0, 0, 0.15);
+        .gnb {
+        }
+      }
+    }
   }
 
   .welcome {
@@ -843,9 +861,63 @@ const Container = styled.div`
             }
           }
         }
+        .slider {
+          width: 100%;
+          height: 110px;
+
+          .categorySlider {
+            width: 100%;
+            height: 50px;
+          }
+
+          .categorySlider2 {
+            width: 100%;
+            height: 50px;
+          }
+
+          .category-box {
+            width: 160px;
+            height: 100%;
+            position: absolute;
+
+            .category {
+              box-sizing: border-box;
+              width: 150px;
+              height: 100%;
+              border: 4px solid #7179f0;
+              border-radius: 50px;
+              background: #ffffff;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              column-gap: 10%;
+
+              font-size: 28px;
+              font-weight: 700;
+              color: #7179f0;
+            }
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 420px) {
+      width: 100vw;
+      height: auto;
+      word-break: keep-all;
+
+      .focus-inner {
+        .focus-content {
+          .focus-item {
+            .img-box {
+              width: 120px;
+              height: 120px;
+            }
+          }
+        }
       }
     }
   }
+
   .tutorial {
     height: 100vh;
     display: flex;

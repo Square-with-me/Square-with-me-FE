@@ -18,11 +18,13 @@ import MakeRoomCard from '../components/Main/MakeRoomCard';
 
 //redux
 import { actionCreators as roomActions } from '../redux/modules/room';
-import { actionCreators as userActions } from '../redux/modules/user';
 
 const Main = () => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
+
+  let roomList = useSelector((store) => store.room.list);
+  const hotRoom = useSelector((state) => state.room.hotList);
 
   const [MRooms, setMRooms] = useState(false);
   //검색
@@ -36,66 +38,65 @@ const Main = () => {
   const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
-
+  // 페이지 나누기
+  const [pageNum, setPageNum] = useState(1);
+  const [isSeacrh, setIsSearch] = useState(false);
 
   // 카테고리 선택하기
   useEffect(() => {
     if (choiceCate === 0) {
       // 전체 방 불러오기
-      dispatch(roomActions.getRoomDB());
+      dispatch(roomActions.emptyRoom());
+      dispatch(roomActions.getRoomDB(1));
+      setPageNum(2);
+      setIsSearch(false);
       setCategory('카테고리');
     } else {
       // 카테고리별 방 불러오기
-      dispatch(roomActions.categoryRoomDB(choiceCate));
+      dispatch(roomActions.emptyRoom());
+      dispatch(roomActions.categoryRoomDB(choiceCate, 1));
+      setPageNum(2);
+      setIsSearch(false);
     }
   }, [choiceCate]);
 
-  useEffect(() => {
-    if (possible === true) {
-      dispatch(roomActions.PossibleRoomDB());
-    } else {
-      dispatch(roomActions.getRoomDB());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (possible === true) {
+  //     dispatch(roomActions.PossibleRoomDB());
+  //   } else {
+  //     dispatch(roomActions.getRoomDB());
+  //   }
+  // }, []);
 
   // 공개방 참가하기
   const goRoom = (roomId) => {
     dispatch(roomActions.enteringRoomDB(roomId, userId));
   };
 
-  let roomList = useSelector((store) => store.room.list);
-  const hotRoom = useSelector((state) => state.room.hotList);
- 
-
+  // 핫한 방 불러오기
   React.useEffect(() => {
     dispatch(roomActions.hotRoomDB());
-    // dispatch(roomActions.getRoomDB())
   }, []);
 
-  const [startIndex, setStartIndex] = useState(8);
-  const [newList, setNewList] = useState([]);
-
-  useEffect(() => {
-    if (roomList === undefined) return;
-    setNewList(roomList.slice(0, 8));
-  }, [roomList]);
-
   const morePage = () => {
-    if (roomList.length >= startIndex + 8) {
-      setNewList((list) => [
-        ...list,
-        ...roomList.slice(startIndex, startIndex + 8),
-      ]);
-      setStartIndex(startIndex + 8);
+    console.log('페이지 더주라,,', pageNum);
+    if (isSeacrh === true) {
+      console.log('검색중,,,');
+      dispatch(roomActions.searchRoomDB(search, pageNum));
+      setPageNum(pageNum + 1);
+    } else if (possible === true) {
+      console.log('들어갈수 있는 애들만 찾는중,,,');
+      dispatch(roomActions.possibleRoomDB(pageNum));
+      setPageNum(pageNum + 1);
     } else {
-      setNewList((list) => [
-        ...list,
-        ...roomList.slice(startIndex, roomList.length),
-      ]);
-      setStartIndex(roomList.length);
+      if (choiceCate === 0) {
+        dispatch(roomActions.getRoomDB(pageNum));
+        setPageNum(pageNum + 1);
+      } else {
+        dispatch(roomActions.categoryRoomDB(choiceCate, pageNum));
+        setPageNum(pageNum + 1);
+      }
     }
-
-    console.log(startIndex);
   };
 
   return (
@@ -105,18 +106,24 @@ const Main = () => {
           <Header />
         </div>
 
-        <div className="logo" onClick={()=>history.replace('/main')}>
+        <div className="logo" onClick={() => history.replace('/main')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
 
         <div className="searchbar">
-          <SearchBar search={search} setSearch={setSearch} />
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            setIsSearch={setIsSearch}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+          />
         </div>
 
         <div className="banner">
-          <Banner/>
+          <Banner />
         </div>
-         
+
         <div className="menuList">
           <MenuBar
             possible={possible}
@@ -124,6 +131,8 @@ const Main = () => {
             setChoiceCate={setChoiceCate}
             category={category}
             setCategory={setCategory}
+            setPageNum={setPageNum}
+            setIsSearch={setIsSearch}
           />
         </div>
 
@@ -136,31 +145,33 @@ const Main = () => {
             ? hotRoom.map((data) => {
                 return (
                   <div key={data.id}>
-                    {data.isSecret === true ?(
-                      <div 
-                        onClick={()=>{
+                    {data.isSecret === true ? (
+                      <div
+                        onClick={() => {
                           setSecret(true);
                         }}
                       >
-                        <HotRoomCard {...data}/>
+                        <HotRoomCard {...data} />
                       </div>
                     ) : (
-                      <div 
-                        onClick={()=>{
+                      <div
+                        onClick={() => {
                           goRoom(data.id);
                         }}
                       >
-                        <HotRoomCard {...data}/>
+                        <HotRoomCard {...data} />
                       </div>
                     )}
-                    {secret && <SecretRoomModal setSecret={setSecret} data={data}/>}
+                    {secret && (
+                      <SecretRoomModal setSecret={setSecret} data={data} />
+                    )}
                   </div>
                 );
               })
             : ''}
 
-          {newList
-            ? newList.map((data) => {
+          {roomList
+            ? roomList.map((data) => {
                 return (
                   <div key={data.id}>
                     {data.isSecret === true ? (
@@ -180,7 +191,9 @@ const Main = () => {
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
-                    {secret && <SecretRoomModal setSecret={setSecret} data={data}/>}
+                    {secret && (
+                      <SecretRoomModal setSecret={setSecret} data={data} />
+                    )}
                   </div>
                 );
               })
@@ -199,10 +212,10 @@ const Main = () => {
   );
 };
 
-const Back =styled.div`
-height: 100%;
-background-color: #F7F7F7;
-`
+const Back = styled.div`
+  height: 100%;
+  background-color: #f7f7f7;
+`;
 //share
 const Wrap = styled.div`
   display: grid;
@@ -217,10 +230,10 @@ const Wrap = styled.div`
     grid-column: 12/13;
     display: flex;
     justify-content: end;
-    @media screen and (max-width: 1199px){
+    @media screen and (max-width: 1199px) {
       margin: 0px 10px;
     }
-    @media screen and (max-width:550px){ 
+    @media screen and (max-width: 550px) {
       margin: 0px 13px;
     }
   }
@@ -234,7 +247,7 @@ const Wrap = styled.div`
     grid-column: 1/13;
     width: 524px;
     margin: auto;
-    @media screen and (max-width:550px){ 
+    @media screen and (max-width: 550px) {
       grid-column: 1/13;
       width: 95%;
       margin: 0px auto;
@@ -253,11 +266,11 @@ const Wrap = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    @media screen and (max-width: 1199px){
+    @media screen and (max-width: 1199px) {
       width: 97%;
       margin: auto;
     }
-    @media screen and (max-width:550px){ 
+    @media screen and (max-width: 550px) {
       width: 95%;
       margin: auto;
     }
@@ -281,20 +294,20 @@ const Btn = styled.button`
   padding: 12px 14px;
   width: 78px;
   height: 51px;
-  border:none;
+  border: none;
   border-radius: 4px;
-  background-color: #BCC0FF;
+  background-color: #bcc0ff;
   font-size: 16px;
-  transition: all .3s;
+  transition: all 0.3s;
   color: #fff;
   font-weight: 700;
-  
+
   :hover {
-    background-color:#7179F0;
+    background-color: #7179f0;
     color: #fff;
     box-shadow: 0 1px 5px rgb(113, 121, 240);
   }
-  @media screen and (max-width:550px){ 
+  @media screen and (max-width: 550px) {
     font-size: 13px;
   }
 `;
@@ -307,17 +320,17 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
-  @media screen and (min-width:1024px) {
-    grid-template-columns: repeat(4, minmax(0px, 1fr))
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr));
   }
-  @media screen and (min-width:813px) and (max-width: 1023px) {
+  @media screen and (min-width: 813px) and (max-width: 1023px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
     margin: 0px 20px;
   }
-  @media screen and (min-width:550px) and (max-width:812px){ 
+  @media screen and (min-width: 550px) and (max-width: 812px) {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
-  @media screen and (max-width:550px){ 
+  @media screen and (max-width: 550px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 
