@@ -147,10 +147,11 @@ const enteringRoomDB = (roomId, userId) => {
 };
 
 // 참여가능한 방 불러오기
-const PossibleRoomDB = () => {
+const possibleRoomDB = (pageNum) => {
+  console.log('참여가능만: ', pageNum);
   return function (dispatch, getState, { history }) {
-    apis
-      .getRoomPossible()
+    axios
+      .get(`http://15.164.48.35:80/api/rooms?q=possible&p=${pageNum}`)
       .then((res) => {
         dispatch(getRoom(res.data.data));
         console.log(res.data);
@@ -223,7 +224,7 @@ const actionCreators = {
   hotRoomDB,
   searchRoomDB,
   categoryRoomDB,
-  PossibleRoomDB,
+  possibleRoomDB,
   enteringRoomDB,
   CheckPwdDB,
 

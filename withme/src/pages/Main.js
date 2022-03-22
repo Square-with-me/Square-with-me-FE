@@ -84,6 +84,10 @@ const Main = () => {
       console.log('검색중,,,');
       dispatch(roomActions.searchRoomDB(search, pageNum));
       setPageNum(pageNum + 1);
+    } else if (possible === true) {
+      console.log('들어갈수 있는 애들만 찾는중,,,');
+      dispatch(roomActions.possibleRoomDB(pageNum));
+      setPageNum(pageNum + 1);
     } else {
       if (choiceCate === 0) {
         dispatch(roomActions.getRoomDB(pageNum));

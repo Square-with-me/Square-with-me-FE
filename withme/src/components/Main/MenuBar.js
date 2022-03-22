@@ -13,6 +13,8 @@ import { actionCreators as roomActions } from '../../redux/modules/room';
 import { ReactComponent as Refresh } from '../../assets/main/refreshIcon.svg';
 
 const MenuBar = (props) => {
+  const dispatch = useDispatch();
+
   //드롭다운 부분
   const dropdownRef = useRef(null);
 
@@ -21,7 +23,16 @@ const MenuBar = (props) => {
   const Visible = (active) => {
     setIsActive(active);
   };
-  const dispatch = useDispatch();
+
+  // 전체 방 개수 불러오기
+  const getAllRoomFunc = () => {
+    props.setChoiceCate(0);
+    dispatch(roomActions.emptyRoom());
+    dispatch(roomActions.getRoomDB(1));
+    props.setPageNum(2);
+    props.setIsSearch(false);
+  };
+
   return (
     <Menu>
       <div className="flex">
@@ -29,7 +40,8 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-              props.setChoiceCate(0);
+
+              getAllRoomFunc();
             }}
           >
             <RoomText>ALL</RoomText>
@@ -38,11 +50,8 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-              props.setChoiceCate(0);
-              dispatch(roomActions.emptyRoom());
-              dispatch(roomActions.getRoomDB(1));
-              props.setPageNum(2);
-              props.setIsSearch(false);
+
+              getAllRoomFunc();
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
           >
@@ -56,7 +65,9 @@ const MenuBar = (props) => {
           <PossibleBtn
             onClick={() => {
               props.setPossible(false);
-              // dispatch(roomActions.PossibleRoomDB());
+              props.setCategory('카테고리');
+              console.log('참여가능 안따짐 전부 와라ㅏㄹ라랄ㄹ라라!!');
+              getAllRoomFunc();
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
           >
@@ -68,6 +79,13 @@ const MenuBar = (props) => {
           <PossibleBtn
             onClick={() => {
               props.setPossible(true);
+              props.setCategory('카테고리');
+              props.setChoiceCate(0);
+              dispatch(roomActions.emptyRoom());
+              dispatch(roomActions.possibleRoomDB(1));
+              props.setPageNum(2);
+              props.setIsSearch(false);
+
               // dispatch(roomActions.PossibleRoomDB());
             }}
           >
@@ -110,6 +128,7 @@ const MenuBar = (props) => {
                     props.setCategory('뷰티');
                     setIsActive(!isActive);
                     props.setChoiceCate(1);
+                    props.setPossible(false);
                   }}
                 >
                   <div>뷰티</div>
@@ -137,6 +156,7 @@ const MenuBar = (props) => {
                     props.setCategory('운동');
                     setIsActive(!isActive);
                     props.setChoiceCate(2);
+                    props.setPossible(false);
                   }}
                 >
                   <div>운동</div>
@@ -149,6 +169,7 @@ const MenuBar = (props) => {
                     props.setCategory('스터디');
                     setIsActive(!isActive);
                     props.setChoiceCate(3);
+                    props.setPossible(false);
                   }}
                 >
                   <div>스터디</div>
@@ -161,6 +182,7 @@ const MenuBar = (props) => {
                     props.setCategory('상담');
                     setIsActive(!isActive);
                     props.setChoiceCate(4);
+                    props.setPossible(false);
                   }}
                 >
                   <div>상담</div>
@@ -173,6 +195,7 @@ const MenuBar = (props) => {
                     props.setCategory('문화');
                     setIsActive(!isActive);
                     props.setChoiceCate(5);
+                    props.setPossible(false);
                   }}
                 >
                   <div>문화</div>
@@ -187,6 +210,7 @@ const MenuBar = (props) => {
                     props.setCategory('기타');
                     setIsActive(!isActive);
                     props.setChoiceCate(6);
+                    props.setPossible(false);
                   }}
                 >
                   <div>기타</div>
@@ -206,8 +230,10 @@ const MenuBar = (props) => {
           fill: '#8A8BA3',
         }}
         onClick={() => {
-          dispatch(roomActions.getRoomDB());
           dispatch(roomActions.hotRoomDB());
+
+          props.setPossible(false);
+          getAllRoomFunc();
         }}
       />
     </Menu>
