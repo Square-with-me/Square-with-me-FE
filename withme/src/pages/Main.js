@@ -237,11 +237,12 @@ const Wrap = styled.div`
     @media screen and (max-width:550px){ 
       grid-column: 1/13;
       width: 95%;
-      margin: auto;
+      margin: 0px auto;
     }
   }
   .banner {
     grid-column: 1/13;
+    margin: auto;
   }
   .hotroomlist {
     grid-column: 1/13;

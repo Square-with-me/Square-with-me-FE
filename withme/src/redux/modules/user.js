@@ -152,7 +152,7 @@ const editProfileDB = (userId, profileUrl) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/img`,
+        `http://52.79.234.176/api/user/${userId}/profile/img`,
         { profileImg: profileUrl },
         {
           headers: {
@@ -174,7 +174,7 @@ const editNickDB = (userId, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/nickname`,
+        `http://52.79.234.176/api/user/${userId}/profile/nickname`,
         { nickname },
         {
           headers: {
@@ -200,7 +200,7 @@ const editStatusDB = (userId, status) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://15.164.48.35:80/api/user/${userId}/profile/statusMsg`,
+        `http://52.79.234.176/api/user/${userId}/profile/statusMsg`,
         { statusMsg: status },
         {
           headers: {
@@ -219,10 +219,10 @@ const editStatusDB = (userId, status) => {
   };
 };
 
-const editBadgeDB = (userId) => {
+const editBadgeDB = (userId, badgeId) => {
   return function(dispatch, getState, {history}){
     apis
-    .editBadge(userId)
+    .editBadge(userId, badgeId)
     .then((res)=>{
       console.log(res)
     })
@@ -254,7 +254,7 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://15.164.48.35:80/api/user/${userId}/records`, {
+      .get(`http://52.79.234.176/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

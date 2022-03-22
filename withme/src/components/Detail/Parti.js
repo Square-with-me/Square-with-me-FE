@@ -13,12 +13,12 @@ const Parti =({me})=>{
       <Container>
         <Image
             shape="circle"
-            width="42px"
-            height="42px"
+            width="40px"
+            height="40px"
             src={me.profileImg? me.profileImg :userIcon}
             className="profile"
             />
-        <div>
+        <div style={{marginRight:"3px"}}>
           <div className="userNick">{me.nickname}</div>
           <div className="statusMsg">{me.statusMsg}</div>
         </div>

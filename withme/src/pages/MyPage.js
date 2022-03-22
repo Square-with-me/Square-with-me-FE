@@ -47,6 +47,10 @@ const Mypage = (props) => {
   const month = useSelector((store) => store.user.month); // 한달 데이터
   const week = useSelector((store) => store.user.week);
 
+  const [editbadge, setEditbadge] = useState(false)
+  const [badgeId, setBadgeId] = useState(0)
+  console.log(typeof(badgeId))
+
   useEffect(() => {
     dispatch(userActions.timeGetDB(userId));
   }, []);
@@ -136,7 +140,7 @@ const Mypage = (props) => {
                 <div className="filebox">
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
-                <div className="badgeImg"></div>
+                <div className="badgeImg"><Image src=""/></div>
               </div>
               <div className="textBox">
                 <div className="nameBox">
@@ -170,17 +174,32 @@ const Mypage = (props) => {
                 </div>
               </div>
             </ProfileContainer>
+            {editbadge === true 
+            ?             
             <BadgeContainer>
-              <div className="badgeBox">
-                {badges && badges.map((b)=>{
-                  return (                
-                  <div className="badge" key={b.id}>
-                  <img src={b.imageUrl} />
-                </div>)
-                })}
-              </div>
-              <button onClick={()=>{dispatch(userActions.editBadgeDB(userId))}}>수정하기</button>
-            </BadgeContainer>
+            <div className="badgeBox">
+              {badges && badges.map((b)=>{
+                return (                
+                <label className="badge" key={b.id} >
+                  <input type="radio" name="badge" onChange={(e)=>setBadgeId(e.target.value)} value={b.UserBadge.badgeId}/><img src={b.imageUrl}/>
+              </label>)
+              })}
+            </div>
+            <button onClick={()=>{dispatch(userActions.editBadgeDB(userId, badgeId)); setEditbadge(false)}}>수정완료</button>
+          </BadgeContainer>
+            :            
+            <BadgeContainer>
+            <div className="badgeBox">
+              {badges && badges.map((b)=>{
+                return (                
+                <div className="badge" key={b.id}>
+                <img src={b.imageUrl} />
+              </div>)
+              })}
+            </div>
+            <button onClick={()=>{setEditbadge(true)}}>수정하기</button>
+          </BadgeContainer>}
+
           </div>
         </div>
         <div id="middle">
@@ -399,6 +418,7 @@ const Container = styled.div`
     #start{
       grid-column: 1/5;
       width: 100%;
+      height: 60vh;
       #startBox{
         margin-top:20px;
       }
@@ -406,6 +426,13 @@ const Container = styled.div`
     #middle{
       grid-column: 1 / 5;
       width: 100%;
+      #middleTopBox{
+        height: 25vh;
+      }
+      .chart{
+        width: 75%;
+        margin: auto;
+      }
     }
     #end{
       grid-column: 1 / 5;
@@ -557,6 +584,16 @@ const BadgeContainer = styled.div`
     place-items: center;
     overflow-y: scroll;
     margin-top: 20px;
+    label{
+      cursor: pointer;
+    }
+    input[type="radio"]{
+      display:none;
+    }
+    input[type="radio"]:checked + img{
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px, rgba(0, 0, 0, 0.23) 0px 3px 3px;
+    }
   }
   .badge {
     width: 64px;

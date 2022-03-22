@@ -86,8 +86,9 @@ ul,li{
   padding:0;}
 ul,li{list-style:none;}
 .slide{
+  height: 180px;
+  width: 90vh;
   overflow:hidden;
-  height: auto;
 }
 .slide ul{
   width:calc(100% * 4);
@@ -97,11 +98,12 @@ ul,li{list-style:none;}
 .slide li{
   width:calc(100% / 4);
   background-size: contain;
+  height: 180px;
 }
 .slide li:nth-child(1){
-  background-image: url("../assets/banner/banner1.png");}
+  background-image: url("../assets/banner/banner5.jpeg");}
 .slide li:nth-child(2){
-  background-image: url("../assets/banner/banner2.png")}
+  background-image: url("../assets/banner/banner6.jpeg")}
 .slide li:nth-child(3){
   background-image: url("../assets/banner/banner3.png")}
 .slide li:nth-child(4){
@@ -118,6 +120,7 @@ ul,li{list-style:none;}
     width: calc(100% * 4);
     display: flex;
     animation:slide 45s infinite;
+    height: 160px;
   }
   .slide li{
     width:calc(100% / 4);
@@ -126,7 +129,7 @@ ul,li{list-style:none;}
   }
   }
 
-@media screen and (min-width:550px) and (max-width:812px) {
+@media screen and (min-width:550px) and (max-width:813px) {
     .slide{
       /* background-color: aqua; */
       width: 97vw;
@@ -137,6 +140,7 @@ ul,li{list-style:none;}
       width: calc(100% * 4);
       display: flex;
       animation:slide 45s infinite;
+      height: 130px;
     }
     .slide li{
       width:calc(100% / 4);
@@ -155,12 +159,12 @@ ul,li{list-style:none;}
     width: calc(100% * 4);
     display: flex;
     animation:slide 45s infinite;
+    height: 89px;
   }
   .slide li{
     width:calc(100% / 4);
     background-size: contain;
     background-repeat: no-repeat;
-    background-color: aqua;
   }
 }
 
