@@ -182,7 +182,7 @@ const Detail = (props) => {
       return;
     }
     // socketRef.current = io.connect('http://175.112.86.142:8088/');
-    socketRef.current = io.connect('14.45.204.153:7034');
+    socketRef.current = io.connect('15.164.48.35:80');
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -236,7 +236,6 @@ const Detail = (props) => {
     }
 
     function onSendUsers(payload) {
-      console.log(payload.otherUsers);
       if (payload.otherUsers.length !== 0) {
         dispatch(userActions.userInfo(payload.otherUsers));
       }
@@ -528,13 +527,37 @@ const Detail = (props) => {
   //   console.table(peers);
   // }, [peers]);
 
+// //뒤로가기 막기 
+// useEffect(()=>{
+//   history.push(null, '', `/room/${params.id}`)
+//   window.addEventListener('popstate', function(e){
+//     history.push(null, '', `/room/${params.id}`)
+//   })
+// },[])
+// const [isB , setIsB] = useState(true)
+// useEffect(()=>{
+//   const unB = history.block((loc, action)=>{
+//     if(action==='POP' && setIsB){
+//       const confirm = window.confirm('뒤로 나가면 시간이 저장이 안됩니다')
+//       return (
+//         confirm === false
+//         ? action.push()
+//         : history.replace('/main')
+//       )
+//     }
+    
+//     return false
+//   })
+//   return ()=>unB()
+// },[isB])
+
   return (
     <Back>
       {room && (
         <Container>
           {/* <Back/> */}
           <div id="top">
-            <div className="logo" onClick={() => history.replace('/main')}>
+            <div className="logo">
               <Logo />
               <div>
                 <RoomInfo room={room} />

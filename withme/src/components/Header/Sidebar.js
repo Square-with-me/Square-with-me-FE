@@ -156,13 +156,15 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
-  right: -25px;
+  right: -17px;
   top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
   @media screen and (max-width:550px){ 
-    right: -16px;
-    top:19px;
+    right: -7px;
+    top:25px;
+    width: 150px;  
+    padding: 10px;
   }
 
   @keyframes modal-show {

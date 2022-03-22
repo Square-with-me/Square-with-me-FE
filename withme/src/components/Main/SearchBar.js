@@ -55,6 +55,12 @@ const SearchBarWrap = styled.div`
   position: relative;
   align-items: center;
   margin: 0px auto 19px auto;
+  @media screen and (min-width:550px) and (max-width:812px){ 
+    margin: 0px;
+  }
+  @media screen and (max-width:550px){ 
+    margin: 0px;
+  }
 `;
 
 const SearchBarInput = styled.input`

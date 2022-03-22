@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 
 const TodayTime = () => {
   const [dayList, setDayList] = useState(null);
+  const today = new Date()
+  const date = today.getDate();
 
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
-
-    if (day) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
+    if (day.date === date) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
   }, []);
 
   useEffect(() => {}, [dayList]);

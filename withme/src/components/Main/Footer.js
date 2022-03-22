@@ -69,9 +69,8 @@ const Footer = () => {
                 setBug(true);
               }}
             >
-              버그제보/리뷰
+              버그제보
             </P>
-            {bug && <BugModal />}
           </div>
         </Grid>
       </Div>

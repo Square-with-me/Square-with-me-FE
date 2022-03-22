@@ -4,10 +4,14 @@ const token = localStorage.getItem("login-token");
 const accessToken = document.cookie.split("=")[1];
 
 const api = axios.create({
-  // http://14.45.204.153:7034/
+  //배포된
   // baseURL: 'http://15.164.48.35:80',
-  baseURL: 'http://52.79.234.176/',
+
+  //현광님
   // baseURL: "http://14.45.204.153:7034",
+
+  //창훈님
+  baseURL: 'http://52.79.234.176',
   headers: {
     Authorization: `Bearer ${token}`,
     "content-type": "application/json;charset=UTF-8",
@@ -38,5 +42,5 @@ export const apis = {
 
   //edit
   getBadges:(userId)=>api.get(`/api/user/${userId}/badges`),
-  editBadge :(userId)=>api.patch(`/api/user/${userId}/profile/masterBadge`)
+  editBadge :(userId,badgeId)=>api.patch(`/api/user/${userId}/profile/masterBadge`, {badgeId:badgeId})
 };
