@@ -255,6 +255,7 @@ const Wrap = styled.div`
   }
   .banner {
     grid-column: 1/13;
+    width: 97%;
     margin: auto;
   }
   .hotroomlist {
