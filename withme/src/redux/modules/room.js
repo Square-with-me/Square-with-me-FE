@@ -4,20 +4,22 @@ import axios from 'axios';
 import { apis } from '../../shared/api';
 
 const GET_ROOM = 'GET_ROOM';
+const EMPTY_ROOM = 'EMPTY_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
 const DEL_ROOM = 'DEL_ROOM';
 const HOT_ROOM = 'HOT_ROOM';
 const ENTER_ROOM = 'ENTER_ROOM';
 const SAVE_CHAT = 'SAVE_CHAT';
-const SET_MY_ROOM = 'SET_MY_ROOM'
+const SET_MY_ROOM = 'SET_MY_ROOM';
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
+const emptyRoom = createAction(EMPTY_ROOM, () => ({}));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
 const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
 const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
 const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
-const setMyRoom = createAction(SET_MY_ROOM, (roomInfo)=>({roomInfo}))
+const setMyRoom = createAction(SET_MY_ROOM, (roomInfo) => ({ roomInfo }));
 
 const initialState = {
   list: [],
@@ -27,15 +29,17 @@ const initialState = {
 };
 
 // 방 정보 가져오기
-const getRoomDB = () => {
+const getRoomDB = (pageNum) => {
   return function (dispatch, getState, { history }) {
-    apis
-      .getRoomAll()
-      .then((res) => {
-        dispatch(getRoom(res.data.data));
+    axios
+      .get(`http://15.164.48.35:80/api/rooms?q=all&p=${pageNum}`)
+      .then((response) => {
+        const roomList = response.data.data;
+        console.log('방 8개만 주라', roomList);
+        dispatch(getRoom(roomList));
       })
-      .catch(function (error) {
-        alert(error.response.data.msg);
+      .catch((error) => {
+        console.log(error);
       });
   };
 };
@@ -58,7 +62,7 @@ const addRoomDB = (roomInfo, category) => {
       .then((response) => {
         dispatch(addRoom(response.data.data));
         dispatch(enterRoom(response.data.data));
-        localStorage.setItem("myRoom", JSON.stringify(response.data.data))
+        localStorage.setItem('myRoom', JSON.stringify(response.data.data));
         history.push(`/room/${response.data.data.id}`);
       })
       .catch((error) => {
@@ -66,8 +70,6 @@ const addRoomDB = (roomInfo, category) => {
       });
   };
 };
-
-const delRoomDB = () => {};
 
 // 핫한 방 불러오기
 const hotRoomDB = () => {
@@ -84,10 +86,10 @@ const hotRoomDB = () => {
 };
 
 // 검색 결과 방 가져오기
-const searchRoomDB = (search) => {
+const searchRoomDB = (search, pageNum) => {
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms?q=${search}`, {
+      .get(`http://15.164.48.35:80/api/rooms?q=${search}&p=${pageNum}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
@@ -102,15 +104,15 @@ const searchRoomDB = (search) => {
 };
 
 // 카테고리별 방 가져오기
-const categoryRoomDB = (categoryId) => {
+const categoryRoomDB = (categoryId, pageNum) => {
+  console.log('이얏', categoryId, pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms/category/${categoryId}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('login-token')}`,
-        },
-      })
+      .get(
+        `http://15.164.48.35:80/api/rooms/category/${categoryId}&p=${pageNum}`
+      )
       .then((res) => {
+        console.log('얍얍얍', res);
         dispatch(getRoom(res.data.data));
       })
       .catch((error) => {
@@ -134,7 +136,7 @@ const enteringRoomDB = (roomId, userId) => {
       )
       .then((res) => {
         dispatch(enterRoom(res.data.data));
-        localStorage.setItem("myRoom", JSON.stringify(res.data.data))
+        localStorage.setItem('myRoom', JSON.stringify(res.data.data));
         history.push(`/room/${roomId}`);
       })
       .catch((error) => {
@@ -143,6 +145,7 @@ const enteringRoomDB = (roomId, userId) => {
   };
 };
 
+// 참여가능한 방 불러오기
 const PossibleRoomDB = () => {
   return function (dispatch, getState, { history }) {
     apis
@@ -178,11 +181,16 @@ export default handleActions(
   {
     [GET_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.roomList;
+        console.log('히히', action.payload);
+        draft.list.push(...action.payload.roomList);
+      }),
+    [EMPTY_ROOM]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = [];
       }),
     [ADD_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(action.payload.rooms);
+        draft.list.unshift(action.payload.rooms);
       }),
     [ENTER_ROOM]: (state, action) =>
       produce(state, (draft) => {
@@ -197,19 +205,20 @@ export default handleActions(
       produce(state, (draft) => {
         draft.chattingList.push(action.payload);
       }),
-    [SET_MY_ROOM]:(state, action)=>
-      produce(state,(draft)=>{
-        draft.myRoom =action.payload.roomInfo
-      })
+    [SET_MY_ROOM]: (state, action) =>
+      produce(state, (draft) => {
+        draft.myRoom = action.payload.roomInfo;
+      }),
   },
   initialState
 );
 
 const actionCreators = {
+  emptyRoom,
+
   delRoom,
   getRoomDB,
   addRoomDB,
-  delRoomDB,
   hotRoomDB,
   searchRoomDB,
   categoryRoomDB,
@@ -218,7 +227,7 @@ const actionCreators = {
   CheckPwdDB,
 
   savechat,
-  setMyRoom
+  setMyRoom,
 };
 
 export { actionCreators };
