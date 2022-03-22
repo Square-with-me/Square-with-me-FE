@@ -143,7 +143,7 @@ const Wrap = styled.div`
     /* display: flex; */
     justify-items: space-between;
     width: 100%;
-    font-size: 10px;
+    font-size: 13px;
     margin: auto;
 
     .footerLogo {
@@ -158,7 +158,7 @@ const Wrap = styled.div`
       margin: auto;
     }
     width: 100%;
-    font-size: 10px;
+    font-size: 13px;
 
     .footerLogo {
       display: none;

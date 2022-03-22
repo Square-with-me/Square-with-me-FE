@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { Image } from '../../elements/Index';
+import userIcon from '../../assets/inRoom/userIcon.svg';
 
 const Parti =({me})=>{
   const userInfo = useSelector((store)=>store.user.userInfo)
@@ -9,11 +11,13 @@ const Parti =({me})=>{
   return(
     <React.Fragment>
       <Container>
-        <div className="profile">
-        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="21" cy="21" rx="21" ry="21" fill="#7B61FF"/>
-        </svg>
-        </div>
+        <Image
+            shape="circle"
+            width="42px"
+            height="42px"
+            src={me.profileImg? me.profileImg :userIcon}
+            className="profile"
+            />
         <div>
           <div className="userNick">{me.nickname}</div>
           <div className="statusMsg">{me.statusMsg}</div>
@@ -23,11 +27,13 @@ const Parti =({me})=>{
         userInfo.map((u,idx)=> (
           <div key={u.id}>
           <Container>
-          <div className="profile">
-          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="21" cy="21" rx="21" ry="21" fill="#7B61FF"/>
-          </svg>
-          </div>
+          <Image
+            shape="circle"
+            width="42px"
+            height="42px"
+            src={u.profileImg?u.profileImg :userIcon}
+            className="profile"
+            />
           <div>
             <div className="userNick">{u.nickname}</div>
             <div className="statusMsg">{u.statusMsg}</div>
@@ -46,7 +52,7 @@ margin-top: 20px;
 align-items: center;
 padding: 0px 5px;
 .profile{
-  margin-right: 10px;
+  margin-right: 7px;
 }
 .userNick{
   font-weight: 500;
@@ -55,7 +61,7 @@ padding: 0px 5px;
 }
 .statusMsg{
   font-size: 14px;
-  width: 125px;
+  width: 85%;
   white-space: nowrap;
   display: block;
   overflow: hidden;

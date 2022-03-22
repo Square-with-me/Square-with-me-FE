@@ -118,7 +118,7 @@ const Sidebar = (props) => {
           <div>
 
           </div>
-          <div>
+          {/* <div>
             <Text
               onClick={() => {
                 history.push(`/mypage/${user.id}`);
@@ -127,7 +127,7 @@ const Sidebar = (props) => {
             >
               마이페이지
             </Text>
-          </div>
+          </div> */}
         </Wrap>
         <ModalBackground
           onClick={() => {
@@ -160,7 +160,7 @@ const Wrap = styled.div`
   top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     right: -16px;
     top:19px;
   }
@@ -198,7 +198,7 @@ const Text = styled.div`
   font-size: 18px;
   color: #000000;
   cursor: pointer;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 15px;
   }
 `;

@@ -1,39 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Timer from '../components/Detail/Timer';
-import Chatting from '../components/Detail/Chatting';
 import { useParams } from 'react-router-dom';
-
 import { history } from '../redux/configureStore';
+
+//redux
 import { actionCreators as userActions } from '../redux/modules/user';
 import { actionCreators as roomActions } from '../redux/modules/room';
-
+//pages
+import Timer from '../components/Detail/Timer';
+import Chatting from '../components/Detail/Chatting';
+import Parti from '../components/Detail/Parti';
+import Logo from '../components/Main/Logo';
+import RoomInfo from '../components/Detail/RoomInfo';
 // 방 입장
 import io from 'socket.io-client';
 import Peer from 'simple-peer';
-
 // icons
 import { ReactComponent as OnMic } from '../assets/inRoom/onMicIcon.svg';
 import { ReactComponent as OffMic } from '../assets/inRoom/offMicIcon.svg';
 import { ReactComponent as OnCamera } from '../assets/inRoom/onCameraIcon.svg';
 import { ReactComponent as OffCamera } from '../assets/inRoom/offCameraIcon.svg';
-// import {ReactComponent as Timer} from "../assets/inRoom/timerIcon.svg"
-// import {ReactComponent as UserList} from "../assets/inRoom/userListIcon.svg"
-// import {ReactComponent as Chatting} from "../assets/inRoom/chattingIcon.svg"
-
-// emotion icons
 import { ReactComponent as ChooseEmotion } from '../assets/inRoomEmotion/chooseEmotion.svg';
-import RoomInfo from '../components/Detail/RoomInfo';
-import { useDispatch, useSelector } from 'react-redux';
-import Parti from '../components/Detail/Parti';
-import Logo from '../components/Main/Logo';
-
+// emotion icons
 import { ReactComponent as HappyEmoji } from '../assets/emoji/happy.svg';
 import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
 import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
 import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
-
-// sadFaceIcon (inRoomEmotion)
 
 const StyledVideo = styled.video`
   width: 100%;
@@ -231,7 +224,7 @@ const Detail = (props) => {
     }
     function noData() {
       alert('데이터 전달 오류');
-      history.push('/');
+      history.push('/main');
     }
 
     socketRef.current.on('no data', noData);
@@ -546,8 +539,8 @@ const Detail = (props) => {
         <Container>
           {/* <Back/> */}
           <div id="top">
-            <div className="logo">
-              <Logo onClick={() => history.replace('/')} />
+            <div className="logo" onClick={() => history.replace('/main')}>
+              <Logo />
               <div>
                 <RoomInfo room={room} />
               </div>
@@ -918,7 +911,7 @@ const Detail = (props) => {
               />
 
               <button>
-                <a href="/">
+                <a href="/main">
                   <svg
                     width="30"
                     height="30"
@@ -1012,7 +1005,7 @@ const Detail = (props) => {
 const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
-  @media all and (min-width: 480px) and (max-width: 767px) {
+  @media all and (min-width: 480px) and (max-width: 550px) {
     height: fit-content;
   }
 `;
@@ -1028,8 +1021,9 @@ const Container = styled.div`
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
-  @media all and (min-width: 480px) and (max-width: 767px) {
+  @media all and (min-width: 480px) and (max-width: 550px) {
     height: fit-content;
+    width: 100%;
   }
 
   #top {

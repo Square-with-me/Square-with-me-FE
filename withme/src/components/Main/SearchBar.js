@@ -49,9 +49,9 @@ const SearchBarInput = styled.input`
   border: 1px solid #8a8ba3;
   border-radius: 4px;
   padding: 10px;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     ::placeholder {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
 
