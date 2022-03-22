@@ -36,11 +36,6 @@ import Logo from '../components/Main/Logo';
 
 // sadFaceIcon (inRoomEmotion)
 
-const StyledVideo = styled.video`
-  width: 100%;
-  background-color: steelblue;
-`;
-
 const Video = (props) => {
   const ref = useRef();
 
@@ -482,14 +477,13 @@ function handleEnd() {
     <Back>
       {room &&    
       <Container>
-      {/* <Back/> */}
       <div id="top">
-      <div className="logo">
-        <Logo onClick={() => history.replace('/')}/>
-      <div>
+        <div className="logo">
+          <Logo onClick={() => history.replace('/')}/>
+        <div>
           <RoomInfo room={room}/>
         </div>
-        </div>
+      </div>
       </div>
       <div id="videoBox">
       <div key="my-video" className="videoContainer">
@@ -701,33 +695,25 @@ function handleEnd() {
         </div>
       </div>
     </Container>}
-
-    </Back>
+    </Back> 
   );
 };
 const Back =styled.div`
 height: 100%;
 background-color: #F7F7F7;
-@media all and (min-width:480px) and (max-width:767px) {
-    height: fit-content;
-  }
 `
 
 const Container = styled.div`
   box-sizing: border-box;
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
-  max-width: 1110px;
-  min-width: 480px;
+  width: 1110px;
+  height: 100vh;
   background-color: #F7F7F7;
   margin: auto;
   display: grid;
   column-gap: 30px;
   grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
-  @media all and (min-width:480px) and (max-width:767px) {
-    height: fit-content;
-  }
-
   #top {
     background-color: #F7F7F7;
     grid-row: 1/2;
@@ -753,15 +739,12 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
-    position: relative;
-    overflow: hidden;
-    object-fit: cover;
   }
   .videoContainer {
+    height:100%;
     display: flex;
+    justify-content:center;
     align-items: center;
-    justify-content: center;
-    background-color: #F7F7F7;
     border-radius: 5px;
   }
   #rightBox {
@@ -843,6 +826,9 @@ const Container = styled.div`
       }
     }
   }
+`;
+const StyledVideo = styled.video`
+  height : 100%;
 `;
 
 const Button = styled.button`
