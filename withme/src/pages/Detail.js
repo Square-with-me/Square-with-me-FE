@@ -169,7 +169,6 @@ const Detail = (props) => {
   //   }
   // };
 
-  
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
     if (!room && myRoomInLS) {
@@ -484,7 +483,7 @@ const Detail = (props) => {
       id: socketRef.current.id,
       emoji: emojiId,
     };
-    console.log(data)
+    console.log(data);
     socketRef.current.emit('send_emoji', data);
     showEmoji(data);
   };
@@ -520,8 +519,8 @@ const Detail = (props) => {
     socketRef.current.on('receive_emoji', showEmoji);
 
     return () => {
-      socketRef.current.off("receive_emoji", showEmoji);
-    }
+      socketRef.current.off('receive_emoji', showEmoji);
+    };
   }, []);
 
   // useEffect(() => {

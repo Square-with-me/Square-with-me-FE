@@ -8,8 +8,11 @@ const TodayTime = () => {
 
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
+
     if (day) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
   }, []);
+
+  useEffect(() => {}, [dayList]);
 
   const data = {
     labels: ['뷰티', '운동', '스터디', '문화', '상담', '기타'],
@@ -36,7 +39,8 @@ const TodayTime = () => {
       tooltip: {
         callbacks: {
           label: function (context) {
-            let label = context.label + ': ' + Math.floor(context.formattedValue) + '분';
+            let label =
+              context.label + ': ' + Math.floor(context.formattedValue) + '분';
             return label;
           },
         },
@@ -70,7 +74,12 @@ const TodayTime = () => {
     },
   };
 
-  if (dayList === null) return <Pie data={emptyData} options={emptyOption} />;
+  if (
+    dayList === null ||
+    dayList === [0, 0, 0, 0, 0, 0] ||
+    dayList === [0, 0, 0, 0, 0]
+  )
+    return <Pie data={emptyData} options={emptyOption} />;
   return <Pie data={data} options={option} />;
 };
 
