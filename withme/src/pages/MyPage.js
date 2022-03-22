@@ -13,10 +13,11 @@ import MHeader from '../components/Header/MHeader';
 import Logo from '../components/Main/Logo';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userEditActions } from '../redux/modules/userEdit';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 // badge
 import lockBadge from '../assets/badge/lockBadge.svg';
+import userIcon from '../assets/inRoom/userIcon.svg';
 import bugBadge from '../assets/badge/bugBadge.svg';
 import consultationBadge from '../assets/badge/consultationBadge.svg';
 import firstComeBadge from '../assets/badge/firstComeBadge.svg';
@@ -29,7 +30,11 @@ const Mypage = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const user = useSelector((store) => store.userEdit.user);
+  const user = useSelector((store) => store.user.user);
+  const badges = useSelector((store)=>store.user.badges)
+  useEffect(()=>{
+    dispatch(userActions.getBadgeDB(userId))
+  },[])
 
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
@@ -39,11 +44,11 @@ const Mypage = (props) => {
 
   const userId = props.match.params.id;
 
-  const month = useSelector((store) => store.userEdit.month); // 한달 데이터
-  const week = useSelector((store) => store.userEdit.week);
+  const month = useSelector((store) => store.user.month); // 한달 데이터
+  const week = useSelector((store) => store.user.week);
 
   useEffect(() => {
-    dispatch(userEditActions.timeGetDB(userId));
+    dispatch(userActions.timeGetDB(userId));
   }, []);
 
   // 유저 닉네임 수정
@@ -61,7 +66,7 @@ const Mypage = (props) => {
       // 수정 끝
       nicknameText.classList.remove('hidden');
       inputNickname.classList.add('hidden');
-      dispatch(userEditActions.editNickDB(user.id, editNick));
+      dispatch(userActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
   };
@@ -81,7 +86,7 @@ const Mypage = (props) => {
       // 수정 끝
       statusText.classList.remove('hidden');
       inputStatus.classList.add('hidden');
-      dispatch(userEditActions.editStatusDB(user.id, editStatus));
+      dispatch(userActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
   };
@@ -91,7 +96,7 @@ const Mypage = (props) => {
     const img = e.target.files[0];
     const formData = new FormData();
     formData.append('image', img);
-    dispatch(userEditActions.getImageUrlDB(userId, formData));
+    dispatch(userActions.getImageUrlDB(userId, formData));
   };
 
   const onClickImage = () => {
@@ -122,7 +127,7 @@ const Mypage = (props) => {
                   src={
                     user.profileImg
                       ? user.profileImg
-                      : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMEAAADACAMAAACKwPcLAAAANlBMVEVmZmb////u8vpwb3D29vbY2NixsbGLi4vi4uKCgoLr6+vPz8+fn594eHjFxcWop6i7u7uVlZUD7tw7AAAEB0lEQVR4nO2ba5ujIAxG2wHBu+3//7MzjnhpV60kr5vBJ+fjri6cQhIE9nZLnC/pDrBRA3nUQB41kEcN5FEDedRAHjWQRw3kUQN51EAeNZBHDeRRA3nUQB41kEcN5FEDedRAHjXYxjxdld17bFa5pzmrnZMMmi6/v5F3zSlNnWJQZ+/dH8jqExo7weBZrve/p3zCm4MbNBu//zQO6LmENujsvsBPXHfYFrEGplp2tXK+6P+08K5ailXQvAQ1MHMCsm3x+ndFO0vkSAWkQTMJWLfSR+PsGQpAg3kEHhsdNI8TFHAGk0Dptx/yJVwBZzAGcbbbNzMm2wrVLsygCz1rPz3YhgdRSRVl0NiDApOCBZU2lEGYHBn62c+ADJ4hiA/FpwnhjFkjgQxCn3ay0BIffCFNYwzqUAeOPh/qAmSxjTEI32KHc7yxuEiAGDTDT+qOv+GGNxDpCGLQRQ7BNAiImgAxyI+WgpmhKOSAxhEGZpgSxecnZ4rhHcDqCGEwFAMb95JFlQSEgaMs1arY4N8CYVBRopKkvQbCIIupxyMeVREQBjY+kMdQjgyeNRAGQ1r5P2/9ixr0qAEPnEHKkZx+NiWV1z9V0dJfVaS/skt/dZ3+F84FvjLT/9JPf7flAjte6e86XmDnN/3d9wucgKR/CnWBk8ALnMamfyK+VEj0VsIFboZc4HbOLf0bUrcL3FL7UWh3BSK3lT6DNvDVXv97yhp7eRZr4D9MoRAJa7mWDNKgONT/Xwfg1VngquLx2svs0fmwvvC+e7zZ4eIBZuCXN33Lx8rXi3cvd7EB23W/oAzcYoq8l+OZxi089xexh8EYmHmOfArTenawkJmE2S/aX9K9MTtAAhphUEwriepQwTXzlAMoAAwmAXt486HIcQp8g/Eb/55HrHhMC1NgG0zfBG1caqlR4cw2GLNQ1N57z6TATKpcg7EQE+rTqMDc+WIaeOoI9NR0+wU8g3EHlCQwK7BCgWcQ5hD5MKkFzCOWQZhD9B3QMZFxUirLIOQhxi56wc9HHIMwjVk7oI4dzByDkjmHekIuYAwCw8AjcuE4kPRIYBjEHmBuMAwC/UyNbhB/iLxOzawJdAOHGYJxEIhFkWPAbHgm/BTU18kGBWBBMBCmY+QdsQmyQccMwAU5K6DIBkMmOnwPYQ/HWhyRDXhD/0IoLMS3qQYFq9U3WL8G1aDmL4tnMk5Zpho4XBiMnxnEUKYakP7XxBYdZ0CpBqR7vluw7v9SDXK8AbG2UA2QqYj3r6kBBgmDv4MayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogjxrIowbyqIE8aiCPGsijBvKogTxqII8ayKMG8qiBPGogz9c3668W/KAjNpwAAAAASUVORK5CYII='
+                      : userIcon
                   }
                   _onClick={(e) => {
                     onClickImage(e);
@@ -131,8 +136,8 @@ const Mypage = (props) => {
                 <div className="filebox">
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
+                <div className="badgeImg"></div>
               </div>
-              <div className="badgeImg"></div>
               <div className="textBox">
                 <div className="nameBox">
                   <div id="nickname"> {user ? user.nickname : ''}</div>
@@ -167,29 +172,14 @@ const Mypage = (props) => {
             </ProfileContainer>
             <BadgeContainer>
               <div className="badgeBox">
-                <div className="badge">
-                  <img src={bugBadge} />
-                </div>
-                <div className="badge">
-                  <img src={consultationBadge} />
-                </div>
-                <div className="badge">
-                  <img src={firstComeBadge} />
-                </div>
-                <div className="badge">
-                  <img src={beautyBadge} />
-                </div>
-                <div className="badge">
-                  <img src={cultureBadge} />
-                </div>
-                <div className="badge">
-                  <img src={exerciseBadge} />
-                </div>
-                <div className="badge">
-                  <img src={otherBadge} />
-                </div>
+                {badges && badges.map((b)=>{
+                  return (                
+                  <div className="badge" key={b.id}>
+                  <img src={b.imageUrl} />
+                </div>)
+                })}
               </div>
-              <button>수정하기</button>
+              <button onClick={()=>{dispatch(userActions.editBadgeDB(userId))}}>수정하기</button>
             </BadgeContainer>
           </div>
         </div>
@@ -399,12 +389,19 @@ const Container = styled.div`
     }
   }
   // 모바일
-  @media screen and (max-width: 599px) {
+  @media screen and (max-width: 700px) {
     height: 100%;
     grid-template-columns: repeat(4, 1fr);
     margin: auto;
     .header{
       grid-column: 1/5;
+    }
+    #start{
+      grid-column: 1/5;
+      width: 100%;
+      #startBox{
+        margin-top:20px;
+      }
     }
     #middle{
       grid-column: 1 / 5;
@@ -412,6 +409,7 @@ const Container = styled.div`
     }
     #end{
       grid-column: 1 / 5;
+      width: 100%;
     }
   }
 `;
@@ -425,10 +423,13 @@ const ProfileContainer = styled.div`
   position: relative;
   .imageBox {
     width: 40%;
+    height: fit-content;
+    margin: auto 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     .filebox label {
       display: inline-block;
       /* padding: 0.5em 0.75em; */
@@ -460,8 +461,8 @@ const ProfileContainer = styled.div`
     border-radius: 50%;
     background-color: white;
     position: absolute;
-    bottom: 0;
-    left: 80px;
+    right:0;
+    bottom:0 ;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
 
@@ -551,10 +552,11 @@ const BadgeContainer = styled.div`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(auto-fill, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-row-gap: 20px;
     place-items: center;
     overflow-y: scroll;
+    margin-top: 20px;
   }
   .badge {
     width: 64px;

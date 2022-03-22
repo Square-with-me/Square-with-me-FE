@@ -32,17 +32,13 @@ const Main = () => {
   //비밀 방
   const [secret, setSecret] = useState(false);
   const userId = useSelector((store) => store.user.user.id);
-
   //room
   const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
-  // 로그인 체크
-  // useEffect(() => {
-  //   dispatch(userActions.logInCheckDB());
-  // }, []);
 
-  // 카테고리 선택하기ㄴ
+
+  // 카테고리 선택하기
   useEffect(() => {
     if (choiceCate === 0) {
       // 전체 방 불러오기
@@ -221,11 +217,11 @@ const Wrap = styled.div`
     grid-column: 12/13;
     display: flex;
     justify-content: end;
-    @media screen and (min-width:768px) and (max-width: 1023px) {
+    @media screen and (max-width: 1199px){
       margin: 0px 10px;
     }
-    @media screen and (max-width:767px){ 
-      margin: 0px 10px;
+    @media screen and (max-width:550px){ 
+      margin: 0px 13px;
     }
   }
   .logo {
@@ -235,21 +231,17 @@ const Wrap = styled.div`
     align-items: center;
   }
   .searchbar {
-    grid-column: 4/10;
-    @media screen and (max-width:767px){ 
+    grid-column: 1/13;
+    width: 524px;
+    margin: auto;
+    @media screen and (max-width:550px){ 
       grid-column: 1/13;
-      width: 200px;
+      width: 95%;
       margin: auto;
     }
   }
   .banner {
     grid-column: 1/13;
-    @media screen and (min-width:768px) and (max-width: 1023px) {
-      margin: 0px 10px;
-    }
-    @media screen and (max-width:767px){ 
-      margin: 0px 10px;
-    }
   }
   .hotroomlist {
     grid-column: 1/13;
@@ -260,11 +252,13 @@ const Wrap = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    @media screen and (min-width:768px) and (max-width: 1023px) {
-      margin: 0px 10px;
+    @media screen and (max-width: 1199px){
+      width: 97%;
+      margin: auto;
     }
-    @media screen and (max-width:767px){ 
-      margin: 0px 10px;
+    @media screen and (max-width:550px){ 
+      width: 95%;
+      margin: auto;
     }
   }
   .roomlist {
@@ -277,7 +271,6 @@ const Wrap = styled.div`
   .footer {
     grid-column: 1/13;
   }
-
   .flex {
     display: flex;
   }
@@ -300,7 +293,7 @@ const Btn = styled.button`
     color: #fff;
     box-shadow: 0 1px 5px rgb(113, 121, 240);
   }
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 13px;
   }
 `;
@@ -313,14 +306,27 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
+  @media screen and (min-width:1024px) {
+    grid-template-columns: repeat(4, minmax(0px, 1fr))
+  }
+  @media screen and (min-width:813px) and (max-width: 1023px) {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    margin: 0px 20px;
+  }
+  @media screen and (min-width:550px) and (max-width:812px){ 
+    grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+  @media screen and (max-width:550px){ 
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
+  }
 
-  @media screen and (min-width: 1607px) {
+  /* @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
-    /* row-gap: 32px; */
+    row-gap: 32px;
   }
   @media screen and (min-width: 1232px) and (max-width: 1607px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
-    /* row-gap: 32px; */
+    row-gap: 32px;
   }
   @media screen and (min-width: 878px) and (max-width: 1232px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
@@ -330,6 +336,6 @@ const RoomListContainer = styled.div`
   }
   @media screen and (min-width: 0px) and (max-width: 551px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
-  }
+  } */
 `;
 export default Main;

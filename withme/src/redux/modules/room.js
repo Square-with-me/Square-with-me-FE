@@ -77,7 +77,6 @@ const hotRoomDB = () => {
       // .get('http://15.164.48.35:80/api/rooms?q=hot', {})
       .get('http://52.79.234.176//api/rooms?q=hot', {})
       .then((res) => {
-        console.log('핫한 방 불러오기', res.data.data);
         dispatch(hotRoom(res.data.data));
       })
       .catch((error) => {

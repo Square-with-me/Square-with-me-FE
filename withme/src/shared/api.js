@@ -37,6 +37,6 @@ export const apis = {
   checkPwd:(pwd, roomId)=> api.get(`/api/room/${roomId}/pwd/${pwd}`),
 
   //edit
-  getBadges:()=>api.get("/api/user/:userId/badges"),
+  getBadges:(userId)=>api.get(`/api/user/${userId}/badges`),
   editBadge :(userId)=>api.patch(`/api/user/${userId}/profile/masterBadge`)
 };
