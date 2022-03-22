@@ -39,6 +39,10 @@ const MenuBar = (props) => {
             onClick={() => {
               props.setPossible(false);
               props.setChoiceCate(0);
+              dispatch(roomActions.emptyRoom());
+              dispatch(roomActions.getRoomDB(1));
+              props.setPageNum(2);
+              props.setIsSearch(false);
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
           >
@@ -52,7 +56,7 @@ const MenuBar = (props) => {
           <PossibleBtn
             onClick={() => {
               props.setPossible(false);
-              dispatch(roomActions.PossibleRoomDB());
+              // dispatch(roomActions.PossibleRoomDB());
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
           >
@@ -64,7 +68,7 @@ const MenuBar = (props) => {
           <PossibleBtn
             onClick={() => {
               props.setPossible(true);
-              dispatch(roomActions.PossibleRoomDB());
+              // dispatch(roomActions.PossibleRoomDB());
             }}
           >
             <RoomText>참여 가능</RoomText>

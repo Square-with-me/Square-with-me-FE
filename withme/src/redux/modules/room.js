@@ -30,12 +30,12 @@ const initialState = {
 
 // 방 정보 가져오기
 const getRoomDB = (pageNum) => {
+  console.log('전체방 8개: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(`http://15.164.48.35:80/api/rooms?q=all&p=${pageNum}`)
       .then((response) => {
         const roomList = response.data.data;
-        console.log('방 8개만 주라', roomList);
         dispatch(getRoom(roomList));
       })
       .catch((error) => {
@@ -87,6 +87,7 @@ const hotRoomDB = () => {
 
 // 검색 결과 방 가져오기
 const searchRoomDB = (search, pageNum) => {
+  console.log('검색: ', search, pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(`http://15.164.48.35:80/api/rooms?q=${search}&p=${pageNum}`, {
@@ -105,7 +106,7 @@ const searchRoomDB = (search, pageNum) => {
 
 // 카테고리별 방 가져오기
 const categoryRoomDB = (categoryId, pageNum) => {
-  console.log('이얏', categoryId, pageNum);
+  console.log('카테고리: ', categoryId, pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(

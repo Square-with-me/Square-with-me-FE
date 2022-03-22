@@ -9,9 +9,7 @@ const TodayTime = () => {
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
 
-    if (day)
-      console.log('이양ㅇ', [day[1], day[2], day[3], day[4], day[5], day[6]]);
-    setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
+    if (day) setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
   }, []);
 
   useEffect(() => {}, [dayList]);

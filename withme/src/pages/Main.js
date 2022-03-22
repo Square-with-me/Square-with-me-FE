@@ -40,6 +40,7 @@ const Main = () => {
 
   // 페이지 나누기
   const [pageNum, setPageNum] = useState(1);
+  const [isSeacrh, setIsSearch] = useState(false);
 
   // 카테고리 선택하기
   useEffect(() => {
@@ -48,12 +49,14 @@ const Main = () => {
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
       setPageNum(2);
+      setIsSearch(false);
       setCategory('카테고리');
     } else {
       // 카테고리별 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.categoryRoomDB(choiceCate, 1));
       setPageNum(2);
+      setIsSearch(false);
     }
   }, [choiceCate]);
 
@@ -76,19 +79,21 @@ const Main = () => {
   }, []);
 
   const morePage = () => {
-    console.log('페이지 더주라,,');
-    if (choiceCate === 0) {
-      dispatch(roomActions.getRoomDB(pageNum));
+    console.log('페이지 더주라,,', pageNum);
+    if (isSeacrh === true) {
+      console.log('검색중,,,');
+      dispatch(roomActions.searchRoomDB(search, pageNum));
       setPageNum(pageNum + 1);
     } else {
-      dispatch(roomActions.categoryRoomDB(choiceCate, pageNum));
-      setPageNum(pageNum + 1);
+      if (choiceCate === 0) {
+        dispatch(roomActions.getRoomDB(pageNum));
+        setPageNum(pageNum + 1);
+      } else {
+        dispatch(roomActions.categoryRoomDB(choiceCate, pageNum));
+        setPageNum(pageNum + 1);
+      }
     }
   };
-
-  useEffect(() => {
-    console.log('페이지 넘버: ', pageNum);
-  }, [pageNum]);
 
   return (
     <Back>
@@ -102,7 +107,13 @@ const Main = () => {
         </div>
 
         <div className="searchbar">
-          <SearchBar search={search} setSearch={setSearch} />
+          <SearchBar
+            search={search}
+            setSearch={setSearch}
+            setIsSearch={setIsSearch}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+          />
         </div>
 
         <div className="banner">
@@ -116,6 +127,8 @@ const Main = () => {
             setChoiceCate={setChoiceCate}
             category={category}
             setCategory={setCategory}
+            setPageNum={setPageNum}
+            setIsSearch={setIsSearch}
           />
         </div>
 

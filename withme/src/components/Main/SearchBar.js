@@ -6,15 +6,26 @@ import { useDispatch } from 'react-redux';
 
 const SearchBar = (props) => {
   const dispatch = useDispatch();
+
+  function onKeyPress(e) {
+    if (e.key === 'Enter') {
+      dispatch(roomActions.emptyRoom());
+      dispatch(roomActions.searchRoomDB(props.search, 1));
+      props.setIsSearch(true);
+      props.setPageNum(2);
+    }
+  }
+
   return (
     <React.Fragment>
       <SearchBarWrap>
         <SearchBarInput
           placeholder="방 정보를 입력해주세요"
           onChange={(e) => props.setSearch(e.target.value)}
+          onKeyPress={onKeyPress}
         />
         <Search
-          className ="search"
+          className="search"
           style={{
             cursor: 'pointer',
             width: '30px',
@@ -24,7 +35,10 @@ const SearchBar = (props) => {
             fill: '#33344B',
           }}
           onClick={() => {
-            dispatch(roomActions.searchRoomDB(props.search));
+            dispatch(roomActions.emptyRoom());
+            dispatch(roomActions.searchRoomDB(props.search, 1));
+            props.setIsSearch(true);
+            props.setPageNum(2);
           }}
         />
       </SearchBarWrap>
@@ -49,7 +63,7 @@ const SearchBarInput = styled.input`
   border: 1px solid #8a8ba3;
   border-radius: 4px;
   padding: 10px;
-  @media screen and (max-width:550px){ 
+  @media screen and (max-width: 550px) {
     ::placeholder {
       font-size: 12px;
     }
