@@ -528,6 +528,9 @@ const Container = styled.div`
       background-color: gold;
       .header-inner {
         width: 100%;
+
+        .gnb {
+        }
       }
     }
   }
