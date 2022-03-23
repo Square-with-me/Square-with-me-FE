@@ -102,6 +102,7 @@ const Mypage = (props) => {
     dispatch(userActions.getImageUrlDB(userId, formData));
   };
 
+  // 프로필 이미지 클릭시
   const onClickImage = () => {
     const fileUpload = document.getElementById('ex_file');
     fileUpload.click();
@@ -226,18 +227,6 @@ const Mypage = (props) => {
           <div id="middleTopBox" className="boxStyle">
             <BadgeContainer2>
               <div className="badgeBox">
-                <div className="badge">
-                  <img src={lockBadge} />
-                </div>
-                <div className="badge">
-                  <img src={lockBadge} />
-                </div>
-                <div className="badge">
-                  <img src={lockBadge} />
-                </div>
-                <div className="badge">
-                  <img src={lockBadge} />
-                </div>
                 <div className="badge">
                   <img src={lockBadge} />
                 </div>
@@ -609,13 +598,14 @@ const BadgeContainer = styled.div`
     overflow-y: scroll;
     margin-top: 20px;
     label {
+      border-radius: 50%;
       cursor: pointer;
     }
     input[type='radio'] {
       display: none;
     }
     input[type='radio']:checked + img {
-      border-radius: 4px;
+      border-radius: 50%;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
@@ -624,6 +614,16 @@ const BadgeContainer = styled.div`
     width: 64px;
     height: 64px;
   }
+
+  label.badge {
+    transition: all 0.5s;
+  }
+
+  label.badge:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
+      rgba(0, 0, 0, 0.23) 0px 3px 3px;
+  }
+
   button {
     width: 100px;
     height: 51px;
