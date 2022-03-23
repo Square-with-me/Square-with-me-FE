@@ -74,7 +74,6 @@ const SearchBarInput = styled.input`
       font-size: 12px;
     }
   }
-
   &:focus {
     background-color: transparent;
     outline-color: #7179f0;

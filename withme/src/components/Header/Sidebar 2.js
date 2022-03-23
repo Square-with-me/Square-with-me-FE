@@ -13,12 +13,12 @@ import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
 //redux
 import { actionCreators as userActions } from '../../redux/modules/user';
 
-const MSidebar = (props) => {
+const Sidebar = (props) => {
   const { open, close, header, setIsM } = props;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
-
+  
   if (open) {
     return (
       <React.Fragment>
@@ -82,6 +82,16 @@ const MSidebar = (props) => {
               <Text>나가기</Text>
             )}
           </div>
+          {/* <div>
+            <Text
+              onClick={() => {
+                history.push(`/mypage/${user.id}`);
+                close();
+              }}
+            >
+              마이페이지
+            </Text>
+          </div> */}
         </Wrap>
         <ModalBackground
           onClick={() => {
@@ -110,10 +120,16 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
-  top: -23px;
-  right: -25px;
+  right: -17px;
+  top:19px;
   animation: modal-bg-show 0.6s;
-  font-weight: 600;
+  font-weight: 500;
+  @media screen and (max-width:550px){ 
+    right: -7px;
+    top:25px;
+    width: 150px;  
+    padding: 10px;
+  }
 
   @keyframes modal-show {
     from {
@@ -148,9 +164,9 @@ const Text = styled.div`
   font-size: 18px;
   color: #000000;
   cursor: pointer;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:550px){ 
     font-size: 15px;
   }
 `;
 
-export default MSidebar;
+export default Sidebar;
