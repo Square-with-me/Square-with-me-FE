@@ -428,6 +428,7 @@ const CategoryText = styled.div`
 
 const TitleText = styled.div`
   width: 171px;
+  height: 23px;
   font-weight: 700;
   white-space: nowrap;
   display: block;
