@@ -57,7 +57,6 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
-        console.log(res)
         alert("로그인에 성공하였습니다!")
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
@@ -95,7 +94,6 @@ const signUpDB = (origin, nickname, pwd) => {
       .signup(origin, nickname, pwd)
       .then((res) => {
         window.alert(res.data.msg);
-        console.log(res);
         window.location.reload('/main');
       })
       .catch(function (error) {
@@ -119,7 +117,10 @@ const logInCheckDB = () => {
           ...user,
         })
       );
-    });
+    })
+    .catch((err)=>{
+      console.log(err.response)
+    })
     // api_token.get(`/api/user/me`)
     // .then((res)=>{
     //   const user = res.data.data.user;
@@ -164,7 +165,7 @@ const editProfileDB = (userId, profileUrl) => {
         dispatch(editProfile(profileUrl));
       })
       .catch(function (err) {
-        window.alert(err);
+        alert(err.response.data.msg);
       });
   };
 };
@@ -209,11 +210,9 @@ const editStatusDB = (userId, status) => {
         }
       )
       .then(function (res) {
-        console.log('상태메시지 수정하기', res);
         dispatch(editStatus(status));
       })
       .catch(function (error) {
-        console.log(error);
         window.alert(error.response.data.msg);
       });
   };
@@ -227,7 +226,7 @@ const editBadgeDB = (userId, badgeId) => {
       console.log(res)
     })
     .catch((err)=>{
-      console.log(err)
+      alert(err.response.data.msg);
     })
   }
 };
@@ -274,7 +273,7 @@ const timeGetDB = (userId) => {
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
-        window.alert(error.response.data.msg);
+        console.log(error.response);
       });
   };
 };
@@ -284,8 +283,6 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log('user ', action.payload.user);
-
         draft.user = action.payload.user;
         draft.is_login = true;
       }),

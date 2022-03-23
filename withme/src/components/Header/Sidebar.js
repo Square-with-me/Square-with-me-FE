@@ -23,11 +23,6 @@ const Sidebar = (props) => {
   const is_local = localStorage.getItem('login-token') ? true : false;
   React.useEffect(() => {}, [is_login]);
 
-  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
-    ? true
-    : false;
-  React.useEffect(() => {}, [notUser_is_login]);
 
   if (open) {
     return (
@@ -91,32 +86,6 @@ const Sidebar = (props) => {
             ) : (
               <Text>나가기</Text>
             )}
-          </div>
-
-          {notUser_is_local === true ? (
-            <div
-              style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
-            >
-              <UserNickIcon
-                fill="#000000"
-                width="30px"
-                height="30px"
-                style={{ 
-                  marginRight: '8px' }}
-              />
-              <Text
-                onClick={() => {
-                  dispatch(userActions.notUserLogOut());
-                }}
-              >
-                비회원은
-                <br />
-                그만 할래요
-              </Text>
-            </div>
-          ) : null}
-          <div>
-
           </div>
           {/* <div>
             <Text

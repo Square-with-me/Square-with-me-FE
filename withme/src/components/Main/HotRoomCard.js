@@ -131,7 +131,7 @@ const HotRoomCard = (props) => {
 
         <div className="tag">
           {props.Tags.map((r, idx) => {
-            return <TagText># {r.name}</TagText>;
+            return <TagText key={r.id}># {r.name}</TagText>;
           })}
         </div>
       </div>
