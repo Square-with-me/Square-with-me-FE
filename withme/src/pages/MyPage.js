@@ -268,7 +268,7 @@ const Mypage = (props) => {
             </div>
           </div>
           <div className="width100 endBottomBoxWrap">
-            <Text>이번 달 네모와 함께한 시간</Text>
+            <Text>이번 달 참여 기록</Text>
             <div id="endBottomBox" className="boxStyle">
               <MonthTimeBox>
                 <MonthTime month={month} />
