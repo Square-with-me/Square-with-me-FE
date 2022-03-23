@@ -161,6 +161,7 @@ const DropWrap = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     margin: 14px 0px;
+    height: 20px;
   }
   .tags {
     font-size: 14px;
