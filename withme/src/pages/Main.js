@@ -33,7 +33,7 @@ const Main = () => {
   const [possible, setPossible] = useState(false);
   //비밀 방
   const [secret, setSecret] = useState(false);
-  const [hotSecret, setHotSecret] =useState(false)
+  const [hotSecret, setHotSecret] = useState(false);
   const userId = useSelector((store) => store.user.user.id);
   //room
   const [category, setCategory] = useState('카테고리');
@@ -45,7 +45,7 @@ const Main = () => {
 
   // 카테고리 선택하기
   useEffect(() => {
-    if (choiceCate === 0) {
+    if (choiceCate === 0 && possible === false) {
       // 전체 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
@@ -66,8 +66,8 @@ const Main = () => {
     dispatch(roomActions.enteringRoomDB(roomId, userId));
   };
 
-  //비밀방 모달 
-  const [secretRoom, setSecretRoom] = useState({})
+  //비밀방 모달
+  const [secretRoom, setSecretRoom] = useState({});
 
   // 핫한 방 불러오기
   React.useEffect(() => {
@@ -145,7 +145,7 @@ const Main = () => {
                       <div
                         onClick={() => {
                           setHotSecret(true);
-                          setSecretRoom(data)
+                          setSecretRoom(data);
                         }}
                       >
                         <HotRoomCard {...data} />
@@ -164,7 +164,9 @@ const Main = () => {
                 );
               })
             : ''}
-            {hotSecret===true ? <SecretRoomModal setSecret={setHotSecret} data={secretRoom}/> : null}
+          {hotSecret === true ? (
+            <SecretRoomModal setSecret={setHotSecret} data={secretRoom} />
+          ) : null}
 
           {roomList
             ? roomList.map((data) => {
@@ -174,7 +176,7 @@ const Main = () => {
                       <div
                         onClick={() => {
                           setSecret(true);
-                          setSecretRoom(data)
+                          setSecretRoom(data);
                         }}
                       >
                         <RoomCard {...data} setPossible={possible} />
@@ -188,12 +190,13 @@ const Main = () => {
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
-                   
                   </div>
                 );
               })
             : ''}
-             {secret===true ? <SecretRoomModal setSecret={setSecret} data={secretRoom}/> : null}
+          {secret === true ? (
+            <SecretRoomModal setSecret={setSecret} data={secretRoom} />
+          ) : null}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>

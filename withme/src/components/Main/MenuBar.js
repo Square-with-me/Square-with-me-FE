@@ -231,9 +231,15 @@ const MenuBar = (props) => {
         }}
         onClick={() => {
           dispatch(roomActions.hotRoomDB());
-
           props.setPossible(false);
-          getAllRoomFunc();
+          if (props.category !== '카테고리') {
+            props.setChoiceCate(0);
+          } else {
+            dispatch(roomActions.emptyRoom());
+            dispatch(roomActions.getRoomDB(1));
+            props.setPageNum(2);
+            props.setIsSearch(false);
+          }
         }}
       />
     </Menu>
