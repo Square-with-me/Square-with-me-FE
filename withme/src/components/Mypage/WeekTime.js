@@ -21,7 +21,7 @@ const WeekTime = ({ week }) => {
 
   useEffect(() => {
     console.log('이번 주 데이터', week);
-
+    
     const sun100 =
       beautyRecord.sun +
       counselingRecord.sun +

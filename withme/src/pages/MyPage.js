@@ -49,7 +49,6 @@ const Mypage = (props) => {
 
   const [editbadge, setEditbadge] = useState(false)
   const [badgeId, setBadgeId] = useState(0)
-  console.log(typeof(badgeId))
 
   useEffect(() => {
     dispatch(userActions.timeGetDB(userId));
@@ -242,7 +241,7 @@ const Mypage = (props) => {
               </BadgeContainer2>
             </div>
           </div>
-          <div>
+          <div className='middleBottomBoxWrap'>
             <Text>오늘의 참여 기록</Text>
             <div id="middleBottomBox" className="boxStyle">
               <TodayTimeBox>
@@ -291,14 +290,13 @@ const Container = styled.div`
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
-  /* background-color: #f7f7f7; */
   .header {
     grid-column: 5/13;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    @media screen and (max-width: 1199px) {
+    @media screen and (max-width: 1115px) {
       grid-column: 1/8;
       display: flex;
       justify-content: center;
@@ -392,8 +390,8 @@ const Container = styled.div`
     width: 100%;
   }
   // 테블릿
-  @media screen and (max-width: 1199px) {
-    height: 100%;
+  @media screen and (max-width: 1115px) {
+    min-height: 100vh;
     grid-template-columns: repeat(7, 1fr);
     padding: 50px 0;
     #end {
@@ -409,7 +407,7 @@ const Container = styled.div`
   }
   // 모바일
   @media screen and (max-width: 700px) {
-    height: 100%;
+    min-height: 100vh;
     grid-template-columns: repeat(4, 1fr);
     margin: auto;
     .header{
@@ -420,14 +418,18 @@ const Container = styled.div`
       width: 100%;
       height: 60vh;
       #startBox{
-        margin-top:20px;
+        margin-top:40px;
       }
     }
     #middle{
-      grid-column: 1 / 5;
+      grid-column: 1/5;
       width: 100%;
+      margin-top: 30px;
       #middleTopBox{
         height: 25vh;
+      }
+      .middleBottomBoxWrap{
+        margin-top: 20px;
       }
       .chart{
         width: 75%;
@@ -437,6 +439,7 @@ const Container = styled.div`
     #end{
       grid-column: 1 / 5;
       width: 100%;
+      margin-top: 20px;
     }
   }
 `;
@@ -457,6 +460,10 @@ const ProfileContainer = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    @media screen and (max-width: 700px) {
+      width: fit-content;
+      margin-right: 30px;
+    }
     .filebox label {
       display: inline-block;
       /* padding: 0.5em 0.75em; */
@@ -489,8 +496,9 @@ const ProfileContainer = styled.div`
     background-color: white;
     position: absolute;
     right:0;
-    bottom:0 ;
+    bottom:0;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
+
   }
 
   .hidden {

@@ -33,6 +33,7 @@ const Main = () => {
   const [possible, setPossible] = useState(false);
   //비밀 방
   const [secret, setSecret] = useState(false);
+  const [hotSecret, setHotSecret] =useState(false)
   const userId = useSelector((store) => store.user.user.id);
   //room
   const [category, setCategory] = useState('카테고리');
@@ -60,18 +61,13 @@ const Main = () => {
     }
   }, [choiceCate]);
 
-  // useEffect(() => {
-  //   if (possible === true) {
-  //     dispatch(roomActions.PossibleRoomDB());
-  //   } else {
-  //     dispatch(roomActions.getRoomDB());
-  //   }
-  // }, []);
-
   // 공개방 참가하기
   const goRoom = (roomId) => {
     dispatch(roomActions.enteringRoomDB(roomId, userId));
   };
+
+  //비밀방 모달 
+  const [secretRoom, setSecretRoom] = useState({})
 
   // 핫한 방 불러오기
   React.useEffect(() => {
@@ -148,7 +144,8 @@ const Main = () => {
                     {data.isSecret === true ? (
                       <div
                         onClick={() => {
-                          setSecret(true);
+                          setHotSecret(true);
+                          setSecretRoom(data)
                         }}
                       >
                         <HotRoomCard {...data} />
@@ -158,17 +155,16 @@ const Main = () => {
                         onClick={() => {
                           goRoom(data.id);
                         }}
+                        key={data.id}
                       >
                         <HotRoomCard {...data} />
                       </div>
-                    )}
-                    {secret && (
-                      <SecretRoomModal setSecret={setSecret} data={data} />
                     )}
                   </div>
                 );
               })
             : ''}
+            {hotSecret===true ? <SecretRoomModal setSecret={setHotSecret} data={secretRoom}/> : null}
 
           {roomList
             ? roomList.map((data) => {
@@ -178,6 +174,7 @@ const Main = () => {
                       <div
                         onClick={() => {
                           setSecret(true);
+                          setSecretRoom(data)
                         }}
                       >
                         <RoomCard {...data} setPossible={possible} />
@@ -191,13 +188,12 @@ const Main = () => {
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
-                    {secret && (
-                      <SecretRoomModal setSecret={setSecret} data={data} />
-                    )}
+                   
                   </div>
                 );
               })
             : ''}
+             {secret===true ? <SecretRoomModal setSecret={setSecret} data={secretRoom}/> : null}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>
@@ -213,11 +209,12 @@ const Main = () => {
 };
 
 const Back = styled.div`
-  height: 100%;
+  min-height: 100vh;
   background-color: #f7f7f7;
 `;
 //share
 const Wrap = styled.div`
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   max-width: 1110px;

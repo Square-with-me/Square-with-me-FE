@@ -537,7 +537,6 @@ const Container = styled.div`
 
   .welcome {
     height: 100vh;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -559,7 +558,7 @@ const Container = styled.div`
 
       .sports {
         position: absolute;
-        left: 15%;
+        left: 20%;
         top: 0%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
@@ -568,16 +567,16 @@ const Container = styled.div`
 
       .culture {
         position: absolute;
-        left: 86px;
-        top: 150px;
+        left: 35%;
+        top: 45%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .study {
         position: absolute;
-        left: 367px;
-        top: 200px;
+        left: 25%;
+        top: 50%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -585,24 +584,24 @@ const Container = styled.div`
 
       .beauty {
         position: absolute;
-        left: 674px;
-        top: 190px;
+        left: 50%;
+        top: 65%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .counseling {
         position: absolute;
-        left: 900px;
-        top: 180px;
+        left: 70%;
+        top: 50%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .etc {
         position: absolute;
-        left: 950px;
-        top: 0px;
+        left: 75%;
+        top: 0;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);

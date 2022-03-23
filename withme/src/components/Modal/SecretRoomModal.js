@@ -9,7 +9,6 @@ import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 
 const SecretRoomModal = (props) => {
   const userId = useSelector((store) => store.user.user.id);
-  console.log(props.data);
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState("");
@@ -27,8 +26,8 @@ const SecretRoomModal = (props) => {
           props.setSecret(false);
         }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4L20 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
-        <path d="M20 4L4 20" stroke="#33344B" stroke-width="2" stroke-miterlimit="10"/>
+        <path d="M4 4L20 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
+        <path d="M20 4L4 20" stroke="#33344B" strokeWidth="2" strokeMiterlimit="10"/>
         </svg>
         </Headers>
         <Contents>
