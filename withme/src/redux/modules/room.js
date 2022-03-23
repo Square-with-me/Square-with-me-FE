@@ -33,13 +33,13 @@ const getRoomDB = (pageNum) => {
   console.log('전체방 8개: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms?q=all&p=${pageNum}`)
+      .get(`http://52.79.234.176/api/rooms?q=all&p=${pageNum}`)
       .then((response) => {
         const roomList = response.data.data;
         dispatch(getRoom(roomList));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
@@ -50,7 +50,7 @@ const addRoomDB = (roomInfo, category) => {
     axios
       .post(
         // 'http://15.164.48.35:80/api/room/new',
-        'http://52.79.234.176//api/room/new',
+        'http://52.79.234.176/api/room/new',
         {
           ...roomInfo,
         },
@@ -64,10 +64,10 @@ const addRoomDB = (roomInfo, category) => {
         dispatch(addRoom(response.data.data));
         dispatch(enterRoom(response.data.data));
         localStorage.setItem('myRoom', JSON.stringify(response.data.data));
-        history.push(`/room/${response.data.data.id}`);
+        history.replace(`/room/${response.data.data.id}`);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        alert(err.response.data.msg);
       });
   };
 };
@@ -77,12 +77,12 @@ const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
       // .get('http://15.164.48.35:80/api/rooms?q=hot', {})
-      .get('http://52.79.234.176//api/rooms?q=hot', {})
+      .get('http://52.79.234.176/api/rooms?q=hot', {})
       .then((res) => {
         dispatch(hotRoom(res.data.data));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
@@ -92,7 +92,7 @@ const searchRoomDB = (search, pageNum) => {
   console.log('검색: ', search, pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms?q=${search}&p=${pageNum}`, {
+      .get(`http://52.79.234.176/api/rooms?q=${search}&p=${pageNum}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
@@ -100,8 +100,8 @@ const searchRoomDB = (search, pageNum) => {
       .then((res) => {
         dispatch(getRoom(res.data.data));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        alert(err.response.data.msg);
       });
   };
 };
@@ -112,14 +112,14 @@ const categoryRoomDB = (categoryId, pageNum) => {
   return function (dispatch, getState, { history }) {
     axios
       .get(
-        `http://15.164.48.35:80/api/rooms/category/${categoryId}&p=${pageNum}`
+        `http://52.79.234.176/api/rooms/category/${categoryId}&p=${pageNum}`
       )
       .then((res) => {
         console.log('얍얍얍', res);
         dispatch(getRoom(res.data.data));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
@@ -141,10 +141,10 @@ const enteringRoomDB = (roomId, userId) => {
       .then((res) => {
         dispatch(enterRoom(res.data.data));
         localStorage.setItem('myRoom', JSON.stringify(res.data.data));
-        history.push(`/room/${roomId}`);
+        history.replace(`/room/${roomId}`);
       })
-      .catch((error) => {
-        alert(error.response.data.msg);
+      .catch((err) => {
+        alert(err.response.data.msg);
       });
   };
 };
@@ -154,13 +154,12 @@ const possibleRoomDB = (pageNum) => {
   console.log('참여가능만: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://15.164.48.35:80/api/rooms?q=possible&p=${pageNum}`)
+      .get(`http://52.79.234.176/api/rooms?q=possible&p=${pageNum}`)
       .then((res) => {
         dispatch(getRoom(res.data.data));
-        console.log(res.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
@@ -173,11 +172,10 @@ const CheckPwdDB = (pwd, roomId, userId) => {
     apis
       .checkPwd(pwd, roomId)
       .then((res) => {
-        console.log(res);
         dispatch(enteringRoomDB(roomId, userId));
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.response.data.msg);
       });
   };
 };
@@ -186,7 +184,6 @@ export default handleActions(
   {
     [GET_ROOM]: (state, action) =>
       produce(state, (draft) => {
-        console.log('히히', action.payload);
         draft.list.push(...action.payload.roomList);
       }),
     [EMPTY_ROOM]: (state, action) =>

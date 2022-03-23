@@ -31,10 +31,10 @@ const Mypage = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user.user);
-  const badges = useSelector((store)=>store.user.badges)
-  useEffect(()=>{
-    dispatch(userActions.getBadgeDB(userId))
-  },[])
+  const badges = useSelector((store) => store.user.badges);
+  useEffect(() => {
+    dispatch(userActions.getBadgeDB(userId));
+  }, []);
 
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
@@ -47,9 +47,8 @@ const Mypage = (props) => {
   const month = useSelector((store) => store.user.month); // 한달 데이터
   const week = useSelector((store) => store.user.week);
 
-  const [editbadge, setEditbadge] = useState(false)
-  const [badgeId, setBadgeId] = useState(0)
-  console.log(typeof(badgeId))
+  const [editbadge, setEditbadge] = useState(false);
+  const [badgeId, setBadgeId] = useState(0);
 
   useEffect(() => {
     dispatch(userActions.timeGetDB(userId));
@@ -128,11 +127,7 @@ const Mypage = (props) => {
                   shape="circle"
                   width="110px"
                   height="110px"
-                  src={
-                    user.profileImg
-                      ? user.profileImg
-                      : userIcon
-                  }
+                  src={user.profileImg ? user.profileImg : userIcon}
                   _onClick={(e) => {
                     onClickImage(e);
                   }}
@@ -140,7 +135,9 @@ const Mypage = (props) => {
                 <div className="filebox">
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
-                <div className="badgeImg"><Image src=""/></div>
+                <div className="badgeImg">
+                  <Image src="" />
+                </div>
               </div>
               <div className="textBox">
                 <div className="nameBox">
@@ -174,75 +171,96 @@ const Mypage = (props) => {
                 </div>
               </div>
             </ProfileContainer>
-            {editbadge === true 
-            ?             
-            <BadgeContainer>
-            <div className="badgeBox">
-              {badges && badges.map((b)=>{
-                return (                
-                <label className="badge" key={b.id} >
-                  <input type="radio" name="badge" onChange={(e)=>setBadgeId(e.target.value)} value={b.UserBadge.badgeId}/><img src={b.imageUrl}/>
-              </label>)
-              })}
-            </div>
-            <button onClick={()=>{dispatch(userActions.editBadgeDB(userId, badgeId)); setEditbadge(false)}}>수정완료</button>
-          </BadgeContainer>
-            :            
-            <BadgeContainer>
-            <div className="badgeBox">
-              {badges && badges.map((b)=>{
-                return (                
-                <div className="badge" key={b.id}>
-                <img src={b.imageUrl} />
-              </div>)
-              })}
-            </div>
-            <button onClick={()=>{setEditbadge(true)}}>수정하기</button>
-          </BadgeContainer>}
-
+            {editbadge === true ? (
+              <BadgeContainer>
+                <div className="badgeBox">
+                  {badges &&
+                    badges.map((b) => {
+                      return (
+                        <label className="badge" key={b.id}>
+                          <input
+                            type="radio"
+                            name="badge"
+                            onChange={(e) => setBadgeId(e.target.value)}
+                            value={b.UserBadge.badgeId}
+                          />
+                          <img src={b.imageUrl} />
+                        </label>
+                      );
+                    })}
+                </div>
+                <button
+                  onClick={() => {
+                    dispatch(userActions.editBadgeDB(userId, badgeId));
+                    setEditbadge(false);
+                  }}
+                >
+                  수정완료
+                </button>
+              </BadgeContainer>
+            ) : (
+              <BadgeContainer>
+                <div className="badgeBox">
+                  {badges &&
+                    badges.map((b) => {
+                      return (
+                        <div className="badge" key={b.id}>
+                          <img src={b.imageUrl} />
+                        </div>
+                      );
+                    })}
+                </div>
+                <button
+                  onClick={() => {
+                    setEditbadge(true);
+                  }}
+                >
+                  수정하기
+                </button>
+              </BadgeContainer>
+            )}
           </div>
         </div>
         <div id="middle">
-          <div>
-            <Text>더 많은 뱃지를 획득해보세요!</Text>
-            <div id="middleTopBox" className="boxStyle">
-              <BadgeContainer2>
-                <div className="badgeBox">
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
-                  <div className="badge">
-                    <img src={lockBadge} />
-                  </div>
+          <Text>더 많은 뱃지를 획득해보세요!</Text>
+          <div id="middleTopBox" className="boxStyle">
+            <BadgeContainer2>
+              <div className="badgeBox">
+                <div className="badge">
+                  <img src={lockBadge} />
                 </div>
-              </BadgeContainer2>
-            </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+              </div>
+            </BadgeContainer2>
           </div>
-          <div>
+
+          <div className="middleBottomBoxWrap">
             <Text>오늘의 참여 기록</Text>
             <div id="middleBottomBox" className="boxStyle">
               <TodayTimeBox>
@@ -291,14 +309,13 @@ const Container = styled.div`
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
-  /* background-color: #f7f7f7; */
   .header {
     grid-column: 5/13;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    @media screen and (max-width: 1199px) {
+    @media screen and (max-width: 1115px) {
       grid-column: 1/8;
       display: flex;
       justify-content: center;
@@ -312,7 +329,6 @@ const Container = styled.div`
   #start {
     width: 350px;
     height: 70vh;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -392,8 +408,8 @@ const Container = styled.div`
     width: 100%;
   }
   // 테블릿
-  @media screen and (max-width: 1199px) {
-    height: 100%;
+  @media screen and (max-width: 1115px) {
+    min-height: 100vh;
     grid-template-columns: repeat(7, 1fr);
     padding: 50px 0;
     #end {
@@ -402,41 +418,45 @@ const Container = styled.div`
       p {
         margin-top: 10px;
       }
-      .endBottomBoxWrap {
+      /* .endBottomBoxWrap {
         margin-top: 40px;
-      }
+      } */
     }
   }
   // 모바일
   @media screen and (max-width: 700px) {
-    height: 100%;
+    min-height: 100vh;
     grid-template-columns: repeat(4, 1fr);
     margin: auto;
-    .header{
+    .header {
       grid-column: 1/5;
     }
-    #start{
+    #start {
       grid-column: 1/5;
       width: 100%;
-      height: 60vh;
-      #startBox{
-        margin-top:20px;
+      #startBox {
+        margin-top: 40px;
       }
     }
-    #middle{
-      grid-column: 1 / 5;
+    #middle {
+      grid-column: 1/5;
       width: 100%;
-      #middleTopBox{
+      /* margin-top: 30px; */
+      #middleTopBox {
         height: 25vh;
       }
-      .chart{
+      .middleBottomBoxWrap {
+        margin-top: 20px;
+      }
+      .chart {
         width: 75%;
         margin: auto;
       }
     }
-    #end{
+    #end {
       grid-column: 1 / 5;
       width: 100%;
+      margin-top: 20px;
     }
   }
 `;
@@ -457,6 +477,10 @@ const ProfileContainer = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    @media screen and (max-width: 700px) {
+      width: fit-content;
+      margin-right: 30px;
+    }
     .filebox label {
       display: inline-block;
       /* padding: 0.5em 0.75em; */
@@ -488,8 +512,8 @@ const ProfileContainer = styled.div`
     border-radius: 50%;
     background-color: white;
     position: absolute;
-    right:0;
-    bottom:0 ;
+    right: 0;
+    bottom: 0;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
 
@@ -584,15 +608,16 @@ const BadgeContainer = styled.div`
     place-items: center;
     overflow-y: scroll;
     margin-top: 20px;
-    label{
+    label {
       cursor: pointer;
     }
-    input[type="radio"]{
-      display:none;
+    input[type='radio'] {
+      display: none;
     }
-    input[type="radio"]:checked + img{
+    input[type='radio']:checked + img {
       border-radius: 4px;
-      box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px, rgba(0, 0, 0, 0.23) 0px 3px 3px;
+      box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
+        rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
   }
   .badge {

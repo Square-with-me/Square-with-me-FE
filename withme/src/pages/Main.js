@@ -16,6 +16,8 @@ import SecretRoomModal from '../components/Modal/SecretRoomModal';
 import SearchBar from '../components/Main/SearchBar';
 import MakeRoomCard from '../components/Main/MakeRoomCard';
 
+import lottie from 'lottie-web';
+
 //redux
 import { actionCreators as roomActions } from '../redux/modules/room';
 
@@ -33,6 +35,7 @@ const Main = () => {
   const [possible, setPossible] = useState(false);
   //비밀 방
   const [secret, setSecret] = useState(false);
+  const [hotSecret, setHotSecret] = useState(false);
   const userId = useSelector((store) => store.user.user.id);
   //room
   const [category, setCategory] = useState('카테고리');
@@ -44,7 +47,8 @@ const Main = () => {
 
   // 카테고리 선택하기
   useEffect(() => {
-    if (choiceCate === 0) {
+    if (choiceCate === 0 && possible === false) {
+      console.log('카테고리 변함');
       // 전체 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
@@ -60,18 +64,13 @@ const Main = () => {
     }
   }, [choiceCate]);
 
-  // useEffect(() => {
-  //   if (possible === true) {
-  //     dispatch(roomActions.PossibleRoomDB());
-  //   } else {
-  //     dispatch(roomActions.getRoomDB());
-  //   }
-  // }, []);
-
   // 공개방 참가하기
   const goRoom = (roomId) => {
     dispatch(roomActions.enteringRoomDB(roomId, userId));
   };
+
+  //비밀방 모달
+  const [secretRoom, setSecretRoom] = useState({});
 
   // 핫한 방 불러오기
   React.useEffect(() => {
@@ -99,6 +98,18 @@ const Main = () => {
     }
   };
 
+  const loadingcontainer = useRef();
+
+  useEffect(() => {
+    lottie.loadAnimation({
+      container: loadingcontainer.current,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      animationData: require('../assets/lottie/loading.json'),
+    });
+  }, []);
+
   return (
     <Back>
       <Wrap>
@@ -109,7 +120,6 @@ const Main = () => {
         <div className="logo" onClick={() => history.replace('/main')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
-
         <div className="searchbar">
           <SearchBar
             search={search}
@@ -148,7 +158,8 @@ const Main = () => {
                     {data.isSecret === true ? (
                       <div
                         onClick={() => {
-                          setSecret(true);
+                          setHotSecret(true);
+                          setSecretRoom(data);
                         }}
                       >
                         <HotRoomCard {...data} />
@@ -158,18 +169,19 @@ const Main = () => {
                         onClick={() => {
                           goRoom(data.id);
                         }}
+                        key={data.id}
                       >
                         <HotRoomCard {...data} />
                       </div>
-                    )}
-                    {secret && (
-                      <SecretRoomModal setSecret={setSecret} data={data} />
                     )}
                   </div>
                 );
               })
             : ''}
-
+          {hotSecret === true ? (
+            <SecretRoomModal setSecret={setHotSecret} data={secretRoom} />
+          ) : null}
+          {/* <Lottie ref={loadingcontainer}></Lottie> */}
           {roomList
             ? roomList.map((data) => {
                 return (
@@ -178,6 +190,7 @@ const Main = () => {
                       <div
                         onClick={() => {
                           setSecret(true);
+                          setSecretRoom(data);
                         }}
                       >
                         <RoomCard {...data} setPossible={possible} />
@@ -191,13 +204,13 @@ const Main = () => {
                         <RoomCard {...data} setPossible={possible} />
                       </div>
                     )}
-                    {secret && (
-                      <SecretRoomModal setSecret={setSecret} data={data} />
-                    )}
                   </div>
                 );
               })
             : ''}
+          {secret === true ? (
+            <SecretRoomModal setSecret={setSecret} data={secretRoom} />
+          ) : null}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>
@@ -213,11 +226,12 @@ const Main = () => {
 };
 
 const Back = styled.div`
-  height: 100%;
+  min-height: 100vh;
   background-color: #f7f7f7;
 `;
 //share
 const Wrap = styled.div`
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   max-width: 1110px;
@@ -230,11 +244,8 @@ const Wrap = styled.div`
     grid-column: 12/13;
     display: flex;
     justify-content: end;
-    @media screen and (max-width: 1199px) {
-      margin: 0px 10px;
-    }
-    @media screen and (max-width: 550px) {
-      margin: 0px 13px;
+    @media screen and (max-width: 1110px) {
+      margin: 0px 12px;
     }
   }
   .logo {
@@ -255,8 +266,12 @@ const Wrap = styled.div`
   }
   .banner {
     grid-column: 1/13;
-    width: 97%;
+    width: 100%;
     margin: auto;
+    @media screen and (max-width: 1110px) {
+      width: 97%;
+      margin: auto;
+    }
   }
   .hotroomlist {
     grid-column: 1/13;
@@ -264,15 +279,12 @@ const Wrap = styled.div`
   .menuList {
     grid-column: 1/13;
     align-items: center;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    @media screen and (max-width: 1199px) {
+    @media screen and (max-width: 1110px) {
       width: 97%;
-      margin: auto;
-    }
-    @media screen and (max-width: 550px) {
-      width: 95%;
       margin: auto;
     }
   }
@@ -321,12 +333,12 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
-  @media screen and (min-width: 1024px) {
+  position: relative;
+  @media screen and (min-width: 1110px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
   }
-  @media screen and (min-width: 813px) and (max-width: 1023px) {
+  @media screen and (min-width: 813px) and (max-width: 1110px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
-    margin: 0px 20px;
   }
   @media screen and (min-width: 550px) and (max-width: 812px) {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
@@ -334,23 +346,12 @@ const RoomListContainer = styled.div`
   @media screen and (max-width: 550px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
+`;
 
-  /* @media screen and (min-width: 1607px) {
-    grid-template-columns: repeat(4, minmax(0px, 1fr)) !important;
-    row-gap: 32px;
-  }
-  @media screen and (min-width: 1232px) and (max-width: 1607px) {
-    grid-template-columns: repeat(4, minmax(0px, 1fr));
-    row-gap: 32px;
-  }
-  @media screen and (min-width: 878px) and (max-width: 1232px) {
-    grid-template-columns: repeat(3, minmax(0px, 1fr)) !important;
-  }
-  @media screen and (min-width: 551px) and (max-width: 878px) {
-    grid-template-columns: repeat(2, minmax(0px, 1fr));
-  }
-  @media screen and (min-width: 0px) and (max-width: 551px) {
-    grid-template-columns: repeat(1, minmax(0px, 1fr));
-  } */
+const Lottie = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 export default Main;

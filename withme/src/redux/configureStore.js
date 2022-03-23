@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
 });
 
-const middlewares = [thunk.withExtraArgument({ history: history })];
+const middleWares = [thunk.withExtraArgument({ history: history })];
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
@@ -21,7 +21,9 @@ const env = process.env.NODE_ENV;
 // 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
 if (env === 'development') {
   const { logger } = require('redux-logger');
-  middlewares.push(logger);
+  middleWares.push(logger);
+} else{
+  middleWares()
 }
 
 const composeEnhancers =
@@ -31,7 +33,7 @@ const composeEnhancers =
       })
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+const enhancer = composeEnhancers(applyMiddleware(...middleWares));
 
 let store = (initialStore) => createStore(rootReducer, enhancer);
 export default store();

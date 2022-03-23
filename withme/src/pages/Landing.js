@@ -24,6 +24,7 @@ import iMac from '../assets/videos/imac.png';
 import Footer from '../components/Main/Footer';
 
 import { HiOutlineMenu } from 'react-icons/hi';
+import { FiX } from 'react-icons/fi';
 
 const Landing = () => {
   // TypeIt
@@ -119,7 +120,7 @@ const Landing = () => {
       // 5px 간격으로 배너 처음 위치 시킴
       $(this).css('left', bannerLeft);
       bannerLeft += $(this).width() + 5;
-      $(this).attr('id', 'banner2' + ++imgCnt); // img에 id 속성 추가
+      $(this).attr('id', 'bannerT' + ++imgCnt); // img에 id 속성 추가
     });
 
     if (imgCnt > 8) {
@@ -130,8 +131,8 @@ const Landing = () => {
         $img.each(function () {
           $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
         });
-        $first = $('#banner2' + first);
-        $last = $('#banner2' + last);
+        $first = $('#bannerT' + first);
+        $last = $('#bannerT' + last);
         if ($first.position().left < -300) {
           // 제일 앞에 배너 제일 뒤로 옮김
           $first.css('left', $last.position().left + $last.width() + 5);
@@ -148,6 +149,16 @@ const Landing = () => {
     }
   };
 
+  const openMenu = () => {
+    const menu = document.getElementsByClassName('gnb')[0];
+    menu.classList.add('active');
+  };
+
+  const closeMenu = () => {
+    const menu = document.getElementsByClassName('gnb')[0];
+    menu.classList.remove('active');
+  };
+
   return (
     <>
       <Container>
@@ -156,7 +167,13 @@ const Landing = () => {
             <div className="logo ">
               <img src={logo} />
             </div>
-            <div className="gnb">
+            <div className="mobile-menu" onClick={openMenu}>
+              <HiOutlineMenu size={30} />
+            </div>
+            <div className="gnb" onClick={closeMenu}>
+              <div className="cencel">
+                <FiX size={30} />
+              </div>
               <a href="#feature1">서비스 설명</a>
               <a href="#feature2">튜토리얼</a>
               <a href="#feature3">사용후기</a>
@@ -315,6 +332,78 @@ const Landing = () => {
                     <Other width="32px" fill="#7179f0" />
                   </div>
                 </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
               </div>
               <div className="categorySlider2">
                 <div className="category-box">
@@ -353,7 +442,6 @@ const Landing = () => {
                     <Exercise width="32px" fill="#7179f0" />
                   </div>
                 </div>
-
                 <div className="category-box">
                   <div className="category" fill="#7179f0">
                     뷰티
@@ -388,6 +476,78 @@ const Landing = () => {
                   <div className="category">
                     운동
                     <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    운동
+                    <Exercise width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category" fill="#7179f0">
+                    뷰티
+                    <Beauty width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    스터디
+                    <Study width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    상담
+                    <Consulting width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    문화
+                    <Culture width="32px" fill="#7179f0" />
+                  </div>
+                </div>
+                <div className="category-box">
+                  <div className="category">
+                    기타
+                    <Other width="32px" fill="#7179f0" />
                   </div>
                 </div>
               </div>
@@ -495,15 +655,17 @@ const Container = styled.div`
   header {
     background-color: #fff;
     box-shadow: -6px -6px 8px #ffffff, 0px 0px 8px rgba(0, 0, 0, 0.15);
+
     position: fixed;
     top: 0;
     left: 0%;
     width: 100%;
     z-index: 999;
+    width: 100vw;
 
     .header-inner {
       margin: auto;
-      width: 90vw;
+      width: 90%;
 
       overflow: hidden;
       height: 80px;
@@ -514,22 +676,59 @@ const Container = styled.div`
       .logo img {
         width: 200px;
       }
+      .mobile-menu {
+        display: none;
+      }
 
-      .gnb a {
-        margin: 20px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
-        font-size: 25px;
-        font-weight: 900;
-        text-decoration: none;
-        color: #666;
-        word-break: keep-all;
+      .gnb {
+        .cencel {
+          margin: 20px;
+          display: none;
+        }
+
+        a {
+          margin: 20px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
+          font-size: 25px;
+          font-weight: 900;
+          text-decoration: none;
+          color: #666;
+          word-break: keep-all;
+        }
       }
     }
     @media screen and (max-width: 820px) {
-      background-color: gold;
+      background-color: none;
+      box-shadow: none;
       .header-inner {
-        width: 100%;
+        display: flex;
+
+        .mobile-menu {
+          display: block;
+        }
 
         .gnb {
+          background-color: #fff;
+          box-shadow: -3px 0 3px rgba(0, 0, 0, 0.15);
+          width: 250px;
+          height: 100vh;
+          position: fixed;
+          top: 0;
+          right: -270px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.2s;
+
+          .cencel {
+            display: block;
+          }
+
+          a {
+            font-size: 18px;
+          }
+        }
+
+        .gnb.active {
+          right: 0px;
         }
       }
     }
@@ -537,7 +736,6 @@ const Container = styled.div`
 
   .welcome {
     height: 100vh;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -559,7 +757,7 @@ const Container = styled.div`
 
       .sports {
         position: absolute;
-        left: 15%;
+        left: 20%;
         top: 0%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
@@ -568,16 +766,16 @@ const Container = styled.div`
 
       .culture {
         position: absolute;
-        left: 86px;
-        top: 150px;
+        left: 35%;
+        top: 45%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .study {
         position: absolute;
-        left: 367px;
-        top: 200px;
+        left: 25%;
+        top: 50%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -585,24 +783,24 @@ const Container = styled.div`
 
       .beauty {
         position: absolute;
-        left: 674px;
-        top: 190px;
+        left: 50%;
+        top: 65%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .counseling {
         position: absolute;
-        left: 900px;
-        top: 180px;
+        left: 70%;
+        top: 50%;
         background-color: #f7f7f7;
         box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .etc {
         position: absolute;
-        left: 950px;
-        top: 0px;
+        left: 75%;
+        top: 0;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -749,7 +947,8 @@ const Container = styled.div`
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
+          justify-content: flex-start;
+          row-gap: 30px;
 
           .img-box {
             width: 196px;
@@ -934,7 +1133,7 @@ const Container = styled.div`
     }
 
     img {
-      width: 70%;
+      width: 600px;
       position: relative;
     }
 
@@ -942,6 +1141,12 @@ const Container = styled.div`
       width: 510px;
       position: absolute;
       top: 220px;
+    }
+
+    @media screen and (max-width: 767px) {
+      img {
+        display: none;
+      }
     }
   }
 
@@ -970,7 +1175,7 @@ const Container = styled.div`
 
         .content {
           font-weight: 700;
-          font-size: 20px;
+          font-size: 1.5vw;
           line-height: 30px;
         }
 
@@ -982,6 +1187,7 @@ const Container = styled.div`
   }
 
   footer {
+    width: 80vw;
   }
 
   .ltr {
