@@ -7,7 +7,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import WOW from 'wowjs';
 
-import { ReactComponent as Logo } from '../assets/landing/logo.svg';
+// import { ReactComponent as Logo } from '../assets/landing/logo.svg';
+import Logo from '../components/Main/Logo';
 import logo from '../assets/landing/logo.svg';
 import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
 import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
@@ -164,8 +165,8 @@ const Landing = () => {
       <Container>
         <header>
           <div className="header-inner">
-            <div className="logo ">
-              <img src={logo}/>
+            <div className="logo">
+              <Logo/>
             </div>
             <div className="mobile-menu" onClick={openMenu}>
               <HiOutlineMenu size={30} />
@@ -184,7 +185,7 @@ const Landing = () => {
         <section className="welcome">
           <div className="logo-inner utd wow">
             <div className="logo ">
-              <Logo />
+            <img src={logo} />
             </div>
             <div className="sports ltr wow">
               <Exercise fill="#E4E2EB" width="105px" />
@@ -567,64 +568,66 @@ const Landing = () => {
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “로나코 시국에 집에서 친구들이랑 얼굴보고 떠들면서 랜선 술자리 했어요
+                  채팅도 보낼수 있고, 얼마나 있었는지 알아서 너무 신기하고
+                  즐거웠어요 ㅋㅋㅋㅋ“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- JINI</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “집에서 친구들화 함께 공부하니까 집중도 더 잘되고
+                  모르는걸 실시간으로 물어보면서 하니까 더 도움이 되는거 같아요“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- 빛날 광!</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “회사 가기 전 아침에 친구랑 얼굴보면서 화장했는데 웃기더라구요ㅋㅋㅋ
+                  종종 들어와서 화장하고 가려구요 타이머 있어서 시간 체크 해보니까
+                  화장시간 너무 기네요“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- 나말리지마</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “요즘 취미가 운동이거든요? 근데 사실 헬린이라서 운동 잘 못하는데
+                  알려달라고 방 만들었더니 모르는 분이 와서 알려주고 한참 웃다가 끝났네요 ㅋㅋ“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- 후니라고해</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “제가 요즘 진로에 고민이 많은데 친구들 한테 말하긴 좀 그렇잖아요
+                  그래서 모르는 사람한테 털어놓고 싶어서 왔는데 생각보다 마음에 위로가 되네요“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- 슙</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “내가 활동한 시간이 눈으로 보이니까 재밌네요 ㅋㅋ 
+                  버즈 준다고 하셔서 열심히 써봤는데 그냥 친구랑 떠드는 것도 재밌네요 ~~“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- won two three</p>
               </div>
             </div>
             <div>
               <div className="review-box">
                 <p className="content">
-                  “비슷한 관심사를 가진 사람들이랑 직접 얼굴을 보고 다양한
-                  주제로 무얼하니 더 즐거워요 !“
+                  “친구랑 얼굴 보면서 각자 영화봤는데ㅋㅋㅋㅋ 앞에서 친구 얼굴 보면서 영화보니까
+                  재밌고 색다르더라구요?ㅋㅋㅋㅋㅋㅋㅋㅋ“
                 </p>
-                <p className="nickname">- 지금 잘 시간</p>
+                <p className="nickname">- 나는 쨩이댜</p>
               </div>
             </div>
           </Slider>
@@ -674,7 +677,9 @@ const Container = styled.div`
       align-items: center;
 
       .logo img {
-        width: 300px;
+        width: 500px;
+        background-color: #33344b;
+        height: 50px;
       }
       .mobile-menu {
         display: none;
@@ -696,7 +701,7 @@ const Container = styled.div`
         }
       }
     }
-    @media screen and (max-width: 820px) {
+    @media screen and (max-width: 860px) {
       background-color: none;
       box-shadow: none;
       .header-inner {
@@ -1175,12 +1180,12 @@ const Container = styled.div`
         justify-content: space-between;
 
         .content {
-          font-weight: 700;
+          font-weight: 600;
           font-size: 1.3rem;
-          line-height: 30px;
+          line-height: 35px;
           display:-webkit-box; 
           word-wrap:break-word; 
-          -webkit-line-clamp:7; 
+          -webkit-line-clamp:6; 
           -webkit-box-orient:vertical; 
           overflow:hidden; 
           text-overflow:ellipsis;

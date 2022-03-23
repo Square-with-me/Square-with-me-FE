@@ -365,17 +365,6 @@ const Container = styled.div`
     margin-top: 5px;
   }
   }
-  /* @media screen and (max-width:550px){ 
-    width: 100%;
-    .roomcardcontainer{
-      width: 100%;
-      .icons{
-        display: block;
-        margin-left: 50px;
-        margin-top: 6px;
-      }
-    }
-  } */
 `;
 
 const Container2 = styled.div`
@@ -397,17 +386,6 @@ const Container2 = styled.div`
     margin-top: 5px;
   }
   }
-  /* @media screen and (max-width:550px){ 
-    width: 100%;
-    .roomcardcontainer{
-      width: 100%;
-      .icons{
-        display: block;
-        margin-left: 50px;
-        margin-top: 6px;
-      }
-    }
-  } */
 `;
 
 const CategoryText = styled.div`

@@ -41,7 +41,7 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {user? (
+            {user.origin ? (
               <Text
                 onClick={() => {
                   history.push(`/mypage/${user.id}`);
@@ -70,7 +70,7 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {user === true ? (
+            {user.origin ? (
               <Text
                 onClick={() => {
                   dispatch(userActions.logOut());
