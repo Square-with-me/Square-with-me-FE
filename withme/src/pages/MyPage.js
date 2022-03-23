@@ -18,13 +18,6 @@ import { actionCreators as userActions } from '../redux/modules/user';
 // badge
 import lockBadge from '../assets/badge/lockBadge.svg';
 import userIcon from '../assets/inRoom/userIcon.svg';
-import bugBadge from '../assets/badge/bugBadge.svg';
-import consultationBadge from '../assets/badge/consultationBadge.svg';
-import firstComeBadge from '../assets/badge/firstComeBadge.svg';
-import beautyBadge from '../assets/badge/beautyBadge.svg';
-import cultureBadge from '../assets/badge/cultureBadge.svg';
-import exerciseBadge from '../assets/badge/exerciseBadge.svg';
-import otherBadge from '../assets/badge/otherBadge.svg';
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -136,9 +129,9 @@ const Mypage = (props) => {
                 <div className="filebox">
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
-                <div className="badgeImg">
-                  <Image src="" />
-                </div>
+                {user.MasterBadge 
+                ?<div className="badgeImg"><Image src={user.MasterBadge.imageUrl}/></div>
+                :<div className="badgeImg"></div>}
               </div>
               <div className="textBox">
                 <div className="nameBox">

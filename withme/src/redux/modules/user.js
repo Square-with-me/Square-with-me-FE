@@ -48,7 +48,7 @@ const initialState = {
   today: '',
   week: '',
   month: [],
-  badges:[]
+  badges:[],
 };
 
 //로그인 미들웨어
@@ -218,12 +218,14 @@ const editStatusDB = (userId, status) => {
   };
 };
 
+//대표 뱃지 설정하기 
 const editBadgeDB = (userId, badgeId) => {
   return function(dispatch, getState, {history}){
     apis
     .editBadge(userId, badgeId)
     .then((res)=>{
-      console.log(res)
+      console.log(res.data.data)
+      dispatch(editBadge(res.data.data))
     })
     .catch((err)=>{
       alert(err.response.data.msg);
@@ -284,6 +286,7 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
+        console.log("user", draft.user)
         draft.is_login = true;
       }),
 
@@ -332,7 +335,7 @@ export default handleActions(
       }),
     [EDIT_BADGE]:(state, action)=>
       produce(state, (draft)=>{
-
+        draft.user.MasterBadge.imageUrl = action.payload.badge
       })
   },
   initialState

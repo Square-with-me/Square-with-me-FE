@@ -2,7 +2,7 @@ const Logo = () => {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <svg
-        width="255"
+        width="240"
         height="39"
         viewBox="0 0 255 39"
         fill="none"
