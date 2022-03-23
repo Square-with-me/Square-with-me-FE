@@ -534,7 +534,7 @@ const Input = styled.input`
   margin-bottom: 16px;
   padding: 12px 12px 12px 14px;
   border-radius: 4px;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:767px){
     ::placeholder {
       font-size: 11px;
     }
