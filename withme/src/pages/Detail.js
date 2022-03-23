@@ -596,6 +596,7 @@ const Detail = (props) => {
                   id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
+                  <div className="nameLable">{peer.peerNickname}</div>
                   <div className="myEmoji myHappyEmoji hidden">
                     <HappyEmoji width="40px" height="40px" />
                   </div>
