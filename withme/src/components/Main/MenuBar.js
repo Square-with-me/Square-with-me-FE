@@ -40,8 +40,9 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-
-              getAllRoomFunc();
+              if (props.category === '카테고리') {
+                getAllRoomFunc();
+              } else props.setChoiceCate(0);
             }}
           >
             <RoomText>ALL</RoomText>
@@ -50,8 +51,9 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-
-              getAllRoomFunc();
+              if (props.category === '카테고리') {
+                getAllRoomFunc();
+              } else props.setChoiceCate(0);
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
           >

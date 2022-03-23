@@ -46,6 +46,7 @@ const Main = () => {
   // 카테고리 선택하기
   useEffect(() => {
     if (choiceCate === 0 && possible === false) {
+      console.log('카테고리 변함');
       // 전체 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
@@ -105,7 +106,6 @@ const Main = () => {
         <div className="logo" onClick={() => history.replace('/main')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
-
         <div className="searchbar">
           <SearchBar
             search={search}
@@ -167,7 +167,7 @@ const Main = () => {
           {hotSecret === true ? (
             <SecretRoomModal setSecret={setHotSecret} data={secretRoom} />
           ) : null}
-
+          {/* <Lottie ref={loadingcontainer}></Lottie> */}
           {roomList
             ? roomList.map((data) => {
                 return (
@@ -318,6 +318,7 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
+  position: relative;
   @media screen and (min-width: 1110px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
   }
@@ -331,4 +332,5 @@ const RoomListContainer = styled.div`
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 `;
+
 export default Main;

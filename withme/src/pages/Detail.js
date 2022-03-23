@@ -376,7 +376,7 @@ const Detail = (props) => {
   }
 
   const roomFull = () => {
-    alert('꽉 찼단다 애송아');
+    alert('정원이 다 찬 방입니다. 메인화면으로 이동합니다.');
     history.push('/main');
   };
 
@@ -527,29 +527,29 @@ const Detail = (props) => {
   //   console.table(peers);
   // }, [peers]);
 
-// //뒤로가기 막기 
-// useEffect(()=>{
-//   history.push(null, '', `/room/${params.id}`)
-//   window.addEventListener('popstate', function(e){
-//     history.push(null, '', `/room/${params.id}`)
-//   })
-// },[])
-// const [isB , setIsB] = useState(true)
-// useEffect(()=>{
-//   const unB = history.block((loc, action)=>{
-//     if(action==='POP' && setIsB){
-//       const confirm = window.confirm('뒤로 나가면 시간이 저장이 안됩니다')
-//       return (
-//         confirm === false
-//         ? action.push()
-//         : history.replace('/main')
-//       )
-//     }
-    
-//     return false
-//   })
-//   return ()=>unB()
-// },[isB])
+  // //뒤로가기 막기
+  // useEffect(()=>{
+  //   history.push(null, '', `/room/${params.id}`)
+  //   window.addEventListener('popstate', function(e){
+  //     history.push(null, '', `/room/${params.id}`)
+  //   })
+  // },[])
+  // const [isB , setIsB] = useState(true)
+  // useEffect(()=>{
+  //   const unB = history.block((loc, action)=>{
+  //     if(action==='POP' && setIsB){
+  //       const confirm = window.confirm('뒤로 나가면 시간이 저장이 안됩니다')
+  //       return (
+  //         confirm === false
+  //         ? action.push()
+  //         : history.replace('/main')
+  //       )
+  //     }
+
+  //     return false
+  //   })
+  //   return ()=>unB()
+  // },[isB])
 
   return (
     <Back>
@@ -570,6 +570,7 @@ const Detail = (props) => {
               {socketRef.current ? (
                 <div className="videoContainer" id={socketRef.current.id}>
                   <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                  <div className="nameLable">{user.nickname}</div>
                   <div className="myEmoji myHappyEmoji hidden">
                     <HappyEmoji width="40px" height="40px" />
                   </div>
@@ -595,6 +596,7 @@ const Detail = (props) => {
                   id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
+                  <div className="nameLable">{peer.peerNickname}</div>
                   <div className="myEmoji myHappyEmoji hidden">
                     <HappyEmoji width="40px" height="40px" />
                   </div>
@@ -846,7 +848,7 @@ const Detail = (props) => {
           </div>
 
           <div id="bottom">
-            <div id="centerButton" style={{position: 'relative'}}>
+            <div id="centerButton" style={{ position: 'relative' }}>
               <div
                 style={{
                   display: 'flex',
@@ -896,38 +898,38 @@ const Detail = (props) => {
               </div>
 
               <div>
-              <ChooseEmotion
-                style={{ marginRight: '15px' }}
-                width="32px"
-                fill="#8A8BA3"
-                onClick={() => setIsEmoji(!isEmoji)}
-              />
-              {isEmoji ? (
-                <div className="emojiBox">
-                  <HappyEmoji
-                    onClick={(e) => {
-                      sendEmoji(e.target.id);
-                    }}
-                  />
-                  <LoveEmoji
-                    onClick={(e) => {
-                      sendEmoji(e.target.id);
-                    }}
-                  />
-                  <BadEmoji
-                    onClick={(e) => {
-                      sendEmoji(e.target.id);
-                    }}
-                  />
-                  <SadEmoji
-                    onClick={(e) => {
-                      sendEmoji(e.target.id);
-                    }}
-                  />
-                </div>
-              ) : (
-                ''
-              )}
+                <ChooseEmotion
+                  style={{ marginRight: '15px' }}
+                  width="32px"
+                  fill="#8A8BA3"
+                  onClick={() => setIsEmoji(!isEmoji)}
+                />
+                {isEmoji ? (
+                  <div className="emojiBox">
+                    <HappyEmoji
+                      onClick={(e) => {
+                        sendEmoji(e.target.id);
+                      }}
+                    />
+                    <LoveEmoji
+                      onClick={(e) => {
+                        sendEmoji(e.target.id);
+                      }}
+                    />
+                    <BadEmoji
+                      onClick={(e) => {
+                        sendEmoji(e.target.id);
+                      }}
+                    />
+                    <SadEmoji
+                      onClick={(e) => {
+                        sendEmoji(e.target.id);
+                      }}
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
 
               <button>
@@ -1035,8 +1037,8 @@ const Container = styled.div`
   /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
   width: 1110px;
   height: 100vh;
-//   min-width: 480px;
-  background-color: #F7F7F7;
+  //   min-width: 480px;
+  background-color: #f7f7f7;
   margin: auto;
   display: grid;
   column-gap: 30px;
@@ -1070,14 +1072,32 @@ const Container = styled.div`
     align-content: space-between;
   }
   .videoContainer {
-    height:100%;
+    height: 100%;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     justify-content: center;
     background-color: #f7f7f7;
     border-radius: 5px;
     position: relative;
+
+    .nameLable {
+      position: absolute;
+      width: 160px;
+      height: 30px;
+      background-color: #e3e5ff;
+      border-radius: 4px;
+
+      left: 0;
+      bottom: 0;
+      margin: 5px;
+
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 30px;
+      color: #33344b;
+    }
 
     .myEmoji {
       background-color: #f7f7f7;
