@@ -1134,7 +1134,7 @@ const Container = styled.div`
     }
 
     img {
-      width: 50vw;
+      width: 600px;
       position: relative;
     }
 
@@ -1142,6 +1142,12 @@ const Container = styled.div`
       width: 510px;
       position: absolute;
       top: 220px;
+    }
+
+    @media screen and (max-width: 767px) {
+      img {
+        display: none;
+      }
     }
   }
 
@@ -1170,7 +1176,7 @@ const Container = styled.div`
 
         .content {
           font-weight: 700;
-          font-size: 20px;
+          font-size: 1.5vw;
           line-height: 30px;
         }
 
@@ -1182,6 +1188,7 @@ const Container = styled.div`
   }
 
   footer {
+    width: 80vw;
   }
 
   .ltr {
