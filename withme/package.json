@@ -16,7 +16,6 @@
     "express": "^4.17.3",
     "history": "4.7.2",
     "immer": "^9.0.12",
-    "lottie-web": "^5.9.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.0.1",
