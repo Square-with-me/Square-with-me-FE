@@ -608,7 +608,7 @@ const BadgeContainer = styled.div`
     height: 64px;
   }
   button {
-    width: 95px;
+    width: 100px;
     height: 51px;
     padding: 12px 14px;
     background-color: #bcc0ff;

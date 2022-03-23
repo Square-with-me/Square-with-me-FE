@@ -844,35 +844,9 @@ const Detail = (props) => {
               ''
             )}
           </div>
-          {isEmoji ? (
-            <div className="emojiBox">
-              <HappyEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
 
-              <LoveEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-              <BadEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-              <SadEmoji
-                onClick={(e) => {
-                  sendEmoji(e.target.id);
-                }}
-              />
-            </div>
-          ) : (
-            ''
-          )}
           <div id="bottom">
-            <div id="centerButton">
+            <div id="centerButton" style={{position: 'relative'}}>
               <div
                 style={{
                   display: 'flex',
@@ -921,12 +895,40 @@ const Detail = (props) => {
                 )}
               </div>
 
+              <div>
               <ChooseEmotion
                 style={{ marginRight: '15px' }}
                 width="32px"
                 fill="#8A8BA3"
                 onClick={() => setIsEmoji(!isEmoji)}
               />
+              {isEmoji ? (
+                <div className="emojiBox">
+                  <HappyEmoji
+                    onClick={(e) => {
+                      sendEmoji(e.target.id);
+                    }}
+                  />
+                  <LoveEmoji
+                    onClick={(e) => {
+                      sendEmoji(e.target.id);
+                    }}
+                  />
+                  <BadEmoji
+                    onClick={(e) => {
+                      sendEmoji(e.target.id);
+                    }}
+                  />
+                  <SadEmoji
+                    onClick={(e) => {
+                      sendEmoji(e.target.id);
+                    }}
+                  />
+                </div>
+              ) : (
+                ''
+              )}
+              </div>
 
               <button>
                 <a href="/main">
@@ -1145,8 +1147,8 @@ const Container = styled.div`
     background-color: #f7f7f7;
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
     position: absolute;
-    bottom: 10%;
-    left: 40%;
+    bottom: 65px;
+    left: 5px;
 
     .emoji {
       width: 100px;
@@ -1156,6 +1158,7 @@ const Container = styled.div`
   }
 
   #bottom {
+    position: relative;
     background-color: #f7f7f7;
     grid-row: 3/4;
     grid-column: 1/13;
@@ -1194,7 +1197,8 @@ const Container = styled.div`
   }
 `;
 const StyledVideo = styled.video`
-  height : 100%;
+  height: 100%;
+  width: 100%;
 `;
 
 const Button = styled.button`
