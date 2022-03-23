@@ -48,6 +48,7 @@ const Main = () => {
   // 카테고리 선택하기
   useEffect(() => {
     if (choiceCate === 0 && possible === false) {
+      console.log('카테고리 변함');
       // 전체 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
