@@ -3,8 +3,10 @@ import styled from "styled-components";
 import MakeRoomModal from "../Modal/MakeRoomModal";
 //icon
 import { ReactComponent as Plus } from "../../assets/main/plusIcon.svg";
+import { useSelector } from "react-redux";
 
 const MakeRoomCard = (props) => {
+  const user = useSelector((state) => state.user.user);
   return (
     // <div>
     //     <RoomCardContainer
@@ -18,7 +20,7 @@ const MakeRoomCard = (props) => {
     // </div>
 
     <>
-      {localStorage.getItem("login-token") ? (
+      {user ? (
         <RoomCardContainer
           onClick={() => {
             props.setMRooms(true);

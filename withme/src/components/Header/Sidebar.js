@@ -18,12 +18,7 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
-
-  const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem('login-token') ? true : false;
-  React.useEffect(() => {}, [is_login]);
-
-
+  
   if (open) {
     return (
       <React.Fragment>
@@ -46,7 +41,7 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {user? (
               <Text
                 onClick={() => {
                   history.push(`/mypage/${user.id}`);
@@ -75,7 +70,7 @@ const Sidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {user === true ? (
               <Text
                 onClick={() => {
                   dispatch(userActions.logOut());

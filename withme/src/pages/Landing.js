@@ -165,7 +165,7 @@ const Landing = () => {
         <header>
           <div className="header-inner">
             <div className="logo ">
-              <img src={logo} />
+              <img src={logo}/>
             </div>
             <div className="mobile-menu" onClick={openMenu}>
               <HiOutlineMenu size={30} />
@@ -240,7 +240,7 @@ const Landing = () => {
                 <div>
                   <p>얻고 싶거나 알려주고 싶은</p>
                   <p>
-                    <span>팁을 쉽게 공유</span>헤요
+                    <span>팁을 쉽게 공유</span>해요
                   </p>
                 </div>
               </div>
@@ -674,7 +674,7 @@ const Container = styled.div`
       align-items: center;
 
       .logo img {
-        width: 200px;
+        width: 300px;
       }
       .mobile-menu {
         display: none;
@@ -688,7 +688,7 @@ const Container = styled.div`
 
         a {
           margin: 20px; // a 태그는 inine요소라서 위아래는 margin이 안걸린다.
-          font-size: 25px;
+          font-size: 1.3rem;
           font-weight: 900;
           text-decoration: none;
           color: #666;
@@ -757,8 +757,8 @@ const Container = styled.div`
 
       .sports {
         position: absolute;
-        left: 20%;
-        top: 0%;
+        left: 17%;
+        top: -10%;
         background-color: #f7f7f7;
         box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
           inset 6px 6px 10px rgba(0, 0, 0, 0.25);
@@ -769,7 +769,8 @@ const Container = styled.div`
         left: 35%;
         top: 45%;
         background-color: #f7f7f7;
-        box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
+          inset 6px 6px 10px rgba(0, 0, 0, 0.25);
       }
 
       .study {
@@ -777,8 +778,7 @@ const Container = styled.div`
         left: 25%;
         top: 50%;
         background-color: #f7f7f7;
-        box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
-          inset 6px 6px 10px rgba(0, 0, 0, 0.25);
+        box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
 
       .beauty {
@@ -794,7 +794,8 @@ const Container = styled.div`
         left: 70%;
         top: 50%;
         background-color: #f7f7f7;
-        box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
+          inset 6px 6px 10px rgba(0, 0, 0, 0.25);
       }
 
       .etc {
@@ -802,8 +803,7 @@ const Container = styled.div`
         left: 75%;
         top: 0;
         background-color: #f7f7f7;
-        box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.8),
-          inset 6px 6px 10px rgba(0, 0, 0, 0.25);
+        box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
       }
     }
 
@@ -977,11 +977,12 @@ const Container = styled.div`
               content: '';
               width: 100%;
               height: 15px;
-              background-color: rgba(188, 192, 255, 0.5);
+              background-color: rgba(188, 192, 255, 0.7);
               position: absolute;
               display: inline-block;
               bottom: 1px;
               left: 0;
+              z-index: -1;
             }
           }
         }
@@ -1175,8 +1176,14 @@ const Container = styled.div`
 
         .content {
           font-weight: 700;
-          font-size: 1.5vw;
+          font-size: 1.3rem;
           line-height: 30px;
+          display:-webkit-box; 
+          word-wrap:break-word; 
+          -webkit-line-clamp:7; 
+          -webkit-box-orient:vertical; 
+          overflow:hidden; 
+          text-overflow:ellipsis;
         }
 
         .nickname {

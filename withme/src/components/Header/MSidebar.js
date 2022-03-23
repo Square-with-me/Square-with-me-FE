@@ -19,16 +19,6 @@ const MSidebar = (props) => {
 
   const user = useSelector((state) => state.user.user);
 
-  const is_login = useSelector((state) => state.user.is_login);
-  const is_local = localStorage.getItem('login-token') ? true : false;
-  React.useEffect(() => {}, [is_login]);
-
-  const notUser_is_login = useSelector((state) => state.user.notUser_is_login);
-  const notUser_is_local = localStorage.getItem('notUser_is_login')
-    ? true
-    : false;
-  React.useEffect(() => {}, [notUser_is_login]);
-
   if (open) {
     return (
       <React.Fragment>
@@ -51,7 +41,7 @@ const MSidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {user ? (
               <Text
                 onClick={() => {
                   history.push(`/mypage/${user.id}`);
@@ -80,7 +70,7 @@ const MSidebar = (props) => {
               height="32px"
               style={{ marginRight: '8px' }}
             />
-            {is_local === true ? (
+            {user ? (
               <Text
                 onClick={() => {
                   dispatch(userActions.logOut());
@@ -92,41 +82,6 @@ const MSidebar = (props) => {
               <Text>나가기</Text>
             )}
           </div>
-
-          {notUser_is_local === true ? (
-            <div
-              style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
-            >
-              <UserNickIcon
-                fill="#000000"
-                width="32px"
-                height="32px"
-                style={{ marginRight: '8px' }}
-              />
-              <Text
-                onClick={() => {
-                  dispatch(userActions.notUserLogOut());
-                }}
-              >
-                비회원은
-                <br />
-                그만 할래요
-              </Text>
-            </div>
-          ) : null}
-          <div>
-
-          </div>
-          {/* <div>
-            <Text
-              onClick={() => {
-                history.push(`/mypage/${user.id}`);
-                close();
-              }}
-            >
-              마이페이지
-            </Text>
-          </div> */}
         </Wrap>
         <ModalBackground
           onClick={() => {
