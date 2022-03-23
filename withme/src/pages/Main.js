@@ -300,7 +300,6 @@ const Btn = styled.button`
   transition: all 0.3s;
   color: #fff;
   font-weight: 700;
-
   :hover {
     background-color: #7179f0;
     color: #fff;

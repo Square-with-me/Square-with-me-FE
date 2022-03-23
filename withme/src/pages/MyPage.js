@@ -25,7 +25,6 @@ const Mypage = (props) => {
 
   const user = useSelector((store) => store.user.user);
   const badges = useSelector((store)=>store.user.badges)
-
   useEffect(()=>{
     dispatch(userActions.getBadgeDB(userId))
   },[])

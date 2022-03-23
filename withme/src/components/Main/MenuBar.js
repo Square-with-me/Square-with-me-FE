@@ -251,7 +251,6 @@ const Menu = styled.div`
   margin-bottom: 25px;
   justify-content: space-between;
   width: 100%;
-
   div {
     font-weight: 700;
   }
@@ -342,7 +341,6 @@ const DropBtn = styled.button`
 const CategoryDText = styled.div`
   font-size: 16px;
   font-weight: 700;
-
   color: #8a8ba3;
   @media screen and (max-width: 550px) {
     font-size: 13px;
@@ -375,7 +373,6 @@ const CategoryWrap = styled.div`
       font-size: 13px;
     }
   }
-
   &:hover {
     div {
       color: #7179f0;

@@ -130,6 +130,7 @@ const Wrap = styled.div`
     width: 150px;  
     padding: 10px;
   }
+
   @keyframes modal-show {
     from {
       opacity: 0;
