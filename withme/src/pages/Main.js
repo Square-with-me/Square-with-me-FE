@@ -16,6 +16,8 @@ import SecretRoomModal from '../components/Modal/SecretRoomModal';
 import SearchBar from '../components/Main/SearchBar';
 import MakeRoomCard from '../components/Main/MakeRoomCard';
 
+import lottie from 'lottie-web';
+
 //redux
 import { actionCreators as roomActions } from '../redux/modules/room';
 
@@ -95,6 +97,18 @@ const Main = () => {
     }
   };
 
+  const loadingcontainer = useRef();
+
+  useEffect(() => {
+    lottie.loadAnimation({
+      container: loadingcontainer.current,
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      animationData: require('../assets/lottie/loading.json'),
+    });
+  }, []);
+
   return (
     <Back>
       <Wrap>
@@ -105,7 +119,6 @@ const Main = () => {
         <div className="logo" onClick={() => history.replace('/main')}>
           <Logo style={{ margin: 'auto' }} />
         </div>
-
         <div className="searchbar">
           <SearchBar
             search={search}
@@ -167,7 +180,7 @@ const Main = () => {
           {hotSecret === true ? (
             <SecretRoomModal setSecret={setHotSecret} data={secretRoom} />
           ) : null}
-
+          {/* <Lottie ref={loadingcontainer}></Lottie> */}
           {roomList
             ? roomList.map((data) => {
                 return (
@@ -319,6 +332,7 @@ const RoomListContainer = styled.div`
   cursor: pointer;
   border: none;
   place-items: center;
+  position: relative;
   @media screen and (min-width: 1110px) {
     grid-template-columns: repeat(4, minmax(0px, 1fr));
   }
@@ -331,5 +345,12 @@ const RoomListContainer = styled.div`
   @media screen and (max-width: 550px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
+`;
+
+const Lottie = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 export default Main;
