@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "../../styles/banner.css"
+import Event from "../Modal/Event";
 
 const Banner =()=>{
-
+  const [event, setEvent] = useState(false)
+  console.log(event)
  return (
    <React.Fragment>
     {/* <div className ="slide">
@@ -26,11 +28,14 @@ const Banner =()=>{
   </div> */}
     <div className="slide">
     <ul>
-      <li></li>
+      <li onClick={()=>{setEvent(true)}}></li>
       <li></li>
       <li></li>
       <li></li>
     </ul>
+    {event=== true
+    ?<Event setEvent={setEvent}/>
+    :""}
   </div>
    </React.Fragment>
  )

@@ -33,7 +33,7 @@ const getRoomDB = (pageNum) => {
   console.log('전체방 8개: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://52.79.234.176/api/rooms?q=all&p=${pageNum}`)
+      .get(`/api/rooms?q=all&p=${pageNum}`)
       .then((response) => {
         const roomList = response.data.data;
         dispatch(getRoom(roomList));
@@ -49,8 +49,7 @@ const addRoomDB = (roomInfo, category) => {
   return function (dispatch, getState, { history }) {
     axios
       .post(
-        // 'http://15.164.48.35:80/api/room/new',
-        'http://52.79.234.176/api/room/new',
+        '/api/room/new',
         {
           ...roomInfo,
         },
@@ -76,8 +75,7 @@ const addRoomDB = (roomInfo, category) => {
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
-      // .get('http://15.164.48.35:80/api/rooms?q=hot', {})
-      .get('http://52.79.234.176/api/rooms?q=hot', {})
+      .get('/api/rooms?q=hot', {})
       .then((res) => {
         dispatch(hotRoom(res.data.data));
       })
@@ -92,7 +90,7 @@ const searchRoomDB = (search, pageNum) => {
   console.log('검색: ', search, pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://52.79.234.176/api/rooms?q=${search}&p=${pageNum}`, {
+      .get(`api/rooms?q=${search}&p=${pageNum}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('login-token')}`,
         },
@@ -112,7 +110,7 @@ const categoryRoomDB = (categoryId, pageNum) => {
   return function (dispatch, getState, { history }) {
     axios
       .get(
-        `http://52.79.234.176/api/rooms/category/${categoryId}&p=${pageNum}`
+        `/api/rooms/category/${categoryId}&p=${pageNum}`
       )
       .then((res) => {
         console.log('얍얍얍', res);
@@ -129,8 +127,7 @@ const enteringRoomDB = (roomId, userId) => {
   return function (dispatch, getState, { history }) {
     axios
       .post(
-        // `http://15.164.48.35:80/api/room/${roomId}/user/${userId}`,
-        `http://52.79.234.176/api/room/${roomId}/user/${userId}`,
+        `/api/room/${roomId}/user/${userId}`,
         {},
         {
           headers: {
@@ -154,7 +151,7 @@ const possibleRoomDB = (pageNum) => {
   console.log('참여가능만: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
-      .get(`http://52.79.234.176/api/rooms?q=possible&p=${pageNum}`)
+      .get(`/api/rooms?q=possible&p=${pageNum}`)
       .then((res) => {
         dispatch(getRoom(res.data.data));
       })

@@ -49,6 +49,7 @@ const initialState = {
   week: '',
   month: [],
   badges:[],
+  MasterBadge:''
 };
 
 //로그인 미들웨어
@@ -120,6 +121,8 @@ const logInCheckDB = () => {
     })
     .catch((err)=>{
       console.log(err.response)
+      alert("로그인 후 이용 가능 합니다")
+      history.replace("/main")
     })
     // api_token.get(`/api/user/me`)
     // .then((res)=>{
@@ -153,7 +156,7 @@ const editProfileDB = (userId, profileUrl) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://52.79.234.176/api/user/${userId}/profile/img`,
+        `/api/user/${userId}/profile/img`,
         { profileImg: profileUrl },
         {
           headers: {
@@ -175,7 +178,7 @@ const editNickDB = (userId, nickname) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://52.79.234.176/api/user/${userId}/profile/nickname`,
+        `/api/user/${userId}/profile/nickname`,
         { nickname },
         {
           headers: {
@@ -190,7 +193,7 @@ const editNickDB = (userId, nickname) => {
         dispatch(editNick(nickname));
       })
       .catch(function (error) {
-        window.alert(error.response.data.msg);
+        alert(error.response.data.msg);
       });
   };
 };
@@ -201,7 +204,7 @@ const editStatusDB = (userId, status) => {
   return function (dispatch, getState, { history }) {
     axios
       .patch(
-        `http://52.79.234.176/api/user/${userId}/profile/statusMsg`,
+        `/api/user/${userId}/profile/statusMsg`,
         { statusMsg: status },
         {
           headers: {
@@ -213,7 +216,7 @@ const editStatusDB = (userId, status) => {
         dispatch(editStatus(status));
       })
       .catch(function (error) {
-        window.alert(error.response.data.msg);
+        alert(error.response.data.msg);
       });
   };
 };
@@ -245,7 +248,7 @@ const getBadgeDB = (userId) => {
       }
     })
     .catch((err)=>{
-      console.log(err)
+      console.log("전체 뱃지 가져오기 에러",err)
     })
   }
 };
@@ -255,7 +258,7 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://52.79.234.176/api/user/${userId}/records`, {
+      .get(`/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -275,7 +278,7 @@ const timeGetDB = (userId) => {
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
-        console.log(error.response);
+        console.log("시간 받아오기 에러", error.response);
       });
   };
 };
@@ -335,7 +338,8 @@ export default handleActions(
       }),
     [EDIT_BADGE]:(state, action)=>
       produce(state, (draft)=>{
-        draft.user.MasterBadge.imageUrl = action.payload.badge
+        draft.MasterBadge = action.payload.badge
+        console.log(draft.MasterBadge)
       })
   },
   initialState

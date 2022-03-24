@@ -15,7 +15,11 @@ import {actionCreators as userActions} from '../redux/modules/user'
 function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch(userActions.logInCheckDB())
+    if(localStorage.getItem("login-token")){
+      dispatch(userActions.logInCheckDB())
+    } else{
+      return
+    }
   },[])
   return (
     <React.Fragment>
