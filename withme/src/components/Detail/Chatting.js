@@ -170,6 +170,17 @@ const ChattingBox = styled.div`
       height: 62px;
     }
   }
+
+  // 채팅창 열렸을 때 화면 길이 늘어나 스크롤 생기는 부분 조절
+  @media screen and (min-width: 985px) and (max-width: 1075px) {
+    height: 45vh;
+  }
+  @media screen and (min-width: 890px) and (max-width: 985px) {
+    height: 40vh;
+  }
+  @media screen and (min-width: 820px) and (max-width: 890px) {
+    height: 37vh;
+  }
 `;
 
 const MessageBox = styled.div`
