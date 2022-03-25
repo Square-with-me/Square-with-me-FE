@@ -1,32 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import { history } from '../redux/configureStore';
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { history } from "../redux/configureStore";
 
 //redux
-import { actionCreators as userActions } from '../redux/modules/user';
-import { actionCreators as roomActions } from '../redux/modules/room';
+import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as roomActions } from "../redux/modules/room";
 //pages
-import Timer from '../components/Detail/Timer';
-import Chatting from '../components/Detail/Chatting';
-import Parti from '../components/Detail/Parti';
-import Logo from '../components/Main/Logo';
-import RoomInfo from '../components/Detail/RoomInfo';
+import Timer from "../components/Detail/Timer";
+import Chatting from "../components/Detail/Chatting";
+import Parti from "../components/Detail/Parti";
+import Logo from "../components/Main/Logo";
+import RoomInfo from "../components/Detail/RoomInfo";
 // 방 입장
-import io from 'socket.io-client';
-import Peer from 'simple-peer';
+import io from "socket.io-client";
+import Peer from "simple-peer";
 // icons
-import { ReactComponent as OnMic } from '../assets/inRoom/onMicIcon.svg';
-import { ReactComponent as OffMic } from '../assets/inRoom/offMicIcon.svg';
-import { ReactComponent as OnCamera } from '../assets/inRoom/onCameraIcon.svg';
-import { ReactComponent as OffCamera } from '../assets/inRoom/offCameraIcon.svg';
-import { ReactComponent as ChooseEmotion } from '../assets/inRoomEmotion/chooseEmotion.svg';
+import { ReactComponent as OnMic } from "../assets/inRoom/onMicIcon.svg";
+import { ReactComponent as OffMic } from "../assets/inRoom/offMicIcon.svg";
+import { ReactComponent as OnCamera } from "../assets/inRoom/onCameraIcon.svg";
+import { ReactComponent as OffCamera } from "../assets/inRoom/offCameraIcon.svg";
+import { ReactComponent as ChooseEmotion } from "../assets/inRoomEmotion/chooseEmotion.svg";
 // emotion icons
-import { ReactComponent as HappyEmoji } from '../assets/emoji/happy.svg';
-import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
-import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
-import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
+import { ReactComponent as HappyEmoji } from "../assets/emoji/happy.svg";
+import { ReactComponent as LoveEmoji } from "../assets/emoji/love.svg";
+import { ReactComponent as BadEmoji } from "../assets/emoji/bad.svg";
+import { ReactComponent as SadEmoji } from "../assets/emoji/sad.svg";
 
 const Video = (props) => {
   const ref = useRef();
@@ -35,9 +35,9 @@ const Video = (props) => {
     function onStream(stream) {
       ref.current.srcObject = stream;
     }
-    props.peer.on('stream', onStream);
+    props.peer.on("stream", onStream);
     return () => {
-      props.peer.off('stream', onStream);
+      props.peer.off("stream", onStream);
     };
   }, [props.peer]);
 
@@ -75,12 +75,12 @@ const Detail = (props) => {
 
   // 사이드바 컨트롤
   useEffect(() => {
-    const videoBox = document.getElementById('videoBox');
+    const videoBox = document.getElementById("videoBox");
 
     if (videoBox !== null && sideCount === 0) {
-      videoBox.style.gridColumn = '1/13';
+      videoBox.style.gridColumn = "1/13";
     } else if (videoBox !== null && sideCount > 0) {
-      videoBox.style.gridColumn = '1/10';
+      videoBox.style.gridColumn = "1/10";
     }
   }, [sideCount]);
 
@@ -170,7 +170,7 @@ const Detail = (props) => {
   // };
 
   useEffect(() => {
-    const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
+    const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
     if (!room && myRoomInLS) {
       dispatch(roomActions.setMyRoom(myRoomInLS));
     }
@@ -182,7 +182,7 @@ const Detail = (props) => {
       return;
     }
     // socketRef.current = io.connect('http://175.112.86.142:8088/');
-    socketRef.current = io.connect('https://api.nemowithme.com');
+    socketRef.current = io.connect("https://api.nemowithme.com");
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -208,7 +208,7 @@ const Detail = (props) => {
           statusMsg: user.statusMsg,
         };
 
-        socketRef.current.emit('join room', data, roomFull);
+        socketRef.current.emit("join room", data, roomFull);
       });
   }, [params.id, room, user]);
 
@@ -218,14 +218,14 @@ const Detail = (props) => {
       return;
     }
     function noData() {
-      alert('데이터 전달 오류');
-      history.push('/main');
+      alert("데이터 전달 오류");
+      history.push("/main");
     }
 
-    socketRef.current.on('no data', noData);
+    socketRef.current.on("no data", noData);
 
     return () => {
-      socketRef.current.off('no data', noData);
+      socketRef.current.off("no data", noData);
     };
   }, []);
 
@@ -252,10 +252,10 @@ const Detail = (props) => {
         setPeers((prevPeers) => [...prevPeers, peerObj]);
       });
     }
-    socketRef.current.on('send users', onSendUsers);
+    socketRef.current.on("send users", onSendUsers);
 
     return () => {
-      socketRef.current.off('send users', onSendUsers);
+      socketRef.current.off("send users", onSendUsers);
     };
   }, [stream]);
 
@@ -280,10 +280,10 @@ const Detail = (props) => {
       setPeers((prevPeers) => [...prevPeers, newPeer]);
     };
 
-    socketRef.current.on('user joined', onUserJoined);
+    socketRef.current.on("user joined", onUserJoined);
 
     return () => {
-      socketRef.current.off('user joined', onUserJoined);
+      socketRef.current.off("user joined", onUserJoined);
     };
   }, [stream, peers]);
 
@@ -298,10 +298,10 @@ const Detail = (props) => {
       item.peer.signal(payload.signal);
     };
 
-    socketRef.current.on('receive returned signal', onReturnSignal);
+    socketRef.current.on("receive returned signal", onReturnSignal);
 
     return () => {
-      socketRef.current.off('receive returned signal', onReturnSignal);
+      socketRef.current.off("receive returned signal", onReturnSignal);
     };
   }, [stream]);
 
@@ -312,13 +312,13 @@ const Detail = (props) => {
     }
 
     const onUserLeft = (payload) => {
-      console.log(payload.userInfo, '님이 나갔습니다.'); // 참가자 나감 알림 용
+      console.log(payload.userInfo, "님이 나갔습니다."); // 참가자 나감 알림 용
       dispatch(userActions.deleteUserInfo(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId
       );
       if (peerObj) {
-        peerObj.peer.on('close', () => {
+        peerObj.peer.on("close", () => {
           peerObj.peer.destroy();
         });
       }
@@ -332,10 +332,10 @@ const Detail = (props) => {
       );
     };
 
-    socketRef.current.on('user left', onUserLeft);
+    socketRef.current.on("user left", onUserLeft);
 
     return () => {
-      socketRef.current.off('user left', onUserLeft);
+      socketRef.current.off("user left", onUserLeft);
     };
   }, [stream, peers]);
 
@@ -346,9 +346,9 @@ const Detail = (props) => {
       stream,
     });
 
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('send signal', {
-        config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] },
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("send signal", {
+        config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
         userToSignal,
         callerId,
         signal,
@@ -360,14 +360,14 @@ const Detail = (props) => {
 
   function addPeer(incomingSignal, callerId, stream) {
     const peer = new Peer({
-      config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] },
+      config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
       initiator: false,
       trickle: false,
       stream,
     });
 
-    peer.on('signal', (signal) => {
-      socketRef.current.emit('returning signal', { signal, callerId });
+    peer.on("signal", (signal) => {
+      socketRef.current.emit("returning signal", { signal, callerId });
     });
 
     peer.signal(incomingSignal);
@@ -376,8 +376,8 @@ const Detail = (props) => {
   }
 
   const roomFull = () => {
-    alert('정원이 다 찬 방입니다. 메인화면으로 이동합니다.');
-    history.push('/main');
+    alert("정원이 다 찬 방입니다. 메인화면으로 이동합니다.");
+    history.push("/main");
   };
 
   const [videoOn, setVideoOn] = useState(true);
@@ -415,13 +415,13 @@ const Detail = (props) => {
 
     setDiffTime(Math.abs(closeTime - Date.parse(openTime)) / 60000);
 
-    const prevTime = localStorage.getItem('time');
+    const prevTime = localStorage.getItem("time");
     if (prevTime) {
       const today = new Date().getDate();
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
         const newTime = prevTime[room.category.id] + diffTime;
-        localStorage.setItem('time', JSON.stringify(newTime));
+        localStorage.setItem("time", JSON.stringify(newTime));
       } else {
         //기존 데이터 초기화 하고 새로 저장
         const data = {
@@ -434,7 +434,7 @@ const Detail = (props) => {
           6: 0,
         };
         data[room.category.id] = diffTime;
-        localStorage.setItem('time', JSON.stringify(data));
+        localStorage.setItem("time", JSON.stringify(data));
       }
     } else {
       const data = {
@@ -447,11 +447,11 @@ const Detail = (props) => {
         6: 0,
       };
       data[room.category.id] = diffTime;
-      localStorage.setItem('time', JSON.stringify(data));
+      localStorage.setItem("time", JSON.stringify(data));
     }
 
     setTimeout(() => {
-      socketRef.current.emit('save_time', parseInt(diffTime) + 1);
+      socketRef.current.emit("save_time", parseInt(diffTime) + 1);
     }, [1500]);
   }
 
@@ -472,7 +472,7 @@ const Detail = (props) => {
   }, []);
 
   function handleEnd() {
-    window.location.replace('/');
+    window.location.replace("/");
   }
 
   // 이모티콘 보내기
@@ -483,27 +483,27 @@ const Detail = (props) => {
       emoji: emojiId,
     };
     console.log(data);
-    socketRef.current.emit('send_emoji', data);
+    socketRef.current.emit("send_emoji", data);
     showEmoji(data);
   };
 
   // 아모티콘 보여주기
   const showEmoji = (data) => {
     const { id, emoji } = data;
-    //소켓아이디가 감싸고있는 디브테그에 있음 그래서 같이 확인하게 위치 확인을 위해서 
+    //소켓아이디가 감싸고있는 디브테그에 있음 그래서 같이 확인하게 위치 확인을 위해서
     const targetVideo = document.getElementById(id);
-    if (emoji === 'happy') {
-      targetVideo.childNodes[1].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[1].classList.add('hidden'), 3000);
-    } else if (emoji === 'love') {
-      targetVideo.childNodes[2].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[2].classList.add('hidden'), 3000);
-    } else if (emoji === 'bad') {
-      targetVideo.childNodes[3].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[3].classList.add('hidden'), 3000);
-    } else if (emoji === 'sad') {
-      targetVideo.childNodes[4].classList.remove('hidden');
-      setTimeout(() => targetVideo.childNodes[4].classList.add('hidden'), 3000);
+    if (emoji === "happy") {
+      targetVideo.childNodes[1].classList.remove("hidden");
+      setTimeout(() => targetVideo.childNodes[1].classList.add("hidden"), 3000);
+    } else if (emoji === "love") {
+      targetVideo.childNodes[2].classList.remove("hidden");
+      setTimeout(() => targetVideo.childNodes[2].classList.add("hidden"), 3000);
+    } else if (emoji === "bad") {
+      targetVideo.childNodes[3].classList.remove("hidden");
+      setTimeout(() => targetVideo.childNodes[3].classList.add("hidden"), 3000);
+    } else if (emoji === "sad") {
+      targetVideo.childNodes[4].classList.remove("hidden");
+      setTimeout(() => targetVideo.childNodes[4].classList.add("hidden"), 3000);
     }
   };
 
@@ -516,11 +516,11 @@ const Detail = (props) => {
     if (!socketRef.current) {
       return;
     }
-    socketRef.current.on('receive_emoji', showEmoji);
+    socketRef.current.on("receive_emoji", showEmoji);
 
-    //이벤트를 해제를 해줘야 하는데 return안에서 해제를 해줘야 함 
+    //이벤트를 해제를 해줘야 하는데 return안에서 해제를 해줘야 함
     return () => {
-      socketRef.current.off('receive_emoji', showEmoji);
+      socketRef.current.off("receive_emoji", showEmoji);
     };
   }, []);
 
@@ -567,31 +567,32 @@ const Detail = (props) => {
             </div>
           </div>
           <div id="videoBox">
-            <div key="my-video" className="videoContainer">
-              {/* 본인 비디오 */}
-              {socketRef.current ? (
-                <div className="videoContainer" id={socketRef.current.id}>
-                  <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                  <div className="myEmoji myHappyEmoji hidden">
-                    <HappyEmoji width="40px" height="40px" />
-                  </div>
-                  <div className="myEmoji myLoveEmoji hidden">
-                    <LoveEmoji width="40px" height="40px" />
-                  </div>
-                  <div className="myEmoji myBadEmoji hidden">
-                    <BadEmoji width="40px" height="40px" />
-                  </div>
-                  <div className="myEmoji mySadEmoji hidden">
-                    <SadEmoji width="40px" height="40px" />
-                  </div>
-                  <div className="nameLable">랄라라</div>
+            {socketRef.current ? (
+              <div
+                key="my-video"
+                className="videoContainer"
+                id={socketRef.current.id}
+              >
+                <StyledVideo muted ref={userVideo} autoPlay playsInline />
+                <div className="myEmoji myHappyEmoji hidden">
+                  <HappyEmoji width="40px" height="40px" />
                 </div>
-              ) : (
-                ''
-              )}
-            </div>
+                <div className="myEmoji myLoveEmoji hidden">
+                  <LoveEmoji width="40px" height="40px" />
+                </div>
+                <div className="myEmoji myBadEmoji hidden">
+                  <BadEmoji width="40px" height="40px" />
+                </div>
+                <div className="myEmoji mySadEmoji hidden">
+                  <SadEmoji width="40px" height="40px" />
+                </div>
+                <div className="nameLable">{user.nickname}</div>
+              </div>
+            ) : (
+              ""
+            )}
             {peers.map((peer) => {
-              console.log('참가자에용! ',peers);
+              console.log("참가자에용! ", peers);
               return (
                 <div
                   key={peer.peerId}
@@ -611,7 +612,7 @@ const Detail = (props) => {
                   <div className="myEmoji mySadEmoji hidden">
                     <SadEmoji width="40px" height="40px" />
                   </div>
-                  <div className="nameLable">{peer.peerNickname}</div>
+                  {/* <div className="nameLable">{peer.peerNickname}</div> */}
                 </div>
               );
             })}
@@ -689,12 +690,12 @@ const Detail = (props) => {
                   {isTimer ? (
                     <Timer socketRef={socketRef} roomId={params.id} />
                   ) : (
-                    ''
+                    ""
                   )}
                 </div>
               </>
             ) : (
-              ''
+              ""
             )}
             {isPP ? (
               <div className="designBox">
@@ -767,7 +768,7 @@ const Detail = (props) => {
                 {isUserList ? <Parti me={user} /> : null}
               </div>
             ) : (
-              ''
+              ""
             )}
             {isCT ? (
               <>
@@ -846,19 +847,19 @@ const Detail = (props) => {
                 </div>
               </>
             ) : (
-              ''
+              ""
             )}
           </div>
 
           <div id="bottom">
-            <div id="centerButton" style={{ position: 'relative' }}>
+            <div id="centerButton" style={{ position: "relative" }}>
               <div
                 style={{
-                  display: 'flex',
-                  margin: ' 0px 16px',
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  margin: " 0px 16px",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {audioOn ? (
@@ -878,11 +879,11 @@ const Detail = (props) => {
 
               <div
                 style={{
-                  display: 'flex',
-                  marginRight: '20px',
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  marginRight: "20px",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {videoOn ? (
@@ -902,7 +903,7 @@ const Detail = (props) => {
 
               <div>
                 <ChooseEmotion
-                  style={{ marginRight: '15px' }}
+                  style={{ marginRight: "15px" }}
                   width="32px"
                   fill="#8A8BA3"
                   onClick={() => setIsEmoji(!isEmoji)}
@@ -931,7 +932,7 @@ const Detail = (props) => {
                     />
                   </div>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
 
@@ -1061,6 +1062,7 @@ const Container = styled.div`
     margin-top: 10px;
   }
   #videoBox {
+    height: 81vh;
     background-color: #f7f7f7;
     grid-row: 2 / 3;
     grid-column: 1 / 13;
@@ -1212,6 +1214,7 @@ const Container = styled.div`
 const StyledVideo = styled.video`
   height: 100%;
   width: 100%;
+  object-fit: cover;
 `;
 
 const Button = styled.button`

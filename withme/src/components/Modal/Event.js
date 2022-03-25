@@ -28,8 +28,7 @@ const LoginWrap = styled.div`
   align-items: flex-start;
   padding: 26px;
   position: fixed;
-  width: 900px;
-  height: 900px;
+  width: 50vw;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
