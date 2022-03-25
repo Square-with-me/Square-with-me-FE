@@ -13,6 +13,7 @@ class Timer extends Component {
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
     console.log(props.socketRef.current)
+    ///////// 
   }
 
   inputHandler = (e) => {
@@ -38,7 +39,7 @@ class Timer extends Component {
   };
 
   receiveStartTimer = () => {
-    console.log(this.hours, this.minutes, this.seconds);
+    console.log(this.state.hours); // 2. 언디파인드 나옴
     this.timer = setInterval(this.countDown, 1000);
   };
 
@@ -47,16 +48,19 @@ class Timer extends Component {
 
     // 시작 신호 받음
     this.props.socketRef.current.on('start_receive', (data) => {
-      this.setState({ hours: data.hours });
-      this.setState({ minutes: data.minutes });
-      this.setState({ seconds: data.seconds });
+      this.setState({ hours: Number(data.hours) });
+      this.setState({ minutes: Number(data.minutes) });
+      this.setState({ seconds: Number(data.seconds) });
 
       this.receiveStartTimer();
+      console.log('시작 신호 받음 ', data);
+
     });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate() { // 1. 생명주기함수 잘못됨
     this.props.socketRef.current.on('stop_receive', () => {
+      console.log("스탑 받음")
       this.receiveStopTimer();
     });
 
@@ -68,6 +72,7 @@ class Timer extends Component {
 
   countDown = () => {
     const { hours, minutes, seconds } = this.state;
+    console.log('타이머 시작 : ',hours, minutes, seconds)
     let c_seconds = this.convertToSeconds(hours, minutes, seconds);
 
     if (c_seconds) {
@@ -99,6 +104,7 @@ class Timer extends Component {
       }
     } else {
       clearInterval(this.timer);
+      alert("시간 끝!")
     }
   };
 
@@ -130,9 +136,8 @@ class Timer extends Component {
       minutes: 0,
       seconds: 0,
     });
-    this.hoursInput.current.value = 0;
-    this.minutesInput.current.value = 0;
-    this.secondsInput.current.value = 0;
+    console.log('리셋받음 함수', this.state)
+    console.log('시간 벨류!!!!!!!!')
   };
 
   render() {

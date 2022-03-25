@@ -584,13 +584,14 @@ const Detail = (props) => {
                   <div className="myEmoji mySadEmoji hidden">
                     <SadEmoji width="40px" height="40px" />
                   </div>
-                  <div className="nameLable">{user.nickname}</div>
+                  <div className="nameLable">랄라라</div>
                 </div>
               ) : (
                 ''
               )}
             </div>
             {peers.map((peer) => {
+              console.log('참가자에용! ',peers);
               return (
                 <div
                   key={peer.peerId}
@@ -840,7 +841,7 @@ const Detail = (props) => {
                   {ischatting ? (
                     <Chatting socketRef={socketRef} roomId={params.id} />
                   ) : (
-                    ''
+                    ""
                   )}
                 </div>
               </>
@@ -1029,7 +1030,6 @@ const Detail = (props) => {
 const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
-
   @media all and (min-width: 480px) and (max-width: 550px) {
     height: fit-content;
   }
@@ -1037,22 +1037,20 @@ const Back = styled.div`
 
 const Container = styled.div`
   box-sizing: border-box;
-  width: 100vw;
+  /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
+  width: 1110px;
   height: 100vh;
+  //   min-width: 480px;
   background-color: #f7f7f7;
   margin: auto;
   display: grid;
   column-gap: 30px;
-  grid-template-rows: 70px 0.92fr 70px;
+  grid-template-rows: 70px 1fr 75px;
   grid-template-columns: repeat(12, 1fr);
-
   #top {
     background-color: #f7f7f7;
     grid-row: 1/2;
-    grid-column: 5/13;
-    @media screen and (max-width: 820px) {
-      grid-column: 4/13;
-    }
+    grid-column: 1 / 13;
   }
   .logo {
     grid-column: 1/13;
@@ -1062,58 +1060,6 @@ const Container = styled.div`
     justify-content: space-between;
     margin-top: 10px;
   }
-
-  // rightBox를 열었을때 .nameLable이
-  // 비디오 화면 밖으로 벗어나는 부분 조절
-  @media screen and (min-width: 1045px) and (max-width: 1115px) {
-    grid-template-rows: 70px 0.85fr 70px;
-  }
-  @media screen and (min-width: 975px) and (max-width: 1045px) {
-    grid-template-rows: 70px 0.8fr 70px;
-  }
-  @media screen and (min-width: 915px) and (max-width: 975px) {
-    grid-template-rows: 70px 0.75fr 70px;
-  }
-  @media screen and (min-width: 855px) and (max-width: 915px) {
-    grid-template-rows: 70px 0.7fr 70px;
-  }
-  @media screen and (min-width: 820px) and (max-width: 855px) {
-    grid-template-rows: 70px 0.65fr 70px;
-  }
-
-  // 기기가 세로로 있을 때 가로로 화면 나오게 하는 부분
-  @media screen and (min-width: 595px) and (max-width: 820px) and (orientation: portrait) {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    margin: auto;
-    display: grid;
-    column-gap: 30px;
-    grid-template-rows: 70px 1fr 70px;
-    grid-template-columns: repeat(12, 1fr);
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
-  @media screen and (max-width: 594px) and (orientation: portrait) {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    margin: auto;
-    display: grid;
-    column-gap: 30px;
-    grid-template-rows: 70px 1fr 70px;
-    grid-template-columns: repeat(12, 1fr);
-    width: 100vh;
-    height: 100vw;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-
   #videoBox {
     background-color: #f7f7f7;
     grid-row: 2 / 3;
@@ -1126,7 +1072,6 @@ const Container = styled.div`
     justify-content: space-between;
     align-content: space-between;
   }
-
   .videoContainer {
     height: 100%;
     display: flex;
@@ -1136,25 +1081,21 @@ const Container = styled.div`
     background-color: #f7f7f7;
     border-radius: 5px;
     position: relative;
-
     .nameLable {
       position: absolute;
       width: 160px;
       height: 30px;
       background-color: #e3e5ff;
       border-radius: 4px;
-
       left: 0;
       bottom: 0;
       margin: 5px;
-
       text-align: center;
       font-size: 15px;
       font-weight: 700;
       line-height: 30px;
       color: #33344b;
     }
-
     .myEmoji {
       background-color: #f7f7f7;
       border-radius: 5px;
@@ -1166,7 +1107,6 @@ const Container = styled.div`
       bottom: 50px;
       left: 0;
     }
-
     .hidden {
       display: none;
     }
@@ -1213,7 +1153,6 @@ const Container = styled.div`
       }
     }
   }
-
   .emojiBox {
     width: 200px;
     padding: 10px;
@@ -1225,14 +1164,12 @@ const Container = styled.div`
     position: absolute;
     bottom: 65px;
     left: 5px;
-
     .emoji {
       width: 100px;
       display: flex;
       justify-content: center;
     }
   }
-
   #bottom {
     position: relative;
     background-color: #f7f7f7;
@@ -1272,7 +1209,6 @@ const Container = styled.div`
     }
   }
 `;
-
 const StyledVideo = styled.video`
   height: 100%;
   width: 100%;
