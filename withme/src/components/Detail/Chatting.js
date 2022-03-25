@@ -139,7 +139,7 @@ const Chatting = ({ socketRef, roomId }) => {
 const ChattingBox = styled.div`
   width: 100%;
   // 높이
-  height: 50vh;
+  height: 58vh;
   display: flex;
   flex-direction: column;
   background: #f7f7f7;
@@ -171,21 +171,37 @@ const ChattingBox = styled.div`
     }
   }
 
-  // 채팅창 열렸을 때 화면 길이 늘어나 스크롤 생기는 부분 조절
-  @media screen and (min-width: 985px) and (max-width: 1075px) {
+  // 세로가 더 긴 기기가 세로로 있을 때 채팅창 열리면 화면 길이 늘어나는 부분 조절
+  @media screen and (min-width: 755px) and (max-width: 820px) and (orientation: portrait) {
+    height: 55vh;
+  }
+  @media screen and (min-width: 715px) and (max-width: 755px) and (orientation: portrait) {
+    height: 50vh;
+  }
+  @media screen and (min-width: 675px) and (max-width: 715px) and (orientation: portrait) {
     height: 45vh;
   }
-  @media screen and (min-width: 890px) and (max-width: 985px) {
+  @media screen and (min-width: 635px) and (max-width: 675px) and (orientation: portrait) {
     height: 40vh;
   }
-  @media screen and (min-width: 820px) and (max-width: 890px) {
-    height: 37vh;
+  @media screen and (min-width: 595px) and (max-width: 635px) and (orientation: portrait) {
+    height: 35vh;
   }
-
-  // 기기가 세로로 있을 때 채팅창 열리면 화면 길이 늘어나는 부분 조절
-  @media screen and (min-width: 595px) and (max-width: 820px) and (orientation: portrait) {
-    height: 36vh;
+  @media screen and (min-width: 565px) and (max-width: 595px) and (orientation: portrait) {
+    height: 35vh;
   }
+  @media screen and (min-width: 525px) and (max-width: 565px) and (orientation: portrait) {
+    height: 31vh;
+  }
+  @media screen and (min-width: 480px) and (max-width: 525px) and (orientation: portrait) {
+    height: 28vh;
+  }
+  @media screen and (min-width: 445px) and (max-width: 480px) and (orientation: portrait) {
+    height: 27vh;
+  }
+  // @media screen and (max-width: 445px) and (orientation: portrait) {
+  //   height: 23vh;
+  // }
 `;
 
 const MessageBox = styled.div`
