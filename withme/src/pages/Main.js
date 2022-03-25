@@ -46,7 +46,6 @@ const Main = () => {
   // 카테고리 선택하기
   useEffect(() => {
     if (choiceCate === 0 && possible === false) {
-      console.log('카테고리 변함');
       // 전체 방 불러오기
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.getRoomDB(1));
@@ -76,13 +75,10 @@ const Main = () => {
   }, []);
 
   const morePage = () => {
-    console.log('페이지 더주라,,', pageNum);
     if (isSeacrh === true) {
-      console.log('검색중,,,');
       dispatch(roomActions.searchRoomDB(search, pageNum));
       setPageNum(pageNum + 1);
     } else if (possible === true) {
-      console.log('들어갈수 있는 애들만 찾는중,,,');
       dispatch(roomActions.possibleRoomDB(pageNum));
       setPageNum(pageNum + 1);
     } else {

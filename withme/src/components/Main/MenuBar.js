@@ -68,7 +68,6 @@ const MenuBar = (props) => {
             onClick={() => {
               props.setPossible(false);
               props.setCategory('카테고리');
-              console.log('참여가능 안따짐 전부 와라ㅏㄹ라랄ㄹ라라!!');
               getAllRoomFunc();
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
