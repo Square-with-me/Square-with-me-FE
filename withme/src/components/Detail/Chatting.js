@@ -22,7 +22,7 @@ const Message = (props) => {
     </MessageBox>
   );
 };
-// 내가 보냈을 때
+// 내가 보냈을 때 
 const MyMessage = (props) => {
   const {
     data: {
@@ -49,6 +49,7 @@ const Chatting = ({ socketRef, roomId }) => {
   const userNickname = useSelector((store) => store.user.user.nickname);
   const userId = useSelector((store) => store.user.user.id);
 
+  //작성하는 채팅 내용
   const [userMessage, setUserMessage] = useState('');
   const [nickname, setNickName] = useState('');
   const [messageList, setMessageList] = useState([]);

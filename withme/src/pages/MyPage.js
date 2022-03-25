@@ -25,9 +25,12 @@ const Mypage = (props) => {
 
   const user = useSelector((store) => store.user.user);
   const badges = useSelector((store) => store.user.badges);
+  const MasterBadge = useSelector((store)=> store.user.MasterBadge)
   useEffect(() => {
     dispatch(userActions.getBadgeDB(userId));
   }, []);
+
+ 
 
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
@@ -131,7 +134,7 @@ const Mypage = (props) => {
                 </div>
                 {user.MasterBadge 
                 ?<div className="badgeImg"><Image src={user.MasterBadge.imageUrl}/></div>
-                :<div className="badgeImg"></div>}
+                :<div className="badgeImg"><Image src={MasterBadge}/></div>}
               </div>
               <div className="textBox">
                 <div className="nameBox">

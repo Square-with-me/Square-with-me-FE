@@ -11,7 +11,10 @@ const api = axios.create({
   // baseURL: "http://14.45.204.153:7034",
 
   //창훈님
-  baseURL: 'http://52.79.234.176',
+  // baseURL: 'http://52.79.234.176',
+
+  baseURL: 'https://api.nemowithme.com',
+  
   headers: {
     Authorization: `Bearer ${token}`,
     "content-type": "application/json;charset=UTF-8",

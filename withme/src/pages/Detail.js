@@ -182,7 +182,7 @@ const Detail = (props) => {
       return;
     }
     // socketRef.current = io.connect('http://175.112.86.142:8088/');
-    socketRef.current = io.connect('15.164.48.35:80');
+    socketRef.current = io.connect('https://api.nemowithme.com');
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -490,6 +490,7 @@ const Detail = (props) => {
   // 아모티콘 보여주기
   const showEmoji = (data) => {
     const { id, emoji } = data;
+    //소켓아이디가 감싸고있는 디브테그에 있음 그래서 같이 확인하게 위치 확인을 위해서 
     const targetVideo = document.getElementById(id);
     if (emoji === 'happy') {
       targetVideo.childNodes[1].classList.remove('hidden');
@@ -517,6 +518,7 @@ const Detail = (props) => {
     }
     socketRef.current.on('receive_emoji', showEmoji);
 
+    //이벤트를 해제를 해줘야 하는데 return안에서 해제를 해줘야 함 
     return () => {
       socketRef.current.off('receive_emoji', showEmoji);
     };
@@ -570,7 +572,6 @@ const Detail = (props) => {
               {socketRef.current ? (
                 <div className="videoContainer" id={socketRef.current.id}>
                   <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                  <div className="nameLable">{user.nickname}</div>
                   <div className="myEmoji myHappyEmoji hidden">
                     <HappyEmoji width="40px" height="40px" />
                   </div>
@@ -583,6 +584,7 @@ const Detail = (props) => {
                   <div className="myEmoji mySadEmoji hidden">
                     <SadEmoji width="40px" height="40px" />
                   </div>
+                  <div className="nameLable">{user.nickname}</div>
                 </div>
               ) : (
                 ''
@@ -596,7 +598,6 @@ const Detail = (props) => {
                   id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
-                  <div className="nameLable">{peer.peerNickname}</div>
                   <div className="myEmoji myHappyEmoji hidden">
                     <HappyEmoji width="40px" height="40px" />
                   </div>
@@ -609,6 +610,7 @@ const Detail = (props) => {
                   <div className="myEmoji mySadEmoji hidden">
                     <SadEmoji width="40px" height="40px" />
                   </div>
+                  <div className="nameLable">{peer.peerNickname}</div>
                 </div>
               );
             })}

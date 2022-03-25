@@ -48,7 +48,6 @@ const MakeRoomModal = ({ setMRooms, create }) => {
   //태그 지우기
   const deleteTagItem = (e) => {
     const deleteTagItem = e.target.parentElement.firstChild.innerText;
-    // console.log(e);
     const filteredTagList = tagList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
