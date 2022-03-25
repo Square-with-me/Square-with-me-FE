@@ -86,14 +86,14 @@ const MakeRoomModal = ({ setMRooms, create }) => {
             <path
               d="M4 4L20 20"
               stroke="#33344B"
-              stroke-width="2"
-              stroke-miterlimit="10"
+              strokeWidth="2"
+              strokeMiterlimit="10"
             />
             <path
               d="M20 4L4 20"
               stroke="#33344B"
-              stroke-width="2"
-              stroke-miterlimit="10"
+              strokeWidth="2"
+              strokeMiterlimit="10"
             />
           </svg>
         </Headers>
