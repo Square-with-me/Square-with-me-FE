@@ -312,7 +312,7 @@ export default handleActions(
           (user) => user.id !== action.payload.userid
         );
       }),
-      [EDIT_NICK]: (state, action) =>
+    [EDIT_NICK]: (state, action) =>
       produce(state, (draft) => {
         draft.user.nickname = action.payload.nickname;
       }),
