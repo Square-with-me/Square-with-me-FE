@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userActions } from '../../redux/modules/user';
 import { actionCreators as roomActions } from '../../redux/modules/room';
 
 const Message = (props) => {
@@ -22,7 +21,7 @@ const Message = (props) => {
     </MessageBox>
   );
 };
-// 내가 보냈을 때
+// 내가 보냈을 때 
 const MyMessage = (props) => {
   const {
     data: {
@@ -49,6 +48,7 @@ const Chatting = ({ socketRef, roomId }) => {
   const userNickname = useSelector((store) => store.user.user.nickname);
   const userId = useSelector((store) => store.user.user.id);
 
+  //작성하는 채팅 내용
   const [userMessage, setUserMessage] = useState('');
   const [nickname, setNickName] = useState('');
   const [messageList, setMessageList] = useState([]);
