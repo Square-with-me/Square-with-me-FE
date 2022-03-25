@@ -1035,7 +1035,7 @@ const Back = styled.div`
 
 const Container = styled.div`
   box-sizing: border-box;
-  width: 100vw;
+  width: 1110px;
   height: 100vh;
   background-color: #f7f7f7;
   margin: auto;
@@ -1086,7 +1086,7 @@ const Container = styled.div`
     margin: auto;
     display: grid;
     column-gap: 30px;
-    grid-template-rows: 70px 1fr 70px;
+    grid-template-rows: 70px 0.6fr 70px;
     grid-template-columns: repeat(12, 1fr);
     width: 100vh;
     height: 100vw;
@@ -1096,13 +1096,13 @@ const Container = styled.div`
     left: 0;
   }
 
-  @media screen and (max-width: 594px) and (orientation: portrait) {
+  @media screen and (max-width: 595px) and (orientation: portrait) {
     transform: rotate(-90deg);
     transform-origin: left top;
     margin: auto;
     display: grid;
     column-gap: 30px;
-    grid-template-rows: 70px 1fr 70px;
+    grid-template-rows: 70px 0.6fr 70px;
     grid-template-columns: repeat(12, 1fr);
     width: 100vh;
     height: 100vw;

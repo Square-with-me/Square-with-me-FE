@@ -181,6 +181,11 @@ const ChattingBox = styled.div`
   @media screen and (min-width: 820px) and (max-width: 890px) {
     height: 37vh;
   }
+
+  // 기기가 세로로 있을 때 채팅창 열리면 화면 길이 늘어나는 부분 조절
+  @media screen and (min-width: 595px) and (max-width: 820px) and (orientation: portrait) {
+    height: 36vh;
+  }
 `;
 
 const MessageBox = styled.div`
