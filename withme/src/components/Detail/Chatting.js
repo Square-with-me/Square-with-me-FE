@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userActions } from '../../redux/modules/user';
 import { actionCreators as roomActions } from '../../redux/modules/room';
 
 const Message = (props) => {
