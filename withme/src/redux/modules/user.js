@@ -27,16 +27,17 @@ const WEEK_TIME = 'WEEK_TIME';
 //이번달 시간
 const MONTH_TIME = 'MONTH_TIME';
 
-
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const userInfo = createAction(USER_INFO, (userInfo) => ({ userInfo }));
 const deleteUserInfo = createAction(DELETE_USER_INFO, (userid) => ({ userid }));
-const editProfile = createAction(EDIT_PROFILE, (profileUrl) => ({profileUrl}));
+const editProfile = createAction(EDIT_PROFILE, (profileUrl) => ({
+  profileUrl,
+}));
 const editNick = createAction(EDIT_NICK, (nickname) => ({ nickname }));
 const editStatus = createAction(EDIT_STATUS, (status) => ({ status }));
-const editBadge = createAction(EDIT_BADGE, (badge) => ({badge}));
-const getBadge = createAction(GET_BADGE, (badgeList) => ({badgeList}));
+const editBadge = createAction(EDIT_BADGE, (badge) => ({ badge }));
+const getBadge = createAction(GET_BADGE, (badgeList) => ({ badgeList }));
 const todayTime = createAction(TODAY_TIME, () => ({}));
 const weekTime = createAction(WEEK_TIME, (weekTime) => weekTime);
 const monthTime = createAction(MONTH_TIME, (monthTime) => monthTime);
@@ -48,8 +49,8 @@ const initialState = {
   today: '',
   week: '',
   month: [],
-  badges:[],
-  MasterBadge:''
+  badges: [],
+  MasterBadge: '',
 };
 
 //로그인 미들웨어
@@ -58,15 +59,14 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
-        alert("로그인에 성공하였습니다!")
+        alert('로그인에 성공하였습니다!');
         localStorage.setItem('login-token', res.data.data.token);
         dispatch(setUser({ origin }));
-        window.location.reload('/main')
+        window.location.reload('/main');
       })
       .catch(function (error) {
-        console.log(error)
+        console.log(error);
         alert(error.response.data.msg);
-
       });
     // apis.post('/api/auth',{
     //   origin:origin,
@@ -106,24 +106,26 @@ const signUpDB = (origin, nickname, pwd) => {
 //로그인 체크 미들웨어
 const logInCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    apis.loginCheck().then((res) => {
-      if (!res.data.isSuccess) {
-        alert('회원정보가 올바르지 않습니다.');
+    apis
+      .loginCheck()
+      .then((res) => {
+        if (!res.data.isSuccess) {
+          alert('회원정보가 올바르지 않습니다.');
+          history.replace('/main');
+          return;
+        }
+        const user = res.data.data.user;
+        dispatch(
+          setUser({
+            ...user,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err.response);
+        alert('로그인 후 이용 가능 합니다');
         history.replace('/main');
-        return;
-      }
-      const user = res.data.data.user;
-      dispatch(
-        setUser({
-          ...user,
-        })
-      );
-    })
-    .catch((err)=>{
-      console.log(err.response)
-      alert("로그인 후 이용 가능 합니다")
-      history.replace("/main")
-    })
+      });
     // api_token.get(`/api/user/me`)
     // .then((res)=>{
     //   const user = res.data.data.user;
@@ -218,35 +220,35 @@ const editStatusDB = (userId, status) => {
   };
 };
 
-//대표 뱃지 설정하기 
+//대표 뱃지 설정하기
 const editBadgeDB = (userId, badgeId) => {
-  return function(dispatch, getState, {history}){
+  return function (dispatch, getState, { history }) {
     apis
-    .editBadge(userId, badgeId)
-    .then((res)=>{
-      dispatch(editBadge(res.data.data))
-    })
-    .catch((err)=>{
-      alert(err.response.data.msg);
-    })
-  }
+      .editBadge(userId, badgeId)
+      .then((res) => {
+        dispatch(editBadge(res.data.data));
+      })
+      .catch((err) => {
+        alert(err.response.data.msg);
+      });
+  };
 };
 
 //전체 뱃지 가져오기
 const getBadgeDB = (userId) => {
-  return function(dispatch, getState, {history}){
+  return function (dispatch, getState, { history }) {
     apis
-    .getBadges(userId)
-    .then((res)=>{
-      dispatch(getBadge(res.data.data))
-      if(res.data.data.newBadge){
-        alert("새로운 뱃지가 열렸습니다!")
-      }
-    })
-    .catch((err)=>{
-      console.log("전체 뱃지 가져오기 에러",err)
-    })
-  }
+      .getBadges(userId)
+      .then((res) => {
+        dispatch(getBadge(res.data.data));
+        if (res.data.data.newBadge) {
+          alert('새로운 뱃지가 열렸습니다!');
+        }
+      })
+      .catch((err) => {
+        console.log('전체 뱃지 가져오기 에러', err);
+      });
+  };
 };
 
 // 시간 받아오기
@@ -254,27 +256,28 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`/api/user/${userId}/records`, {
+      .get(`http://52.79.234.176/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(function (res) {
-        console.log('timeGet :  ', res.data.data);
-        const monthData = res.data.data.monthRecords;
+        console.log('timeGet :  ', res.data.data.weekdaysRecord);
+
+        const monthData = res.data.data.monthRecord;
         const weekData = {
-          beautyRecord: res.data.data.beautyRecord,
-          counselingRecord: res.data.data.counselingRecord,
-          cultureRecord: res.data.data.cultureRecord,
-          etcRecord: res.data.data.etcRecord,
-          sportsRecord: res.data.data.sportsRecord,
-          studyRecord: res.data.data.studyRecord,
+          beautyRecord: res.data.data.weekdaysRecord[0],
+          sportsRecord: res.data.data.weekdaysRecord[1],
+          studyRecord: res.data.data.weekdaysRecord[2],
+          counselingRecord: res.data.data.weekdaysRecord[3],
+          cultureRecord: res.data.data.weekdaysRecord[4],
+          etcRecord: res.data.data.weekdaysRecord[5],
         };
         dispatch(weekTime(weekData));
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
-        console.log("시간 받아오기 에러", error.response);
+        console.log('시간 받아오기 에러', error.response);
       });
   };
 };
@@ -285,7 +288,7 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        console.log("user", draft.user)
+        console.log('user', draft.user);
         draft.is_login = true;
       }),
 
@@ -294,7 +297,7 @@ export default handleActions(
         localStorage.removeItem('login-token');
         draft.user = null;
         draft.is_login = false;
-        window.location.reload('/main')
+        window.location.reload('/main');
       }),
 
     [USER_INFO]: (state, action) =>
@@ -328,14 +331,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.month = action.payload;
       }),
-    [GET_BADGE] :(state, action)=>
-      produce(state, (draft)=>{
-        draft.badges = action.payload.badgeList
+    [GET_BADGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.badges = action.payload.badgeList;
       }),
-    [EDIT_BADGE]:(state, action)=>
-      produce(state, (draft)=>{
-        draft.MasterBadge = action.payload.badge
-      })
+    [EDIT_BADGE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.MasterBadge = action.payload.badge;
+      }),
   },
   initialState
 );
@@ -363,7 +366,6 @@ const actionCreators = {
   editProfileDB,
   editNickDB,
   editStatusDB,
-
 };
 
 export { actionCreators };
