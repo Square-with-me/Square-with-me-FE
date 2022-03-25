@@ -187,9 +187,6 @@ const editNickDB = (userId, nickname) => {
         }
       )
       .then(function (res) {
-        console.log('닉네임 수정하기', res);
-        // 에러 메시지 이상함 확인부탁 9자리인데도 에러 뜸
-        // 에러 메시지는 상태메시지 에러가 뜸
         dispatch(editNick(nickname));
       })
       .catch(function (error) {
@@ -227,7 +224,6 @@ const editBadgeDB = (userId, badgeId) => {
     apis
     .editBadge(userId, badgeId)
     .then((res)=>{
-      console.log(res.data.data)
       dispatch(editBadge(res.data.data))
     })
     .catch((err)=>{
@@ -339,7 +335,6 @@ export default handleActions(
     [EDIT_BADGE]:(state, action)=>
       produce(state, (draft)=>{
         draft.MasterBadge = action.payload.badge
-        console.log(draft.MasterBadge)
       })
   },
   initialState

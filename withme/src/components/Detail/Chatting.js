@@ -55,7 +55,6 @@ const Chatting = ({ socketRef, roomId }) => {
 
   useEffect(() => {
     setNickName(userNickname);
-    console.log('와우 친구들 안녕', userId);
   }, [userNickname, userId]);
 
   useEffect(() => {

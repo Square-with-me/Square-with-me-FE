@@ -6,7 +6,6 @@ import userIcon from '../../assets/inRoom/userIcon.svg';
 
 const Parti =({me})=>{
   const userInfo = useSelector((store)=>store.user.userInfo)
-  console.log(userInfo)
   
   return(
     <React.Fragment>

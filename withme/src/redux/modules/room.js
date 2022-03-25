@@ -30,7 +30,6 @@ const initialState = {
 
 // 방 정보 가져오기
 const getRoomDB = (pageNum) => {
-  console.log('전체방 8개: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(`/api/rooms?q=all&p=${pageNum}`)
@@ -87,7 +86,6 @@ const hotRoomDB = () => {
 
 // 검색 결과 방 가져오기
 const searchRoomDB = (search, pageNum) => {
-  console.log('검색: ', search, pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(`api/rooms?q=${search}&p=${pageNum}`, {
@@ -106,14 +104,12 @@ const searchRoomDB = (search, pageNum) => {
 
 // 카테고리별 방 가져오기
 const categoryRoomDB = (categoryId, pageNum) => {
-  console.log('카테고리: ', categoryId, pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(
         `/api/rooms/category/${categoryId}&p=${pageNum}`
       )
       .then((res) => {
-        console.log('얍얍얍', res);
         dispatch(getRoom(res.data.data));
       })
       .catch((err) => {
@@ -148,7 +144,6 @@ const enteringRoomDB = (roomId, userId) => {
 
 // 참여가능한 방 불러오기
 const possibleRoomDB = (pageNum) => {
-  console.log('참여가능만: ', pageNum);
   return function (dispatch, getState, { history }) {
     axios
       .get(`/api/rooms?q=possible&p=${pageNum}`)

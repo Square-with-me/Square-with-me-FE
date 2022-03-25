@@ -201,9 +201,14 @@ const WeekTime = ({ week }) => {
       legend: {
         display: false,
       },
-      tooltips: {
-        // enabled: true,
-        custom: function (tooltipModel) {},
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label =
+              context.dataset.label + ': ' + Math.floor(context.formattedValue) + '%';
+            return label;
+          },
+        },
       },
       animation: {
         duration: 1000,

@@ -9,7 +9,6 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as roomActions } from "../redux/modules/room";
 //pages
 import Timer from "../components/Detail/Timer";
-import Chatting from "../components/Detail/Chatting";
 import Parti from "../components/Detail/Parti";
 import Logo from "../components/Main/Logo";
 import RoomInfo from "../components/Detail/RoomInfo";
@@ -42,6 +41,44 @@ const Video = (props) => {
   }, [props.peer]);
 
   return <StyledVideo playsInline autoPlay ref={ref} />;
+};
+
+const Message = (props) => {
+  const {
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
+  } = props;
+
+  return (
+    <MessageBox>
+      <div id="userInfo">
+        <p id="userName">{sender}</p>
+        <p id="toText">모두에게</p>
+        <p>{time}</p>
+      </div>
+      <p id="message">{message}</p>
+    </MessageBox>
+  );
+};
+// 내가 보냈을 때 
+const MyMessage = (props) => {
+  const {
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
+  } = props;
+
+  return (
+    <MyMessageBox>
+      <div id="userInfo">
+        <p id="userName">{sender}</p>
+        <p id="toText">모두에게</p>
+        <p>{time}</p>
+      </div>
+      <p id="message">{message}</p>
+    </MyMessageBox>
+  );
 };
 
 const Detail = (props) => {
@@ -160,15 +197,6 @@ const Detail = (props) => {
     }
   };
 
-  // // 이모티콘 창 열기, 닫기
-  // const emojiFunc = () => {
-  //   if (isEmoji === true) {
-  //     setIsEmoji(false);
-  //   } else {
-  //     setIsEmoji(true);
-  //   }
-  // };
-
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
     if (!room && myRoomInLS) {
@@ -266,7 +294,6 @@ const Detail = (props) => {
     }
 
     const onUserJoined = (payload) => {
-      // console.log(payload.userInfo)
       dispatch(userActions.userInfo([payload.userInfo]));
       const peer = addPeer(payload.signal, payload.callerId, stream);
       const newPeer = {
@@ -312,7 +339,7 @@ const Detail = (props) => {
     }
 
     const onUserLeft = (payload) => {
-      console.log(payload.userInfo, "님이 나갔습니다."); // 참가자 나감 알림 용
+      alert(payload.userInfo, "님이 나갔습니다."); // 참가자 나감 알림 용
       dispatch(userActions.deleteUserInfo(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId
@@ -415,13 +442,17 @@ const Detail = (props) => {
 
     setDiffTime(Math.abs(closeTime - Date.parse(openTime)) / 60000);
 
-    const prevTime = localStorage.getItem("time");
+    const prevTime = JSON.parse(localStorage.getItem("time"));
+    const today = new Date().getDate();
+
+    console.log('투데이 시간 : ',today)
+
     if (prevTime) {
-      const today = new Date().getDate();
-      if (prevTime.date === today) {
+      if (prevTime.date === today) { 
         //기존 데이터에 새운 데이터 추가해서 저장
-        const newTime = prevTime[room.category.id] + diffTime;
-        localStorage.setItem("time", JSON.stringify(newTime));
+        prevTime[room.category.id] = diffTime;
+        localStorage.setItem("time", JSON.stringify(prevTime)); 
+        console.log("프리브타임 날짜 같을때", prevTime)
       } else {
         //기존 데이터 초기화 하고 새로 저장
         const data = {
@@ -433,10 +464,11 @@ const Detail = (props) => {
           5: 0,
           6: 0,
         };
-        data[room.category.id] = diffTime;
+        data[room.category.id] = diffTime; 
         localStorage.setItem("time", JSON.stringify(data));
+        console.log("열두시 지났어?", data[room.category.id])
       }
-    } else {
+    } else { // 시간데이터가 없을 때
       const data = {
         date: new Date().getDate(),
         1: 0,
@@ -448,6 +480,7 @@ const Detail = (props) => {
       };
       data[room.category.id] = diffTime;
       localStorage.setItem("time", JSON.stringify(data));
+      console.log('시간데이터 업따!!!')
     }
 
     setTimeout(() => {
@@ -456,7 +489,8 @@ const Detail = (props) => {
   }
 
   useEffect(() => {
-    interval.current = setInterval(saveTime, 180000);
+    interval.current = setInterval(saveTime, 60000);
+
 
     return () => {
       clearInterval(interval.current);
@@ -482,7 +516,6 @@ const Detail = (props) => {
       id: socketRef.current.id,
       emoji: emojiId,
     };
-    console.log(data);
     socketRef.current.emit("send_emoji", data);
     showEmoji(data);
   };
@@ -506,11 +539,6 @@ const Detail = (props) => {
       setTimeout(() => targetVideo.childNodes[4].classList.add("hidden"), 3000);
     }
   };
-
-  // function test(data) {
-  //   console.log("data", data)
-  // }
-
   // 상대방 이모티콘 받기
   useEffect(() => {
     if (!socketRef.current) {
@@ -524,34 +552,70 @@ const Detail = (props) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   console.log('peers table')
-  //   console.table(peers);
-  // }, [peers]);
+  // 채팅
+  const saveList = useSelector((store) => store.room.chattingList);
 
-  // //뒤로가기 막기
-  // useEffect(()=>{
-  //   history.push(null, '', `/room/${params.id}`)
-  //   window.addEventListener('popstate', function(e){
-  //     history.push(null, '', `/room/${params.id}`)
-  //   })
-  // },[])
-  // const [isB , setIsB] = useState(true)
-  // useEffect(()=>{
-  //   const unB = history.block((loc, action)=>{
-  //     if(action==='POP' && setIsB){
-  //       const confirm = window.confirm('뒤로 나가면 시간이 저장이 안됩니다')
-  //       return (
-  //         confirm === false
-  //         ? action.push()
-  //         : history.replace('/main')
-  //       )
-  //     }
+  //작성하는 채팅 내용
+  const [userMessage, setUserMessage] = useState('');
+  const [messageList, setMessageList] = useState([]);
 
-  //     return false
-  //   })
-  //   return ()=>unB()
-  // },[isB])
+  useEffect(() => {
+    setMessageList(saveList);
+  }, [saveList]);
+
+  // 채팅 받기
+  useEffect(() => {
+    socketRef.current.on('receive_message', (data) => {
+      dispatch(roomActions.savechat(data));
+    });
+
+    return socketRef.current.off('receive_message',(data) => {
+      dispatch(roomActions.savechat(data));
+    } )
+  }, [socketRef]);
+
+  // 채팅 보내기
+  const sendMessage = () => {
+    const today = new Date();
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    var timeString = hours + ':' + minutes;
+
+    if (userMessage === '' || userMessage === '\n') return;
+    const data = {
+      roomId: params.id,
+      sender: user.nickname,
+      message: userMessage,
+      time: timeString,
+      id: user.id,
+    };
+    dispatch(roomActions.savechat(data));
+
+    socketRef.current.emit('send_message', data);
+  };
+
+  // 엔터키로 채팅 보내기
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+      setUserMessage('');
+    }
+  };
+
+  // 채팅시 스크롤바 마지막으로 내리기
+  useEffect(() => {
+    
+    moveScrollEnd();
+  }, [messageList]);
+
+  const moveScrollEnd = () => {
+    if ( !document.getElementById('messageBox') ) {
+      return
+    }
+    const scrollBox = document.getElementById('messageBox');
+    scrollBox.scrollTop = scrollBox.scrollHeight;
+  };
+
 
   return (
     <Back>
@@ -592,7 +656,6 @@ const Detail = (props) => {
               ""
             )}
             {peers.map((peer) => {
-              console.log("참가자에용! ", peers);
               return (
                 <div
                   key={peer.peerId}
@@ -840,7 +903,34 @@ const Detail = (props) => {
                     </Button>
                   </div>
                   {ischatting ? (
-                    <Chatting socketRef={socketRef} roomId={params.id} />
+                    <ChattingBox>
+                        <div id="messageBox">
+                          {messageList.map((data, index) =>
+                            data.chattingList.id === user.id ? (
+                              <MyMessage key={index} data={data}></MyMessage>
+                            ) : (
+                              <Message key={index} data={data}></Message>
+                            )
+                          )}
+                        </div>
+                        <div className="inputBox">
+                          <form action="#" className="flex">
+                            <label htmlFor="choiceReceiver">TO.</label>
+                            <select name="receiver" id="lang">
+                              <option value="all">모두에게</option>
+                            </select>
+                          </form>
+                          <textarea
+                            type="text"
+                            onChange={(e) => {
+                              setUserMessage(e.target.value);
+                            }}
+                            value={userMessage}
+                            onKeyPress={onKeyPress}
+                            placeholder="메시지를 입력하세요"
+                          />
+                        </div>
+                      </ChattingBox>
                   ) : (
                     ""
                   )}
@@ -1217,7 +1307,7 @@ const Container = styled.div`
       align-items: center;
       box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
       bottom: 50px;
-      left: 0;
+      left: 5px;
     }
     .hidden {
       display: none;
@@ -1275,7 +1365,7 @@ const Container = styled.div`
     box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
     position: absolute;
     bottom: 65px;
-    left: 5px;
+    left: 10px;
     .emoji {
       width: 100px;
       display: flex;
@@ -1353,4 +1443,138 @@ const Button = styled.button`
   border: none;
 `;
 
+//채팅 css
+const ChattingBox = styled.div`
+  width: 100%;
+  // 높이
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-family: 'Noto Sans';
+  margin-top: 20px;
+
+  #messageBox {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    overflow-y: scroll;
+  }
+  .inputBox {
+    margin: 5%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    select {
+      width: 80%;
+      height: 30px;
+    }
+    textarea {
+      width: 100%;
+      height: 62px;
+    }
+  }
+
+  // 채팅창 열렸을 때 화면 길이 늘어나 스크롤 생기는 부분 조절
+  @media screen and (min-width: 985px) and (max-width: 1075px) {
+    height: 45vh;
+  }
+  @media screen and (min-width: 890px) and (max-width: 985px) {
+    height: 40vh;
+  }
+  @media screen and (min-width: 820px) and (max-width: 890px) {
+    height: 37vh;
+  }
+`;
+
+const MessageBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 58px;
+  justify-content: center;
+  padding: 2.5% 5% 2.5%;
+  font-family: 'Noto Sans';
+
+  #userInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 2.5%;
+
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    color: #8a8ba3;
+    font-style: normal;
+
+    #userName {
+      text-align: center;
+    }
+    #toText {
+      font-family: 'Noto Sans';
+      font-style: normal;
+    }
+  }
+
+  #message {
+    padding: 1%;
+    word-break: break-all;
+  }
+
+  p#message {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: #000;
+  }
+`;
+
+const MyMessageBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 58px;
+  justify-content: center;
+  padding: 2.5% 5% 2.5%;
+  font-family: 'Noto Sans';
+  background-color: #e3e5ff;
+
+  #userInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 2.5%;
+
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+    color: #8a8ba3;
+    font-style: normal;
+
+    #userName {
+      text-align: center;
+    }
+    #toText {
+      font-family: 'Noto Sans';
+      font-style: normal;
+    }
+  }
+
+  #message {
+    padding: 1%;
+    word-break: break-all;
+  }
+
+  p#message {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    color: #000;
+  }
+`;
 export default Detail;

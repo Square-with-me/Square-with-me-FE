@@ -223,6 +223,18 @@ const Mypage = (props) => {
           <div id="middleTopBox" className="boxStyle">
             <BadgeContainer2>
               <div className="badgeBox">
+                <div className="wrap">
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="tooltip">이번주엔 뷰티가 한시간도 없군요?</div>
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
+                <div className="badge">
+                  <img src={lockBadge} />
+                </div>
                 <div className="badge">
                   <img src={lockBadge} />
                 </div>
@@ -244,6 +256,8 @@ const Mypage = (props) => {
               </div>
             </BadgeContainer2>
           </div>
+
+          
 
           <div className="middleBottomBoxWrap">
             <Text>오늘의 참여 기록</Text>
@@ -671,6 +685,39 @@ const BadgeContainer2 = styled.div`
     background: #ffffff;
     border: 1px solid #8a8ba3;
   }
+  .wrap{
+    position: relative;
+    display: inline-block;
+    margin: auto;
+  }
+  .tooltip{
+      position: absolute;
+      padding: 10px;
+      visibility: hidden;
+      background-color: #8a8ba3;
+      color: black;
+      text-align: center;
+      z-index: 100;
+      width: 200px;
+      /* bottom: 50%;
+      left: 50%;
+      margin-left: -100px; */
+    }
+    .tooltip::after{
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -10px;
+      border-width: 10px;
+      border-style: solid;
+      border-color:  transparent  transparent  #8a8ba3 transparent;
+    }
+  .wrap p{margin-top: 70px;}
+  .wrap:hover .tooltip{
+    visibility: visible;
+  }
+  
 `;
 
 const TodayTimeBox = styled.div`
