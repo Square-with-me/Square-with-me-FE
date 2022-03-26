@@ -20,8 +20,6 @@ const WeekTime = ({ week }) => {
   const [study, setStudy] = useState([]);
 
   useEffect(() => {
-    console.log('이번 주 데이터', week);
-    
     const sun100 =
       beautyRecord.sun +
       counselingRecord.sun +
@@ -205,7 +203,10 @@ const WeekTime = ({ week }) => {
         callbacks: {
           label: function (context) {
             let label =
-              context.dataset.label + ': ' + Math.floor(context.formattedValue) + '%';
+              context.dataset.label +
+              ': ' +
+              Math.floor(context.formattedValue) +
+              '%';
             return label;
           },
         },
