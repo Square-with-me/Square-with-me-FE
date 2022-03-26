@@ -1,9 +1,9 @@
-import React, { useEffect,} from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
-import Spinner from "react-bootstrap/Spinner"
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { actionCreators as userActions } from '../../redux/modules/user';
+// import Spinner from "react-bootstrap/Spinner"
+import styled from 'styled-components';
 
 const Kakao = () => {
   let history = useHistory();
@@ -33,10 +33,10 @@ const Kakao = () => {
   }, []);
   return (
     <div>
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading…</span>
-      </Spinner>
+      {/* <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner> */}
     </div>
   );
-}
+};
 export default Kakao;

@@ -1,6 +1,5 @@
-import axios from "axios";
-import { BackUrl } from "./config";
-
+import axios from 'axios';
+import { BackUrl } from './config';
 
 const token = localStorage.getItem('login-token');
 const accessToken = document.cookie.split('=')[1];
@@ -17,7 +16,7 @@ const api = axios.create({
 
   // baseURL: 'https://api.nemowithme.com',
 
-  baseURL: `${BackUrl}`,
+  // baseURL: `${BackUrl}`,
 
   headers: {
     Authorization: `Bearer ${token}`,
