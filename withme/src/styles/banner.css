@@ -14,6 +14,8 @@ li {
   width: calc(100% * 4);
   display: flex;
   animation: slide 45s infinite;
+  padding: 0;
+  margin: 0;
 }
 
 .slide li {

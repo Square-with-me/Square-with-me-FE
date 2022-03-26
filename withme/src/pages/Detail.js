@@ -566,6 +566,9 @@ const Detail = (props) => {
 
   // 채팅 받기
   useEffect(() => {
+    if(!socketRef.current){
+      return
+    }
     socketRef.current.on('receive_message', (data) => {
       dispatch(roomActions.savechat(data));
     });
@@ -573,7 +576,7 @@ const Detail = (props) => {
     return socketRef.current.off('receive_message',(data) => {
       dispatch(roomActions.savechat(data));
     } )
-  }, [socketRef]);
+  }, []);
 
   // 채팅 보내기
   const sendMessage = () => {
@@ -1504,6 +1507,9 @@ const ChattingBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    label {
+      font-weight: 700;
+      }
     #lang {
       display: flex;
       align-items: center;
