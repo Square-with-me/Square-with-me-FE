@@ -1151,7 +1151,85 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+
+    // 세로가 더 긴 기기가 세로로 있을 때 로코 크기 줄이기
+    @media screen and (max-width: 595px) and (orientation: portrait) {
+      height: 28px;
+    }
+    @media screen and (max-width: 525px) and (orientation: portrait) {
+      height: 10px;
+      margin-top: 17px;
+    }
   }
+
+  // 세로가 더 긴 기기가 세로로 있을 때 가로로 화면 나오게 하는 부분
+  @media screen and (min-width: 595px) and (max-width: 820px) and (orientation: portrait) {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    margin: auto;
+    display: grid;
+    column-gap: 30px;
+    grid-template-rows: 70px 1fr 70px;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  @media screen and (min-width: 525px) and (max-width: 595px) and (orientation: portrait) {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    margin: auto;
+    display: grid;
+    column-gap: 30px;
+    grid-template-rows: 50px 1fr 60px;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  @media screen and (min-width: 480px) and (max-width: 525px) and (orientation: portrait) {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    margin: auto;
+    display: grid;
+    column-gap: 30px;
+    grid-template-rows: 48px 1fr 40px;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  @media screen and (max-width: 480px) and (orientation: portrait) {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    margin: auto;
+    display: grid;
+    column-gap: 20px;
+    grid-template-rows: 0px 0.9fr 0px;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    #top {
+      display: none;
+    }
+  }
+
   #videoBox {
     height: 81vh;
     background-color: #f7f7f7;
@@ -1164,6 +1242,38 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
+    
+    // 세로가 더 긴 기기가 세로로 있을 때 스크롤 생기지 않도록 화면 크기 조절
+    @media screen and (min-width: 755px) and (max-width: 820px) and (orientation: portrait) {
+      height: 75vh;
+    }
+    @media screen and (min-width: 715px) and (max-width: 755px) and (orientation: portrait) {
+      height: 70vh;
+    }
+    @media screen and (min-width: 675px) and (max-width: 715px) and (orientation: portrait) {
+      height: 65vh;
+    }
+    @media screen and (min-width: 635px) and (max-width: 675px) and (orientation: portrait) {
+      height: 60vh;
+    }
+    @media screen and (min-width: 595px) and (max-width: 635px) and (orientation: portrait) {
+      height: 55vh;
+    }
+    @media screen and (min-width: 565px) and (max-width: 595px) and (orientation: portrait) {
+      height: 53vh;
+    }
+    @media screen and (min-width: 525px) and (max-width: 565px) and (orientation: portrait) {
+      height: 49vh;
+    }
+    @media screen and (min-width: 480px) and (max-width: 525px) and (orientation: portrait) {
+      height: 47vh;
+    }
+    @media screen and (min-width: 445px) and (max-width: 480px) and (orientation: portrait) {
+      height: 47vh;
+    }
+    // @media screen and (max-width: 445px) and (orientation: portrait) {
+    //   height: 40vh;
+    // }
   }
   .videoContainer {
     height: 100%;
@@ -1283,6 +1393,15 @@ const Container = styled.div`
         margin: 2px 0px 0px 0px;
         border: none;
       }
+      @media screen and (max-width: 525px) and (max-width: 595px) and (orientation: portrait) {
+        height: 45px;
+      }
+      @media screen and (max-width: 525px) and (orientation: portrait) {
+        height: 28px;
+      }
+      @media screen and (max-width: 480px) and (orientation: portrait) {
+        height: 20px;
+      }
     }
     #endButton {
       height: 60px;
@@ -1298,6 +1417,15 @@ const Container = styled.div`
         background-color: #f7f7f7;
         margin: 2px 0px 0px 15px;
         border: none;
+      }
+      @media screen and (max-width: 525px) and (max-width: 595px) and (orientation: portrait) {
+        height: 45px;
+      }
+      @media screen and (max-width: 525px) and (orientation: portrait) {
+        height: 28px;
+      }
+      @media screen and (max-width: 480px) and (orientation: portrait) {
+        height: 20px;
       }
     }
   }

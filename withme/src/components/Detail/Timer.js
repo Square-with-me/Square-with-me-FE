@@ -218,6 +218,11 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    // 세로가 더 긴 기기가 세로로 있을 때 .outputGroup이 밀려보이는 부분 조절
+    @media screen and (max-width: 820px) and (orientation: portrait) {
+      width: 98%;
+    }
   }
   .buttonGroup {
     display: flex;
@@ -282,6 +287,12 @@ const Btn = styled.button`
   font-size: 18px;
   font-weight: 400;
   /* line-height: 27px; */
+
+  // 세로가 더 긴 기기가 세로로 있을 때 버튼 밀리는 부분 조절
+  @media screen and (max-width: 820px) and (orientation: portrait) {
+    font-size: 15px;
+    margin: 3px 3px 3px 1px;
+  }
 `;
 
 export default Timer;
