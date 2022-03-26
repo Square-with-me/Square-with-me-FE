@@ -8,12 +8,13 @@ const Kakao = () => {
   const kakaoLogin = async (authorization_code) => {
     // console.log('함수 호출 됨');
     // console.log('code 잘 넘어왔냐?', authorization_code);
-    await axios.get(`http://14.45.204.153:7034/api/auth/kakao/callback?code=${authorization_code}`)
+    await axios.get(`api/auth/kakao/callback?code=${authorization_code}`)
       .then((response) => {
         // const token = response.data.data.token;
         // const user = response.data.data.user;
-        console.log("response 받음");
-        console.log('유저', response.data);
+
+        //redux 저장
+        //메인 페이지로 이동
       })
       .catch((error) => {
         console.log("카카오 로그인실패", error);
@@ -24,6 +25,7 @@ const Kakao = () => {
     kakaoLogin(authorization_code);
   }, []);
 
+  //카카오 로그인 콜백 페이지 대신에 흰배경이나 검은 배경 or 로딩중
   return (
     <div>
       <h3>카카오 로그인 콜백 페이지</h3>

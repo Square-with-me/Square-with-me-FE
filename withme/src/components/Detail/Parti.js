@@ -68,7 +68,7 @@ padding: 0px 5px;
 }
 
   // 세로가 더 긴 기기가 세로로 있을 때 오른쪽으로 밀려보이는 부분 조절
-  @media screen and (max-width: 820px) and (orientation: portrait) {
+  @media screen and (max-width: 767px) and (orientation: portrait) {
     padding: 0px;
     .userNick{
       font-size: 15px;

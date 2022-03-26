@@ -289,7 +289,7 @@ const Btn = styled.button`
   /* line-height: 27px; */
 
   // 세로가 더 긴 기기가 세로로 있을 때 버튼 밀리는 부분 조절
-  @media screen and (max-width: 820px) and (orientation: portrait) {
+  @media screen and (max-width: 767px) and (orientation: portrait) {
     font-size: 15px;
     margin: 3px 3px 3px 1px;
   }
