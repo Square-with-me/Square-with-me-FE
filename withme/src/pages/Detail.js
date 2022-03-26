@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
+import { BackUrl } from "../shared/config";
 
 //redux
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -210,7 +211,7 @@ const Detail = (props) => {
       return;
     }
     // socketRef.current = io.connect('http://175.112.86.142:8088/');
-    socketRef.current = io.connect("https://api.nemowithme.com");
+    socketRef.current = io.connect(`${BackUrl}`);
     navigator.mediaDevices
       .getUserMedia({
         video: true,
