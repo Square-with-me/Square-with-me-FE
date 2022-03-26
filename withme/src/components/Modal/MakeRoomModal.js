@@ -102,7 +102,6 @@ const MakeRoomModal = ({ setMRooms, create }) => {
             {user ? user.nickname : ''}님 <br /> 새로운 친구를 만나러 가볼까요?
           </HelloText>
           <Category>
-            <div className="container">
               <DropWrap>
                 <DropBtn
                   onClick={() => setIsActive(!isActive)}
@@ -272,7 +271,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                   </CategoryWrap>
                 </div>
               </DropWrap>
-            </div>
+           
             <div
               style={{
                 display: 'flex',
