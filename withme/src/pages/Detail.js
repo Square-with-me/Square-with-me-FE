@@ -920,9 +920,25 @@ const Detail = (props) => {
                         <div className="inputBox">
                           <form action="#" className="flex">
                             <label htmlFor="choiceReceiver">TO.</label>
-                            <select name="receiver" id="lang">
+                            {/* <select name="receiver" id="lang">
                               <option value="all">모두에게</option>
-                            </select>
+                            </select> */}
+                            <div name="receiver" id="lang">모두에게
+                              <svg
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999"
+                                stroke="#8A8BA3"
+                                strokeWidth="2"
+                                strokeMiterlimit="10"
+                              />
+                            </svg>
+                          </div>
                           </form>
                           <textarea
                             type="text"
@@ -1125,22 +1141,23 @@ const Detail = (props) => {
 const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
-  @media all and (min-width: 480px) and (max-width: 550px) {
+  @media screen and (max-width: 820px) and (orientation: portrait) {
+    height: fit-content;
+  }
+  @media screen and (min-width: 320px) and (max-width: 550px) {
     height: fit-content;
   }
 `;
 
 const Container = styled.div`
   box-sizing: border-box;
-  /* 보완할 점 1. 반응형으로 바꾸기 calc 공부하기 */
   width: 1110px;
   height: 100vh;
-  //   min-width: 480px;
   background-color: #f7f7f7;
   margin: auto;
   display: grid;
   column-gap: 30px;
-  grid-template-rows: 70px 1fr 75px;
+  grid-template-rows: 70px 1fr 70px;
   grid-template-columns: repeat(12, 1fr);
   #top {
     background-color: #f7f7f7;
@@ -1154,19 +1171,12 @@ const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
-
-    // 세로가 더 긴 기기가 세로로 있을 때 로코 크기 줄이기
-    @media screen and (max-width: 595px) and (orientation: portrait) {
-      height: 28px;
-    }
-    @media screen and (max-width: 525px) and (orientation: portrait) {
-      height: 10px;
-      margin-top: 17px;
-    }
   }
 
   // 세로가 더 긴 기기가 세로로 있을 때 가로로 화면 나오게 하는 부분
-  @media screen and (min-width: 595px) and (max-width: 820px) and (orientation: portrait) {
+  @media screen and (min-width: 600px) and (max-width: 767px) and (orientation: portrait) {
+    -ms-transform: rotate(-90deg); // IE 9 이상
+    -webkit-transform: rotate(-90deg); // 사파리, 크롬, 오페라 브라우저
     transform: rotate(-90deg);
     transform-origin: left top;
     margin: auto;
@@ -1174,6 +1184,8 @@ const Container = styled.div`
     column-gap: 30px;
     grid-template-rows: 70px 1fr 70px;
     grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+    background-color: #f7f7f7;
     width: 100vh;
     height: 100vw;
     overflow-x: hidden;
@@ -1182,7 +1194,9 @@ const Container = styled.div`
     left: 0;
   }
 
-  @media screen and (min-width: 525px) and (max-width: 595px) and (orientation: portrait) {
+  @media screen and (min-width: 525px) and (max-width: 600px) and (orientation: portrait) {
+    -ms-transform: rotate(-90deg); // IE 9 이상
+    -webkit-transform: rotate(-90deg); // 사파리, 크롬, 오페라 브라우저
     transform: rotate(-90deg);
     transform-origin: left top;
     margin: auto;
@@ -1190,46 +1204,82 @@ const Container = styled.div`
     column-gap: 30px;
     grid-template-rows: 50px 1fr 60px;
     grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+    background-color: #f7f7f7;
     width: 100vh;
     height: 100vw;
     overflow-x: hidden;
     position: absolute;
     top: 100%;
     left: 0;
+    .logo {
+      height: 28px;
+    }
+    #bottom {
+      height: 45px;
+    }
+    #endButton {
+      height: 45px;
+    }
   }
 
-  @media screen and (min-width: 480px) and (max-width: 525px) and (orientation: portrait) {
+  @media screen and (min-width: 485px) and (max-width: 525px) and (orientation: portrait) {
+    -ms-transform: rotate(-90deg); // IE 9 이상
+    -webkit-transform: rotate(-90deg); // 사파리, 크롬, 오페라 브라우저
     transform: rotate(-90deg);
     transform-origin: left top;
     margin: auto;
     display: grid;
     column-gap: 30px;
-    grid-template-rows: 48px 1fr 40px;
+    grid-template-rows: 45px 1fr 60px;
     grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+    background-color: #f7f7f7;
     width: 100vh;
     height: 100vw;
     overflow-x: hidden;
     position: absolute;
     top: 100%;
     left: 0;
+    .logo {
+      height: 10px;
+      margin-top: 15px;
+    }
+    #bottom {
+      height: 28px;
+    }
+    #endButton {
+      height: 28px;
+    }
   }
 
-  @media screen and (max-width: 480px) and (orientation: portrait) {
+  @media screen and (max-width: 485px) and (orientation: portrait) {
+    -ms-transform: rotate(-90deg); // IE 9 이상
+    -webkit-transform: rotate(-90deg); // 사파리, 크롬, 오페라 브라우저
     transform: rotate(-90deg);
     transform-origin: left top;
     margin: auto;
     display: grid;
     column-gap: 20px;
-    grid-template-rows: 0px 0.9fr 0px;
+    grid-template-rows: 43px 1fr 60px;
     grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+    background-color: #f7f7f7;
     width: 100vh;
     height: 100vw;
     overflow-x: hidden;
     position: absolute;
     top: 100%;
     left: 0;
-    #top {
-      display: none;
+    .logo {
+      height: 10px;
+      margin-top: 13px;
+    }
+    #bottom {
+      height: 15px;
+    }
+    #endButton {
+      height: 15px;
     }
   }
 
@@ -1245,10 +1295,10 @@ const Container = styled.div`
     gap: 30px;
     justify-content: space-between;
     align-content: space-between;
-    
+
     // 세로가 더 긴 기기가 세로로 있을 때 스크롤 생기지 않도록 화면 크기 조절
-    @media screen and (min-width: 755px) and (max-width: 820px) and (orientation: portrait) {
-      height: 75vh;
+    @media screen and (min-width: 755px) and (max-width: 767px) and (orientation: portrait) {
+      height: 74vh;
     }
     @media screen and (min-width: 715px) and (max-width: 755px) and (orientation: portrait) {
       height: 70vh;
@@ -1268,15 +1318,18 @@ const Container = styled.div`
     @media screen and (min-width: 525px) and (max-width: 565px) and (orientation: portrait) {
       height: 49vh;
     }
-    @media screen and (min-width: 480px) and (max-width: 525px) and (orientation: portrait) {
-      height: 47vh;
+    @media screen and (min-width: 485px) and (max-width: 525px) and (orientation: portrait) {
+      height: 46vh;
     }
-    @media screen and (min-width: 445px) and (max-width: 480px) and (orientation: portrait) {
-      height: 47vh;
+    @media screen and (min-width: 440px) and (max-width: 485px) and (orientation: portrait) {
+      height: 40vh;
     }
-    // @media screen and (max-width: 445px) and (orientation: portrait) {
-    //   height: 40vh;
-    // }
+    @media screen and (min-width: 400px) and (max-width: 440px) and (orientation: portrait) {
+      height: 33vh;
+    }
+    @media screen and (max-width: 400px) and (orientation: portrait) {
+      height: 30vh;
+    }
   }
   .videoContainer {
     height: 100%;
@@ -1396,15 +1449,6 @@ const Container = styled.div`
         margin: 2px 0px 0px 0px;
         border: none;
       }
-      @media screen and (max-width: 525px) and (max-width: 595px) and (orientation: portrait) {
-        height: 45px;
-      }
-      @media screen and (max-width: 525px) and (orientation: portrait) {
-        height: 28px;
-      }
-      @media screen and (max-width: 480px) and (orientation: portrait) {
-        height: 20px;
-      }
     }
     #endButton {
       height: 60px;
@@ -1420,15 +1464,6 @@ const Container = styled.div`
         background-color: #f7f7f7;
         margin: 2px 0px 0px 15px;
         border: none;
-      }
-      @media screen and (max-width: 525px) and (max-width: 595px) and (orientation: portrait) {
-        height: 45px;
-      }
-      @media screen and (max-width: 525px) and (orientation: portrait) {
-        height: 28px;
-      }
-      @media screen and (max-width: 480px) and (orientation: portrait) {
-        height: 20px;
       }
     }
   }
@@ -1451,7 +1486,7 @@ const Button = styled.button`
 const ChattingBox = styled.div`
   width: 100%;
   // 높이
-  height: 50vh;
+  height: 57vh;
   display: flex;
   flex-direction: column;
   background: #f7f7f7;
@@ -1472,28 +1507,178 @@ const ChattingBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    label{
+    label {
       font-weight: 700;
-    }
-    select {
-      width: 80%;
+      }
+    #lang {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      border: 1px solid #8A8BA3;
+      border-radius: 4px;
+      background-color: #fff;
+      width: 75%;
       height: 30px;
+      padding: 3px;
+      margin-right: 4px;
+      &:hover {
+        box-shadow: 0 1px 5px #8A8BA3;
+      }
     }
     textarea {
-      width: 100%;
+      width: 98%;
       height: 62px;
+      padding: 3px;
     }
   }
 
-  // 채팅창 열렸을 때 화면 길이 늘어나 스크롤 생기는 부분 조절
-  @media screen and (min-width: 985px) and (max-width: 1075px) {
+  // 가로모드 일 때 채팅창 높이 조절
+  @media screen and (min-height: 700px) and (max-height: 755px) and (orientation: landscape) {
+    height: 55vh;
+  }
+  @media screen and (min-height: 640px) and (max-height: 700px) and (orientation: landscape) {
+    height: 48vh;
+    .inputBox {
+      #lang {
+        height: 27px;
+      }
+      textarea {
+        height: 58px;
+      }
+    }
+  }
+  @media screen and (min-height: 600px) and (max-height: 640px) and (orientation: landscape) {
+    height: 44vh;
+    .inputBox {
+      #lang {
+        height: 26px;
+      }
+      textarea {
+        height: 55px;
+      }
+    }
+  }
+  @media screen and (min-height: 565px) and (max-height: 600px) and (orientation: landscape) {
+    height: 45vh;
+    .inputBox {
+      #lang {
+        height: 26px;
+      }
+      textarea {
+        height: 54px;
+      }
+    }
+  }
+  @media screen and (max-height: 565px) and (orientation: landscape) {
+    height: 40vh;
+    .inputBox {
+      #lang {
+        height: 25px;
+      }
+      textarea {
+        height: 46px;
+      }
+    }
+  }
+
+  // 세로가 더 긴 기기가 세로로 있을 때 채팅창 열리면 화면 길이 늘어나는 부분 조절
+  @media screen and (min-width: 755px) and (max-width: 767px) and (orientation: portrait) {
+    height: 55vh;
+  }
+  @media screen and (min-width: 715px) and (max-width: 755px) and (orientation: portrait) {
+    height: 50vh;
+  }
+  @media screen and (min-width: 675px) and (max-width: 715px) and (orientation: portrait) {
     height: 45vh;
   }
-  @media screen and (min-width: 890px) and (max-width: 985px) {
+  @media screen and (min-width: 635px) and (max-width: 675px) and (orientation: portrait) {
     height: 40vh;
+    .inputBox {
+      #lang {
+        height: 28px;
+      }
+      textarea {
+        height: 58px;
+      }
+    }
   }
-  @media screen and (min-width: 820px) and (max-width: 890px) {
-    height: 37vh;
+  @media screen and (min-width: 595px) and (max-width: 635px) and (orientation: portrait) {
+    height: 36vh;
+    .inputBox {
+      #lang {
+        height: 27px;
+      }
+      textarea {
+        height: 57px;
+      }
+    }
+  }
+  @media screen and (min-width: 565px) and (max-width: 595px) and (orientation: portrait) {
+    height: 35vh;
+    .inputBox {
+      #lang {
+        height: 27px;
+      }
+      textarea {
+        height: 57px;
+      }
+    }
+  }
+  @media screen and (min-width: 525px) and (max-width: 565px) and (orientation: portrait) {
+    height: 31vh;
+    .inputBox {
+      #lang {
+        height: 25px;
+      }
+      textarea {
+        height: 55px;
+      }
+    }
+  }
+  @media screen and (min-width: 485px) and (max-width: 525px) and (orientation: portrait) {
+    height: 27vh;
+    .inputBox {
+      #lang {
+        height: 24px;
+      }
+      textarea {
+        height: 52px;
+      }
+    }
+  }
+  @media screen and (min-width: 440px) and (max-width: 485px) and (orientation: portrait) {
+    height: 21vh;
+    .inputBox {
+      #lang {
+        height: 22px;
+      }
+      textarea {
+        height: 45px;
+      }
+    }
+  }
+  @media screen and (min-width: 400px) and (max-width: 440px) and (orientation: portrait) {
+    height: 14vh;
+    .inputBox {
+      #lang {
+        height: 22px;
+      }
+      textarea {
+        height: 45px;
+      }
+    }
+  }
+  @media screen and (max-width: 400px) and (orientation: portrait) {
+    height: 13vh;
+    .inputBox {
+      #lang {
+        height: 20px;
+      }
+      textarea {
+        height: 43px;
+      }
+    }
   }
 `;
 

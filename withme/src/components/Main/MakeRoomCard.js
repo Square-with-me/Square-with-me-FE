@@ -31,7 +31,7 @@ const MakeRoomCard = (props) => {
       ) : (
         <RoomCardContainer
           onClick={() => {
-            window.alert("로그인해야 방 만들수 있을껄?");
+            window.alert("로그인을 하신 후에 방을 만들 수 있습니다!");
           }}
         >
           <Plus className="plus" />

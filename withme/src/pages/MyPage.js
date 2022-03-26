@@ -723,7 +723,7 @@ const BadgeContainer = styled.div`
   p {
     visibility: hidden;
     background-color: #bcc0ff;
-    width: 150px;
+    width: 170px;
     position: absolute;
     padding: 5px;
     border-radius: 4px;

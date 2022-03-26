@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const Kakao = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     let authorization_code = new URL(window.location.href).searchParams.get("code");
     console.log("auth code", authorization_code);
