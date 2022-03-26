@@ -825,39 +825,6 @@ const BadgeContainer2 = styled.div`
     border: 1px solid #8a8ba3;
     display: grid;
     place-items: center;
-
-    /* p {
-      visibility: hidden;
-      background-color: #bcc0ff;
-      width: 150px;
-      position: absolute;
-      padding: 5px;
-      border-radius: 4px;
-      color: white;
-      z-index: 40;
-      top: 40%;
-      right: 20%;
-    }
-    p::after {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      margin-left: -50px;
-      border: solid transparent;
-      border-color: transparent;
-      border-bottom-color: #bcc0ff;
-      border-width: 10px;
-      pointer-events: none;
-      content: ' ';
-    } */
-  }
-
-  .badge:hover p {
-    visibility: visible;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
-      rgba(0, 0, 0, 0.23) 0px 3px 3px;
   }
 `;
 
