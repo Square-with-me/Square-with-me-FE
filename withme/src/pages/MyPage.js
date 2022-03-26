@@ -404,7 +404,6 @@ const Container = styled.div`
   }
   #start {
     width: 350px;
-    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -417,6 +416,7 @@ const Container = styled.div`
     }
     #startBox {
       height: 65vh;
+      min-height: 500px;
       padding: 26px 26px 48px 26px;
     }
   }
@@ -438,6 +438,7 @@ const Container = styled.div`
     }
     #middleTopBox {
       height: 20vh;
+      min-height: 150px;
       padding: 0px 30px;
     }
     #middleBottomBox {
@@ -675,6 +676,7 @@ const BadgeContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+
   .badgeBox {
     height: 240px;
     width: 100%;
@@ -683,7 +685,7 @@ const BadgeContainer = styled.div`
     grid-template-rows: repeat(3, 1fr);
     grid-row-gap: 20px;
     place-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     margin: 20px 0;
     label {
       border-radius: 50%;
@@ -701,6 +703,7 @@ const BadgeContainer = styled.div`
   .badge {
     width: 64px;
     height: 64px;
+    position: relative;
   }
   .closeBadge {
     filter: blur(4px);
