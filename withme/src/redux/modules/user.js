@@ -18,7 +18,7 @@ const EDIT_NICK = 'EDIT_NICK';
 const EDIT_STATUS = 'EDIT_STATUS';
 //대표 뱃지 변경
 const EDIT_BADGE = 'EDIT_BADGE';
-//내가 가진 뱃지 가져오기
+//보유 뱃지 가져오기
 const GET_BADGE = 'GET_BADGE';
 //오늘 시간
 const TODAY_TIME = 'TODAY_TIME';
@@ -235,7 +235,7 @@ const editBadgeDB = (userId, badgeId) => {
   };
 };
 
-//전체 뱃지 가져오기
+//보유 뱃지 가져오기
 const getBadgeDB = (userId) => {
   return function (dispatch, getState, { history }) {
     apis

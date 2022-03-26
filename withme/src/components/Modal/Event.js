@@ -5,7 +5,7 @@ const Event =({setEvent})=>{
   return (
     <ModalBackground onClick={()=>{setEvent(false)}}>
       <LoginWrap>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfjH1T4DhQp6fqdaB9Ordtpe3NMKw0bZAAl4IHTfc6e2ItN8w/viewform?usp=sf_link" target="_blank"><Image src= {event} onClick={()=>{setEvent(false)}}/></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSckDKexhkTD5CbfLoIrH2kLeXT25xtDH1uot2K6uA5mBr7amw/viewform"><Image src= {event} onClick={()=>{setEvent(false)}}/></a>
       </LoginWrap>
     </ModalBackground>
   )
