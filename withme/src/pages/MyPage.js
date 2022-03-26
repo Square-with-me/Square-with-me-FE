@@ -694,8 +694,16 @@ const BadgeContainer = styled.div`
     input[type='radio'] {
       display: none;
     }
-    input[type='radio']:checked + img {
+    img {
       border-radius: 50%;
+    }
+
+    input[type='radio']:checked + img {
+      box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
+        rgba(0, 0, 0, 0.23) 0px 3px 3px;
+    }
+
+    input[type='radio']:hover + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
@@ -703,12 +711,12 @@ const BadgeContainer = styled.div`
   .badge {
     width: 64px;
     height: 64px;
+    border-radius: 50%;
     position: relative;
   }
   .closeBadge {
     filter: blur(4px);
   }
-
   label.badge img {
     transition: all 0.5s;
   }
