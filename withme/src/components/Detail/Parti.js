@@ -74,7 +74,7 @@ padding: 0px 5px;
       font-size: 15px;
     }
     .statusMsg{
-      font-size: 10.8px;
+      font-size: 11px;
     }
   }
 `

@@ -1151,7 +1151,7 @@ const Container = styled.div`
     justify-content: space-between;
     margin-top: 10px;
 
-    // 세로가 더 긴 기기가 세로로 있을 때 로코 크기 줄이기
+    // 세로가 더 긴 기기가 세로로 있을 때 로고 크기 줄이기
     @media screen and (max-width: 595px) and (orientation: portrait) {
       height: 28px;
     }
@@ -1270,9 +1270,9 @@ const Container = styled.div`
     @media screen and (min-width: 445px) and (max-width: 480px) and (orientation: portrait) {
       height: 47vh;
     }
-    // @media screen and (max-width: 445px) and (orientation: portrait) {
-    //   height: 40vh;
-    // }
+    @media screen and (max-width: 445px) and (orientation: portrait) {
+      height: 40vh;
+    }
   }
   .videoContainer {
     height: 100%;

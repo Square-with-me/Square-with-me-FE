@@ -196,11 +196,11 @@ const ChattingBox = styled.div`
     height: 28vh;
   }
   @media screen and (min-width: 445px) and (max-width: 480px) and (orientation: portrait) {
-    height: 27vh;
+    height: 25vh;
   }
-  // @media screen and (max-width: 445px) and (orientation: portrait) {
-  //   height: 23vh;
-  // }
+  @media screen and (max-width: 445px) and (orientation: portrait) {
+    height: 23vh;
+  }
 `;
 
 const MessageBox = styled.div`
