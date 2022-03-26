@@ -27,7 +27,7 @@ function App() {
         <Route path="/" exact component={Landing}/>
         <Route path="/main" exact component={Main} />
         <Route path="/room/:id" exact component={Detail} />
-        <Route path="/api/auth/kakao/callback" element={<Kakao />} />
+        <Route path="/api/auth/kakao/callback" exact component={Kakao} />
         <Route path="/mypage/:id" exact component={MyPage} />
       </ConnectedRouter>
     </React.Fragment>

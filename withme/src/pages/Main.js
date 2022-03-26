@@ -209,7 +209,18 @@ const Main = () => {
 
 const Back = styled.div`
   min-height: 100vh;
+  min-width: 100vw;
   background-color: #f7f7f7;
+  background: linear-gradient(to top, #F7F7F7 64%, #fff 30%);
+  @media screen and (min-width: 813px) and (max-width: 1110px) {
+    background: linear-gradient(to top, #F7F7F7 66%, #fff 30%);
+  }
+  @media screen and (min-width: 550px) and (max-width: 812px) {
+    background: linear-gradient(to top, #F7F7F7 75%, #fff 30%);
+  }
+  @media screen and (max-width: 550px) {
+    background: linear-gradient(to top, #F7F7F7 85%, #fff 30%);
+  }
 `;
 //share
 const Wrap = styled.div`

@@ -174,7 +174,7 @@ const Mypage = (props) => {
     },
     {
       id: 4,
-      name: "counsel",
+      name: "counseling",
       desc: "이번주 상담 카테고리 1시간 달성시 지급",
       imageUrl:
         "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg",
