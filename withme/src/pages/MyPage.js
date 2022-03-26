@@ -300,12 +300,6 @@ const Mypage = (props) => {
                     wholeBadges.map((badge) =>
                       myBadges.includes(badge.id) ? (
                         <label className="badge" key={badge.id}>
-                          <input
-                            type="radio"
-                            name="badge"
-                            onChange={(e) => setBadgeId(e.target.value)}
-                            value={badge.id}
-                          />
                           <img src={badge.imageUrl} />
                         </label>
                       ) : (
