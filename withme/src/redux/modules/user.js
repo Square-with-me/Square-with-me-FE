@@ -18,7 +18,7 @@ const EDIT_NICK = 'EDIT_NICK';
 const EDIT_STATUS = 'EDIT_STATUS';
 //대표 뱃지 변경
 const EDIT_BADGE = 'EDIT_BADGE';
-//전체 뱃지 가져오기
+//내가 가진 뱃지 가져오기
 const GET_BADGE = 'GET_BADGE';
 //오늘 시간
 const TODAY_TIME = 'TODAY_TIME';
@@ -49,8 +49,9 @@ const initialState = {
   today: '',
   week: '',
   month: [],
-  badges: [],
-  MasterBadge: '',
+  badges:[],
+  MasterBadge:'',
+  myBadges:[]
 };
 
 //로그인 미들웨어
@@ -238,17 +239,19 @@ const editBadgeDB = (userId, badgeId) => {
 const getBadgeDB = (userId) => {
   return function (dispatch, getState, { history }) {
     apis
-      .getBadges(userId)
-      .then((res) => {
-        dispatch(getBadge(res.data.data));
-        if (res.data.data.newBadge) {
-          alert('새로운 뱃지가 열렸습니다!');
-        }
-      })
-      .catch((err) => {
-        console.log('전체 뱃지 가져오기 에러', err);
-      });
-  };
+    .getBadges(userId)
+    .then((res)=>{
+      const badgeList = res.data.data.map((badge)=>(badge.id))
+      console.log(res.data.data.map((badge)=>(badge.id)))
+      dispatch(getBadge(badgeList))
+      if(res.data.data.newBadge){
+        alert("새로운 뱃지가 열렸습니다!")
+      }
+    })
+    .catch((err)=>{
+      console.log("전체 뱃지 가져오기 에러",err)
+    })
+  }
 };
 
 // 시간 받아오기
@@ -331,9 +334,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.month = action.payload;
       }),
-    [GET_BADGE]: (state, action) =>
-      produce(state, (draft) => {
-        draft.badges = action.payload.badgeList;
+    [GET_BADGE] :(state, action)=>
+      produce(state, (draft)=>{
+        draft.myBadges = action.payload.badgeList;
       }),
     [EDIT_BADGE]: (state, action) =>
       produce(state, (draft) => {

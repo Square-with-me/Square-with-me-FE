@@ -6,8 +6,9 @@ import store from './redux/configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './shared/serviceWorker';
 import axios from 'axios'
+import {BackUrl} from "./shared/config"
 // axios.defaults.withCredentials=true;
-axios.defaults.baseURL = "https://api.nemowithme.com";
+axios.defaults.baseURL = `${BackUrl}`;
 
 ReactDOM.render(
   <React.StrictMode>
