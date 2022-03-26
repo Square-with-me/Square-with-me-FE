@@ -333,9 +333,9 @@ const Mypage = (props) => {
             <BadgeContainer2>
               <div className="badgeBox">
                 {LockBadge.map((badge) => (
-                  <div className="badge">
+                  <div className="badge tooltip">
                     <img src={lockBadge} />
-                    <p>{badge.desc}</p>
+                    <span className="tooltiptext">{badge.desc}</span>
                   </div>
                 ))}
               </div>
@@ -781,23 +781,58 @@ const BadgeContainer2 = styled.div`
     grid-template-rows: repeat(auto-fill, 1fr);
     grid-row-gap: 20px;
     place-items: center;
-    overflow-y: scroll;
+    /* overflow-y: scroll;
     position: relative;
     -ms-overflow-style: none; // IE and Edge
     scrollbar-width: none; // Firefox
     &::-webkit-scrollbar {
       display: none; // Chrome, Safari, Opera
+    } */
+
+    .tooltip {
+      position: relative;
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 120%;
+        left: 25%;
+        margin-left: -60px;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent #555 transparent;
+        }
+      }
+
+      &:hover .tooltiptext {
+        visibility: visible;
+      }
     }
   }
   .badge {
     min-width: 50px;
     min-height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #ffffff;
     border: 1px solid #8a8ba3;
-    p {
+    display: grid;
+    place-items: center;
+
+    /* p {
       visibility: hidden;
       background-color: #bcc0ff;
       width: 150px;
@@ -822,7 +857,7 @@ const BadgeContainer2 = styled.div`
       border-width: 10px;
       pointer-events: none;
       content: ' ';
-    }
+    } */
   }
 
   .badge:hover p {
