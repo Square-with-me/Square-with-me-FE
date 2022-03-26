@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../../redux/modules/user';
+import { useHistory } from 'react-router-dom';
 // import Spinner from "react-bootstrap/Spinner"
 import styled from 'styled-components';
 
