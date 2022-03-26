@@ -18,7 +18,7 @@ const EDIT_NICK = 'EDIT_NICK';
 const EDIT_STATUS = 'EDIT_STATUS';
 //대표 뱃지 변경
 const EDIT_BADGE = 'EDIT_BADGE';
-//전체 뱃지 가져오기
+//내가 가진 뱃지 가져오기
 const GET_BADGE = 'GET_BADGE';
 //오늘 시간
 const TODAY_TIME = 'TODAY_TIME';
@@ -49,7 +49,8 @@ const initialState = {
   week: '',
   month: [],
   badges:[],
-  MasterBadge:''
+  MasterBadge:'',
+  myBadges:[]
 };
 
 //로그인 미들웨어
@@ -238,7 +239,9 @@ const getBadgeDB = (userId) => {
     apis
     .getBadges(userId)
     .then((res)=>{
-      dispatch(getBadge(res.data.data))
+      const badgeList = res.data.data.map((badge)=>(badge.id))
+      console.log(res.data.data.map((badge)=>(badge.id)))
+      dispatch(getBadge(badgeList))
       if(res.data.data.newBadge){
         alert("새로운 뱃지가 열렸습니다!")
       }
@@ -330,7 +333,7 @@ export default handleActions(
       }),
     [GET_BADGE] :(state, action)=>
       produce(state, (draft)=>{
-        draft.badges = action.payload.badgeList
+        draft.myBadges = action.payload.badgeList
       }),
     [EDIT_BADGE]:(state, action)=>
       produce(state, (draft)=>{
