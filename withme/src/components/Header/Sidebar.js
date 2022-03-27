@@ -18,7 +18,6 @@ const Sidebar = (props) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
-  
   if (open) {
     return (
       <React.Fragment>
@@ -57,7 +56,7 @@ const Sidebar = (props) => {
                   close();
                 }}
               >
-                로그인
+                LOGIN
               </Text>
             )}
           </div>
@@ -79,19 +78,9 @@ const Sidebar = (props) => {
                 로그아웃
               </Text>
             ) : (
-              <Text>나가기</Text>
+              <Text>OUT</Text>
             )}
           </div>
-          {/* <div>
-            <Text
-              onClick={() => {
-                history.push(`/mypage/${user.id}`);
-                close();
-              }}
-            >
-              마이페이지
-            </Text>
-          </div> */}
         </Wrap>
         <ModalBackground
           onClick={() => {
@@ -124,10 +113,10 @@ const Wrap = styled.div`
   top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
-  @media screen and (max-width:550px){ 
+  @media screen and (max-width:550px){
     right: -7px;
     top:25px;
-    width: 150px;  
+    width: 150px;
     padding: 10px;
   }
   @keyframes modal-show {
@@ -155,16 +144,16 @@ const SidebarHeader = styled.header`
   display: flex;
   justify-content: right;
   padding: 10px;
-  font-weight: 700;
   background-color: #f7f7f7;
 `;
 
 const Text = styled.div`
   font-size: 18px;
-  color: #000000;
+  color: #33344B;
   cursor: pointer;
-  @media screen and (max-width:550px){ 
-    font-size: 15px;
+  font-weight: 550;
+  @media screen and (max-width:550px){
+    font-size: 13px;
   }
 `;
 

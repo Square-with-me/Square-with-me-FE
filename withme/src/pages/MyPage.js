@@ -277,9 +277,9 @@ const Mypage = (props) => {
                           <img src={badge.imageUrl} />
                         </label>
                       ) : (
-                        <label className="badge" key={badge.id}>
+                        <label className="badge tooltip" key={badge.id}>
                           <img src={badge.imageUrl} className="closeBadge" />
-                          <p>{badge.desc}</p>
+                          <span className="tooltiptext">{badge.desc}</span>
                         </label>
                       )
                     )}
@@ -303,9 +303,9 @@ const Mypage = (props) => {
                           <img src={badge.imageUrl} />
                         </label>
                       ) : (
-                        <label className="badge" key={badge.id}>
-                          <img src={badge.imageUrl} className="closeBadge" />
-                          <p>{badge.desc}</p>
+                        <label className="badge tooltip " key={badge.id}>
+                          <img src={badge.imageUrl} className="closeBadge"/>
+                          <span className="tooltiptext">{badge.desc}</span>
                         </label>
                       )
                     )}
@@ -369,7 +369,8 @@ const Mypage = (props) => {
 };
 
 const Root = styled.div`
-  width: 100vw;
+  max-width: 100vw;
+  min-width: 390px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -379,6 +380,7 @@ const Root = styled.div`
 
 const Container = styled.div`
   max-width: 1110px;
+  min-width: 390px;
   margin: auto;
   display: grid;
   column-gap: 30px;
@@ -505,6 +507,7 @@ const Container = styled.div`
     min-height: 100vh;
     grid-template-columns: repeat(4, 1fr);
     margin: auto;
+    width: 90%;
     .header {
       grid-column: 1/5;
     }
@@ -526,7 +529,7 @@ const Container = styled.div`
         margin-top: 20px;
       }
       .chart {
-        width: 75%;
+        width: 55%;
         margin: auto;
       }
     }
@@ -675,7 +678,6 @@ const BadgeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 
   .badgeBox {
     height: 240px;
@@ -717,38 +719,44 @@ const BadgeContainer = styled.div`
   .closeBadge {
     filter: blur(4px);
   }
-  label.badge img {
-    transition: all 0.5s;
-  }
-  p {
-    visibility: hidden;
-    background-color: #bcc0ff;
-    width: 170px;
-    position: absolute;
-    padding: 5px;
-    border-radius: 4px;
-    color: white;
-    z-index: 40;
-    text-align: center;
-  }
-  p::after {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -50px;
-    border: solid transparent;
-    border-color: transparent;
-    border-bottom-color: #bcc0ff;
-    border-width: 10px;
-    pointer-events: none;
-    content: ' ';
-  }
-  label.badge:hover p {
+  .tooltip {
+      position: relative;
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 120%;
+        left: 25%;
+        margin-left: -60px;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent #555 transparent;
+        }
+      }
+
+      &:hover .tooltiptext {
+        visibility: visible;
+      }
+    }
+  label.badge:hover span {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
       rgba(0, 0, 0, 0.23) 0px 3px 3px;
-    visibility: visible;
+    /* visibility: visible; */
   }
 
   button {

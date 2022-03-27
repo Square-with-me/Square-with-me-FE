@@ -54,7 +54,7 @@ const Message = (props) => {
   return (
     <MessageBox>
       <div id="userInfo">
-        <p id="userName">{sender}</p>
+        <p id="userName">{sender}님이</p>
         <p id="toText">모두에게</p>
         <p>{time}</p>
       </div>
@@ -62,7 +62,7 @@ const Message = (props) => {
     </MessageBox>
   );
 };
-// 내가 보냈을 때 
+// 내가 보냈을 때
 const MyMessage = (props) => {
   const {
     data: {
@@ -73,7 +73,7 @@ const MyMessage = (props) => {
   return (
     <MyMessageBox>
       <div id="userInfo">
-        <p id="userName">{sender}</p>
+        <p id="userName">{sender}님이</p>
         <p id="toText">모두에게</p>
         <p>{time}</p>
       </div>
@@ -449,10 +449,10 @@ const Detail = (props) => {
     console.log('투데이 시간 : ',today)
 
     if (prevTime) {
-      if (prevTime.date === today) { 
+      if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
         prevTime[room.category.id] = diffTime;
-        localStorage.setItem("time", JSON.stringify(prevTime)); 
+        localStorage.setItem("time", JSON.stringify(prevTime));
         console.log("프리브타임 날짜 같을때", prevTime)
       } else {
         //기존 데이터 초기화 하고 새로 저장
@@ -608,7 +608,6 @@ const Detail = (props) => {
 
   // 채팅시 스크롤바 마지막으로 내리기
   useEffect(() => {
-    
     moveScrollEnd();
   }, [messageList]);
 
@@ -920,10 +919,7 @@ const Detail = (props) => {
                         <div className="inputBox">
                           <form action="#" className="flex">
                             <label htmlFor="choiceReceiver">TO.</label>
-                            {/* <select name="receiver" id="lang">
-                              <option value="all">모두에게</option>
-                            </select> */}
-                            <div name="receiver" id="lang">모두에게
+                            <div name="receiver" id="lang">모두
                               <svg
                               width="18"
                               height="18"
@@ -940,6 +936,7 @@ const Detail = (props) => {
                             </svg>
                           </div>
                           </form>
+                          <div style={{position:"relative"}}>
                           <textarea
                             type="text"
                             onChange={(e) => {
@@ -949,6 +946,10 @@ const Detail = (props) => {
                             onKeyPress={onKeyPress}
                             placeholder="메시지를 입력하세요"
                           />
+                          <svg className="icon" width="12" height="16" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute", right:"7%", top:"20%", cursor:"pointer"}}>
+                          <path d="M0.880005 19.21V0.790039L12 10L0.880005 19.21ZM2.88 5.00004V15L8.88 10L2.88 5.00004Z" fill="#8A8BA3"/>
+                          </svg>
+                          </div>
                         </div>
                       </ChattingBox>
                   ) : (
@@ -1527,15 +1528,20 @@ const ChattingBox = styled.div`
       }
     }
     textarea {
+      font-size: 1rem;
       width: 98%;
-      height: 62px;
-      padding: 3px;
+      height: 69px;
+      padding: 10px;
+      border-radius: 4px;
     }
   }
 
   // 가로모드 일 때 채팅창 높이 조절
   @media screen and (min-height: 700px) and (max-height: 755px) and (orientation: landscape) {
     height: 55vh;
+    textarea {
+        font-size: 0.5rem;
+      }
   }
   @media screen and (min-height: 640px) and (max-height: 700px) and (orientation: landscape) {
     height: 48vh;
@@ -1545,6 +1551,7 @@ const ChattingBox = styled.div`
       }
       textarea {
         height: 58px;
+        font-size: 0.5rem;
       }
     }
   }
@@ -1649,12 +1656,14 @@ const ChattingBox = styled.div`
   }
   @media screen and (min-width: 440px) and (max-width: 485px) and (orientation: portrait) {
     height: 21vh;
+    font-size: 0.5rem;
     .inputBox {
       #lang {
         height: 22px;
       }
       textarea {
         height: 45px;
+        font-size: 0.2rem;
       }
     }
   }
@@ -1666,6 +1675,7 @@ const ChattingBox = styled.div`
       }
       textarea {
         height: 45px;
+        font-size: 0.2rem;
       }
     }
   }
@@ -1677,6 +1687,7 @@ const ChattingBox = styled.div`
       }
       textarea {
         height: 43px;
+        font-size: 0.3rem;
       }
     }
   }

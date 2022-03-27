@@ -12,11 +12,11 @@ const api = axios.create({
   // baseURL: "http://14.45.204.153:7034",
 
   //창훈님
-  baseURL: 'http://52.79.234.176',
+  //baseURL: 'http://52.79.234.176',
 
   // baseURL: 'https://api.nemowithme.com',
 
-  // baseURL: `${BackUrl}`,
+  baseURL: `${BackUrl}`,
 
   headers: {
     Authorization: `Bearer ${token}`,
