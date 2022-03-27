@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as roomActions } from '../../redux/modules/room';
+import chattingicon from "../../assets/inRoom/chattingicon"
 
 const Message = (props) => {
   const {
@@ -130,6 +131,9 @@ const Chatting = ({ socketRef, roomId }) => {
           onKeyPress={onKeyPress}
           placeholder="메시지를 입력하세요"
         />
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute"}}>
+        <path d="M0.880005 19.21V0.790039L12 10L0.880005 19.21ZM2.88 5.00004V15L8.88 10L2.88 5.00004Z" fill="#8A8BA3"/>
+        </svg>
       </div>
     </ChattingBox>
   );
@@ -159,6 +163,7 @@ const ChattingBox = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 
     select {
       width: 80%;
