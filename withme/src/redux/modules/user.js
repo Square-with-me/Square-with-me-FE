@@ -243,7 +243,6 @@ const getBadgeDB = (userId) => {
     .then((res)=>{
       console.log("뱃지 가져오기",res)
       const badgeList = res.data.data.map((badge)=>(badge.id))
-      console.log(res.data.data.map((badge)=>(badge.id)))
       dispatch(getBadge(badgeList))
       if(res.data.newBadge){
         alert("새로운 뱃지가 열렸습니다!")
@@ -266,7 +265,6 @@ const timeGetDB = (userId) => {
         },
       })
       .then(function (res) {
-        console.log(res)
         console.log('timeGet :  ', res.data.data.weekdaysRecord);
 
         const monthData = res.data.data.monthRecord;

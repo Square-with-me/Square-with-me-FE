@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MonthTime = ({ month }) => {
-  const todayMonth = new Date().getMonth();
+  //getMonth는 인덱스가 0부터 시작해서 +1 해줘야 함
+  const todayMonth = new Date().getMonth() +1;
   return (
     <Container>
       {month.map((data, index) => {
