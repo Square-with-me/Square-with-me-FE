@@ -241,10 +241,11 @@ const getBadgeDB = (userId) => {
     apis
     .getBadges(userId)
     .then((res)=>{
+      console.log("뱃지 가져오기",res)
       const badgeList = res.data.data.map((badge)=>(badge.id))
       console.log(res.data.data.map((badge)=>(badge.id)))
       dispatch(getBadge(badgeList))
-      if(res.data.data.newBadge){
+      if(res.data.newBadge){
         alert("새로운 뱃지가 열렸습니다!")
       }
     })
@@ -259,12 +260,13 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://14.45.204.153:7034/api/user/${userId}/records`, {
+      .get(`/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(function (res) {
+        console.log(res)
         console.log('timeGet :  ', res.data.data.weekdaysRecord);
 
         const monthData = res.data.data.monthRecord;

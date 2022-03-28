@@ -10,11 +10,14 @@ const TodayTime = () => {
 
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
+    if(!day){
+      return
+    }
     if (day.date === date) {setDayList([day[1], day[2], day[3], day[4], day[5], day[6]])};
   }, []);
 
   const data = {
-    labels: ['뷰티', '운동', '스터디', '문화', '상담', '기타'],
+    labels: ['뷰티', '운동', '스터디', '상담', '문화', '기타'],
     datasets: [
       {
         data: dayList,
@@ -22,8 +25,8 @@ const TodayTime = () => {
           '#FCEDB7',
           '#FFC9C9',
           '#B9E8B5',
-          '#B5E3F8',
           '#FFD9B6',
+          '#B5E3F8',
           '#B7CEFC',
         ],
         hoverOffset: 4,
