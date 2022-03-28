@@ -9,12 +9,13 @@ import styled from 'styled-components';
 import { ReactComponent as SidebarIcon } from '../../assets/modals/sidebarIcon.svg';
 import { ReactComponent as UserNickIcon } from '../../assets/modals/userNickIcon.svg';
 import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
+import {ReactComponent as Signup} from '../../assets/inRoom/userListIcon.svg'
 
 //redux
 import { actionCreators as userActions } from '../../redux/modules/user';
 
 const Sidebar = (props) => {
-  const { open, close, header, setIsM } = props;
+  const { open, close, header, setIsM, setIsSignup } = props;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
@@ -61,29 +62,43 @@ const Sidebar = (props) => {
             )}
           </div>
           <div
-            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
-          >
-            <ExitIcon
-              fill="#000000"
-              width="32px"
-              height="32px"
-              style={{ marginRight: '8px' }}
-            />
+            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}>
             {user.origin ? (
-              <Text
+              <div style={{display:"flex",alignItems:"center"}}>
+                <ExitIcon
+                  fill="#000000"
+                  width="32px"
+                  height="32px"
+                  style={{ marginRight: '8px' }}
+                />
+                <Text
                 onClick={() => {
                   dispatch(userActions.logOut());
                 }}
               >
                 로그아웃
               </Text>
+              </div>
+
             ) : (
-              <Text>나가기</Text>
+              <div style={{display:"flex",alignItems:"center"}}>
+              <Signup
+                fill="#000000"
+                width="32px"
+                height="32px"
+                style={{ marginRight: '8px' }}
+              />
+              <Text
+              onClick={()=>{
+                setIsSignup(true)
+              }}>회원가입</Text>
+              </div>
             )}
           </div>
         </Wrap>
         <ModalBackground
           onClick={() => {
+            close();
             close();
           }}
         />
@@ -109,7 +124,7 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
-  right: -17px;
+  right: -26px;
   top:19px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
