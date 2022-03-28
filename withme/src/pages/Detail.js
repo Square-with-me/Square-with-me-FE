@@ -340,7 +340,7 @@ const Detail = (props) => {
     }
 
     const onUserLeft = (payload) => {
-      alert(payload.userInfo, "님이 나갔습니다."); // 참가자 나감 알림 용
+      alert(payload.userInfo.nickname, "님이 나갔습니다."); // 참가자 나감 알림 용
       dispatch(userActions.deleteUserInfo(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId
@@ -636,9 +636,8 @@ const Detail = (props) => {
           <div id="videoBox">
             {socketRef.current ? (
               <div
-                key="my-video"
                 className="videoContainer"
-                id={socketRef.current.id}
+                id="my-video"
               >
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
                 <div className="myEmoji myHappyEmoji hidden">
@@ -663,7 +662,6 @@ const Detail = (props) => {
                 <div
                   key={peer.peerId}
                   className="videoContainer"
-                  id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
                   <div className="myEmoji myHappyEmoji hidden">

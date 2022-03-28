@@ -56,7 +56,7 @@ const Sidebar = (props) => {
                   close();
                 }}
               >
-                LOGIN
+                로그인
               </Text>
             )}
           </div>
@@ -78,7 +78,7 @@ const Sidebar = (props) => {
                 로그아웃
               </Text>
             ) : (
-              <Text>OUT</Text>
+              <Text>나가기</Text>
             )}
           </div>
         </Wrap>

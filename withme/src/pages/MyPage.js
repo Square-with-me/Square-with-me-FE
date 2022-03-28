@@ -136,6 +136,7 @@ const Mypage = (props) => {
       id: 7,
       name: 'firstCome',
       desc: '선착순 100명!',
+      desc1: '선착순 100명에게만 지급되는 뱃지!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/firstCome.svg',
     },
@@ -143,6 +144,7 @@ const Mypage = (props) => {
       id: 1,
       name: 'beauty',
       desc: '이번주 뷰티 카테고리 1시간 달성시 지급',
+      desc1: '이번주 뷰티 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/beauty.svg',
     },
@@ -150,6 +152,7 @@ const Mypage = (props) => {
       id: 2,
       name: 'sports',
       desc: '이번주 운동 카테고리 1시간 달성시 지급',
+      desc1: '이번주 운동 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/sports.svg',
     },
@@ -157,6 +160,7 @@ const Mypage = (props) => {
       id: 3,
       name: 'study',
       desc: '이번주 공부 카테고리 1시간 달성시 지급',
+      desc1: '이번주 공부 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/study.svg',
     },
@@ -164,6 +168,7 @@ const Mypage = (props) => {
       id: 4,
       name: 'counseling',
       desc: '이번주 상담 카테고리 1시간 달성시 지급',
+      desc1: '이번주 상담 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg',
     },
@@ -171,6 +176,7 @@ const Mypage = (props) => {
       id: 5,
       name: 'culture',
       desc: '이번주 문화 카테고리 1시간 달성시 지급',
+      desc1: '이번주 문화 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/culture.svg',
     },
@@ -178,6 +184,7 @@ const Mypage = (props) => {
       id: 6,
       name: 'etc',
       desc: '이번주 기타 카테고리 1시간 달성시 지급',
+      desc1: '이번주 기타 카테고리 1시간 달성!',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/etc.svg',
     },
@@ -186,6 +193,7 @@ const Mypage = (props) => {
       id: 8,
       name: 'reviewer',
       desc: '버그나 리뷰를 제보해주세요',
+      desc1: '버그나 리뷰 제보 뱃지',
       imageUrl:
         'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/bug.svg',
     },
@@ -299,8 +307,9 @@ const Mypage = (props) => {
                   {myBadges &&
                     wholeBadges.map((badge) =>
                       myBadges.includes(badge.id) ? (
-                        <label className="badge" key={badge.id}>
+                        <label className="badge tooltip" key={badge.id}>
                           <img src={badge.imageUrl} />
+                          <span className="tooltiptext">{badge.desc1}</span>
                         </label>
                       ) : (
                         <label className="badge tooltip " key={badge.id}>
