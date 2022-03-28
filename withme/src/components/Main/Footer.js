@@ -14,7 +14,7 @@ const Footer = () => {
           <A className='a' href="https://github.com/Square-with-me"  target="_blank">
               네모위드미 깃허브 &nbsp; | &nbsp;
           </A>
-          <A className='a' href="https://www.instagram.com/nemo_withme/"  target="_blank">네모위드미 인스타그램 &nbsp; | &nbsp; </A>
+          <A className='a' href="https://www.instagram.com/nemo_with_me/"  target="_blank">네모위드미 인스타그램 &nbsp; | &nbsp; </A>
           <A className='a' href="https://docs.google.com/forms/d/e/1FAIpQLSckDKexhkTD5CbfLoIrH2kLeXT25xtDH1uot2K6uA5mBr7amw/viewform" target="_blank">버그제보</A>
           </div>
       </div>

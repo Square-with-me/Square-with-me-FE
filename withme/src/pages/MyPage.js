@@ -745,6 +745,7 @@ const BadgeContainer = styled.div`
         top: 120%;
         left: 25%;
         margin-left: -60px;
+        word-break: keep-all;
 
         &::after {
           content: '';
@@ -828,6 +829,7 @@ const BadgeContainer2 = styled.div`
         top: 120%;
         left: 25%;
         margin-left: -60px;
+        word-break: keep-all;
 
         &::after {
           content: '';
