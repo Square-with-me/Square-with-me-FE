@@ -259,7 +259,7 @@ const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
     const token = localStorage.getItem('login-token');
     axios
-      .get(`http://52.79.234.176/api/user/${userId}/records`, {
+      .get(`/api/user/${userId}/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
