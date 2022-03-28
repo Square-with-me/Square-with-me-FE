@@ -1,8 +1,10 @@
-import 'chart.js/auto';
-import { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
+import "chart.js/auto";
+import { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
 
 const WeekTime = ({ week }) => {
+  useEffect(()=>{  console.log('이번쭈!!!!',week)
+},[])
   const {
     beautyRecord,
     counselingRecord,
@@ -132,42 +134,42 @@ const WeekTime = ({ week }) => {
     ]);
   }, [week]);
   const data = {
-    labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     datasets: [
       {
-        label: '상담',
-        backgroundColor: '#FFD9B6',
-        stack: 'Stack 0',
+        label: "상담",
+        backgroundColor: "#FFD9B6",
+        stack: "Stack 0",
         data: counseling,
       },
       {
-        label: '문화',
-        backgroundColor: '#B5E3F8',
-        stack: 'Stack 0',
+        label: "문화",
+        backgroundColor: "#B5E3F8",
+        stack: "Stack 0",
         data: culture,
       },
       {
-        label: '기타',
-        backgroundColor: '#B7CEFC',
-        stack: 'Stack 0',
+        label: "기타",
+        backgroundColor: "#B7CEFC",
+        stack: "Stack 0",
         data: etc,
       },
       {
-        label: '스터디',
-        backgroundColor: '#B9E8B5',
-        stack: 'Stack 0',
+        label: "스터디",
+        backgroundColor: "#B9E8B5",
+        stack: "Stack 0",
         data: study,
       },
       {
-        label: '뷰티',
-        backgroundColor: '#FCEDB7',
-        stack: 'Stack 0',
+        label: "뷰티",
+        backgroundColor: "#FCEDB7",
+        stack: "Stack 0",
         data: beauty,
       },
       {
-        label: '운동',
-        backgroundColor: '#FFC9C9',
-        stack: 'Stack 0',
+        label: "운동",
+        backgroundColor: "#FFC9C9",
+        stack: "Stack 0",
         data: sports,
       },
     ],
@@ -204,9 +206,9 @@ const WeekTime = ({ week }) => {
           label: function (context) {
             let label =
               context.dataset.label +
-              ': ' +
+              ": " +
               Math.floor(context.formattedValue) +
-              '%';
+              "%";
             return label;
           },
         },
@@ -221,6 +223,49 @@ const WeekTime = ({ week }) => {
       },
     },
   };
-  return <>{week ? <Bar data={data} options={option} /> : ''}</>;
+
+  const emptyData = {
+    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    datasets: [
+      {
+        data: [100,100,100,100,100,100,100],
+        backgroundColor: ["#808080","#808080","#808080","#808080","#808080","#808080","#808080"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+  const emptyOption = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.label;
+            return label;
+          },
+        },
+      },
+    },
+  };
+
+  if (
+    week === null ||
+    (beauty === [] &&
+      counseling === [] &&
+      culture === [] &&
+      etc === [] &&
+      sports === [] &&
+      study === []) ||
+    (beauty === [0, 0, 0, 0, 0, 0, 0] &&
+      counseling === [0, 0, 0, 0, 0, 0, 0] &&
+      culture === [0, 0, 0, 0, 0, 0, 0] &&
+      etc === [0, 0, 0, 0, 0, 0, 0] &&
+      sports === [0, 0, 0, 0, 0, 0, 0] &&
+      study === [0, 0, 0, 0, 0, 0, 0])
+  )
+    return <Bar data={emptyData} options={emptyOption} />;
+  return <>{week ? <Bar data={data} options={option} /> : ""}</>;
 };
 export default WeekTime;

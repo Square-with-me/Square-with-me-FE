@@ -60,6 +60,7 @@ const Container = styled.div`
       top: 150%;
       left: 50%;
       margin-left: -60px;
+      word-break: keep-all;
 
       &::after {
         content: '';

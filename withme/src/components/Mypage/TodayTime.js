@@ -48,7 +48,7 @@ const TodayTime = () => {
   };
 
   const emptyData = {
-    labels: ['오늘은 기록이 아직 없어요.'],
+    labels: ['오늘 함께한 시간이 없어요.'],
     datasets: [
       {
         data: [100],
