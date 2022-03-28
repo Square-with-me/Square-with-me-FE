@@ -44,6 +44,7 @@ class Timer extends Component {
 
     // 시작 신호 받음
     this.props.socketRef.current.on('start_receive', (data) => {
+      console.log('시작신호 받음!')
       this.setState({ hours: Number(data.hours) });
       this.setState({ minutes: Number(data.minutes) });
       this.setState({ seconds: Number(data.seconds) });
@@ -97,6 +98,8 @@ class Timer extends Component {
     } else {
       clearInterval(this.timer);
       alert("시간 끝!")
+      console.log('시간 끝!')
+
     }
   };
 

@@ -13,7 +13,7 @@ import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 const LoginModal = ({ setIsM, setIsSignup }) => {
   const dispatch = useDispatch();
 
-  const redirectURI = "http://localhost:3000/api/auth/kakao/callback";
+  const redirectURI = "https://nemowithme.com/api/auth/kakao/callback";
   // const KAKAO_REST_API_KEY = "받은키값";
 
   const [origin, setOrigin] = React.useState("");
@@ -30,7 +30,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
         }}
       />
       <LoginWrap>
-        <Headers          
+        <Headers
         onClick={() => {
           setIsM(false);
           }}>
@@ -43,7 +43,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
           <HelloText>
             반갑습니다 <br /> 오늘도 즐거운 만남을 위해 잘 오셨어요
           </HelloText>
-          <div style={{position:"relative"}}>       
+          <div style={{position:"relative"}}>
             <EmailIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
             <Input
             label=""

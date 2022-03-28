@@ -9,7 +9,7 @@ import styled from 'styled-components';
 const Kakao = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     let authorization_code = new URL(window.location.href).searchParams.get("code");
     console.log("auth code", authorization_code);
@@ -20,16 +20,13 @@ const Kakao = () => {
       try {
         const res = await axios.get(`/api/auth/kakao/callback?code=${auth_code}`)
         const { token, user } = res.data.data;
-        
         localStorage.setItem("login-token", token);
         dispatch(userActions.setUser({ user }));
       } catch(error) {
         alert(error.response.data.msg);
       };
-      
       history.replace('/main');
     }
-    
     kakaoLogin(authorization_code);
   }, []);
   return (
