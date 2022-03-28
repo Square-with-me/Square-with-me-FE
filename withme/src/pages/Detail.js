@@ -340,7 +340,7 @@ const Detail = (props) => {
     }
 
     const onUserLeft = (payload) => {
-      alert(payload.userInfo.nickname, "님이 나갔습니다."); // 참가자 나감 알림 용
+      alert(payload.userInfo.nickname + "님이 나갔습니다."); // 참가자 나감 알림 용
       dispatch(userActions.deleteUserInfo(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import styled from "styled-components";
 
 class Timer extends Component {
   constructor(props) {
@@ -8,6 +8,7 @@ class Timer extends Component {
       hours: 0,
       minutes: 0,
       seconds: 0,
+      isStart: false,
     };
     this.hoursInput = React.createRef();
     this.minutesInput = React.createRef();
@@ -32,7 +33,13 @@ class Timer extends Component {
       seconds: this.secondsInput.current.value,
     };
 
-    this.props.socketRef.current.emit('start_timer', data);
+    this.props.socketRef.current.emit("start_timer", data);
+
+    this.hoursInput.current.value = 0;
+    this.minutesInput.current.value = 0;
+    this.secondsInput.current.value = 0;
+
+    this.isStart = true;
   };
 
   receiveStartTimer = () => {
@@ -40,39 +47,50 @@ class Timer extends Component {
   };
 
   componentWillMount() {
-    this.props.socketRef.current.emit('join_room', this.props.roomId);
+    this.props.socketRef.current.emit("join_room", this.props.roomId);
 
     // 시작 신호 받음
-    this.props.socketRef.current.on('start_receive', (data) => {
-      console.log('시작신호 받음!')
+    this.props.socketRef.current.on("start_receive", (data) => {
       this.setState({ hours: Number(data.hours) });
       this.setState({ minutes: Number(data.minutes) });
       this.setState({ seconds: Number(data.seconds) });
 
       this.receiveStartTimer();
 
+      this.hoursInput.current.value = 0;
+      this.minutesInput.current.value = 0;
+      this.secondsInput.current.value = 0;
+
+      this.isStart = true;
     });
   }
 
-  componentDidUpdate() { // 1. 생명주기함수 잘못됨
-    this.props.socketRef.current.on('stop_receive', () => {
+  componentDidUpdate() {
+    this.props.socketRef.current.on("stop_receive", () => {
       this.receiveStopTimer();
     });
 
-    this.props.socketRef.current.on('reset_receive', () => {
+    this.props.socketRef.current.on("reset_receive", () => {
       this.receiverSetTimer();
     });
   }
 
   countDown = () => {
     const { hours, minutes, seconds } = this.state;
-    let c_seconds = this.convertToSeconds(hours, minutes, seconds);
+    let c_seconds = this.convertToSeconds(
+      Number(hours),
+      Number(minutes),
+      Number(seconds)
+    );
+    console.log(c_seconds, "초");
 
     if (c_seconds) {
       // seconds change
-      seconds
-        ? this.setState({ seconds: seconds - 1 })
-        : this.setState({ seconds: 59 });
+      if (seconds === 0 || seconds === "0") {
+        this.setState({ seconds: 59 });
+      } else if (seconds !== "0" || seconds !== 0) {
+        this.setState({ seconds: seconds - 1 });
+      }
 
       if (hours && minutes && seconds) {
         this.setState({ seconds: seconds - 1 });
@@ -97,15 +115,15 @@ class Timer extends Component {
       }
     } else {
       clearInterval(this.timer);
-      alert("시간 끝!")
-      console.log('시간 끝!')
-
+      alert("시간 끝!");
+      this.isStart = false;
     }
   };
 
   stopTimer = async () => {
     clearInterval(this.timer);
-    this.props.socketRef.current.emit('stop_time', this.props.roomId);
+    this.isStart = false;
+    this.props.socketRef.current.emit("stop_time", this.props.roomId);
   };
 
   resetTimer = async () => {
@@ -117,12 +135,14 @@ class Timer extends Component {
     this.hoursInput.current.value = 0;
     this.minutesInput.current.value = 0;
     this.secondsInput.current.value = 0;
+    this.isStart = false;
 
-    this.props.socketRef.current.emit('reset_time', this.props.roomId);
+    this.props.socketRef.current.emit("reset_time", this.props.roomId);
   };
 
   receiveStopTimer = () => {
     clearInterval(this.timer);
+    this.isStart = false;
   };
 
   receiverSetTimer = () => {
@@ -131,6 +151,7 @@ class Timer extends Component {
       minutes: 0,
       seconds: 0,
     });
+    this.isStart = false;
   };
 
   render() {
@@ -144,6 +165,7 @@ class Timer extends Component {
             placeholder={0}
             name="hours"
             onChange={this.inputHandler}
+            disabled={this.isStart}
           />
           <p>H</p>
           <Input
@@ -151,6 +173,7 @@ class Timer extends Component {
             placeholder={0}
             name="minutes"
             onChange={this.inputHandler}
+            disabled={this.isStart}
           />
           <p>M</p>
           <Input
@@ -158,6 +181,7 @@ class Timer extends Component {
             placeholder={0}
             name="seconds"
             onChange={this.inputHandler}
+            disabled={this.isStart}
           />
           <p>S</p>
         </div>
@@ -171,12 +195,16 @@ class Timer extends Component {
           </Text>
         </div>
         <div className="buttonGroup">
-          <Btn onClick={this.startTimer} className="start">
+          <Btn
+            onClick={this.startTimer}
+            className="start"
+            disabled={this.isStart}
+          >
             <div>start</div>
           </Btn>
-          <Btn onClick={this.stopTimer} className="stop">
+          {/* <Btn onClick={this.stopTimer} className="stop" >
             <div>stop</div>
-          </Btn>
+          </Btn> */}
           <Btn onClick={this.resetTimer} className="reset">
             <div>reset</div>
           </Btn>
@@ -194,7 +222,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   margin-top: 20px;
 
   .inputGroup {
@@ -268,7 +296,7 @@ const Text = styled.div`
   color: #8a8ba3;
 
   span {
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
