@@ -91,6 +91,7 @@ const Sidebar = (props) => {
               <Text
               onClick={()=>{
                 setIsSignup(true)
+                close();
               }}>회원가입</Text>
               </div>
             )}
@@ -98,7 +99,6 @@ const Sidebar = (props) => {
         </Wrap>
         <ModalBackground
           onClick={() => {
-            close();
             close();
           }}
         />

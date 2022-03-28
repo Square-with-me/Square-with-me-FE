@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 
 const WeekTime = ({ week }) => {
-  useEffect(()=>{  console.log('이번쭈!!!!',week)
-},[])
+//   useEffect(()=>{  console.log('이번쭈!!!!',week)
+// },[])
   const {
     beautyRecord,
     counselingRecord,

@@ -44,7 +44,6 @@ const Mypage = (props) => {
 
   const [editbadge, setEditbadge] = useState(false);
   const [badgeId, setBadgeId] = useState(0);
-  console.log(badgeId);
 
   useEffect(() => {
     dispatch(userActions.timeGetDB(userId));
@@ -333,10 +332,10 @@ const Mypage = (props) => {
         <div id="middle">
           <Text>더 많은 뱃지를 획득해보세요!</Text>
           <div id="middleTopBox" className="boxStyle">
-            <BadgeContainer2>
+            <BadgeContainer2 key={badges.id}>
               <div className="badgeBox">
                 {LockBadge.map((badge) => (
-                  <div className="badge tooltip">
+                  <div className="badge tooltip" key={badge.id}>
                     <img src={lockBadge} />
                     <span className="tooltiptext">{badge.desc}</span>
                   </div>
@@ -506,9 +505,9 @@ const Container = styled.div`
       p {
         margin-top: 10px;
       }
-      /* .endBottomBoxWrap {
+      .endBottomBoxWrap {
         margin-top: 40px;
-      } */
+      }
     }
   }
   // 모바일
