@@ -10,10 +10,10 @@ const TodayTime = () => {
 
   useEffect(() => {
     const day = JSON.parse(localStorage.getItem('time'));
-    if(!day){
+    if(!day || day === undefined){
       return
     }
-    if (day.date === date) {setDayList([day[1], day[2], day[3], day[4], day[5], day[6]])};
+    else if (day.date === date) {setDayList([day[1], day[2], day[3], day[4], day[5], day[6]])};
   }, []);
 
   const data = {

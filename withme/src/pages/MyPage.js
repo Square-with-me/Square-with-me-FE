@@ -331,11 +331,11 @@ const Mypage = (props) => {
         </div>
         <div id="middle">
           <Text>더 많은 뱃지를 획득해보세요!</Text>
-          <div id="middleTopBox" className="boxStyle">
-            <BadgeContainer2 key={badges.id}>
+          <div id="middleTopBox" className="boxStyle" >
+            <BadgeContainer2>
               <div className="badgeBox">
-                {LockBadge.map((badge) => (
-                  <div className="badge tooltip" key={badge.id}>
+                {LockBadge.map((badge, idx) => (
+                  <div className="badge tooltip" key={idx}>
                     <img src={lockBadge} />
                     <span className="tooltiptext">{badge.desc}</span>
                   </div>
