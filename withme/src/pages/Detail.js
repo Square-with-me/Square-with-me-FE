@@ -636,8 +636,9 @@ const Detail = (props) => {
           <div id="videoBox">
             {socketRef.current ? (
               <div
-                className="videoContainer"
-                id="my-video"
+              className="videoContainer"
+              //본인꺼
+              id={socketRef.current.id}
               >
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
                 <div className="myEmoji myHappyEmoji hidden">
@@ -660,8 +661,10 @@ const Detail = (props) => {
             {peers.map((peer) => {
               return (
                 <div
-                  key={peer.peerId}
-                  className="videoContainer"
+                key={peer.peerId}
+                className="videoContainer"
+                //누가 이모티콘을 보냈는지 알기 위해서 (남꺼)
+                id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
                   <div className="myEmoji myHappyEmoji hidden">
