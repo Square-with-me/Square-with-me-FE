@@ -1684,6 +1684,7 @@ const ChattingBox = styled.div`
     .inputBox {
       #lang {
         height: 20px;
+        font-size: 12px;
       }
       textarea {
         height: 43px;
