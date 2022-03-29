@@ -448,7 +448,8 @@ const Detail = (props) => {
     if (prevTime) {
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
-        prevTime[room.category.id] += diffTime;
+        console.log('디프타임>>',diffTime); 
+        prevTime[room.category.id] += 0.5;
         localStorage.setItem("time", JSON.stringify(prevTime));
 
       } else {
@@ -485,7 +486,7 @@ const Detail = (props) => {
   }
 
   useEffect(() => {
-    interval.current = setInterval(saveTime, 60000);
+    interval.current = setInterval(saveTime, 30000);
 
 
     return () => {
@@ -968,7 +969,7 @@ const Detail = (props) => {
                 }}
                 className="tooltip"
               >
-                <span className="tooltiptext">마이크 키고 끄기</span>
+                <span className="tooltiptext">마이크</span>
                 {audioOn ? (
                   <OnMic
                     width="32px"
@@ -994,7 +995,7 @@ const Detail = (props) => {
                 }}
                 className="tooltip"
               >
-                <span className="tooltiptext">카메라 키고 끄기</span>
+                <span className="tooltiptext">카메라</span>
                 {videoOn ? (
                   <OnCamera
                     width="32px"
@@ -1010,33 +1011,39 @@ const Detail = (props) => {
                 )}
               </div>
 
-              <div className="tooltip">
-                <ChooseEmotion
-                  width="32px"
-                  fill="#8A8BA3"
-                  onClick={() => setIsEmoji(!isEmoji)}
-                />
-                <span className="tooltiptext">이모티콘 보내기</span>
+              <div>
+                <div className="tooltip">
+                  <ChooseEmotion
+                    width="32px"
+                    fill="#8A8BA3"
+                    onClick={() => setIsEmoji(!isEmoji)}
+                  />
+                  <span className="tooltiptext">이모티콘</span>
+                </div>
                 {isEmoji ? (
                   <div className="emojiBox">
                     <HappyEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
+                        setIsEmoji(!isEmoji)
                       }}
                     />
                     <LoveEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
+                        setIsEmoji(!isEmoji)
                       }}
                     />
                     <BadEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
+                        setIsEmoji(!isEmoji)
                       }}
                     />
                     <SadEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
+                        setIsEmoji(!isEmoji)
                       }}
                     />
                   </div>
@@ -1071,7 +1078,7 @@ const Detail = (props) => {
                     />
                   </svg>
                 </a>
-                <span className="tooltiptext">방 밖으로 나가기</span>
+                <span className="tooltiptext">나가기</span>
               </div>
             </div>
 
@@ -1450,7 +1457,6 @@ const Container = styled.div`
       align-items: center;
       .tooltip{
       position: relative;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
 
       .tooltiptext {
         visibility: hidden;
@@ -1499,7 +1505,6 @@ const Container = styled.div`
         margin: 2px 0px 0px 15px;
         border: none;
         position: relative;
-        border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
       .tooltiptext {
         visibility: hidden;
         width: 150px;

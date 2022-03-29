@@ -224,48 +224,6 @@ const WeekTime = ({ week }) => {
     },
   };
 
-  const emptyData = {
-    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    datasets: [
-      {
-        data: [100,100,100,100,100,100,100],
-        backgroundColor: ["#808080","#808080","#808080","#808080","#808080","#808080","#808080"],
-        hoverOffset: 4,
-      },
-    ],
-  };
-  const emptyOption = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            let label = context.label;
-            return label;
-          },
-        },
-      },
-    },
-  };
-
-  if (
-    week === null ||
-    (beauty === [] &&
-      counseling === [] &&
-      culture === [] &&
-      etc === [] &&
-      sports === [] &&
-      study === []) ||
-    (beauty === [0, 0, 0, 0, 0, 0, 0] &&
-      counseling === [0, 0, 0, 0, 0, 0, 0] &&
-      culture === [0, 0, 0, 0, 0, 0, 0] &&
-      etc === [0, 0, 0, 0, 0, 0, 0] &&
-      sports === [0, 0, 0, 0, 0, 0, 0] &&
-      study === [0, 0, 0, 0, 0, 0, 0])
-  )
-    return <Bar data={emptyData} options={emptyOption} />;
   return <>{week ? <Bar data={data} options={option} /> : ""}</>;
 };
 export default WeekTime;

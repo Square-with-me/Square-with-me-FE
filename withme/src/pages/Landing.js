@@ -652,7 +652,7 @@ const Landing = () => {
                   “친구랑 얼굴 보면서 각자 영화봤는데ㅋㅋㅋㅋ 앞에서 친구 얼굴
                   보면서 영화보니까 재밌고 색다르더라구요?ㅋㅋㅋㅋㅋㅋㅋㅋ“
                 </p>
-                <p className="nickname">- 나는 쨩이댜</p>
+                <p className="nickname">- 나는 쪙이댜</p>
               </div>
             </div>
           </Slider>

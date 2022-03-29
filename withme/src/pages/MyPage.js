@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Image } from '../elements/Index';
-import styled from 'styled-components';
-import { BiPencil } from 'react-icons/bi';
+import { Image } from "../elements/Index";
+import styled from "styled-components";
 
-import TodayTime from '../components/Mypage/TodayTime';
-import WeekTime from '../components/Mypage/WeekTime';
-import MonthTime from '../components/Mypage/MonthTime';
-import Header from '../components/Header/Header';
-import Logo from '../components/Main/Logo';
+import TodayTime from "../components/Mypage/TodayTime";
+import WeekTime from "../components/Mypage/WeekTime";
+import MonthTime from "../components/Mypage/MonthTime";
+import Header from "../components/Header/Header";
+import Logo from "../components/Main/Logo";
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { actionCreators as userActions } from '../redux/modules/user';
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 // badge
-import lockBadge from '../assets/badge/lockBadge.svg';
-import userIcon from '../assets/inRoom/userIcon.svg';
+import lockBadge from "../assets/badge/lockBadge.svg";
+import userIcon from "../assets/inRoom/userIcon.svg";
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -33,8 +32,8 @@ const Mypage = (props) => {
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
 
-  const [editNick, setEditnick] = useState(''); // 수정한 닉네임 저장
-  const [editStatus, setEditStatus] = useState(''); // 수정한 상태메지시 저장
+  const [editNick, setEditnick] = useState(""); // 수정한 닉네임 저장
+  const [editStatus, setEditStatus] = useState(""); // 수정한 상태메지시 저장
 
   const userId = props.match.params.id;
 
@@ -50,19 +49,19 @@ const Mypage = (props) => {
 
   // 유저 닉네임 수정
   const editNickname = () => {
-    const nicknameText = document.getElementById('nickname');
-    const inputNickname = document.getElementById('inputNickname');
+    const nicknameText = document.getElementById("nickname");
+    const inputNickname = document.getElementById("inputNickname");
 
     if (!isEditNick) {
       // 수정시작
       setIsEditNick(true);
       setEditnick(user.nickname);
-      nicknameText.classList.add('hidden');
-      inputNickname.classList.remove('hidden');
+      nicknameText.classList.add("hidden");
+      inputNickname.classList.remove("hidden");
     } else {
       // 수정 끝
-      nicknameText.classList.remove('hidden');
-      inputNickname.classList.add('hidden');
+      nicknameText.classList.remove("hidden");
+      inputNickname.classList.add("hidden");
       dispatch(userActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
@@ -70,19 +69,19 @@ const Mypage = (props) => {
 
   // 상태메시지 수정
   const editStatusMsg = () => {
-    const statusText = document.getElementById('statusText');
-    const inputStatus = document.getElementById('inputStatus');
+    const statusText = document.getElementById("statusText");
+    const inputStatus = document.getElementById("inputStatus");
 
     if (!isEditStatus) {
       // 수정 시작
       setIsEditStatus(true);
       setEditStatus(user.statusMsg);
-      statusText.classList.add('hidden');
-      inputStatus.classList.remove('hidden');
+      statusText.classList.add("hidden");
+      inputStatus.classList.remove("hidden");
     } else {
       // 수정 끝
-      statusText.classList.remove('hidden');
-      inputStatus.classList.add('hidden');
+      statusText.classList.remove("hidden");
+      inputStatus.classList.add("hidden");
       dispatch(userActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
@@ -92,115 +91,115 @@ const Mypage = (props) => {
   const saveImage = (e) => {
     const img = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', img);
+    formData.append("image", img);
     dispatch(userActions.getImageUrlDB(userId, formData));
   };
 
   // 프로필 이미지 클릭시
   const onClickImage = () => {
-    const fileUpload = document.getElementById('ex_file');
+    const fileUpload = document.getElementById("ex_file");
     fileUpload.click();
   };
 
   const LockBadge = [
     {
-      name: 'lock',
-      desc: '이번주 뷰티 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 뷰티 카테고리 100시간 이상",
     },
     {
-      name: 'lock',
-      desc: '이번주 운동 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 운동 카테고리 100시간 이상",
     },
     {
-      name: 'lock',
-      desc: '이번주 상담 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 상담 카테고리 100시간 이상",
     },
     {
-      name: 'lock',
-      desc: '이번주 기타 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 기타 카테고리 100시간 이상",
     },
     {
-      name: 'lock',
-      desc: '이번주 문화 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 문화 카테고리 100시간 이상",
     },
     {
-      name: 'lock',
-      desc: '이번주 공부 카테고리 100시간 이상',
+      name: "lock",
+      desc: "이번주 공부 카테고리 100시간 이상",
     },
   ];
 
   const wholeBadges = [
     {
       id: 7,
-      name: 'firstCome',
-      desc: '선착순 100명!',
-      desc1: '선착순 100명에게만 지급되는 뱃지!',
+      name: "firstCome",
+      desc: "선착순 100명!",
+      desc1: "선착순 100명에게만 지급되는 뱃지!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/firstCome.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/firstCome.svg",
     },
     {
       id: 1,
-      name: 'beauty',
-      desc: '이번주 뷰티 카테고리 1시간 달성시 지급',
-      desc1: '이번주 뷰티 카테고리 1시간 달성!',
+      name: "beauty",
+      desc: "이번주 뷰티 카테고리 1시간 달성시 지급",
+      desc1: "이번주 뷰티 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/beauty.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/beauty.svg",
     },
     {
       id: 2,
-      name: 'sports',
-      desc: '이번주 운동 카테고리 1시간 달성시 지급',
-      desc1: '이번주 운동 카테고리 1시간 달성!',
+      name: "sports",
+      desc: "이번주 운동 카테고리 1시간 달성시 지급",
+      desc1: "이번주 운동 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/sports.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/sports.svg",
     },
     {
       id: 3,
-      name: 'study',
-      desc: '이번주 공부 카테고리 1시간 달성시 지급',
-      desc1: '이번주 공부 카테고리 1시간 달성!',
+      name: "study",
+      desc: "이번주 공부 카테고리 1시간 달성시 지급",
+      desc1: "이번주 공부 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/study.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/study.svg",
     },
     {
       id: 4,
-      name: 'counseling',
-      desc: '이번주 상담 카테고리 1시간 달성시 지급',
-      desc1: '이번주 상담 카테고리 1시간 달성!',
+      name: "counseling",
+      desc: "이번주 상담 카테고리 1시간 달성시 지급",
+      desc1: "이번주 상담 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg",
     },
     {
       id: 5,
-      name: 'culture',
-      desc: '이번주 문화 카테고리 1시간 달성시 지급',
-      desc1: '이번주 문화 카테고리 1시간 달성!',
+      name: "culture",
+      desc: "이번주 문화 카테고리 1시간 달성시 지급",
+      desc1: "이번주 문화 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/culture.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/culture.svg",
     },
     {
       id: 6,
-      name: 'etc',
-      desc: '이번주 기타 카테고리 1시간 달성시 지급',
-      desc1: '이번주 기타 카테고리 1시간 달성!',
+      name: "etc",
+      desc: "이번주 기타 카테고리 1시간 달성시 지급",
+      desc1: "이번주 기타 카테고리 1시간 달성!",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/etc.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/etc.svg",
     },
 
     {
       id: 8,
-      name: 'reviewer',
-      desc: '버그나 리뷰를 제보해주세요',
-      desc1: '버그나 리뷰 제보 뱃지',
+      name: "reviewer",
+      desc: "버그나 리뷰를 제보해주세요",
+      desc1: "버그나 리뷰 제보 뱃지",
       imageUrl:
-        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/bug.svg',
+        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/bug.svg",
     },
   ];
   return (
     <Root>
       <Container>
         <div className="header">
-          <div onClick={() => history.replace('/main')} className="logo">
+          <div onClick={() => history.replace("/main")} className="logo">
             <Logo />
           </div>
           <div className="side">
@@ -208,7 +207,7 @@ const Mypage = (props) => {
           </div>
         </div>
         <div id="start">
-          <p className="label">My Page</p>
+          <p className="label">MY PAGE</p>
           <div id="startBox" className="boxStyle">
             <ProfileContainer>
               <div className="imageBox">
@@ -236,22 +235,37 @@ const Mypage = (props) => {
               </div>
               <div className="textBox">
                 <div className="nameBox">
-                  <div id="nickname"> {user ? user.nickname : ''}</div>
+                  <div id="nickname"> {user ? user.nickname : ""}</div>
                   <input
                     id="inputNickname"
                     className="hidden"
                     type="text"
-                    defaultValue={user ? user.nickname : ''}
+                    defaultValue={user ? user.nickname : ""}
                     onChange={(e) => {
                       setEditnick(e.target.value);
                     }}
                   />
                   <button onClick={editNickname}>
-                    <BiPencil size={20} />
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.72998 20.28L4.05998 15.68L15.06 4.85L19.33 9.11L8.32998 20L3.72998 20.28ZM5.99998 16.58L5.87998 18.12L7.44998 18L16.52 9.1L15.09 7.66L5.99998 16.58Z"
+                        fill="#33344B"
+                      />
+                      <path
+                        d="M18.65 9.81L17.24 8.4L19.02 6.62L17.59 5.17L15.8 6.96L14.38 5.55L17.59 2.34L21.84 6.62L18.65 9.81Z"
+                        fill="#33344B"
+                      />
+                    </svg>
                   </button>
                 </div>
                 <div className="statusBox">
-                  <div id="statusText">{user ? user.statusMsg : ''}</div>
+                  <div id="statusText">{user ? user.statusMsg : ""}</div>
                   <input
                     id="inputStatus"
                     className="hidden"
@@ -261,7 +275,22 @@ const Mypage = (props) => {
                     }}
                   ></input>
                   <button onClick={editStatusMsg}>
-                    <BiPencil size={20} />
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.72998 20.28L4.05998 15.68L15.06 4.85L19.33 9.11L8.32998 20L3.72998 20.28ZM5.99998 16.58L5.87998 18.12L7.44998 18L16.52 9.1L15.09 7.66L5.99998 16.58Z"
+                        fill="#33344B"
+                      />
+                      <path
+                        d="M18.65 9.81L17.24 8.4L19.02 6.62L17.59 5.17L15.8 6.96L14.38 5.55L17.59 2.34L21.84 6.62L18.65 9.81Z"
+                        fill="#33344B"
+                      />
+                    </svg>
                   </button>
                 </div>
               </div>
@@ -273,7 +302,7 @@ const Mypage = (props) => {
                   {myBadges &&
                     wholeBadges.map((badge) =>
                       myBadges.includes(badge.id) ? (
-                        <label className="badge" key={badge.id}>
+                        <label className="badge  tooltip" key={badge.id}>
                           <input
                             type="radio"
                             name="badge"
@@ -281,11 +310,11 @@ const Mypage = (props) => {
                             value={badge.id}
                           />
                           <img src={badge.imageUrl} />
+                          <span className="tooltiptext">{badge.desc1}</span>
                         </label>
                       ) : (
-                        <label className="badge tooltip" key={badge.id}>
+                        <label className="badge" key={badge.id}>
                           <img src={badge.imageUrl} className="closeBadge" />
-                          <span className="tooltiptext">{badge.desc}</span>
                         </label>
                       )
                     )}
@@ -311,7 +340,7 @@ const Mypage = (props) => {
                         </label>
                       ) : (
                         <label className="badge tooltip " key={badge.id}>
-                          <img src={badge.imageUrl} className="closeBadge"/>
+                          <img src={badge.imageUrl} className="closeBadge" />
                           <span className="tooltiptext">{badge.desc}</span>
                         </label>
                       )
@@ -329,18 +358,20 @@ const Mypage = (props) => {
           </div>
         </div>
         <div id="middle">
-          <Text>더 많은 뱃지를 획득해보세요!</Text>
-          <div id="middleTopBox" className="boxStyle" >
-            <BadgeContainer2>
-              <div className="badgeBox">
-                {LockBadge.map((badge, idx) => (
-                  <div className="badge tooltip" key={idx}>
-                    <img src={lockBadge} />
-                    <span className="tooltiptext">{badge.desc}</span>
-                  </div>
-                ))}
-              </div>
-            </BadgeContainer2>
+          <div className="middleBottomBoxWrap">
+            <Text>더 많은 뱃지를 획득해보세요!</Text>
+            <div id="middleTopBox" className="boxStyle">
+              <BadgeContainer2>
+                <div className="badgeBox">
+                  {LockBadge.map((badge, idx) => (
+                    <div className="badge tooltip" key={idx}>
+                      <img src={lockBadge} />
+                      <span className="tooltiptext">{badge.desc}</span>
+                    </div>
+                  ))}
+                </div>
+              </BadgeContainer2>
+            </div>
           </div>
 
           <div className="middleBottomBoxWrap">
@@ -358,7 +389,7 @@ const Mypage = (props) => {
           <div className="width100">
             <Text>이번 주 참여 기록</Text>
             <div id="endTopBox" className="boxStyle">
-              <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
+              <WeekTimeBox>{week ? <WeekTime week={week} /> : ""}</WeekTimeBox>
             </div>
           </div>
           <div className="width100 endBottomBoxWrap">
@@ -394,6 +425,8 @@ const Container = styled.div`
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
+  font-family: "Noto Sans KR", sans-serif;
+
   .header {
     grid-column: 5/13;
     display: flex;
@@ -420,24 +453,22 @@ const Container = styled.div`
     p.label {
       font-size: 24px;
       font-weight: 700;
-      font-family: 'Noto Sans KR', sans-serif;
       color: #41414f;
+      margin-bottom: 20px;
     }
     #startBox {
-      height: 65vh;
+      height: 63vh;
       min-height: 500px;
       padding: 26px 26px 48px 26px;
     }
   }
   #middle {
     width: 255px;
-    height: 70vh;
     display: flex;
     flex-direction: column;
     grid-column: 5 / 8;
     justify-content: space-between;
     p {
-      font-family: 'Noto Sans';
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
@@ -458,14 +489,12 @@ const Container = styled.div`
     }
   }
   #end {
-    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     grid-column: 8 / 13;
     p {
-      font-family: 'Noto Sans';
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
@@ -581,7 +610,7 @@ const ProfileContainer = styled.div`
       border-bottom-color: #e2e2e2;
       border-radius: 0.25em;
     }
-    .filebox input[type='file'] {
+    .filebox input[type="file"] {
       /* 파일 필드 숨기기 */
       position: absolute;
       width: 1px;
@@ -624,7 +653,6 @@ const ProfileContainer = styled.div`
       #nickname {
         font-size: 18px;
         line-height: 30px;
-        font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
       }
       input {
@@ -634,7 +662,6 @@ const ProfileContainer = styled.div`
         border-radius: 4px;
         font-size: 18px;
         line-height: 30px;
-        font-family: 'Noto Sans KR', sans-serif;
         font-weight: 700;
         border: 2px solid #58596a;
         &:focus {
@@ -650,9 +677,9 @@ const ProfileContainer = styled.div`
       #statusText {
         font-size: 14px;
         line-height: 24.52px;
-        font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
         white-space: pre-line;
+        word-break: keep-all;
       }
       input {
         width: 100%;
@@ -661,7 +688,6 @@ const ProfileContainer = styled.div`
         border-radius: 4px;
         font-size: 14px;
         line-height: 24.52px;
-        font-family: 'Noto Sans KR', sans-serif;
         font-weight: 400;
         border: 2px solid #58596a;
         &:focus {
@@ -692,27 +718,31 @@ const BadgeContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    grid-row-gap: 20px;
+    grid-row-gap: 10px;
     place-items: center;
     /* overflow-y: scroll; */
     margin: 20px 0;
+
     label {
       border-radius: 50%;
       cursor: pointer;
     }
-    input[type='radio'] {
+    input[type="radio"] {
       display: none;
     }
     img {
       border-radius: 50%;
     }
+    label.badge img {
+    transition: all 0.5s;
+  }
 
-    input[type='radio']:checked + img {
+    input[type="radio"]:checked + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
 
-    input[type='radio']:hover + img {
+    input[type="radio"]:hover + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
@@ -727,40 +757,40 @@ const BadgeContainer = styled.div`
     filter: blur(4px);
   }
   .tooltip {
-      position: relative;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+    position: relative;
 
-      .tooltiptext {
-        visibility: hidden;
-        width: 150px;
-        background-color: rgba(0, 0, 0, 0.75);
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
+    .tooltiptext {
+      visibility: hidden;
+      width: 150px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      top: 120%;
+      left: 25%;
+      margin-left: -60px;
+      word-break: keep-all;
+
+      &::after {
+        content: "";
         position: absolute;
-        z-index: 1;
-        top: 120%;
-        left: 25%;
-        margin-left: -60px;
-        word-break: keep-all;
-
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 100%;
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: transparent transparent #555 transparent;
-        }
-      }
-
-      &:hover .tooltiptext {
-        visibility: visible;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
       }
     }
+
+    &:hover .tooltiptext {
+      visibility: visible;
+
+    }
+  }
   label.badge:hover span {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
       rgba(0, 0, 0, 0.23) 0px 3px 3px;
@@ -774,7 +804,6 @@ const BadgeContainer = styled.div`
     background-color: #bcc0ff;
     border-radius: 4px;
     border: none;
-    font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -812,7 +841,6 @@ const BadgeContainer2 = styled.div`
 
     .tooltip {
       position: relative;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
 
       .tooltiptext {
         visibility: hidden;
@@ -830,7 +858,7 @@ const BadgeContainer2 = styled.div`
         word-break: keep-all;
 
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           bottom: 100%;
           left: 50%;

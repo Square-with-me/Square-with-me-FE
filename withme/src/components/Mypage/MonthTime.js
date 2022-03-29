@@ -46,7 +46,6 @@ const Container = styled.div`
   .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
 
     .tooltiptext {
       visibility: hidden;

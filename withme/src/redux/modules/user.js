@@ -200,7 +200,6 @@ const editNickDB = (userId, nickname) => {
 
 // 사용자 상태메시지 수정하기
 const editStatusDB = (userId, status) => {
-  console.log(userId, status);
   return function (dispatch, getState, { history }) {
     axios
       .patch(
