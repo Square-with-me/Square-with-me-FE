@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //icon
@@ -13,7 +13,9 @@ const HotRoomCard = (props) => {
       <div className="roomcardcontainer">
         <div>
           <div>
+            {/*비밀방 여부 확인*/}
             {props.isSecret === true ? (
+              //각 카테고리에 맞는 배경색 지정
               <div style={{ display: "flex", alignItems: "center" }}>
                 {category === "뷰티" ? (
                   <CategoryText
@@ -197,7 +199,7 @@ const TagText = styled.span`
   border-radius: 4px;
   margin-right: 4px;
   margin-bottom: 6px;
-  display : inline-block; 
+  display : inline-block;
   padding: 4px 8px;
 `;
 

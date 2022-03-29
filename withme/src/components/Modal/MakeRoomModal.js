@@ -127,7 +127,6 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                         </svg>
                       </div>
                     </div>
-                    
                   ) : (
                     <div>
                     {category === '뷰티' ? (
@@ -271,7 +270,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
                   </CategoryWrap>
                 </div>
               </DropWrap>
-           
+
             <div
               style={{
                 display: 'flex',
@@ -345,7 +344,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
             />
             <TagItemWrap>
               {tagList.map((tagItem, index) => {
-                return(                  
+                return(
                 <TagItem key={index}>
                   <p style={{ fontSize: "12px" }}>{tagItem}</p>
                   <Button onClick={deleteTagItem}>X</Button>
@@ -353,7 +352,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
               })}
             </TagItemWrap>
           </div>
-  
+
         </Contents>
         <Btn
             onClick={() =>

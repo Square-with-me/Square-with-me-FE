@@ -210,7 +210,6 @@ const Detail = (props) => {
     if (!room || !user) {
       return;
     }
-    // socketRef.current = io.connect('http://175.112.86.142:8088/');
     socketRef.current = io.connect(`${BackUrl}`);
     navigator.mediaDevices
       .getUserMedia({
@@ -478,7 +477,6 @@ const Detail = (props) => {
       };
       data[room.category.id] = diffTime;
       localStorage.setItem("time", JSON.stringify(data));
-      console.log('시간데이터 업따!!!')
     }
 
     setTimeout(() => {
@@ -487,7 +485,7 @@ const Detail = (props) => {
   }
 
   useEffect(() => {
-    interval.current = setInterval(saveTime, 6000);
+    interval.current = setInterval(saveTime, 60000);
 
 
     return () => {
@@ -621,7 +619,6 @@ const Detail = (props) => {
     <Back>
       {room && (
         <Container>
-          {/* <Back/> */}
           <div id="top">
             <div className="logo">
               <Logo />
@@ -959,18 +956,19 @@ const Detail = (props) => {
               ""
             )}
           </div>
-
           <div id="bottom">
             <div id="centerButton" style={{ position: "relative" }}>
               <div
                 style={{
                   display: "flex",
-                  margin: " 0px 16px",
+                  marginRight: "16px",
                   alignContent: "center",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                className="tooltip"
               >
+                <span className="tooltiptext">마이크 키고 끄기</span>
                 {audioOn ? (
                   <OnMic
                     width="32px"
@@ -994,7 +992,9 @@ const Detail = (props) => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                className="tooltip"
               >
+                <span className="tooltiptext">카메라 키고 끄기</span>
                 {videoOn ? (
                   <OnCamera
                     width="32px"
@@ -1010,13 +1010,13 @@ const Detail = (props) => {
                 )}
               </div>
 
-              <div>
+              <div className="tooltip">
                 <ChooseEmotion
-                  style={{ marginRight: "15px" }}
                   width="32px"
                   fill="#8A8BA3"
                   onClick={() => setIsEmoji(!isEmoji)}
                 />
+                <span className="tooltiptext">이모티콘 보내기</span>
                 {isEmoji ? (
                   <div className="emojiBox">
                     <HappyEmoji
@@ -1045,7 +1045,10 @@ const Detail = (props) => {
                 )}
               </div>
 
-              <button>
+              <div className="tooltip"
+              style={{
+                marginLeft:"16px"
+                }}>
                 <a href="/main">
                   <svg
                     width="30"
@@ -1068,7 +1071,8 @@ const Detail = (props) => {
                     />
                   </svg>
                 </a>
-              </button>
+                <span className="tooltiptext">방 밖으로 나가기</span>
+              </div>
             </div>
 
             <div id="endButton">
@@ -1089,6 +1093,7 @@ const Detail = (props) => {
                     fill="#8A8BA3"
                   />
                 </svg>
+                <span  className="tooltiptext">타이머</span>
               </button>
 
               <button onClick={onClickPP}>
@@ -1114,6 +1119,7 @@ const Detail = (props) => {
                     fill="#8A8BA3"
                   />
                 </svg>
+                <span  className="tooltiptext">참가자</span>
               </button>
 
               <button onClick={onClickCT}>
@@ -1129,6 +1135,7 @@ const Detail = (props) => {
                     fill="#8A8BA3"
                   />
                 </svg>
+                <span className="tooltiptext">채팅</span>
               </button>
             </div>
           </div>
@@ -1441,12 +1448,40 @@ const Container = styled.div`
       display: flex;
       justify-self: center;
       align-items: center;
-      button {
-        width: 32px;
-        height: 32px;
-        background-color: #f7f7f7;
-        margin: 2px 0px 0px 0px;
-        border: none;
+      .tooltip{
+      position: relative;
+      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -100%;
+        left: 25%;
+        margin-left: -60px;
+        word-break: keep-all;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -35%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+      }
+
+      &:hover .tooltiptext {
+        visibility: visible;
+      }
       }
     }
     #endButton {
@@ -1463,6 +1498,38 @@ const Container = styled.div`
         background-color: #f7f7f7;
         margin: 2px 0px 0px 15px;
         border: none;
+        position: relative;
+        border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+      .tooltiptext {
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -120%;
+        left: 25%;
+        margin-left: -60px;
+        word-break: keep-all;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -35%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #555 transparent transparent transparent;
+        }
+      }
+
+      &:hover .tooltiptext {
+        visibility: visible;
+      }
       }
     }
   }

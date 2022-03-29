@@ -44,9 +44,6 @@ const Wrap = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media screen and (max-width: 450px) {
-    padding:20px 0px;
-  }
   }
   @media screen and (max-width: 875px) {
     .logo{
@@ -54,6 +51,11 @@ const Wrap = styled.div`
     }
     .text{
       margin: auto;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .div{
+      padding:20px 0px;
     }
   }
 `;
