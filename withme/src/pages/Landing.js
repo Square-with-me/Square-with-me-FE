@@ -77,14 +77,12 @@ const Landing = () => {
       {
         breakpoint: 768, //화면 사이즈 768px일 때
         settings: {
-          //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 576, //화면 사이즈 768px일 때
+        breakpoint: 576, //화면 사이즈 576px일 때
         settings: {
-          //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
           slidesToShow: 1,
         },
       },
