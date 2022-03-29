@@ -6,7 +6,6 @@ import { apis } from '../../shared/api';
 const GET_ROOM = 'GET_ROOM';
 const EMPTY_ROOM = 'EMPTY_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
-const DEL_ROOM = 'DEL_ROOM';
 const HOT_ROOM = 'HOT_ROOM';
 const ENTER_ROOM = 'ENTER_ROOM';
 const SAVE_CHAT = 'SAVE_CHAT';
@@ -15,7 +14,6 @@ const SET_MY_ROOM = 'SET_MY_ROOM';
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const emptyRoom = createAction(EMPTY_ROOM, () => ({}));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
-const delRoom = createAction(DEL_ROOM, (roomList) => ({ roomList }));
 const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
 const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
 const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
@@ -28,7 +26,7 @@ const initialState = {
   chattingList: [],
 };
 
-// 방 정보 가져오기
+// 방 전체 가져오기
 const getRoomDB = (pageNum) => {
   return function (dispatch, getState, { history }) {
     axios
@@ -70,7 +68,7 @@ const addRoomDB = (roomInfo, category) => {
   };
 };
 
-// 핫한 방 불러오기
+//인기 방 불러오기
 const hotRoomDB = () => {
   return function (dispatch, getState, { history }) {
     axios
@@ -190,7 +188,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myRoom = action.payload.roomInfo;
       }),
-    [DEL_ROOM]: (state, action) => produce(state, (draft) => {}),
     [HOT_ROOM]: (state, action) =>
       produce(state, (draft) => {
         draft.hotList = action.payload.roomList;
@@ -210,7 +207,6 @@ export default handleActions(
 const actionCreators = {
   emptyRoom,
 
-  delRoom,
   getRoomDB,
   addRoomDB,
   hotRoomDB,

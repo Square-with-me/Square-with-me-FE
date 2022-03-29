@@ -62,7 +62,7 @@ const RoomInfo = ({ room }) => {
             {room.category.name}
           </div>
         ) : null}
-        </div>        
+        </div>
         :
         <div style={{display:'flex'}}>
         {room.category.name === "뷰티" ? (

@@ -7,9 +7,7 @@ import { actionCreators as userActions } from '../../redux/modules/user';
 //svg
 import {ReactComponent as Lock} from "../../assets/modals/lockIcon.svg"
 import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
-import { ReactComponent as lowerAngleIcon } from "../../assets/modals/lowerAngleIcon.svg";
 import {ReactComponent as EmailIcon} from "../../assets/modals/emailIcon.svg"
-import { AiOutlineClose } from "react-icons/ai";
 
 const SignupModal = ({  setIsSignup }) => {
   const dispatch = useDispatch();
@@ -40,7 +38,7 @@ const SignupModal = ({  setIsSignup }) => {
       }}
     />
     <LoginWrap>
-      <Headers      
+      <Headers
       onClick={() => {
         setIsSignup(false)
       }}>
@@ -66,7 +64,7 @@ const SignupModal = ({  setIsSignup }) => {
                 <UserNickIcon fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
                 <Input
                   label=""
-                  placeholder="닉네임을 입력해주세요"
+                  placeholder="영문, 숫자 또는 한글로 이루어진 2~8자의 닉네임을 입력해주세요"
                   onChange={(e) => {
                     setNickName(e.target.value);
                   }}
@@ -77,7 +75,7 @@ const SignupModal = ({  setIsSignup }) => {
                 <Lock fill="#8A8BA3" width="32px" height="32px" style={{position:"absolute",margin: '8px 12px'}}/>
                 <Input
                   label=""
-                  placeholder="비밀번호를 입력해주세요."
+                  placeholder="영문(필수), 숫자(필수), 특수문자(자유)로 이루어진 8~16자의 비밀번호"
                   type="password"
                   onChange={(e) => {
                     setPwd(e.target.value);
@@ -114,7 +112,7 @@ const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(3px);
 `
-//모달창 전체 
+//모달창 전체
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -128,7 +126,7 @@ const LoginWrap = styled.div`
   transform: translate(-50%, -50%);
   background: #FAFAFA;
   z-index: 100;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width:767px){
 	  width: 350px;
 }
 `
@@ -163,28 +161,12 @@ height: 48px;
 margin-bottom: 16px;
 padding: 12px 12px 12px 50px;
 border-radius: 4px;
-@media screen and (max-width:767px){ 
+@media screen and (max-width:767px){
     ::placeholder {
       font-size: 11px;
     }
   }
 `
-const Btn = styled.button`
-width: 120px;
-height: 48px;
-font-size: 16px;
-background-color:#7179F0;
-color: #FAFAFF;
-border: none;
-border-radius: 4px;
-margin:  0px 0px 0px 16px;
-padding: 12px 14px;
-font-weight: 600;
-&:hover{
-  background-color:#BCC0FF ;
-}
-`
-
 const LoginButton = styled.button`
 display: block;
 background-color: #7179F0;
@@ -199,7 +181,7 @@ font-weight: 600;
 &:hover{
   background-color:#BCC0FF ;
 }
-@media screen and (max-width:767px){ 
+@media screen and (max-width:767px){
     width: 100%;
     font-size: 15px;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Image } from '../../elements/Index';
+//icon
 import userIcon from '../../assets/inRoom/userIcon.svg';
 
 const Parti =({me})=>{
@@ -40,7 +41,6 @@ const Parti =({me})=>{
           </Container>
           </div>
         ))}
-      
     </React.Fragment>
   )
 }

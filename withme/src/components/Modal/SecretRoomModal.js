@@ -21,7 +21,7 @@ const SecretRoomModal = (props) => {
         )}
       />
       <LoginWrap>
-        <Headers         
+        <Headers
         onClick={() => {
           props.setSecret(false);
         }}>

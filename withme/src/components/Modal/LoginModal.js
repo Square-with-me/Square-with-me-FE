@@ -88,17 +88,17 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
                   window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${redirectURI}&response_type=code`;
                   // console.log(process.env.REACT_APP_KAKAO_REST_API_KEY)
                 }}
-              > 
+              >
                 카카오로 로그인
               </SocalLoginBtn>
             </div>
-            <div style={{position:"relative"}} className='kakao'>
+            {/* <div style={{position:"relative"}} className='kakao'>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute",margin: '8px 12px'}}>
               <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="#3DAF43"/>
               <path d="M14.0898 15.94V21.52H10.0098V10.48H14.0898L17.9698 16V10.48H21.9898V21.52H17.9098L14.0898 15.94Z" fill="white"/>
             </svg>
               <SocalLoginBtn>네이버로 로그인</SocalLoginBtn>
-            </div>
+            </div> */}
           </LoginButtonWrap>
           <SignupWrap>
             <div>
