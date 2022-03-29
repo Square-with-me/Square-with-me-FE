@@ -434,7 +434,7 @@ const Detail = (props) => {
 
   //흐른 시간 체크
   const [openTime, setOpenTime] = useState(new Date().toString());
-  const [diffTime, setDiffTime] = useState();
+  const [diffTime, setDiffTime] = useState(0);
 
   const interval = useRef();
 
@@ -446,14 +446,12 @@ const Detail = (props) => {
     const prevTime = JSON.parse(localStorage.getItem("time"));
     const today = new Date().getDate();
 
-    console.log('투데이 시간 : ',today)
-
     if (prevTime) {
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
-        prevTime[room.category.id] = diffTime;
+        prevTime[room.category.id] += diffTime;
         localStorage.setItem("time", JSON.stringify(prevTime));
-        console.log("프리브타임 날짜 같을때", prevTime)
+
       } else {
         //기존 데이터 초기화 하고 새로 저장
         const data = {
@@ -465,9 +463,8 @@ const Detail = (props) => {
           5: 0,
           6: 0,
         };
-        data[room.category.id] = diffTime; 
+        data[room.category.id] = diffTime;
         localStorage.setItem("time", JSON.stringify(data));
-        console.log("열두시 지났어?", data[room.category.id])
       }
     } else { // 시간데이터가 없을 때
       const data = {
@@ -490,7 +487,7 @@ const Detail = (props) => {
   }
 
   useEffect(() => {
-    interval.current = setInterval(saveTime, 60000);
+    interval.current = setInterval(saveTime, 6000);
 
 
     return () => {
