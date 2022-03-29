@@ -17,7 +17,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 
 // badge
 import lockBadge from '../assets/badge/lockBadge.svg';
-import userIcon from '../assets/inRoom/userIcon.svg';
+import logo from '../assets/logo.jpeg';
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -217,7 +217,7 @@ const Mypage = (props) => {
                   shape="circle"
                   width="110px"
                   height="110px"
-                  src={user.profileImg ? user.profileImg : userIcon}
+                  src={user.profileImg ? user.profileImg : logo}
                   _onClick={(e) => {
                     onClickImage(e);
                   }}
@@ -312,7 +312,7 @@ const Mypage = (props) => {
                         </label>
                       ) : (
                         <label className="badge tooltip " key={badge.id}>
-                          <img src={badge.imageUrl} className="closeBadge"/>
+                          <img src={badge.imageUrl} className="closeBadge" />
                           <span className="tooltiptext">{badge.desc}</span>
                         </label>
                       )
@@ -331,7 +331,7 @@ const Mypage = (props) => {
         </div>
         <div id="middle">
           <Text>더 많은 뱃지를 획득해보세요!</Text>
-          <div id="middleTopBox" className="boxStyle" >
+          <div id="middleTopBox" className="boxStyle">
             <BadgeContainer2>
               <div className="badgeBox">
                 {LockBadge.map((badge, idx) => (
@@ -728,40 +728,40 @@ const BadgeContainer = styled.div`
     filter: blur(4px);
   }
   .tooltip {
-      position: relative;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
+    position: relative;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.75);
 
-      .tooltiptext {
-        visibility: hidden;
-        width: 150px;
-        background-color: rgba(0, 0, 0, 0.75);
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
+    .tooltiptext {
+      visibility: hidden;
+      width: 150px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      top: 120%;
+      left: 25%;
+      margin-left: -60px;
+      word-break: keep-all;
+
+      &::after {
+        content: '';
         position: absolute;
-        z-index: 1;
-        top: 120%;
-        left: 25%;
-        margin-left: -60px;
-        word-break: keep-all;
-
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 100%;
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: transparent transparent #555 transparent;
-        }
-      }
-
-      &:hover .tooltiptext {
-        visibility: visible;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent;
       }
     }
+
+    &:hover .tooltiptext {
+      visibility: visible;
+    }
+  }
   label.badge:hover span {
     box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
       rgba(0, 0, 0, 0.23) 0px 3px 3px;
