@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { history } from '../../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +15,7 @@ import {ReactComponent as Signup} from '../../assets/inRoom/userListIcon.svg'
 import { actionCreators as userActions } from '../../redux/modules/user';
 
 const Sidebar = (props) => {
-  const { open, close, header, setIsM, setIsSignup } = props;
+  const { open, close, setIsM, setIsSignup } = props;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -9,7 +8,7 @@ import { BiPencil } from 'react-icons/bi';
 import TodayTime from '../components/Mypage/TodayTime';
 import WeekTime from '../components/Mypage/WeekTime';
 import MonthTime from '../components/Mypage/MonthTime';
-import MHeader from '../components/Header/MHeader';
+import Header from '../components/Header/Header';
 import Logo from '../components/Main/Logo';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -205,7 +204,7 @@ const Mypage = (props) => {
             <Logo />
           </div>
           <div className="side">
-            <MHeader />
+            <Header />
           </div>
         </div>
         <div id="start">

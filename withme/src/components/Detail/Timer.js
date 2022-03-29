@@ -32,17 +32,18 @@ class Timer extends Component {
       minutes: this.minutesInput.current.value,
       seconds: this.secondsInput.current.value,
     };
-
+    //시작신호 소켓으로 보내기
     this.props.socketRef.current.emit("start_timer", data);
-
+    //각 인풋 값을 0으로 만들기!
     this.hoursInput.current.value = 0;
     this.minutesInput.current.value = 0;
     this.secondsInput.current.value = 0;
-
+    //시작 버튼 안눌리게
     this.isStart = true;
   };
 
   receiveStartTimer = () => {
+    //기준 간격을 두고 주기적으로 이벤트를 발생 시키고 싶을 때 (setInterval)
     this.timer = setInterval(this.countDown, 1000);
   };
 
@@ -91,9 +92,10 @@ class Timer extends Component {
       } else if (seconds !== "0" || seconds !== 0) {
         this.setState({ seconds: seconds - 1 });
       }
-
+      //시간 분 초 전부다 있을때
       if (hours && minutes && seconds) {
         this.setState({ seconds: seconds - 1 });
+        //시간 초만 있을때
       } else if (!minutes && hours && seconds) {
         this.setState({ seconds: seconds - 1 });
       }
@@ -103,7 +105,7 @@ class Timer extends Component {
         this.setState({ minutes: minutes - 1 });
       }
 
-      // when only hours entered
+      // 시간만 있을때
       else if (!minutes && hours) {
         this.setState({ minutes: 59 });
         this.setState({ hours: hours - 1 });
@@ -114,6 +116,7 @@ class Timer extends Component {
         this.setState({ hours: hours - 1 });
       }
     } else {
+      //중지하고 싶을때 사용
       clearInterval(this.timer);
       alert("시간 끝!");
       this.isStart = false;
@@ -279,7 +282,6 @@ const Input = styled.input`
     color: #8a8ba3;
     font-weight: 800;
     font-size: 16px;
-    /* line-height: 150%; */
   }
 `;
 

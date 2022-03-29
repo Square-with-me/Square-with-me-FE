@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+//icons
 import { ReactComponent as Search } from '../../assets/main/searchIcon.svg';
 import { actionCreators as roomActions } from '../../redux/modules/room';
-import { useDispatch } from 'react-redux';
+
 
 const SearchBar = (props) => {
   const dispatch = useDispatch();

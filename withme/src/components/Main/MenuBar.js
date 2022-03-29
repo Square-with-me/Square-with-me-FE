@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 // category icon
-import { ReactComponent as Beauty } from '../../assets/category/beautyIcon.svg';
 import { ReactComponent as Consulting } from '../../assets/category/consultingIcon.svg';
 import { ReactComponent as Culture } from '../../assets/category/cultureIcon.svg';
 import { ReactComponent as Exercise } from '../../assets/category/exerciseIcon.svg';

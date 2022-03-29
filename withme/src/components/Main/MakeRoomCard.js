@@ -1,26 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+//modal
 import MakeRoomModal from "../Modal/MakeRoomModal";
 //icon
 import { ReactComponent as Plus } from "../../assets/main/plusIcon.svg";
-import { useSelector } from "react-redux";
 
 const MakeRoomCard = (props) => {
   const user = useSelector((state) => state.user.user);
   return (
-    // <div>
-    //     <RoomCardContainer
-    //       onClick={() => {
-    //         props.setMRooms(true);
-    //       }}
-    //     >
-    //       <Plus className="plus"/>
-    //     </RoomCardContainer>
-    //   {props.MRooms && <MakeRoomModal setMRooms={props.setMRooms} />}
-    // </div>
-
     <>
-      {user ? (
+    {/*로그인 여부 확인*/}
+      {user.origin ? (
         <RoomCardContainer
           onClick={() => {
             props.setMRooms(true);
