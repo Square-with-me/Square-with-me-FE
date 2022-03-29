@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 // badge
-import lockBadge from "../assets/badge/lockBadge.svg";
-import userIcon from "../assets/inRoom/userIcon.svg";
+import lockBadge from '../assets/badge/lockBadge.svg';
+import logo from '../assets/logo.jpeg';
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -215,7 +215,7 @@ const Mypage = (props) => {
                   shape="circle"
                   width="110px"
                   height="110px"
-                  src={user.profileImg ? user.profileImg : userIcon}
+                  src={user.profileImg ? user.profileImg : logo}
                   _onClick={(e) => {
                     onClickImage(e);
                   }}
@@ -775,7 +775,7 @@ const BadgeContainer = styled.div`
       word-break: keep-all;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         bottom: 100%;
         left: 50%;
@@ -785,10 +785,8 @@ const BadgeContainer = styled.div`
         border-color: transparent transparent #555 transparent;
       }
     }
-
     &:hover .tooltiptext {
       visibility: visible;
-
     }
   }
   label.badge:hover span {
