@@ -146,6 +146,7 @@ const Con = styled.div`
   border: none;
   padding: 18px;
   border-radius: 4px;
+  background-color: #f7f7f7;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
   .roomcardcontainer{
     width: 227px;

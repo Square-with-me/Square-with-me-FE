@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { BackUrl } from "../shared/config";
+import back2 from "../assets/002.png"
 
 //redux
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -617,7 +618,7 @@ const Detail = (props) => {
 
 
   return (
-    <Back>
+    <Back src={back2}>
       {room && (
         <Container>
           <div id="top">
@@ -1153,7 +1154,10 @@ const Detail = (props) => {
 };
 const Back = styled.div`
   height: 100%;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
+  background-size: cover;
+  background-image: url('${(props) => props.src}');
+  z-index: -100;
   @media screen and (max-width: 820px) and (orientation: portrait) {
     height: fit-content;
   }

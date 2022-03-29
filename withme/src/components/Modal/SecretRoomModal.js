@@ -20,7 +20,7 @@ const SecretRoomModal = (props) => {
           props.setSecret(false)
         )}
       />
-      <LoginWrap>
+      <SecretRoomWrap>
         <Headers
         onClick={() => {
           props.setSecret(false);
@@ -48,9 +48,9 @@ const SecretRoomModal = (props) => {
             />
           </div>
 
-          <LoginButton onClick={()=>dispatch(roomActions.CheckPwdDB(pwd, props.data.id,userId))}>입장</LoginButton>
+          <Button onClick={()=>dispatch(roomActions.CheckPwdDB(pwd, props.data.id,userId))}>입장</Button>
         </Contents>
-      </LoginWrap>
+      </SecretRoomWrap>
     </React.Fragment>
   );
 };
@@ -66,7 +66,7 @@ const ModalBackground = styled.div`
   backdrop-filter: blur(3px);
 `;
 //모달창 전체
-const LoginWrap = styled.div`
+const SecretRoomWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -120,7 +120,7 @@ const Input = styled.input`
     }
   }
 `;
-const LoginButton = styled.button`
+const Button = styled.button`
   display: block;
   background-color: #7179f0;
   margin: 24px auto;

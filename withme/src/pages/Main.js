@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import '../styles/Drop.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import back2 from "../assets/002.png"
 
 //pages/components
 import Banner from '../components/Main/Banner';
@@ -93,7 +94,7 @@ const Main = () => {
   };
 
   return (
-    <Back>
+    <Back src={back2}>
       <Wrap>
         <div className="header">
           <Header />
@@ -211,7 +212,11 @@ const Back = styled.div`
   min-height: 100vh;
   max-width: 100vw;
   min-width: 390px;
-  background-color: #F7F7F7;
+  /* background-color: #F7F7F7; */
+  /* background-image: url(back); */
+  background-size: cover;
+  background-image: url('${(props) => props.src}');
+  z-index: -100;
   /* background: linear-gradient(to top, black 51%, #fff 30%); */
 `;
 //share
@@ -299,6 +304,8 @@ const Btn = styled.button`
   transition: all 0.3s;
   color: #fff;
   font-weight: 700;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+
   :hover {
     background-color: #7179f0;
     color: #fff;

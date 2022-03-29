@@ -70,7 +70,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
 
   return (
     <React.Fragment>
-      <LoginWrap>
+      <MakeRoomWrap>
         <Headers
           onClick={() => {
             setMRooms(false);
@@ -373,7 +373,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
           >
             방 만들기
           </Btn>
-      </LoginWrap>
+      </MakeRoomWrap>
       <ModalBackground
         onClick={() => {
           setMRooms(false);
@@ -395,7 +395,7 @@ const ModalBackground = styled.div`
   backdrop-filter: blur(3px);
 `;
 //모달창 전체
-const LoginWrap = styled.div`
+const MakeRoomWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

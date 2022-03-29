@@ -4,9 +4,9 @@ import event from "../../assets/banner/event.jpeg"
 const Event =({setEvent})=>{
   return (
     <ModalBackground onClick={()=>{setEvent(false)}}>
-      <LoginWrap>
+      <EventWrap>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSckDKexhkTD5CbfLoIrH2kLeXT25xtDH1uot2K6uA5mBr7amw/viewform"  target="_blank"><Image src= {event} onClick={()=>{setEvent(false)}}/></a>
-      </LoginWrap>
+      </EventWrap>
     </ModalBackground>
   )
 }
@@ -22,7 +22,7 @@ const ModalBackground = styled.div`
   backdrop-filter: blur(3px);
 `;
 //모달창 전체
-const LoginWrap = styled.div`
+const EventWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

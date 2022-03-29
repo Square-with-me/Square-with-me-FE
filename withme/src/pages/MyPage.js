@@ -3,11 +3,12 @@ import { useHistory } from "react-router-dom";
 
 import { Image } from "../elements/Index";
 import styled from "styled-components";
+import back2 from "../assets/002.png"
 
 import TodayTime from "../components/Mypage/TodayTime";
 import WeekTime from "../components/Mypage/WeekTime";
 import MonthTime from "../components/Mypage/MonthTime";
-import Header from "../components/Header/Header";
+import Header from "../components/Header/MHeader";
 import Logo from "../components/Main/Logo";
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -196,7 +197,7 @@ const Mypage = (props) => {
     },
   ];
   return (
-    <Root>
+    <Root src={back2}>
       <Container>
         <div className="header">
           <div onClick={() => history.replace("/main")} className="logo">
@@ -412,8 +413,11 @@ const Root = styled.div`
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
   box-sizing: border-box;
+  background-size: cover;
+  background-image: url('${(props) => props.src}');
+  z-index: -100;
 `;
 
 const Container = styled.div`
