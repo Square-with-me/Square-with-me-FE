@@ -203,13 +203,13 @@ class Timer extends Component {
             className="start"
             disabled={this.isStart}
           >
-            <div>start</div>
+            start
           </Btn>
           {/* <Btn onClick={this.stopTimer} className="stop" >
             <div>stop</div>
           </Btn> */}
           <Btn onClick={this.resetTimer} className="reset">
-            <div>reset</div>
+            reset
           </Btn>
         </div>
       </Container>

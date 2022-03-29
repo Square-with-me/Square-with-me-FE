@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Hi+Melody&display=swap');
 
 * {
   font-family: 'Noto Sans KR', sans-serif;
+  /* font-family: 'Do Hyeon', sans-serif; */
 }
 
 body {

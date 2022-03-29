@@ -17,7 +17,7 @@ function App() {
   useEffect(()=>{
     if(localStorage.getItem("login-token")){
       dispatch(userActions.logInCheckDB())
-    } else{
+    } else if(!localStorage.getItem("login-token")){
       return
     }
   },[])
