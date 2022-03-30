@@ -11,8 +11,9 @@ const Admin = () => {
   const onChangePassword = (e) => {
     setPassword(e.target.value);
   }
-
+  
   const onClickEnter = () => {
+    console.log(password, process.env.REACT_APP_ADMIN_PASSWORD)
     if(password === process.env.REACT_APP_ADMIN_PASSWORD) {
       return setIsAdmin(true);
     }
@@ -32,8 +33,6 @@ const Admin = () => {
         alert(error.response.data.msg);
       }
     }
-
-
   };
 
   useEffect(() => {
