@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { Image } from "../elements/Index";
 import styled from "styled-components";
-import back2 from "../assets/002.png"
+import back2 from "../assets/005.png"
 
 import TodayTime from "../components/Mypage/TodayTime";
 import WeekTime from "../components/Mypage/WeekTime";
@@ -197,7 +197,7 @@ const Mypage = (props) => {
     },
   ];
   return (
-    <Root src={back2}>
+    <Root>
       <Container>
         <div className="header">
           <div onClick={() => history.replace("/main")} className="logo">
@@ -208,7 +208,7 @@ const Mypage = (props) => {
           </div>
         </div>
         <div id="start">
-          <p className="label">MY PAGE</p>
+          <p className="label">마이 페이지</p>
           <div id="startBox" className="boxStyle">
             <ProfileContainer>
               <div className="imageBox">
@@ -413,7 +413,7 @@ const Root = styled.div`
   min-height: 100vh;
   display: flex;
   align-items: center;
-  /* background-color: #f7f7f7; */
+  background-color: #f7f7f7;
   box-sizing: border-box;
   background-size: cover;
   background-image: url('${(props) => props.src}');

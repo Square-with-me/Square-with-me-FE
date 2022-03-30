@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { BackUrl } from "../shared/config";
-import back2 from "../assets/002.png"
+import back2 from "../assets/005.png"
 
 //redux
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -618,7 +618,7 @@ const Detail = (props) => {
 
 
   return (
-    <Back src={back2}>
+    <Back>
       {room && (
         <Container>
           <div id="top">

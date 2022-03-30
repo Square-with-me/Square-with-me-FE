@@ -44,7 +44,7 @@ const MenuBar = (props) => {
               } else props.setChoiceCate(0);
             }}
           >
-            ALL
+            모든 방
           </AllBtn>
         ) : (
           <AllBtn
@@ -56,7 +56,7 @@ const MenuBar = (props) => {
             }}
             style={{ background: '#7179F0', border: 'none', fontWeight: '700', color:"#fff" }}
           >
-              ALL
+              모든 방
           </AllBtn>
         )}
 
@@ -253,15 +253,14 @@ const Menu = styled.div`
 `;
 
 const AllBtn = styled.button`
-  width: 56px;
+  width: 70px;
   height: 43px;
-  border: none;
+  border: 1px solid #ceced9;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
   font-weight: 500;
   font-size: 16px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
   color: #8a8ba3;
   :hover {
@@ -278,13 +277,12 @@ const AllBtn = styled.button`
 const PossibleBtn = styled.button`
   width: 90px;
   height: 43px;
-  border: none;
+  border: 1px solid #ceced9;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
   font-weight: 700;
   font-size: 16px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   color: #8a8ba3;
   transition: all 0.3s;
   :hover {
@@ -314,12 +312,10 @@ const DropBtn = styled.button`
   background-color: #ffffff;
   align-items: center;
   border-radius: 4px;
-  border: none;
   padding: 15px;
-  border: none;
+  border: 1px solid #ceced9;
   width: 200px;
   height: 43px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.5s;
 
   &:hover {
