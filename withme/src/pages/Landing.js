@@ -1,37 +1,37 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import $ from 'jquery';
-import TypeIt from 'typeit';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import WOW from 'wowjs';
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import $ from "jquery";
+import TypeIt from "typeit";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import WOW from "wowjs";
 
 // import { ReactComponent as Logo } from '../assets/landing/logo.svg';
-import Logo from '../components/Main/Logo';
-import logo from '../assets/landing/logo.svg';
-import { ReactComponent as Beauty } from '../assets/landing/beautyIcon.svg';
-import { ReactComponent as Consulting } from '../assets/category/consultingIcon.svg';
-import { ReactComponent as Culture } from '../assets/category/cultureIcon.svg';
-import { ReactComponent as Exercise } from '../assets/category/exerciseIcon.svg';
-import { ReactComponent as Other } from '../assets/category/otherIcon.svg';
-import { ReactComponent as Study } from '../assets/category/studyIcon.svg';
-import exVideo from '../assets/videos/exVideo.mov';
-import landing1 from '../assets/landing/landing.jpeg';
-import landing2 from '../assets/landing/landing2.jpeg';
-import landing3 from '../assets/landing/landing3.jpeg';
+import Logo from "../components/Main/Logo";
+import logo from "../assets/landing/logo.svg";
+import { ReactComponent as Beauty } from "../assets/landing/beautyIcon.svg";
+import { ReactComponent as Consulting } from "../assets/category/consultingIcon.svg";
+import { ReactComponent as Culture } from "../assets/category/cultureIcon.svg";
+import { ReactComponent as Exercise } from "../assets/category/exerciseIcon.svg";
+import { ReactComponent as Other } from "../assets/category/otherIcon.svg";
+import { ReactComponent as Study } from "../assets/category/studyIcon.svg";
+import exVideo from "../assets/videos/exVideo.mov";
+import landing1 from "../assets/landing/landing.jpeg";
+import landing2 from "../assets/landing/landing2.jpeg";
+import landing3 from "../assets/landing/landing3.jpeg";
 
-import iMac from '../assets/videos/imac.png';
-import Footer from '../components/Main/Footer';
+import iMac from "../assets/videos/imac.png";
+import Footer from "../components/Main/Footer";
 
-import { HiOutlineMenu } from 'react-icons/hi';
-import { FiX } from 'react-icons/fi';
+import { HiOutlineMenu } from "react-icons/hi";
+import { FiX } from "react-icons/fi";
 
 const Landing = () => {
   // TypeIt
   useEffect(() => {
-    new TypeIt('#typing', {
-      strings: ['운동', '뷰티', '스터디', '상담', '문화', '기타'],
+    new TypeIt("#typing", {
+      strings: ["운동", "뷰티", "스터디", "상담", "문화", "기타"],
       speed: 250,
       autoStart: true,
       breakLines: false,
@@ -43,7 +43,7 @@ const Landing = () => {
   // WOW
   useEffect(() => {
     new WOW.WOW({
-      boxClass: 'wow',
+      boxClass: "wow",
       offset: 150,
       mobile: true,
     }).init();
@@ -94,15 +94,15 @@ const Landing = () => {
     var first = 1;
     var last;
     var imgCnt = 0;
-    var $img = $('.categorySlider .category-box');
+    var $img = $(".categorySlider .category-box");
     var $first;
     var $last;
 
     $img.each(function () {
       // 5px 간격으로 배너 처음 위치 시킴
-      $(this).css('left', bannerLeft);
+      $(this).css("left", bannerLeft);
       bannerLeft += $(this).width() + 5;
-      $(this).attr('id', 'banner' + ++imgCnt); // img에 id 속성 추가
+      $(this).attr("id", "banner" + ++imgCnt); // img에 id 속성 추가
     });
 
     if (imgCnt > 8) {
@@ -111,13 +111,13 @@ const Landing = () => {
 
       setInterval(function () {
         $img.each(function () {
-          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+          $(this).css("left", $(this).position().left - 1); // 1px씩 왼쪽으로 이동
         });
-        $first = $('#banner' + first);
-        $last = $('#banner' + last);
+        $first = $("#banner" + first);
+        $last = $("#banner" + last);
         if ($first.position().left < -300) {
           // 제일 앞에 배너 제일 뒤로 옮김
-          $first.css('left', $last.position().left + $last.width() + 5);
+          $first.css("left", $last.position().left + $last.width() + 5);
           first++;
           last++;
           if (last > imgCnt) {
@@ -136,15 +136,15 @@ const Landing = () => {
     var first = 1;
     var last;
     var imgCnt = 0;
-    var $img = $('.categorySlider2 .category-box');
+    var $img = $(".categorySlider2 .category-box");
     var $first;
     var $last;
 
     $img.each(function () {
       // 5px 간격으로 배너 처음 위치 시킴
-      $(this).css('left', bannerLeft);
+      $(this).css("left", bannerLeft);
       bannerLeft += $(this).width() + 5;
-      $(this).attr('id', 'bannerT' + ++imgCnt); // img에 id 속성 추가
+      $(this).attr("id", "bannerT" + ++imgCnt); // img에 id 속성 추가
     });
 
     if (imgCnt > 8) {
@@ -153,13 +153,13 @@ const Landing = () => {
 
       setInterval(function () {
         $img.each(function () {
-          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+          $(this).css("left", $(this).position().left - 1); // 1px씩 왼쪽으로 이동
         });
-        $first = $('#bannerT' + first);
-        $last = $('#bannerT' + last);
+        $first = $("#bannerT" + first);
+        $last = $("#bannerT" + last);
         if ($first.position().left < -300) {
           // 제일 앞에 배너 제일 뒤로 옮김
-          $first.css('left', $last.position().left + $last.width() + 5);
+          $first.css("left", $last.position().left + $last.width() + 5);
           first++;
           last++;
           if (last > imgCnt) {
@@ -174,13 +174,13 @@ const Landing = () => {
   };
 
   const openMenu = () => {
-    const menu = document.getElementsByClassName('gnb')[0];
-    menu.classList.add('active');
+    const menu = document.getElementsByClassName("gnb")[0];
+    menu.classList.add("active");
   };
 
   const closeMenu = () => {
-    const menu = document.getElementsByClassName('gnb')[0];
-    menu.classList.remove('active');
+    const menu = document.getElementsByClassName("gnb")[0];
+    menu.classList.remove("active");
   };
 
   return (
@@ -1004,7 +1004,7 @@ const Container = styled.div`
               position: relative;
             }
             span::after {
-              content: '';
+              content: "";
               width: 100%;
               height: 15px;
               background-color: rgba(188, 192, 255, 0.7);

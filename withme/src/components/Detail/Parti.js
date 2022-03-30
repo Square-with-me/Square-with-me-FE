@@ -1,23 +1,37 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { Image } from '../../elements/Index';
-import logo from '../../assets/logo.jpeg';
+import React from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { Image } from "../../elements/Index";
+import logo from "../../assets/logo.jpeg";
 
 const Parti = ({ me }) => {
   const userInfo = useSelector((store) => store.user.userInfo);
-
+  console.log(userInfo);
   return (
     <React.Fragment>
       <Container>
-        <Image
-          shape="circle"
-          width="40px"
-          height="40px"
-          src={me.profileImg ? me.profileImg : logo}
-          className="profile"
-        />
-        <div style={{ marginLeft: '5px', width: '90%' }}>
+        <div className="imageBox">
+          <Image
+            shape="circle"
+            width="40px"
+            height="40px"
+            src={me.profileImg ? me.profileImg : logo}
+            className="profile"
+          />
+          {me.MasterBadge ? (
+            <div className="badgeImg">
+              <Image
+                width="20px"
+                height="20px"
+                margin="0px"
+                src={me.MasterBadge.imageUrl}
+              />
+            </div>
+          ) : (
+            <div className="badgeImg"></div>
+          )}
+        </div>
+        <div style={{ marginLeft: "5px", width: "90%" }}>
           <div className="userNick">{me.nickname}</div>
           <div className="statusMsg">{me.statusMsg}</div>
         </div>
@@ -26,13 +40,27 @@ const Parti = ({ me }) => {
         userInfo.map((u, idx) => (
           <div key={u.id}>
             <Container>
-              <Image
-                shape="circle"
-                width="42px"
-                height="42px"
-                src={u.profileImg ? u.profileImg : logo}
-                className="profile"
-              />
+              <div className="imageBox">
+                <Image
+                  shape="circle"
+                  width="42px"
+                  height="42px"
+                  src={u.profileImg ? u.profileImg : logo}
+                  className="profile"
+                />
+                {u.MasterBadge ? (
+                  <div className="badgeImg">
+                    <Image
+                      width="20px"
+                      height="20px"
+                      margin="0px"
+                      src={u.MasterBadge.imageUrl}
+                    />
+                  </div>
+                ) : (
+                  <div className="badgeImg"></div>
+                )}
+              </div>
               <div>
                 <div className="userNick">{u.nickname}</div>
                 <div className="statusMsg">{u.statusMsg}</div>
@@ -49,6 +77,9 @@ const Container = styled.div`
   margin-top: 20px;
   align-items: center;
   padding: 0px 5px;
+  .imageBox {
+    position: relative;
+  }
   .profile {
     margin-right: 7px;
   }
@@ -64,6 +95,16 @@ const Container = styled.div`
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .badgeImg {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
   }
 
   // 세로가 더 긴 기기가 세로로 있을 때 오른쪽으로 밀려보이는 부분 조절

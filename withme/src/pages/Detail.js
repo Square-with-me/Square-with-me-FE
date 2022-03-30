@@ -178,6 +178,7 @@ const Detail = (props) => {
           date,
           profileImg: user.profileImg,
           statusMsg: user.statusMsg,
+          MasterBadge: user.MasterBadge.imageUrl,
         };
 
         socketRef.current.emit("join room", data, roomFull);
@@ -392,10 +393,9 @@ const Detail = (props) => {
     if (prevTime) {
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
-        console.log('디프타임>>',diffTime); 
+        console.log("디프타임>>", diffTime);
         prevTime[room.category.id] += 0.5;
         localStorage.setItem("time", JSON.stringify(prevTime));
-
       } else {
         //기존 데이터 초기화 하고 새로 저장
         const data = {
@@ -410,7 +410,8 @@ const Detail = (props) => {
         data[room.category.id] = diffTime;
         localStorage.setItem("time", JSON.stringify(data));
       }
-    } else { // 시간데이터가 없을 때
+    } else {
+      // 시간데이터가 없을 때
       const data = {
         date: new Date().getDate(),
         1: 0,
@@ -431,7 +432,6 @@ const Detail = (props) => {
 
   useEffect(() => {
     interval.current = setInterval(saveTime, 30000);
-
 
     return () => {
       clearInterval(interval.current);
@@ -497,7 +497,7 @@ const Detail = (props) => {
   const saveList = useSelector((store) => store.room.chattingList);
 
   //작성하는 채팅 내용
-  const [userMessage, setUserMessage] = useState('');
+  const [userMessage, setUserMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
@@ -506,26 +506,26 @@ const Detail = (props) => {
 
   // 채팅 받기
   useEffect(() => {
-    if(!socketRef.current){
-      return
+    if (!socketRef.current) {
+      return;
     }
-    socketRef.current.on('receive_message', (data) => {
+    socketRef.current.on("receive_message", (data) => {
       dispatch(roomActions.savechat(data));
     });
 
-    return socketRef.current.off('receive_message',(data) => {
+    return socketRef.current.off("receive_message", (data) => {
       dispatch(roomActions.savechat(data));
-    } )
+    });
   }, []);
 
   // 채팅 보내기
   const sendMessage = () => {
     const today = new Date();
-    const hours = ('0' + today.getHours()).slice(-2);
-    const minutes = ('0' + today.getMinutes()).slice(-2);
-    var timeString = hours + ':' + minutes;
+    const hours = ("0" + today.getHours()).slice(-2);
+    const minutes = ("0" + today.getMinutes()).slice(-2);
+    var timeString = hours + ":" + minutes;
 
-    if (userMessage === '' || userMessage === '\n') return;
+    if (userMessage === "" || userMessage === "\n") return;
     const data = {
       roomId: params.id,
       sender: user.nickname,
@@ -535,14 +535,14 @@ const Detail = (props) => {
     };
     dispatch(roomActions.savechat(data));
 
-    socketRef.current.emit('send_message', data);
+    socketRef.current.emit("send_message", data);
   };
 
   // 엔터키로 채팅 보내기
   const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       sendMessage();
-      setUserMessage('');
+      setUserMessage("");
     }
   };
 
@@ -552,13 +552,12 @@ const Detail = (props) => {
   }, [messageList]);
 
   const moveScrollEnd = () => {
-    if ( !document.getElementById('messageBox') ) {
-      return
+    if (!document.getElementById("messageBox")) {
+      return;
     }
-    const scrollBox = document.getElementById('messageBox');
+    const scrollBox = document.getElementById("messageBox");
     scrollBox.scrollTop = scrollBox.scrollHeight;
   };
-
 
   return (
     <Back>
@@ -567,32 +566,30 @@ const Detail = (props) => {
           <div id="top">
             <div className="logo">
               <Logo />
-              <div>
-                <RoomInfo room={room} />
-              </div>
+              <RoomInfo room={room} />
             </div>
           </div>
           <div id="videoBox">
             {socketRef.current ? (
               <div
-              className="videoContainer"
-              //본인꺼
-              id={socketRef.current.id}
+                className="videoContainer"
+                //본인꺼
+                id={socketRef.current.id}
               >
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
                 <div className="myEmoji myHappyEmoji hidden">
-                  <HappyEmoji width="40px" height="40px" />
+                  <HappyEmoji width="65px" height="65px" />
                 </div>
                 <div className="myEmoji myLoveEmoji hidden">
-                  <LoveEmoji width="40px" height="40px" />
+                  <LoveEmoji width="65px" height="65px" />
                 </div>
                 <div className="myEmoji myBadEmoji hidden">
-                  <BadEmoji width="40px" height="40px" />
+                  <BadEmoji width="65px" height="65px" />
                 </div>
                 <div className="myEmoji mySadEmoji hidden">
-                  <SadEmoji width="40px" height="40px" />
+                  <SadEmoji width="65px" height="65px" />
                 </div>
-                <div className="nameLable">{user.nickname}</div>
+                {/* <div className="nameLable">{user.nickname}</div> */}
               </div>
             ) : (
               ""
@@ -600,23 +597,23 @@ const Detail = (props) => {
             {peers.map((peer) => {
               return (
                 <div
-                key={peer.peerId}
-                className="videoContainer"
-                //누가 이모티콘을 보냈는지 알기 위해서 (남꺼)
-                id={peer.peerId}
+                  key={peer.peerId}
+                  className="videoContainer"
+                  //누가 이모티콘을 보냈는지 알기 위해서 (남꺼)
+                  id={peer.peerId}
                 >
                   <Video peer={peer.peer} />
                   <div className="myEmoji myHappyEmoji hidden">
-                    <HappyEmoji width="40px" height="40px" />
+                    <HappyEmoji width="65px" height="65px" />
                   </div>
                   <div className="myEmoji myLoveEmoji hidden">
-                    <LoveEmoji width="40px" height="40px" />
+                    <LoveEmoji width="65px" height="65px" />
                   </div>
                   <div className="myEmoji myBadEmoji hidden">
-                    <BadEmoji width="40px" height="40px" />
+                    <BadEmoji width="65px" height="65px" />
                   </div>
                   <div className="myEmoji mySadEmoji hidden">
-                    <SadEmoji width="40px" height="40px" />
+                    <SadEmoji width="65px" height="65px" />
                   </div>
                   {/* <div className="nameLable">{peer.peerNickname}</div> */}
                 </div>
@@ -847,20 +844,21 @@ const Detail = (props) => {
                   </div>
                   {ischatting ? (
                     <ChattingBox>
-                        <div id="messageBox">
-                          {messageList.map((data, index) =>
-                            data.chattingList.id === user.id ? (
-                              <MyMessage key={index} data={data}></MyMessage>
-                            ) : (
-                              <Message key={index} data={data}></Message>
-                            )
-                          )}
-                        </div>
-                        <div className="inputBox">
-                          <form action="#" className="flex">
-                            <label htmlFor="choiceReceiver">TO.</label>
-                            <div name="receiver" id="lang">모두
-                              <svg
+                      <div id="messageBox">
+                        {messageList.map((data, index) =>
+                          data.chattingList.id === user.id ? (
+                            <MyMessage key={index} data={data}></MyMessage>
+                          ) : (
+                            <Message key={index} data={data}></Message>
+                          )
+                        )}
+                      </div>
+                      <div className="inputBox">
+                        <form action="#" className="flex">
+                          <label htmlFor="choiceReceiver">TO.</label>
+                          <div name="receiver" id="lang">
+                            모두
+                            <svg
                               width="18"
                               height="18"
                               viewBox="0 0 24 24"
@@ -875,8 +873,8 @@ const Detail = (props) => {
                               />
                             </svg>
                           </div>
-                          </form>
-                          <div style={{position:"relative"}}>
+                        </form>
+                        <div style={{ position: "relative" }}>
                           <textarea
                             type="text"
                             onChange={(e) => {
@@ -886,12 +884,28 @@ const Detail = (props) => {
                             onKeyPress={onKeyPress}
                             placeholder="메시지를 입력하세요"
                           />
-                          <svg className="icon" width="12" height="16" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{position:"absolute", right:"7%", top:"20%", cursor:"pointer"}}>
-                          <path d="M0.880005 19.21V0.790039L12 10L0.880005 19.21ZM2.88 5.00004V15L8.88 10L2.88 5.00004Z" fill="#8A8BA3"/>
+                          <svg
+                            className="icon"
+                            width="12"
+                            height="16"
+                            viewBox="0 0 12 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{
+                              position: "absolute",
+                              right: "7%",
+                              top: "20%",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <path
+                              d="M0.880005 19.21V0.790039L12 10L0.880005 19.21ZM2.88 5.00004V15L8.88 10L2.88 5.00004Z"
+                              fill="#8A8BA3"
+                            />
                           </svg>
-                          </div>
                         </div>
-                      </ChattingBox>
+                      </div>
+                    </ChattingBox>
                   ) : (
                     ""
                   )}
@@ -969,25 +983,25 @@ const Detail = (props) => {
                     <HappyEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
-                        setIsEmoji(!isEmoji)
+                        setIsEmoji(!isEmoji);
                       }}
                     />
                     <LoveEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
-                        setIsEmoji(!isEmoji)
+                        setIsEmoji(!isEmoji);
                       }}
                     />
                     <BadEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
-                        setIsEmoji(!isEmoji)
+                        setIsEmoji(!isEmoji);
                       }}
                     />
                     <SadEmoji
                       onClick={(e) => {
                         sendEmoji(e.target.id);
-                        setIsEmoji(!isEmoji)
+                        setIsEmoji(!isEmoji);
                       }}
                     />
                   </div>
@@ -996,10 +1010,12 @@ const Detail = (props) => {
                 )}
               </div>
 
-              <div className="tooltip"
-              style={{
-                marginLeft:"16px"
-                }}>
+              <div
+                className="tooltip"
+                style={{
+                  marginLeft: "16px",
+                }}
+              >
                 <a href="/main">
                   <svg
                     width="30"
@@ -1044,7 +1060,7 @@ const Detail = (props) => {
                     fill="#8A8BA3"
                   />
                 </svg>
-                <span  className="tooltiptext">타이머</span>
+                <span className="tooltiptext">타이머</span>
               </button>
 
               <button onClick={onClickPP}>
@@ -1070,7 +1086,7 @@ const Detail = (props) => {
                     fill="#8A8BA3"
                   />
                 </svg>
-                <span  className="tooltiptext">참가자</span>
+                <span className="tooltiptext">참가자</span>
               </button>
 
               <button onClick={onClickCT}>
@@ -1096,7 +1112,6 @@ const Detail = (props) => {
   );
 };
 
-
 const Video = (props) => {
   const ref = useRef();
 
@@ -1116,7 +1131,7 @@ const Video = (props) => {
 const Message = (props) => {
   const {
     data: {
-      chattingList: { sender, message, time = '오후 6:04' },
+      chattingList: { sender, message, time = "오후 6:04" },
     },
   } = props;
 
@@ -1135,7 +1150,7 @@ const Message = (props) => {
 const MyMessage = (props) => {
   const {
     data: {
-      chattingList: { sender, message, time = '오후 6:04' },
+      chattingList: { sender, message, time = "오후 6:04" },
     },
   } = props;
 
@@ -1155,7 +1170,7 @@ const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
   background-size: cover;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   z-index: -100;
   @media screen and (max-width: 820px) and (orientation: portrait) {
     height: fit-content;
@@ -1182,7 +1197,7 @@ const Container = styled.div`
   }
   .logo {
     grid-column: 1/13;
-    margin: 0px auto;
+    /* margin: 0px auto; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1379,7 +1394,7 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.25);
-      bottom: 50px;
+      top: 5px;
       left: 5px;
     }
     .hidden {
@@ -1458,39 +1473,39 @@ const Container = styled.div`
       display: flex;
       justify-self: center;
       align-items: center;
-      .tooltip{
-      position: relative;
+      .tooltip {
+        position: relative;
 
-      .tooltiptext {
-        visibility: hidden;
-        width: 150px;
-        background-color: rgba(0, 0, 0, 0.75);
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        top: -100%;
-        left: 25%;
-        margin-left: -60px;
-        word-break: keep-all;
-
-        &::after {
-          content: '';
+        .tooltiptext {
+          visibility: hidden;
+          width: 150px;
+          background-color: rgba(0, 0, 0, 0.75);
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
           position: absolute;
-          bottom: -35%;
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: #555 transparent transparent transparent;
-        }
-      }
+          z-index: 1;
+          top: -100%;
+          left: 25%;
+          margin-left: -60px;
+          word-break: keep-all;
 
-      &:hover .tooltiptext {
-        visibility: visible;
-      }
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -35%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+          }
+        }
+
+        &:hover .tooltiptext {
+          visibility: visible;
+        }
       }
     }
     #endButton {
@@ -1508,36 +1523,36 @@ const Container = styled.div`
         margin: 2px 0px 0px 15px;
         border: none;
         position: relative;
-      .tooltiptext {
-        visibility: hidden;
-        width: 150px;
-        background-color: rgba(0, 0, 0, 0.75);
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        top: -120%;
-        left: 25%;
-        margin-left: -60px;
-        word-break: keep-all;
-
-        &::after {
-          content: '';
+        .tooltiptext {
+          visibility: hidden;
+          width: 150px;
+          background-color: rgba(0, 0, 0, 0.75);
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
           position: absolute;
-          bottom: -35%;
-          left: 50%;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: #555 transparent transparent transparent;
-        }
-      }
+          z-index: 1;
+          top: -120%;
+          left: 25%;
+          margin-left: -60px;
+          word-break: keep-all;
 
-      &:hover .tooltiptext {
-        visibility: visible;
-      }
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -35%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+          }
+        }
+
+        &:hover .tooltiptext {
+          visibility: visible;
+        }
       }
     }
   }
@@ -1566,7 +1581,7 @@ const ChattingBox = styled.div`
   background: #f7f7f7;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   margin-top: 20px;
 
   #messageBox {
@@ -1583,13 +1598,13 @@ const ChattingBox = styled.div`
     justify-content: space-between;
     label {
       font-weight: 700;
-      }
+    }
     #lang {
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 14px;
-      border: 1px solid #8A8BA3;
+      border: 1px solid #8a8ba3;
       border-radius: 4px;
       background-color: #fff;
       width: 75%;
@@ -1597,7 +1612,7 @@ const ChattingBox = styled.div`
       padding: 3px;
       margin-right: 4px;
       &:hover {
-        box-shadow: 0 1px 5px #8A8BA3;
+        box-shadow: 0 1px 5px #8a8ba3;
       }
     }
     textarea {
@@ -1613,8 +1628,8 @@ const ChattingBox = styled.div`
   @media screen and (min-height: 700px) and (max-height: 755px) and (orientation: landscape) {
     height: 55vh;
     textarea {
-        font-size: 0.5rem;
-      }
+      font-size: 0.5rem;
+    }
   }
   @media screen and (min-height: 640px) and (max-height: 700px) and (orientation: landscape) {
     height: 48vh;
@@ -1774,7 +1789,7 @@ const MessageBox = styled.div`
   min-height: 58px;
   justify-content: center;
   padding: 2.5% 5% 2.5%;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
 
   #userInfo {
     display: flex;
@@ -1791,7 +1806,7 @@ const MessageBox = styled.div`
       text-align: center;
     }
     #toText {
-      font-family: 'Noto Sans';
+      font-family: "Noto Sans";
       font-style: normal;
     }
   }
@@ -1817,7 +1832,7 @@ const MyMessageBox = styled.div`
   min-height: 58px;
   justify-content: center;
   padding: 2.5% 5% 2.5%;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   background-color: #e3e5ff;
 
   #userInfo {
@@ -1835,7 +1850,7 @@ const MyMessageBox = styled.div`
       text-align: center;
     }
     #toText {
-      font-family: 'Noto Sans';
+      font-family: "Noto Sans";
       font-style: normal;
     }
   }

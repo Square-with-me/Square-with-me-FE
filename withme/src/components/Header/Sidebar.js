@@ -1,18 +1,18 @@
-import React from 'react';
-import { history } from '../../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { history } from "../../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
 
 //style
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //svg
-import { ReactComponent as SidebarIcon } from '../../assets/modals/sidebarIcon.svg';
-import { ReactComponent as UserNickIcon } from '../../assets/modals/userNickIcon.svg';
-import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
-import {ReactComponent as Signup} from '../../assets/inRoom/userListIcon.svg'
+import { ReactComponent as SidebarIcon } from "../../assets/modals/sidebarIcon.svg";
+import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
+import { ReactComponent as ExitIcon } from "../../assets/inRoom/exitIcon.svg";
+import { ReactComponent as Signup } from "../../assets/inRoom/userListIcon.svg";
 
 //redux
-import { actionCreators as userActions } from '../../redux/modules/user';
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const Sidebar = (props) => {
   const { open, close, setIsM, setIsSignup } = props;
@@ -33,13 +33,13 @@ const Sidebar = (props) => {
             />
           </SidebarHeader>
           <div
-            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
+            style={{ display: "flex", padding: "8px", alignItems: "center" }}
           >
             <UserNickIcon
               fill="#000000"
               width="32px"
               height="32px"
-              style={{ marginRight: '8px' }}
+              style={{ marginRight: "8px" }}
             />
             {user.origin ? (
               <Text
@@ -62,37 +62,40 @@ const Sidebar = (props) => {
             )}
           </div>
           <div
-            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}>
+            style={{ display: "flex", padding: "8px", alignItems: "center" }}
+          >
             {user.origin ? (
-              <div style={{display:"flex",alignItems:"center"}}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <ExitIcon
                   fill="#000000"
                   width="32px"
                   height="32px"
-                  style={{ marginRight: '8px' }}
+                  style={{ marginRight: "8px" }}
                 />
                 <Text
-                onClick={() => {
-                  dispatch(userActions.logOut());
-                }}
-              >
-                로그아웃
-              </Text>
+                  onClick={() => {
+                    dispatch(userActions.logOut());
+                  }}
+                >
+                  로그아웃
+                </Text>
               </div>
-
             ) : (
-              <div style={{display:"flex",alignItems:"center"}}>
-              <Signup
-                fill="#000000"
-                width="32px"
-                height="32px"
-                style={{ marginRight: '8px' }}
-              />
-              <Text
-              onClick={()=>{
-                setIsSignup(true)
-                close();
-              }}>회원가입</Text>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Signup
+                  fill="#000000"
+                  width="32px"
+                  height="32px"
+                  style={{ marginRight: "8px" }}
+                />
+                <Text
+                  onClick={() => {
+                    setIsSignup(true);
+                    close();
+                  }}
+                >
+                  회원가입
+                </Text>
               </div>
             )}
           </div>
@@ -125,12 +128,12 @@ const Wrap = styled.div`
   background-color: #f7f7f7;
   position: absolute;
   right: -2.4%;
-  top:1.5%;
+  top: 1.5%;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
-  @media screen and (max-width:550px){
+  @media screen and (max-width: 550px) {
     right: -7px;
-    top:25px;
+    top: 25px;
     width: 150px;
     padding: 10px;
   }
@@ -164,10 +167,10 @@ const SidebarHeader = styled.header`
 
 const Text = styled.div`
   font-size: 18px;
-  color: #33344B;
+  color: #33344b;
   cursor: pointer;
   font-weight: 550;
-  @media screen and (max-width:550px){
+  @media screen and (max-width: 550px) {
     font-size: 13px;
   }
 `;

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { Image } from "../elements/Index";
 import styled from "styled-components";
-import back2 from "../assets/005.png"
+import back2 from "../assets/005.png";
 
 import TodayTime from "../components/Mypage/TodayTime";
 import WeekTime from "../components/Mypage/WeekTime";
@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 // badge
-import lockBadge from '../assets/badge/lockBadge.svg';
-import logo from '../assets/logo.jpeg';
+import lockBadge from "../assets/badge/lockBadge.svg";
+import logo from "../assets/logo.jpeg";
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -416,7 +416,7 @@ const Root = styled.div`
   background-color: #f7f7f7;
   box-sizing: border-box;
   background-size: cover;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   z-index: -100;
 `;
 
@@ -738,8 +738,8 @@ const BadgeContainer = styled.div`
       border-radius: 50%;
     }
     label.badge img {
-    transition: all 0.5s;
-  }
+      transition: all 0.5s;
+    }
 
     input[type="radio"]:checked + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
@@ -779,7 +779,7 @@ const BadgeContainer = styled.div`
       word-break: keep-all;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 100%;
         left: 50%;

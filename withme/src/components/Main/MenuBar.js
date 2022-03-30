@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
 // category icon
-import { ReactComponent as Consulting } from '../../assets/category/consultingIcon.svg';
-import { ReactComponent as Culture } from '../../assets/category/cultureIcon.svg';
-import { ReactComponent as Exercise } from '../../assets/category/exerciseIcon.svg';
-import { ReactComponent as Other } from '../../assets/category/otherIcon.svg';
-import { ReactComponent as Study } from '../../assets/category/studyIcon.svg';
-import { actionCreators as roomActions } from '../../redux/modules/room';
-import { ReactComponent as Refresh } from '../../assets/main/refreshIcon.svg';
+import { ReactComponent as Consulting } from "../../assets/category/consultingIcon.svg";
+import { ReactComponent as Culture } from "../../assets/category/cultureIcon.svg";
+import { ReactComponent as Exercise } from "../../assets/category/exerciseIcon.svg";
+import { ReactComponent as Other } from "../../assets/category/otherIcon.svg";
+import { ReactComponent as Study } from "../../assets/category/studyIcon.svg";
+import { actionCreators as roomActions } from "../../redux/modules/room";
+import { ReactComponent as Refresh } from "../../assets/main/refreshIcon.svg";
 
 const MenuBar = (props) => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-              if (props.category === '카테고리') {
+              if (props.category === "카테고리") {
                 getAllRoomFunc();
               } else props.setChoiceCate(0);
             }}
@@ -50,13 +50,18 @@ const MenuBar = (props) => {
           <AllBtn
             onClick={() => {
               props.setPossible(false);
-              if (props.category === '카테고리') {
+              if (props.category === "카테고리") {
                 getAllRoomFunc();
               } else props.setChoiceCate(0);
             }}
-            style={{ background: '#7179F0', border: 'none', fontWeight: '700', color:"#fff" }}
+            style={{
+              background: "#7179F0",
+              border: "none",
+              fontWeight: "700",
+              color: "#fff",
+            }}
           >
-              모든 방
+            모든 방
           </AllBtn>
         )}
 
@@ -64,18 +69,23 @@ const MenuBar = (props) => {
           <PossibleBtn
             onClick={() => {
               props.setPossible(false);
-              props.setCategory('카테고리');
+              props.setCategory("카테고리");
               getAllRoomFunc();
             }}
-            style={{ background: '#7179F0', border: 'none', fontWeight: '700', color:"#fff" }}
+            style={{
+              background: "#7179F0",
+              border: "none",
+              fontWeight: "700",
+              color: "#fff",
+            }}
           >
-              참여 가능
+            참여 가능
           </PossibleBtn>
         ) : (
           <PossibleBtn
             onClick={() => {
               props.setPossible(true);
-              props.setCategory('카테고리');
+              props.setCategory("카테고리");
               props.setChoiceCate(0);
               dispatch(roomActions.emptyRoom());
               dispatch(roomActions.possibleRoomDB(1));
@@ -93,7 +103,7 @@ const MenuBar = (props) => {
           <div className="container">
             <DropWrap>
               <DropBtn onClick={() => setIsActive(!isActive)}>
-                {props.category === '' ? (
+                {props.category === "" ? (
                   <p>카테고리</p>
                 ) : (
                   <p>{props.category}</p>
@@ -117,11 +127,11 @@ const MenuBar = (props) => {
               </DropBtn>
               <div
                 ref={dropdownRef}
-                className={`menu ${isActive ? 'active' : 'inactive'}`}
+                className={`menu ${isActive ? "active" : "inactive"}`}
               >
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('뷰티');
+                    props.setCategory("뷰티");
                     setIsActive(!isActive);
                     props.setChoiceCate(1);
                     props.setPossible(false);
@@ -149,7 +159,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('운동');
+                    props.setCategory("운동");
                     setIsActive(!isActive);
                     props.setChoiceCate(2);
                     props.setPossible(false);
@@ -162,7 +172,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('스터디');
+                    props.setCategory("스터디");
                     setIsActive(!isActive);
                     props.setChoiceCate(3);
                     props.setPossible(false);
@@ -175,7 +185,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('상담');
+                    props.setCategory("상담");
                     setIsActive(!isActive);
                     props.setChoiceCate(4);
                     props.setPossible(false);
@@ -188,7 +198,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('문화');
+                    props.setCategory("문화");
                     setIsActive(!isActive);
                     props.setChoiceCate(5);
                     props.setPossible(false);
@@ -203,7 +213,7 @@ const MenuBar = (props) => {
 
                 <CategoryWrap
                   onClick={() => {
-                    props.setCategory('기타');
+                    props.setCategory("기타");
                     setIsActive(!isActive);
                     props.setChoiceCate(6);
                     props.setPossible(false);
@@ -219,15 +229,15 @@ const MenuBar = (props) => {
       </div>
       <Refresh
         style={{
-          cursor: 'pointer',
-          width: '30px',
-          height: '30px',
-          margin: 'auto 0px',
-          fill: '#8A8BA3',
+          cursor: "pointer",
+          width: "30px",
+          height: "30px",
+          margin: "auto 0px",
+          fill: "#8A8BA3",
         }}
         onClick={() => {
           props.setPossible(false);
-          if (props.category !== '카테고리') {
+          if (props.category !== "카테고리") {
             props.setChoiceCate(0);
           } else {
             dispatch(roomActions.emptyRoom());
@@ -319,7 +329,7 @@ const DropBtn = styled.button`
 
   &:hover {
     background-color: #bcc0ff;
-    p{
+    p {
       color: #fff;
     }
   }
@@ -329,17 +339,16 @@ const DropBtn = styled.button`
     width: 100px;
     border: 1px solid #ceced9;
   }
-  p{
+  p {
     font-size: 16px;
     font-weight: 700;
     color: #8a8ba3;
- 
+
     @media screen and (max-width: 550px) {
       font-size: 13px;
     }
   }
 `;
-
 
 const DropWrap = styled.div`
   position: relative;
@@ -349,7 +358,7 @@ const DropWrap = styled.div`
   border: none;
   border-radius: 4px;
   width: 140px;
-  color: #FAFAFF;
+  color: #fafaff;
   @media screen and (max-width: 550px) {
     width: fit-content;
     border: none;
