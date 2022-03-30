@@ -207,7 +207,7 @@ const Landing = () => {
         </header>
         <section className="welcome">
           <div className="logo-inner utd wow">
-            <div className="logo ">
+            <div className="logo">
               <img src={logo} />
             </div>
             <div className="sports ltr wow">
@@ -583,8 +583,10 @@ const Landing = () => {
         </section>
         <section className="tutorial" id="feature2">
           <p>방을 만들고, 함께 시작해볼까요?</p>
-          <img src={iMac} alt="imac" />
-          {/* <video src={exVideo} autoPlay muted loop></video> */}
+          <div style={{ position: "relative" }}>
+            <img src={iMac} alt="imac" />
+            <video src={exVideo} autoPlay muted loop></video>
+          </div>
         </section>
         <section className="review" id="feature3">
           <Slider {...settings}>
@@ -913,6 +915,7 @@ const Container = styled.div`
       .logo-inner {
         height: 100px;
 
+
         .sports {
           display: none;
         }
@@ -940,6 +943,11 @@ const Container = styled.div`
       .logo-inner {
         height: 100px;
       }
+
+      .logo {
+        display: none;
+      }
+
       .welcome-heading {
         width: auto;
         word-break: keep-all;
@@ -1155,7 +1163,6 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     row-gap: 20px;
-    position: relative;
 
     p {
       font-size: 24px;
@@ -1165,18 +1172,26 @@ const Container = styled.div`
 
     img {
       width: 600px;
-      position: relative;
     }
 
     video {
-      width: 510px;
+      /* width: 550px; */
+      height: 290px;
       position: absolute;
-      top: 220px;
+      left: 4%;
+      top:6%;
     }
 
     @media screen and (max-width: 767px) {
       img {
         display: none;
+      }
+      video {
+        height: 200px;
+        position: relative;
+        margin: auto;
+        left: 0;
+        top: 0;
       }
     }
   }

@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import { Image } from "../elements/Index";
 import styled from "styled-components";
-import back2 from "../assets/005.png";
 
 import TodayTime from "../components/Mypage/TodayTime";
 import WeekTime from "../components/Mypage/WeekTime";
@@ -226,11 +225,20 @@ const Mypage = (props) => {
                 </div>
                 {user.MasterBadge ? (
                   <div className="badgeImg">
-                    <Image src={user.MasterBadge.imageUrl} />
+                    <Image
+                      width="40px"
+                      height="40px"
+                      margin="0px"
+                      src={user.MasterBadge.imageUrl}
+                    />
                   </div>
                 ) : (
                   <div className="badgeImg">
-                    <Image src={MasterBadge} />
+                    <Image                       
+                      width="40px"
+                      height="40px"
+                      margin="0px"
+                    src={MasterBadge} />
                   </div>
                 )}
               </div>
