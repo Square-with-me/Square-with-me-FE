@@ -1154,7 +1154,7 @@ const Detail = (props) => {
 };
 const Back = styled.div`
   height: 100%;
-  /* background-color: #f7f7f7; */
+  background-color: #f7f7f7;
   background-size: cover;
   background-image: url('${(props) => props.src}');
   z-index: -100;
