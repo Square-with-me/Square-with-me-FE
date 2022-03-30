@@ -48,13 +48,13 @@ const Parti = ({ me }) => {
                   src={u.profileImg ? u.profileImg : logo}
                   className="profile"
                 />
-                {u.MasterBadge ? (
+                {u.masterBadge ? (
                   <div className="badgeImg">
                     <Image
                       width="20px"
                       height="20px"
                       margin="0px"
-                      src={u.MasterBadge.imageUrl}
+                      src={u.masterBadge}
                     />
                   </div>
                 ) : (
@@ -79,9 +79,10 @@ const Container = styled.div`
   padding: 0px 5px;
   .imageBox {
     position: relative;
+    margin-right: 10px;
   }
   .profile {
-    margin-right: 7px;
+    margin-right: 10px;
   }
   .userNick {
     font-weight: 500;
@@ -90,7 +91,7 @@ const Container = styled.div`
   }
   .statusMsg {
     font-size: 14px;
-    width: 75%;
+    width: 100%;
     white-space: nowrap;
     display: block;
     overflow: hidden;
@@ -111,10 +112,11 @@ const Container = styled.div`
   @media screen and (max-width: 767px) and (orientation: portrait) {
     padding: 0px;
     .userNick {
-      font-size: 15px;
+      font-size: 13px;
     }
     .statusMsg {
       font-size: 11px;
+      width: 65%;
     }
   }
 `;

@@ -178,7 +178,7 @@ const Detail = (props) => {
           date,
           profileImg: user.profileImg,
           statusMsg: user.statusMsg,
-          MasterBadge: user.MasterBadge.imageUrl,
+          masterBadge: user.MasterBadge.imageUrl,
         };
 
         socketRef.current.emit("join room", data, roomFull);
