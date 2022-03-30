@@ -105,7 +105,8 @@ const categoryRoomDB = (categoryId, pageNum) => {
   return function (dispatch, getState, { history }) {
     axios
       .get(
-        `/api/rooms/category/${categoryId}&p=${pageNum}`
+        //쿼리문 처음 쓸때 ?사용 이후 쿼리문이 더 들어가면 & 로 추가한다.
+        `/api/rooms/category/${categoryId}?p=${pageNum}`
       )
       .then((res) => {
         dispatch(getRoom(res.data.data));

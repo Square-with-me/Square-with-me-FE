@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { history } from '../../redux/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,11 +14,12 @@ import {ReactComponent as Signup} from '../../assets/inRoom/userListIcon.svg'
 //redux
 import { actionCreators as userActions } from '../../redux/modules/user';
 
-const Sidebar = (props) => {
-  const { open, close, setIsM, setIsSignup } = props;
+const MSidebar = (props) => {
+  const { open, close, header, setIsM, setIsSignup} = props;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
+
   if (open) {
     return (
       <React.Fragment>
@@ -64,7 +65,7 @@ const Sidebar = (props) => {
           <div
             style={{ display: 'flex', padding: '8px', alignItems: 'center' }}>
             {user.origin ? (
-              <div style={{display:"flex",alignItems:"center"}}>
+              <div  style={{display:"flex",alignItems:"center"}}>
                 <ExitIcon
                   fill="#000000"
                   width="32px"
@@ -91,7 +92,6 @@ const Sidebar = (props) => {
               <Text
               onClick={()=>{
                 setIsSignup(true)
-                close();
               }}>회원가입</Text>
               </div>
             )}
@@ -124,16 +124,10 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
-  right: -2.4%;
-  top:3%;
+  top: -25px;
+  right: -26px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
-  @media screen and (max-width:550px){
-    right: -7px;
-    top:25px;
-    width: 150px;
-    padding: 10px;
-  }
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -159,17 +153,17 @@ const SidebarHeader = styled.header`
   display: flex;
   justify-content: right;
   padding: 10px;
+  font-weight: 700;
   background-color: #f7f7f7;
 `;
 
 const Text = styled.div`
   font-size: 18px;
-  color: #33344B;
+  color: #000000;
   cursor: pointer;
-  font-weight: 550;
-  @media screen and (max-width:550px){
-    font-size: 13px;
+  @media screen and (max-width:767px){ 
+    font-size: 15px;
   }
 `;
 
-export default Sidebar;
+export default MSidebar;

@@ -37,7 +37,7 @@ const SignupModal = ({  setIsSignup }) => {
         setIsSignup(false)
       }}
     />
-    <LoginWrap>
+    <SignUpWrap>
       <Headers
       onClick={() => {
         setIsSignup(false)
@@ -95,9 +95,9 @@ const SignupModal = ({  setIsSignup }) => {
                 value={pwd_check}
                 />
               </div>
-        <LoginButton onClick={Signup}>회원가입</LoginButton>
+        <SignUpButton onClick={Signup}>회원가입</SignUpButton>
       </Contents>
-    </LoginWrap>
+    </SignUpWrap>
   </>
   );
 };
@@ -113,7 +113,7 @@ const ModalBackground = styled.div`
   backdrop-filter: blur(3px);
 `
 //모달창 전체
-const LoginWrap = styled.div`
+const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -167,7 +167,7 @@ border-radius: 4px;
     }
   }
 `
-const LoginButton = styled.button`
+const SignUpButton = styled.button`
 display: block;
 background-color: #7179F0;
 margin: 24px auto;

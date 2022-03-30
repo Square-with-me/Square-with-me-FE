@@ -44,7 +44,7 @@ const MenuBar = (props) => {
               } else props.setChoiceCate(0);
             }}
           >
-            <RoomText>ALL</RoomText>
+            모든 방
           </AllBtn>
         ) : (
           <AllBtn
@@ -54,11 +54,9 @@ const MenuBar = (props) => {
                 getAllRoomFunc();
               } else props.setChoiceCate(0);
             }}
-            style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
+            style={{ background: '#7179F0', border: 'none', fontWeight: '700', color:"#fff" }}
           >
-            <RoomText style={{ color: '#FAFAFF', fontWeight: '700' }}>
-              ALL
-            </RoomText>
+              모든 방
           </AllBtn>
         )}
 
@@ -69,11 +67,9 @@ const MenuBar = (props) => {
               props.setCategory('카테고리');
               getAllRoomFunc();
             }}
-            style={{ background: '#7179F0', border: 'none', fontWeight: '700' }}
+            style={{ background: '#7179F0', border: 'none', fontWeight: '700', color:"#fff" }}
           >
-            <RoomText style={{ color: '#FAFAFF', fontWeight: '700' }}>
               참여 가능
-            </RoomText>
           </PossibleBtn>
         ) : (
           <PossibleBtn
@@ -89,7 +85,7 @@ const MenuBar = (props) => {
               // dispatch(roomActions.PossibleRoomDB());
             }}
           >
-            <RoomText>참여 가능</RoomText>
+            참여 가능
           </PossibleBtn>
         )}
 
@@ -98,9 +94,9 @@ const MenuBar = (props) => {
             <DropWrap>
               <DropBtn onClick={() => setIsActive(!isActive)}>
                 {props.category === '' ? (
-                  <CategoryDText>카테고리</CategoryDText>
+                  <p>카테고리</p>
                 ) : (
-                  <CategoryDText>{props.category}</CategoryDText>
+                  <p>{props.category}</p>
                 )}
                 <div>
                   <svg
@@ -257,16 +253,19 @@ const Menu = styled.div`
 `;
 
 const AllBtn = styled.button`
-  width: 56px;
+  width: 70px;
   height: 43px;
-  border: 1px solid #8a8ba3;
+  border: 1px solid #ceced9;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
   font-weight: 500;
   font-size: 16px;
+  transition: all 0.2s;
+  color: #8a8ba3;
   :hover {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    background-color: #bcc0ff;
+    color: #fff;
   }
   @media screen and (max-width: 550px) {
     font-size: 13px;
@@ -278,14 +277,18 @@ const AllBtn = styled.button`
 const PossibleBtn = styled.button`
   width: 90px;
   height: 43px;
-  border: 1px solid #8a8ba3;
+  border: 1px solid #ceced9;
   border-radius: 4px;
   margin-right: 16px;
   background-color: #ffffff;
   font-weight: 700;
   font-size: 16px;
+  color: #8a8ba3;
+  transition: all 0.3s;
   :hover {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    background-color: #bcc0ff;
+    font-style: #ffffff;
+    color: #ffffff;
   }
   @media screen and (max-width: 550px) {
     font-size: 13px;
@@ -295,19 +298,6 @@ const PossibleBtn = styled.button`
 
 const Category = styled.div`
   display: flex;
-  select {
-    width: 148px;
-    height: 40px;
-    border: none;
-    border-radius: 4px;
-    & :focus {
-      border: 1px none;
-    }
-  }
-  select > option {
-    width: 100%;
-    background-color: blue;
-  }
   @media screen and (max-width: 550px) {
     font-size: 13px;
     width: 90px;
@@ -322,13 +312,17 @@ const DropBtn = styled.button`
   background-color: #ffffff;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid #8a8ba3;
   padding: 15px;
-  border: none;
+  border: 1px solid #ceced9;
   width: 200px;
   height: 43px;
+  transition: all 0.5s;
+
   &:hover {
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    background-color: #bcc0ff;
+    p{
+      color: #fff;
+    }
   }
   @media screen and (max-width: 550px) {
     font-size: 13px;
@@ -336,25 +330,27 @@ const DropBtn = styled.button`
     width: 100px;
     border: 1px solid #8a8ba3;
   }
-`;
-
-const CategoryDText = styled.div`
-  font-size: 16px;
-  font-weight: 700;
-  color: #8a8ba3;
-  @media screen and (max-width: 550px) {
-    font-size: 13px;
+  p{
+    font-size: 16px;
+    font-weight: 700;
+    color: #8a8ba3;
+ 
+    @media screen and (max-width: 550px) {
+      font-size: 13px;
+    }
   }
 `;
+
 
 const DropWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #8a8ba3;
+  border: none;
   border-radius: 4px;
   width: 140px;
+  color: #FAFAFF;
   @media screen and (max-width: 550px) {
     width: fit-content;
     border: none;
@@ -390,11 +386,6 @@ const Line = styled.hr`
   width: 88%;
   margin: auto;
   border: 0.5px solid #e4e2eb;
-`;
-
-const RoomText = styled.div`
-  size: 2rem;
-  color: #8a8ba3;
 `;
 
 export default MenuBar;

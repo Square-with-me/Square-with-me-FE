@@ -3,11 +3,12 @@ import { useHistory } from "react-router-dom";
 
 import { Image } from "../elements/Index";
 import styled from "styled-components";
+import back2 from "../assets/005.png"
 
 import TodayTime from "../components/Mypage/TodayTime";
 import WeekTime from "../components/Mypage/WeekTime";
 import MonthTime from "../components/Mypage/MonthTime";
-import Header from "../components/Header/Header";
+import Header from "../components/Header/MHeader";
 import Logo from "../components/Main/Logo";
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -207,7 +208,7 @@ const Mypage = (props) => {
           </div>
         </div>
         <div id="start">
-          <p className="label">MY PAGE</p>
+          <p className="label">마이 페이지</p>
           <div id="startBox" className="boxStyle">
             <ProfileContainer>
               <div className="imageBox">
@@ -414,6 +415,9 @@ const Root = styled.div`
   align-items: center;
   background-color: #f7f7f7;
   box-sizing: border-box;
+  background-size: cover;
+  background-image: url('${(props) => props.src}');
+  z-index: -100;
 `;
 
 const Container = styled.div`
