@@ -9,6 +9,7 @@ import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
 import Kakao from "../components/Header/Kakao";
 import Landing from "../pages/Landing";
+import Admin from "../pages/Admin"
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/room/:id" exact component={Detail} />
         <Route path="/api/auth/kakao/callback" exact component={Kakao} />
         <Route path="/mypage/:id" exact component={MyPage} />
+        <Route path="/nemo/with/me/admin" exact component={Admin} />
       </ConnectedRouter>
     </React.Fragment>
   );

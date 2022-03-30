@@ -115,6 +115,7 @@ const enteringRoomDB = (roomId, userId) => {
         }
       )
       .then((res) => {
+        console.log(res)
         dispatch(enterRoom(res.data.data));
         localStorage.setItem("myRoom", JSON.stringify(res.data.data));
         history.replace(`/room/${roomId}`);

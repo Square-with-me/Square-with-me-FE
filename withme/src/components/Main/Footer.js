@@ -47,6 +47,9 @@ const A = styled.a`
   @media screen and (max-width: 660px) {
     font-size: 10px;
   }
+  @media screen and (max-width: 490px) {
+    font-size: 4px;
+  }
 `;
 
 const Wrap = styled.div`
@@ -72,7 +75,7 @@ const Wrap = styled.div`
       margin: auto;
     }
   }
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 490px) {
     .div {
       padding: 20px 0px;
       .logo {
