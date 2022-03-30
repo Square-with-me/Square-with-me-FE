@@ -1,133 +1,138 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 //icon
-import { ReactComponent as LockIcon } from '../../assets/main/lockIcon.svg';
-import { ReactComponent as UserNickIcon } from '../../assets/main/userNickIcon.svg';
+import { ReactComponent as LockIcon } from "../../assets/main/lockIcon.svg";
+import { ReactComponent as UserNickIcon } from "../../assets/main/userNickIcon.svg";
 
 const RoomCard = (props) => {
   const category = props.category.name;
   return (
     <div>
-        <Container>
-          <div className='roomcardcontainer'>
-            <div className='flexTop'>
-              <div>
-                {props.isSecret === true ? (
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {category === '뷰티' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#FCEDB7',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '운동' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#FFC9C9',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '스터디' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#B9E8B5',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '상담' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#FFD9B6',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '문화' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#B5E3F8',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '기타' ? (
-                      <CategoryText
-                        style={{
-                          backgroundColor: '#B7CEFC',
-                          marginRight: '8px',
-                        }}
-                      >
-                        {props.category.name}
-                      </CategoryText>
-                    ) : null}
-                    <div>
-                      <LockIcon width="20" fill="#000" />
-                    </div>
-                  </div>
-                ) : (
+      <Container>
+        <div className="roomcardcontainer">
+          <div className="flexTop">
+            <div>
+              {props.isSecret === true ? (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {category === "뷰티" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#FCEDB7",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "운동" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#FFC9C9",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "스터디" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#B9E8B5",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "상담" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#FFD9B6",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "문화" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#B5E3F8",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "기타" ? (
+                    <CategoryText
+                      style={{
+                        backgroundColor: "#B7CEFC",
+                        marginRight: "8px",
+                      }}
+                    >
+                      {props.category.name}
+                    </CategoryText>
+                  ) : null}
                   <div>
-                    {category === '뷰티' ? (
-                      <CategoryText style={{ backgroundColor: '#FCEDB7' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '운동' ? (
-                      <CategoryText style={{ backgroundColor: '#FFC9C9' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '스터디' ? (
-                      <CategoryText style={{ backgroundColor: '#B9E8B5' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '상담' ? (
-                      <CategoryText style={{ backgroundColor: '#FFD9B6' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '문화' ? (
-                      <CategoryText style={{ backgroundColor: '#B5E3F8' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : category === '기타' ? (
-                      <CategoryText style={{ backgroundColor: '#B7CEFC' }}>
-                        {props.category.name}
-                      </CategoryText>
-                    ) : null}
+                    <LockIcon width="20" fill="#000" />
                   </div>
-                )}
-              </div>
-              <div className="icons">
-              <div style={{ display: 'flex', alignItems: 'center', marginTop:"8px" }}>
+                </div>
+              ) : (
+                <div>
+                  {category === "뷰티" ? (
+                    <CategoryText style={{ backgroundColor: "#FCEDB7" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "운동" ? (
+                    <CategoryText style={{ backgroundColor: "#FFC9C9" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "스터디" ? (
+                    <CategoryText style={{ backgroundColor: "#B9E8B5" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "상담" ? (
+                    <CategoryText style={{ backgroundColor: "#FFD9B6" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "문화" ? (
+                    <CategoryText style={{ backgroundColor: "#B5E3F8" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : category === "기타" ? (
+                    <CategoryText style={{ backgroundColor: "#B7CEFC" }}>
+                      {props.category.name}
+                    </CategoryText>
+                  ) : null}
+                </div>
+              )}
+            </div>
+            <div className="icons">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: "8px",
+                }}
+              >
                 <UserNickIcon
                   width="19"
                   fill="#8A8BA3"
-                  style={{ marginRight: '4px' }}
+                  style={{ marginRight: "4px" }}
                 />
                 <div>{props.participantCnt}/4</div>
               </div>
             </div>
-
-            </div>
-            <TitleText className="title">{props.title}</TitleText>
-            <div className="tag">
-              {props.Tags.map((r) => {
-                return (
-                  <span key={r.id}>
-                    <TagText># {r.name}</TagText>
-                  </span>
-                );
-              })}
-            </div>
           </div>
-        </Container>
+          <TitleText className="title">{props.title}</TitleText>
+          <div className="tag">
+            {props.Tags.map((r) => {
+              return (
+                <span key={r.id}>
+                  <TagText># {r.name}</TagText>
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      </Container>
     </div>
   );
 };
@@ -137,23 +142,23 @@ const Container = styled.div`
   border: none;
   padding: 18px;
   border-radius: 4px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   box-shadow: -6px -6px 8px #ffffff, 6px 6px 8px rgba(0, 0, 0, 0.15);
-  .roomcardcontainer{
+  .roomcardcontainer {
     display: flex;
     flex-direction: column;
 
     .flexTop {
       display: flex;
-      justify-content:space-between;
+      justify-content: space-between;
       margin-bottom: 10px;
     }
 
     .tag {
-    grid-column: 1/ 4;
-    white-space: normal;
-    margin-top: 5px;
-  }
+      grid-column: 1/ 4;
+      white-space: normal;
+      margin-top: 5px;
+    }
   }
 `;
 

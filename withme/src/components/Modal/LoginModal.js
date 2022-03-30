@@ -116,13 +116,24 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
               카카오 로그인
             </KaKaoLoginBtn>
             <NaverLoginBtn>
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z" fill="none"/>
-              <path d="M14.0898 15.94V21.52H10.0098V10.48H14.0898L17.9698 16V10.48H21.9898V21.52H17.9098L14.0898 15.94Z" fill="white"/>
-            </svg>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M27.9498 4.05005H4.0498V27.9501H27.9498V4.05005Z"
+                  fill="none"
+                />
+                <path
+                  d="M14.0898 15.94V21.52H10.0098V10.48H14.0898L17.9698 16V10.48H21.9898V21.52H17.9098L14.0898 15.94Z"
+                  fill="white"
+                />
+              </svg>
               네이버로 로그인
             </NaverLoginBtn>
-
           </LoginButtonWrap>
           <SignupWrap>
             <div>
@@ -271,7 +282,7 @@ const NaverLoginBtn = styled.button`
   border: none;
   padding: 9px 15px;
   color: #fff;
-  background-color: #03C75A;
+  background-color: #03c75a;
   margin: 0px 8px 0px 8px;
   font-size: 16px;
   display: flex;
@@ -282,7 +293,7 @@ const NaverLoginBtn = styled.button`
     width: 130px;
     font-size: 12px;
   }
-`
+`;
 
 const LineWrap = styled.div`
   display: flex;

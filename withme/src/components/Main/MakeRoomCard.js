@@ -10,7 +10,7 @@ const MakeRoomCard = (props) => {
   const user = useSelector((state) => state.user.user);
   return (
     <>
-    {/*로그인 여부 확인*/}
+      {/*로그인 여부 확인*/}
       {user.origin ? (
         <RoomCardContainer
           onClick={() => {

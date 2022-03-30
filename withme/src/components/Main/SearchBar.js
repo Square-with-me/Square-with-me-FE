@@ -1,16 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
 //icons
-import { ReactComponent as Search } from '../../assets/main/searchIcon.svg';
-import { actionCreators as roomActions } from '../../redux/modules/room';
-
+import { ReactComponent as Search } from "../../assets/main/searchIcon.svg";
+import { actionCreators as roomActions } from "../../redux/modules/room";
 
 const SearchBar = (props) => {
   const dispatch = useDispatch();
 
   function onKeyPress(e) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       dispatch(roomActions.emptyRoom());
       dispatch(roomActions.searchRoomDB(props.search, 1));
       props.setIsSearch(true);
@@ -29,12 +28,12 @@ const SearchBar = (props) => {
         <Search
           className="search"
           style={{
-            cursor: 'pointer',
-            width: '30px',
-            height: '30px',
-            margin: 'auto 10px',
-            position: 'absolute',
-            fill: '#33344B',
+            cursor: "pointer",
+            width: "30px",
+            height: "30px",
+            margin: "auto 10px",
+            position: "absolute",
+            fill: "#33344B",
           }}
           onClick={() => {
             dispatch(roomActions.emptyRoom());
@@ -57,10 +56,10 @@ const SearchBarWrap = styled.div`
   position: relative;
   align-items: center;
   margin: 0px auto 19px auto;
-  @media screen and (min-width:550px) and (max-width:812px){ 
+  @media screen and (min-width: 550px) and (max-width: 812px) {
     margin: 0px;
   }
-  @media screen and (max-width:550px){ 
+  @media screen and (max-width: 550px) {
     margin: 0px;
   }
 `;

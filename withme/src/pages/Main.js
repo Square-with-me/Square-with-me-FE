@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import '../styles/Drop.css';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import "../styles/Drop.css";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 //pages/components
-import Banner from '../components/Main/Banner';
-import RoomCard from '../components/Main/RoomCard';
-import FooterTest from '../components/Main/Footer';
-import Header from '../components/Header/Header';
-import Logo from '../components/Main/Logo';
-import MenuBar from '../components/Main/MenuBar';
-import SecretRoomModal from '../components/Modal/SecretRoomModal';
-import SearchBar from '../components/Main/SearchBar';
-import MakeRoomCard from '../components/Main/MakeRoomCard';
+import Banner from "../components/Main/Banner";
+import RoomCard from "../components/Main/RoomCard";
+import FooterTest from "../components/Main/Footer";
+import Header from "../components/Header/Header";
+import Logo from "../components/Main/Logo";
+import MenuBar from "../components/Main/MenuBar";
+import SecretRoomModal from "../components/Modal/SecretRoomModal";
+import SearchBar from "../components/Main/SearchBar";
+import MakeRoomCard from "../components/Main/MakeRoomCard";
 
 //redux
-import { actionCreators as roomActions } from '../redux/modules/room';
+import { actionCreators as roomActions } from "../redux/modules/room";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Main = () => {
 
   const [MRooms, setMRooms] = useState(false);
   //검색
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   //참여가능한 방
   const [possible, setPossible] = useState(false);
   //비밀 방
@@ -35,7 +35,7 @@ const Main = () => {
   const [hotSecret, setHotSecret] = useState(false);
   const userId = useSelector((store) => store.user.user.id);
   //room
-  const [category, setCategory] = useState('카테고리');
+  const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
 
   // 페이지 나누기
@@ -50,7 +50,7 @@ const Main = () => {
       dispatch(roomActions.getRoomDB(1));
       setPageNum(2);
       setIsSearch(false);
-      setCategory('카테고리');
+      setCategory("카테고리");
     } else {
       // 카테고리별 방 불러오기
       dispatch(roomActions.emptyRoom());
@@ -93,8 +93,8 @@ const Main = () => {
           <Header />
         </div>
 
-        <div className="logo" onClick={() => history.replace('/main')}>
-          <Logo style={{ margin: 'auto' }} />
+        <div className="logo" onClick={() => history.replace("/main")}>
+          <Logo style={{ margin: "auto" }} />
         </div>
         <div className="searchbar">
           <SearchBar
@@ -151,7 +151,7 @@ const Main = () => {
                   </div>
                 );
               })
-            : ''}
+            : ""}
           {secret === true ? (
             <SecretRoomModal setSecret={setSecret} data={secretRoom} />
           ) : null}
@@ -173,11 +173,11 @@ const Back = styled.div`
   min-height: 100vh;
   max-width: 100vw;
   min-width: 390px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   background-size: initial;
   background-size: 100vw;
   background-repeat: repeat-y;
-  background-image: url('${(props) => props.src}');
+  background-image: url("${(props) => props.src}");
   z-index: -100;
   /* background: linear-gradient(to top, black 51%, #fff 30%); */
 `;

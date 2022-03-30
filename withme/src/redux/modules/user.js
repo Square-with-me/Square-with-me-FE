@@ -1,31 +1,31 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axios from 'axios';
-import { apis } from '../../shared/api';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axios from "axios";
+import { apis } from "../../shared/api";
 
 //로그인 체크
-const SET_USER = 'SET_USER';
+const SET_USER = "SET_USER";
 
 //login
-const LOG_OUT = 'LOG_OUT';
-const USER_INFO = 'USER_INFO';
-const DELETE_USER_INFO = 'DELETE_USER_INFO';
+const LOG_OUT = "LOG_OUT";
+const USER_INFO = "USER_INFO";
+const DELETE_USER_INFO = "DELETE_USER_INFO";
 //프로필 업로드
-const EDIT_PROFILE = 'EDIT_PROFILE';
+const EDIT_PROFILE = "EDIT_PROFILE";
 //닉네임 변경
-const EDIT_NICK = 'EDIT_NICK';
+const EDIT_NICK = "EDIT_NICK";
 //상태메세지 변경
-const EDIT_STATUS = 'EDIT_STATUS';
+const EDIT_STATUS = "EDIT_STATUS";
 //대표 뱃지 변경
-const EDIT_BADGE = 'EDIT_BADGE';
+const EDIT_BADGE = "EDIT_BADGE";
 //보유 뱃지 가져오기
-const GET_BADGE = 'GET_BADGE';
+const GET_BADGE = "GET_BADGE";
 //오늘 시간
-const TODAY_TIME = 'TODAY_TIME';
+const TODAY_TIME = "TODAY_TIME";
 //이번주 시간
-const WEEK_TIME = 'WEEK_TIME';
+const WEEK_TIME = "WEEK_TIME";
 //이번달 시간
-const MONTH_TIME = 'MONTH_TIME';
+const MONTH_TIME = "MONTH_TIME";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
@@ -46,12 +46,12 @@ const initialState = {
   user: {},
   is_login: false,
   userInfo: [],
-  today: '',
-  week: '',
+  today: "",
+  week: "",
   month: [],
-  badges:[],
-  MasterBadge:'',
-  myBadges:[]
+  badges: [],
+  MasterBadge: "",
+  myBadges: [],
 };
 
 //로그인 미들웨어
@@ -60,32 +60,15 @@ const logInDB = (origin, pwd) => {
     apis
       .login(origin, pwd)
       .then((res) => {
-        alert('로그인에 성공하였습니다!');
-        localStorage.setItem('login-token', res.data.data.token);
+        alert("로그인에 성공하였습니다!");
+        localStorage.setItem("login-token", res.data.data.token);
         dispatch(setUser({ origin }));
-        window.location.reload('/main');
+        window.location.reload("/main");
       })
       .catch(function (error) {
         console.log(error);
         alert(error.response.data.msg);
       });
-    // apis.post('/api/auth',{
-    //   origin:origin,
-    //   pwd:pwd
-    // }).then((res)=>{
-    //   const accessToken ="Bearer" + res.data.token
-    //   setCookie('is_login', `${accessToken}`);
-    //   window.alert(res.data.msg)
-    //   window.location.reload('/')
-    //   // const {origin, nickname} =jwt_decode(res.data.token)
-    //   dispatch(setUser({
-    //     origin:origin,
-    //     // nickname:nickname
-    //   }))
-    // })
-    // .catch((err)=>{
-    //   console.log(err)
-    // })
   };
 };
 
@@ -96,7 +79,7 @@ const signUpDB = (origin, nickname, pwd) => {
       .signup(origin, nickname, pwd)
       .then((res) => {
         window.alert(res.data.msg);
-        window.location.reload('/main');
+        window.location.reload("/main");
       })
       .catch(function (error) {
         window.alert(error.response.data.msg);
@@ -111,8 +94,8 @@ const logInCheckDB = () => {
       .loginCheck()
       .then((res) => {
         if (!res.data.isSuccess) {
-          alert('회원정보가 올바르지 않습니다.');
-          history.replace('/main');
+          alert("회원정보가 올바르지 않습니다.");
+          history.replace("/main");
           return;
         }
         const user = res.data.data.user;
@@ -124,17 +107,9 @@ const logInCheckDB = () => {
       })
       .catch((err) => {
         console.log(err.response);
-        alert('로그인 후 이용 가능 합니다');
-        history.replace('/main');
+        alert("로그인 후 이용 가능 합니다");
+        history.replace("/main");
       });
-    // api_token.get(`/api/user/me`)
-    // .then((res)=>{
-    //   const user = res.data.data.user;
-    //   dispatch(setUser({...user}))
-    // })
-    // .catch((err)=>{
-    //   console.log(err)
-    // })
   };
 };
 
@@ -155,7 +130,7 @@ const getImageUrlDB = (userId, file) => {
 
 // 프로필 사진 수정하기
 const editProfileDB = (userId, profileUrl) => {
-  console.log('fgasgfsadf', userId, profileUrl);
+  console.log("fgasgfsadf", userId, profileUrl);
   return function (dispatch, getState, { history }) {
     axios
       .patch(
@@ -163,7 +138,7 @@ const editProfileDB = (userId, profileUrl) => {
         { profileImg: profileUrl },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
           },
         }
       )
@@ -185,7 +160,7 @@ const editNickDB = (userId, nickname) => {
         { nickname },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
           },
         }
       )
@@ -207,7 +182,7 @@ const editStatusDB = (userId, status) => {
         { statusMsg: status },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
           },
         }
       )
@@ -238,25 +213,25 @@ const editBadgeDB = (userId, badgeId) => {
 const getBadgeDB = (userId) => {
   return function (dispatch, getState, { history }) {
     apis
-    .getBadges(userId)
-    .then((res)=>{
-      console.log("뱃지 가져오기",res)
-      const badgeList = res.data.data.map((badge)=>(badge.id))
-      dispatch(getBadge(badgeList))
-      if(res.data.newBadge){
-        alert("새로운 뱃지가 열렸습니다!")
-      }
-    })
-    .catch((err)=>{
-      console.log("전체 뱃지 가져오기 에러",err)
-    })
-  }
+      .getBadges(userId)
+      .then((res) => {
+        console.log("뱃지 가져오기", res);
+        const badgeList = res.data.data.map((badge) => badge.id);
+        dispatch(getBadge(badgeList));
+        if (res.data.newBadge) {
+          alert("새로운 뱃지가 열렸습니다!");
+        }
+      })
+      .catch((err) => {
+        console.log("전체 뱃지 가져오기 에러", err);
+      });
+  };
 };
 
 // 시간 받아오기
 const timeGetDB = (userId) => {
   return function (dispatch, getState, { history }) {
-    const token = localStorage.getItem('login-token');
+    const token = localStorage.getItem("login-token");
     axios
       .get(`/api/user/${userId}/records`, {
         headers: {
@@ -264,7 +239,7 @@ const timeGetDB = (userId) => {
         },
       })
       .then(function (res) {
-        console.log('timeGet :  ', res.data.data.weekdaysRecord);
+        console.log("timeGet :  ", res.data.data.weekdaysRecord);
 
         const monthData = res.data.data.monthRecord;
         const weekData = {
@@ -279,7 +254,7 @@ const timeGetDB = (userId) => {
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
-        console.log('시간 받아오기 에러', error.response);
+        console.log("시간 받아오기 에러", error.response);
       });
   };
 };
@@ -290,16 +265,16 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        console.log('user', draft.user);
+        console.log("user", draft.user);
         draft.is_login = true;
       }),
 
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        localStorage.removeItem('login-token');
+        localStorage.removeItem("login-token");
         draft.user = null;
         draft.is_login = false;
-        window.location.reload('/main');
+        window.location.reload("/main");
       }),
 
     [USER_INFO]: (state, action) =>
@@ -333,8 +308,8 @@ export default handleActions(
       produce(state, (draft) => {
         draft.month = action.payload;
       }),
-    [GET_BADGE] :(state, action)=>
-      produce(state, (draft)=>{
+    [GET_BADGE]: (state, action) =>
+      produce(state, (draft) => {
         draft.myBadges = action.payload.badgeList;
       }),
     [EDIT_BADGE]: (state, action) =>

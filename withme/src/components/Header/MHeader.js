@@ -31,20 +31,20 @@ const MHeader = (props) => {
   return (
     <React.Fragment>
       <RightIcon>
-      <UserNickIcon
+        <UserNickIcon
           fill="#030000"
           width="32px"
           height="32px"
           className="sidebar"
-          onClick={()=>openSidebar(true)}
+          onClick={() => openSidebar(true)}
         />
       </RightIcon>
-        <MSidebar
-          open={sidebaropen}
-          close={closeSidebar}
-          setIsM={setIsM}
-          setIsSignup={setIsSignup}
-        ></MSidebar>
+      <MSidebar
+        open={sidebaropen}
+        close={closeSidebar}
+        setIsM={setIsM}
+        setIsSignup={setIsSignup}
+      ></MSidebar>
       {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
       {SignupM && <SignupModal setIsSignup={setIsSignup} />}
     </React.Fragment>

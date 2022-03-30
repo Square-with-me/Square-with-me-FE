@@ -1,33 +1,34 @@
 // chart.js
-import 'chart.js/auto';
-import { Pie } from 'react-chartjs-2';
-import { useEffect, useState } from 'react';
+import "chart.js/auto";
+import { Pie } from "react-chartjs-2";
+import { useEffect, useState } from "react";
 
 const TodayTime = () => {
   const [dayList, setDayList] = useState(null);
-  const today = new Date()
+  const today = new Date();
   const date = today.getDate();
 
   useEffect(() => {
-    const day = JSON.parse(localStorage.getItem('time'));
-    if(!day || day === undefined){
-      return
+    const day = JSON.parse(localStorage.getItem("time"));
+    if (!day || day === undefined) {
+      return;
+    } else if (day.date === date) {
+      setDayList([day[1], day[2], day[3], day[4], day[5], day[6]]);
     }
-    else if (day.date === date) {setDayList([day[1], day[2], day[3], day[4], day[5], day[6]])};
   }, []);
 
   const data = {
-    labels: ['뷰티', '운동', '스터디', '상담', '문화', '기타'],
+    labels: ["뷰티", "운동", "스터디", "상담", "문화", "기타"],
     datasets: [
       {
         data: dayList,
         backgroundColor: [
-          '#FCEDB7',
-          '#FFC9C9',
-          '#B9E8B5',
-          '#FFD9B6',
-          '#B5E3F8',
-          '#B7CEFC',
+          "#FCEDB7",
+          "#FFC9C9",
+          "#B9E8B5",
+          "#FFD9B6",
+          "#B5E3F8",
+          "#B7CEFC",
         ],
         hoverOffset: 4,
       },
@@ -42,7 +43,7 @@ const TodayTime = () => {
         callbacks: {
           label: function (context) {
             let label =
-              context.label + ': ' + Math.floor(context.formattedValue) + '분';
+              context.label + ": " + Math.floor(context.formattedValue) + "분";
             return label;
           },
         },
@@ -51,11 +52,11 @@ const TodayTime = () => {
   };
 
   const emptyData = {
-    labels: ['오늘 함께한 시간이 없어요.'],
+    labels: ["오늘 함께한 시간이 없어요."],
     datasets: [
       {
         data: [100],
-        backgroundColor: ['#808080'],
+        backgroundColor: ["#808080"],
         hoverOffset: 4,
       },
     ],

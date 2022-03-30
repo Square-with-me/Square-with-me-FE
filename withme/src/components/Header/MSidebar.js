@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { history } from '../../redux/configureStore';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { history } from "../../redux/configureStore";
+import { useDispatch, useSelector } from "react-redux";
 
 //style
-import styled from 'styled-components';
+import styled from "styled-components";
 
 //svg
-import { ReactComponent as SidebarIcon } from '../../assets/modals/sidebarIcon.svg';
-import { ReactComponent as UserNickIcon } from '../../assets/modals/userNickIcon.svg';
-import { ReactComponent as ExitIcon } from '../../assets/inRoom/exitIcon.svg';
-import {ReactComponent as Signup} from '../../assets/inRoom/userListIcon.svg'
+import { ReactComponent as SidebarIcon } from "../../assets/modals/sidebarIcon.svg";
+import { ReactComponent as UserNickIcon } from "../../assets/modals/userNickIcon.svg";
+import { ReactComponent as ExitIcon } from "../../assets/inRoom/exitIcon.svg";
+import { ReactComponent as Signup } from "../../assets/inRoom/userListIcon.svg";
 
 //redux
-import { actionCreators as userActions } from '../../redux/modules/user';
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const MSidebar = (props) => {
-  const { open, close, header, setIsM, setIsSignup} = props;
+  const { open, close, header, setIsM, setIsSignup } = props;
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user);
@@ -34,13 +34,13 @@ const MSidebar = (props) => {
             />
           </SidebarHeader>
           <div
-            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}
+            style={{ display: "flex", padding: "8px", alignItems: "center" }}
           >
             <UserNickIcon
               fill="#000000"
               width="32px"
               height="32px"
-              style={{ marginRight: '8px' }}
+              style={{ marginRight: "8px" }}
             />
             {user.origin ? (
               <Text
@@ -63,36 +63,39 @@ const MSidebar = (props) => {
             )}
           </div>
           <div
-            style={{ display: 'flex', padding: '8px', alignItems: 'center' }}>
+            style={{ display: "flex", padding: "8px", alignItems: "center" }}
+          >
             {user.origin ? (
-              <div  style={{display:"flex",alignItems:"center"}}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <ExitIcon
                   fill="#000000"
                   width="32px"
                   height="32px"
-                  style={{ marginRight: '8px' }}
+                  style={{ marginRight: "8px" }}
                 />
                 <Text
-                onClick={() => {
-                  dispatch(userActions.logOut());
-                }}
-              >
-                로그아웃
-              </Text>
+                  onClick={() => {
+                    dispatch(userActions.logOut());
+                  }}
+                >
+                  로그아웃
+                </Text>
               </div>
-
             ) : (
-              <div style={{display:"flex",alignItems:"center"}}>
-              <Signup
-                fill="#000000"
-                width="32px"
-                height="32px"
-                style={{ marginRight: '8px' }}
-              />
-              <Text
-              onClick={()=>{
-                setIsSignup(true)
-              }}>회원가입</Text>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Signup
+                  fill="#000000"
+                  width="32px"
+                  height="32px"
+                  style={{ marginRight: "8px" }}
+                />
+                <Text
+                  onClick={() => {
+                    setIsSignup(true);
+                  }}
+                >
+                  회원가입
+                </Text>
               </div>
             )}
           </div>
@@ -161,7 +164,7 @@ const Text = styled.div`
   font-size: 18px;
   color: #000000;
   cursor: pointer;
-  @media screen and (max-width:767px){ 
+  @media screen and (max-width: 767px) {
     font-size: 15px;
   }
 `;

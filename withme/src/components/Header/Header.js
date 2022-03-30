@@ -30,20 +30,20 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <RightIcon>
-      <UserNickIcon
+        <UserNickIcon
           fill="#030000"
           width="32px"
           height="32px"
           className="sidebar"
-          onClick={()=>openSidebar(true)}
+          onClick={() => openSidebar(true)}
         />
       </RightIcon>
-        <Sidebar
-          open={sidebaropen}
-          close={closeSidebar}
-          setIsM={setIsM}
-          setIsSignup={setIsSignup}
-        ></Sidebar>
+      <Sidebar
+        open={sidebaropen}
+        close={closeSidebar}
+        setIsM={setIsM}
+        setIsSignup={setIsSignup}
+      ></Sidebar>
       {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
       {SignupM && <SignupModal setIsSignup={setIsSignup} />}
     </React.Fragment>

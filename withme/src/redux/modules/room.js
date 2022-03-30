@@ -1,14 +1,14 @@
-import { createAction, handleActions } from 'redux-actions';
-import { produce } from 'immer';
-import axios from 'axios';
-import { apis } from '../../shared/api';
+import { createAction, handleActions } from "redux-actions";
+import { produce } from "immer";
+import axios from "axios";
+import { apis } from "../../shared/api";
 
-const GET_ROOM = 'GET_ROOM';
-const EMPTY_ROOM = 'EMPTY_ROOM';
-const ADD_ROOM = 'ADD_ROOM';
-const ENTER_ROOM = 'ENTER_ROOM';
-const SAVE_CHAT = 'SAVE_CHAT';
-const SET_MY_ROOM = 'SET_MY_ROOM';
+const GET_ROOM = "GET_ROOM";
+const EMPTY_ROOM = "EMPTY_ROOM";
+const ADD_ROOM = "ADD_ROOM";
+const ENTER_ROOM = "ENTER_ROOM";
+const SAVE_CHAT = "SAVE_CHAT";
+const SET_MY_ROOM = "SET_MY_ROOM";
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const emptyRoom = createAction(EMPTY_ROOM, () => ({}));
@@ -44,20 +44,20 @@ const addRoomDB = (roomInfo, category) => {
   return function (dispatch, getState, { history }) {
     axios
       .post(
-        '/api/room/new',
+        "/api/room/new",
         {
           ...roomInfo,
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
           },
         }
       )
       .then((response) => {
         dispatch(addRoom(response.data.data));
         dispatch(enterRoom(response.data.data));
-        localStorage.setItem('myRoom', JSON.stringify(response.data.data));
+        localStorage.setItem("myRoom", JSON.stringify(response.data.data));
         history.replace(`/room/${response.data.data.id}`);
       })
       .catch((err) => {
@@ -72,7 +72,7 @@ const searchRoomDB = (search, pageNum) => {
     axios
       .get(`api/rooms?q=${search}&p=${pageNum}`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+          Authorization: `Bearer ${localStorage.getItem("login-token")}`,
         },
       })
       .then((res) => {
@@ -110,13 +110,13 @@ const enteringRoomDB = (roomId, userId) => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('login-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("login-token")}`,
           },
         }
       )
       .then((res) => {
         dispatch(enterRoom(res.data.data));
-        localStorage.setItem('myRoom', JSON.stringify(res.data.data));
+        localStorage.setItem("myRoom", JSON.stringify(res.data.data));
         history.replace(`/room/${roomId}`);
       })
       .catch((err) => {

@@ -17,99 +17,97 @@ const RoomInfo = ({ room }) => {
 
   return (
     <DropWrap>
-      <div className="dropbtn" onClick={() => setIsActive(!isActive)}>방정보</div>
+      <div className="dropbtn" onClick={() => setIsActive(!isActive)}>
+        방정보
+      </div>
       <div
         ref={dropdownRef}
         className={`menu ${isActive ? "active" : "inactive"}`}
       >
-        {room.isSecret === false
-        ?
-        <div>
-        {room.category.name === "뷰티" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FCEDB7"}}
-          >
-            {room.category.name}
+        {room.isSecret === false ? (
+          <div>
+            {room.category.name === "뷰티" ? (
+              <div className="category" style={{ backgroundColor: "#FCEDB7" }}>
+                {room.category.name}
+              </div>
+            ) : room.category.name === "운동" ? (
+              <div className="category" style={{ backgroundColor: "#FFC9C9" }}>
+                {room.category.name}
+              </div>
+            ) : room.category.name === "스터디" ? (
+              <div className="category" style={{ backgroundColor: "#B9E8B5" }}>
+                {room.category.name}
+              </div>
+            ) : room.category.name === "상담" ? (
+              <div className="category" style={{ backgroundColor: "#FFD9B6" }}>
+                {room.category.name}
+              </div>
+            ) : room.category.name === "문화" ? (
+              <div className="category" style={{ backgroundColor: "#B5E3F8" }}>
+                {room.category.name}
+              </div>
+            ) : room.category.name === "기타" ? (
+              <div className="category" style={{ backgroundColor: "#B7CEFC" }}>
+                {room.category.name}
+              </div>
+            ) : null}
           </div>
-        ) : room.category.name === "운동" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FFC9C9"}}
-          >
-            {room.category.name}
+        ) : (
+          <div style={{ display: "flex" }}>
+            {room.category.name === "뷰티" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : room.category.name === "운동" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : room.category.name === "스터디" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : room.category.name === "상담" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#FFD9B6", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : room.category.name === "문화" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : room.category.name === "기타" ? (
+              <div
+                className="category"
+                style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
+              >
+                {room.category.name}
+              </div>
+            ) : null}
+            <LockIcon fill="#8A8BA3" width="18px" />
           </div>
-        ) : room.category.name === "스터디" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B9E8B5" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "상담" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FFD9B6"}}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "문화" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B5E3F8"}}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "기타" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B7CEFC"}}
-          >
-            {room.category.name}
-          </div>
-        ) : null}
-        </div>
-        :
-        <div style={{display:'flex'}}>
-        {room.category.name === "뷰티" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FCEDB7", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "운동" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FFC9C9", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "스터디" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B9E8B5", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "상담" ? (
-          <div className="category"
-            style={{ backgroundColor: "#FFD9B6", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "문화" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B5E3F8", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : room.category.name === "기타" ? (
-          <div className="category"
-            style={{ backgroundColor: "#B7CEFC", marginRight: "8px" }}
-          >
-            {room.category.name}
-          </div>
-        ) : null}
-        <LockIcon fill="#8A8BA3" width="18px" />
-        </div>}
+        )}
 
         <div className="title">{room.title}</div>
 
         <div>
           {room.Tags.map((tag, idx) => (
-            <div key={idx} className="tags"># {tag.name}</div>
+            <div key={idx} className="tags">
+              # {tag.name}
+            </div>
           ))}
         </div>
       </div>
@@ -125,8 +123,10 @@ const DropWrap = styled.div`
   align-items: center;
   border-radius: 4px;
   width: 177px;
+  justify-content: end;
+  margin-right: 3px;
 
-  .dropbtn{
+  .dropbtn {
     background-color: rgba(227, 229, 255, 0.7);
     align-items: center;
     padding: 10px;
@@ -141,6 +141,17 @@ const DropWrap = styled.div`
   .menu {
     width: 177px;
     padding: 23px;
+    position: absolute;
+    top: 45px;
+    &::after {
+      content: "";
+      position: absolute;
+      top: -20px;
+      margin-left: 65%;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #fff transparent;
+    }
   }
   .category {
     background-color: #ffc9c9;
@@ -166,6 +177,5 @@ const DropWrap = styled.div`
     margin: 7px 0px;
   }
 `;
-
 
 export default RoomInfo;
