@@ -33,7 +33,7 @@ const Main = () => {
   //비밀 방
   const [secret, setSecret] = useState(false);
   const [hotSecret, setHotSecret] = useState(false);
-  const userId = useSelector((store) => store.user.user.id);
+  const userId = useSelector((store) => store.user.user?.id);
   //room
   const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
@@ -62,7 +62,10 @@ const Main = () => {
 
   // 공개방 참가하기
   const goRoom = (roomId) => {
-    dispatch(roomActions.enteringRoomDB(roomId, userId));
+    if(userId) {
+      return dispatch(roomActions.enteringRoomDB(roomId, userId));
+    };
+    alert("로그인 후 이용 가능합니다.");
   };
 
   //비밀방 모달

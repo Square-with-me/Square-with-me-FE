@@ -18,18 +18,14 @@ const Parti = ({ me }) => {
             src={me.profileImg ? me.profileImg : logo}
             className="profile"
           />
-          {me.MasterBadge ? (
-            <div className="badgeImg">
+          <div className="badgeImg">
               <Image
                 width="20px"
                 height="20px"
                 margin="0px"
-                src={me.MasterBadge.imageUrl}
+                src={me.MasterBadge?me.MasterBadge.imageUrl:""}
               />
             </div>
-          ) : (
-            <div className="badgeImg"></div>
-          )}
         </div>
         <div style={{ marginLeft: "5px", width: "90%" }}>
           <div className="userNick">{me.nickname}</div>
@@ -48,18 +44,14 @@ const Parti = ({ me }) => {
                   src={u.profileImg ? u.profileImg : logo}
                   className="profile"
                 />
-                {u.masterBadge ? (
-                  <div className="badgeImg">
+                <div className="badgeImg">
                     <Image
                       width="20px"
                       height="20px"
                       margin="0px"
-                      src={u.masterBadge}
+                      src={u.masterBadge? u.masterBadge: ""}
                     />
                   </div>
-                ) : (
-                  <div className="badgeImg"></div>
-                )}
               </div>
               <div>
                 <div className="userNick">{u.nickname}</div>
@@ -91,7 +83,7 @@ const Container = styled.div`
   }
   .statusMsg {
     font-size: 14px;
-    width: 100%;
+    width: 65%;
     white-space: nowrap;
     display: block;
     overflow: hidden;

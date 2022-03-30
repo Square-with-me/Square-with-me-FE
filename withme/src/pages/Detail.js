@@ -176,11 +176,10 @@ const Detail = (props) => {
           userId: user.id,
           categoryId: room.category.id,
           date,
-          profileImg: user.profileImg,
+          profileImg: user.profileImg ? user.profileImg : "",
           statusMsg: user.statusMsg,
-          masterBadge: user.MasterBadge.imageUrl,
+          masterBadge: user.MasterBadge ? user.MasterBadge.imageUrl : ""
         };
-
         socketRef.current.emit("join room", data, roomFull);
       });
   }, [params.id, room, user]);

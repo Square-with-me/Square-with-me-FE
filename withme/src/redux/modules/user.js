@@ -314,7 +314,8 @@ export default handleActions(
       }),
     [EDIT_BADGE]: (state, action) =>
       produce(state, (draft) => {
-        draft.MasterBadge = action.payload.badge;
+        draft.user.MasterBadge = action.payload.badge;
+        // draft.MasterBadge = action.payload.badge;
       }),
   },
   initialState

@@ -199,7 +199,7 @@ const Mypage = (props) => {
     <Root>
       <Container>
         <div className="header">
-          <div onClick={() => history.replace("/main")} className="logo">
+          <div onClick={() => history.replace('/main')} className="logo">
             <Logo />
           </div>
           <div className="side">
@@ -223,24 +223,13 @@ const Mypage = (props) => {
                 <div className="filebox">
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
-                {user.MasterBadge ? (
-                  <div className="badgeImg">
-                    <Image
-                      width="40px"
-                      height="40px"
-                      margin="0px"
-                      src={user.MasterBadge.imageUrl}
-                    />
-                  </div>
-                ) : (
-                  <div className="badgeImg">
-                    <Image                       
-                      width="40px"
-                      height="40px"
-                      margin="0px"
-                    src={MasterBadge} />
-                  </div>
-                )}
+                <div className="badgeImg">
+                  <Image                       
+                    width="40px"
+                    height="40px"
+                    margin="0px"
+                    src={user.MasterBadge ? user.MasterBadge.imageUrl : ""} />
+                </div>
               </div>
               <div className="textBox">
                 <div className="nameBox">
