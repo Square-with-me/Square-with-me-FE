@@ -154,7 +154,7 @@ const Detail = (props) => {
     if (!room || !user) {
       return;
     }
-    socketRef.current = io.connect(`${BackUrl}`);
+    socketRef.current = io.connect(BackUrl);
     navigator.mediaDevices
       .getUserMedia({
         video: true,

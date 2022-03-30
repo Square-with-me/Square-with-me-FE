@@ -16,7 +16,7 @@ const api = axios.create({
 
   // baseURL: 'https://api.nemowithme.com',
 
-  baseURL: `${BackUrl}`,
+  baseURL: BackUrl,
 
   headers: {
     Authorization: `Bearer ${token}`,
