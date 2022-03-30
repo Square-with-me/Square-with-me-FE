@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import '../styles/Drop.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import back5 from "../assets/003.png"
 
 //pages/components
 import Banner from '../components/Main/Banner';
@@ -12,7 +11,6 @@ import FooterTest from '../components/Main/Footer';
 import Header from '../components/Header/Header';
 import Logo from '../components/Main/Logo';
 import MenuBar from '../components/Main/MenuBar';
-import HotRoomCard from '../components/Main/HotRoomCard';
 import SecretRoomModal from '../components/Modal/SecretRoomModal';
 import SearchBar from '../components/Main/SearchBar';
 import MakeRoomCard from '../components/Main/MakeRoomCard';
@@ -69,11 +67,6 @@ const Main = () => {
 
   //비밀방 모달
   const [secretRoom, setSecretRoom] = useState({});
-
-  // 핫한 방 불러오기
-  React.useEffect(() => {
-    dispatch(roomActions.hotRoomDB());
-  }, []);
 
   const morePage = () => {
     if (isSeacrh === true) {
@@ -133,38 +126,6 @@ const Main = () => {
           <div>
             <MakeRoomCard setMRooms={setMRooms} MRooms={MRooms} />
           </div>
-
-          {hotRoom
-            ? hotRoom.map((data) => {
-                return (
-                  <div key={data.id}>
-                    {data.isSecret === true ? (
-                      <div
-                        onClick={() => {
-                          setHotSecret(true);
-                          setSecretRoom(data);
-                        }}
-                      >
-                        <HotRoomCard {...data} />
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => {
-                          goRoom(data.id);
-                        }}
-                        key={data.id}
-                      >
-                        <HotRoomCard {...data} />
-                      </div>
-                    )}
-                  </div>
-                );
-              })
-            : ''}
-          {hotSecret === true ? (
-            <SecretRoomModal setSecret={setHotSecret} data={secretRoom} />
-          ) : null}
-          {/* <Lottie ref={loadingcontainer}></Lottie> */}
           {roomList
             ? roomList.map((data) => {
                 return (

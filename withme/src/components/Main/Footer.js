@@ -6,9 +6,7 @@ const Footer = () => {
   return (
     <Wrap>
       <div className="div">
-        <div className="logo" style={{margin:"0px"}}>
-        <Logo />
-        </div>
+        <Logo className="logo" />
         <div className='text'>
           <A className='a' href="/">네모위드미 소개 &nbsp; | &nbsp; </A>
           <A className='a' href="https://github.com/Square-with-me"  target="_blank">
@@ -44,6 +42,9 @@ const Wrap = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .logo{
+    margin: 0px;
+  }
   }
   @media screen and (max-width: 875px) {
     .logo{
@@ -53,9 +54,12 @@ const Wrap = styled.div`
       margin: auto;
     }
   }
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 450px) {  
     .div{
       padding:20px 0px;
+      .logo{
+      display: none;
+    }
     }
   }
 `;

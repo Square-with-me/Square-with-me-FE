@@ -226,7 +226,6 @@ const MenuBar = (props) => {
           fill: '#8A8BA3',
         }}
         onClick={() => {
-          dispatch(roomActions.hotRoomDB());
           props.setPossible(false);
           if (props.category !== '카테고리') {
             props.setChoiceCate(0);
@@ -269,7 +268,7 @@ const AllBtn = styled.button`
   }
   @media screen and (max-width: 550px) {
     font-size: 13px;
-    width: 50px;
+    width: 60px;
     height: 38px;
   }
 `;
@@ -328,7 +327,7 @@ const DropBtn = styled.button`
     font-size: 13px;
     height: 38px;
     width: 100px;
-    border: 1px solid #8a8ba3;
+    border: 1px solid #ceced9;
   }
   p{
     font-size: 16px;

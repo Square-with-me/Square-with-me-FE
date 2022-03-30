@@ -6,7 +6,6 @@ import { apis } from '../../shared/api';
 const GET_ROOM = 'GET_ROOM';
 const EMPTY_ROOM = 'EMPTY_ROOM';
 const ADD_ROOM = 'ADD_ROOM';
-const HOT_ROOM = 'HOT_ROOM';
 const ENTER_ROOM = 'ENTER_ROOM';
 const SAVE_CHAT = 'SAVE_CHAT';
 const SET_MY_ROOM = 'SET_MY_ROOM';
@@ -14,7 +13,6 @@ const SET_MY_ROOM = 'SET_MY_ROOM';
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const emptyRoom = createAction(EMPTY_ROOM, () => ({}));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
-const hotRoom = createAction(HOT_ROOM, (roomList) => ({ roomList }));
 const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
 const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
 const setMyRoom = createAction(SET_MY_ROOM, (roomInfo) => ({ roomInfo }));
@@ -64,20 +62,6 @@ const addRoomDB = (roomInfo, category) => {
       })
       .catch((err) => {
         alert(err.response.data.msg);
-      });
-  };
-};
-
-//인기 방 불러오기
-const hotRoomDB = () => {
-  return function (dispatch, getState, { history }) {
-    axios
-      .get('/api/rooms?q=hot', {})
-      .then((res) => {
-        dispatch(hotRoom(res.data.data));
-      })
-      .catch((err) => {
-        console.log(err);
       });
   };
 };
@@ -189,10 +173,6 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myRoom = action.payload.roomInfo;
       }),
-    [HOT_ROOM]: (state, action) =>
-      produce(state, (draft) => {
-        draft.hotList = action.payload.roomList;
-      }),
     [SAVE_CHAT]: (state, action) =>
       produce(state, (draft) => {
         draft.chattingList.push(action.payload);
@@ -210,7 +190,6 @@ const actionCreators = {
 
   getRoomDB,
   addRoomDB,
-  hotRoomDB,
   searchRoomDB,
   categoryRoomDB,
   possibleRoomDB,

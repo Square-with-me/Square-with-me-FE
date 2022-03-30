@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { BackUrl } from "../shared/config";
-import back2 from "../assets/005.png"
 
 //redux
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -29,67 +28,11 @@ import { ReactComponent as LoveEmoji } from "../assets/emoji/love.svg";
 import { ReactComponent as BadEmoji } from "../assets/emoji/bad.svg";
 import { ReactComponent as SadEmoji } from "../assets/emoji/sad.svg";
 
-const Video = (props) => {
-  const ref = useRef();
-
-  useEffect(() => {
-    function onStream(stream) {
-      ref.current.srcObject = stream;
-    }
-    props.peer.on("stream", onStream);
-    return () => {
-      props.peer.off("stream", onStream);
-    };
-  }, [props.peer]);
-
-  return <StyledVideo playsInline autoPlay ref={ref} />;
-};
-
-const Message = (props) => {
-  const {
-    data: {
-      chattingList: { sender, message, time = '오후 6:04' },
-    },
-  } = props;
-
-  return (
-    <MessageBox>
-      <div id="userInfo">
-        <p id="userName">{sender}님이</p>
-        <p id="toText">모두에게</p>
-        <p>{time}</p>
-      </div>
-      <p id="message">{message}</p>
-    </MessageBox>
-  );
-};
-// 내가 보냈을 때
-const MyMessage = (props) => {
-  const {
-    data: {
-      chattingList: { sender, message, time = '오후 6:04' },
-    },
-  } = props;
-
-  return (
-    <MyMessageBox>
-      <div id="userInfo">
-        <p id="userName">{sender}님이</p>
-        <p id="toText">모두에게</p>
-        <p>{time}</p>
-      </div>
-      <p id="message">{message}</p>
-    </MyMessageBox>
-  );
-};
-
 const Detail = (props) => {
   const user = useSelector((store) => store.user.user);
   const room = useSelector((store) => store.room.myRoom);
 
   const dispatch = useDispatch();
-  // const [mic, setMic] = useState("ok");
-  // const [camera, setCamera] = useState("ok");
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
 
   const [isSW, setIsSW] = useState(false); // 스톱워치 박스
@@ -1152,6 +1095,62 @@ const Detail = (props) => {
     </Back>
   );
 };
+
+
+const Video = (props) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    function onStream(stream) {
+      ref.current.srcObject = stream;
+    }
+    props.peer.on("stream", onStream);
+    return () => {
+      props.peer.off("stream", onStream);
+    };
+  }, [props.peer]);
+
+  return <StyledVideo playsInline autoPlay ref={ref} />;
+};
+
+const Message = (props) => {
+  const {
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
+  } = props;
+
+  return (
+    <MessageBox>
+      <div id="userInfo">
+        <p id="userName">{sender}님이</p>
+        <p id="toText">모두에게</p>
+        <p>{time}</p>
+      </div>
+      <p id="message">{message}</p>
+    </MessageBox>
+  );
+};
+// 내가 보냈을 때
+const MyMessage = (props) => {
+  const {
+    data: {
+      chattingList: { sender, message, time = '오후 6:04' },
+    },
+  } = props;
+
+  return (
+    <MyMessageBox>
+      <div id="userInfo">
+        <p id="userName">{sender}님이</p>
+        <p id="toText">모두에게</p>
+        <p>{time}</p>
+      </div>
+      <p id="message">{message}</p>
+    </MyMessageBox>
+  );
+};
+
 const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
