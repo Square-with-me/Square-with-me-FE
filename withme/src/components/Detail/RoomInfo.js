@@ -112,8 +112,6 @@ const RoomInfo = ({ room }) => {
             <div key={idx} className="tags"># {tag.name}</div>
           ))}
         </div>
-
-        <button className="btn">방 링크 복사</button>
       </div>
     </DropWrap>
   );
@@ -129,7 +127,7 @@ const DropWrap = styled.div`
   width: 177px;
 
   .dropbtn{
-    background-color: #fafaff;
+    background-color: rgba(227, 229, 255, 0.7);
     align-items: center;
     padding: 10px;
     border: none;
@@ -166,14 +164,6 @@ const DropWrap = styled.div`
   .tags {
     font-size: 14px;
     margin: 7px 0px;
-  }
-  .btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    background-color: #e3e5ff;
-    margin-top: 17px;
-    font-weight: 600;
   }
 `;
 

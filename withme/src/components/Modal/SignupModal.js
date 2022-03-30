@@ -161,6 +161,11 @@ height: 48px;
 margin-bottom: 16px;
 padding: 12px 12px 12px 50px;
 border-radius: 4px;
+&:focus {
+    border: none;
+    outline: 1px solid #7179f0;
+    box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
+  }
 @media screen and (max-width:767px){
     ::placeholder {
       font-size: 11px;
@@ -178,6 +183,7 @@ border-radius: 4px;
 color: #FAFAFF;
 font-size: 18px;
 font-weight: 600;
+transition: all 0.2s;
 &:hover{
   background-color:#BCC0FF ;
 }
