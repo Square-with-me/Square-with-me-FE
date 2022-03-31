@@ -30,6 +30,7 @@ const Main = () => {
   let roomList = useSelector((store) => store.room.list);
   const socket = useSelector((state) => state.user.socket);
   const userId = useSelector((store) => store.user.user?.id);
+  const userMedia = useSelector((store => store.user.userMedia));
 
   const [MRooms, setMRooms] = useState(false);
   //검색
@@ -134,11 +135,21 @@ const Main = () => {
     }
     //횟수가 5가 넘으면 소켓으로 나가는거 보내고, 로컬스토리지에 있는 값을 지워랏!
     if (absenceCheckCount >= 5) {
-      console.log("main quit room", absenceCheckCount)
       socket.emit("quit room");
       localStorage.removeItem("myRoom");
     }
   }, [absenceCheckCount, socket, userId]);
+
+  useEffect(() => {
+    if(userMedia) {
+      userMedia.getVideoTracks().forEach((track) => {
+        track.stop();
+      });
+      userMedia.getAudioTracks().forEach((track) => {
+        track.stop();
+      });
+    }
+  }, [userMedia]);
 
   return (
     <Back>

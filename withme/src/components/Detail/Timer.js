@@ -48,7 +48,6 @@ class Timer extends Component {
   };
 
   componentWillMount() {
-    this.props.socket.emit("join_room", this.props.roomId);
 
     // 시작 신호 받음
     this.props.socket.on("start_receive", (data) => {
@@ -58,9 +57,9 @@ class Timer extends Component {
 
       this.receiveStartTimer();
 
-      this.hoursInput.current.value = 0;
-      this.minutesInput.current.value = 0;
-      this.secondsInput.current.value = 0;
+      // this.hoursInput.current.value = 0;
+      // this.minutesInput.current.value = 0;
+      // this.secondsInput.current.value = 0;
 
       this.isStart = true;
     });
@@ -116,7 +115,7 @@ class Timer extends Component {
     } else {
       //중지하고 싶을때 사용
       clearInterval(this.timer);
-      alert("시간 끝!");
+      // alert("시간 끝!");
       this.isStart = false;
     }
   };

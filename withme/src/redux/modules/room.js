@@ -7,14 +7,18 @@ const GET_ROOM = "GET_ROOM";
 const EMPTY_ROOM = "EMPTY_ROOM";
 const ADD_ROOM = "ADD_ROOM";
 const ENTER_ROOM = "ENTER_ROOM";
-const SAVE_CHAT = "SAVE_CHAT";
+const SAVE_MY_CHAT = "SAVE_MY_CHAT";
+const SAVE_OTHERS_CHAT = "SAVE_OTHERS_CHAT";
 const SET_MY_ROOM = "SET_MY_ROOM";
+const DELETE_CHAT ="DELETE_CHAT"
 
 const getRoom = createAction(GET_ROOM, (roomList) => ({ roomList }));
 const emptyRoom = createAction(EMPTY_ROOM, () => ({}));
 const addRoom = createAction(ADD_ROOM, (rooms) => ({ rooms }));
 const enterRoom = createAction(ENTER_ROOM, (roomInfo) => ({ roomInfo }));
-const savechat = createAction(SAVE_CHAT, (chattingList) => ({ chattingList }));
+const saveMyChat = createAction(SAVE_MY_CHAT, (chattingList) => ({ chattingList }));
+const saveOthersChat = createAction(SAVE_OTHERS_CHAT, (chattingList) => ({ chattingList }));
+const deleteChat = createAction(DELETE_CHAT, (chattingList)=>({chattingList}))
 const setMyRoom = createAction(SET_MY_ROOM, (roomInfo) => ({ roomInfo }));
 
 const initialState = {
@@ -174,7 +178,11 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myRoom = action.payload.roomInfo;
       }),
-    [SAVE_CHAT]: (state, action) =>
+    [SAVE_MY_CHAT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.chattingList.push(action.payload);
+      }),
+    [SAVE_OTHERS_CHAT]: (state, action) =>
       produce(state, (draft) => {
         draft.chattingList.push(action.payload);
       }),
@@ -182,6 +190,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.myRoom = action.payload.roomInfo;
       }),
+    [DELETE_CHAT]:(state, action)=>
+      produce(state, (draft)=>{
+        draft.chattingList = []
+      })
   },
   initialState
 );
@@ -197,8 +209,10 @@ const actionCreators = {
   enteringRoomDB,
   CheckPwdDB,
 
-  savechat,
+  saveMyChat,
+  saveOthersChat,
   setMyRoom,
+  deleteChat,
 };
 
 export { actionCreators };

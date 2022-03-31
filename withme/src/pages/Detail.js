@@ -144,7 +144,6 @@ const Detail = (props) => {
 
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
-    console.log("Detail.js:", myRoomInLS)
     if (!room && myRoomInLS) {
       dispatch(roomActions.setMyRoom(myRoomInLS));
     }
@@ -162,6 +161,7 @@ const Detail = (props) => {
       })
       .then((stream) => {
         setStream(stream);
+        dispatch(userActions.setUserMedia(stream));
         userVideo.current.srcObject = stream;
 
         const roomId = params.id;
@@ -206,10 +206,10 @@ const Detail = (props) => {
     if (stream == null) {
       return;
     }
-
+    // 유저 입장했을 때
     function onSendUsers(payload) {
       if (payload.otherUsers.length !== 0) {
-        dispatch(userActions.userInfo(payload.otherUsers));
+        dispatch(userActions.setOtherUsers(payload.otherUsers));
       }
       payload.otherSockets.map((user) => {
         const peer = createPeer(user.socketId, socket.id, stream);
@@ -236,9 +236,9 @@ const Detail = (props) => {
     if (stream == null) {
       return;
     }
-
+    // 다른 사람이 입장했을 때
     const onUserJoined = (payload) => {
-      dispatch(userActions.userInfo([payload.userInfo]));
+      dispatch(userActions.setNewRoomUser([payload.userInfo]));
       const peer = addPeer(payload.signal, payload.callerId, stream);
       const newPeer = {
         peerId: payload.callerId,
@@ -284,7 +284,7 @@ const Detail = (props) => {
 
     const onUserLeft = (payload) => {
       alert(payload.userInfo.nickname + "님이 나갔습니다."); // 참가자 나감 알림 용
-      dispatch(userActions.deleteUserInfo(payload.userInfo.id));
+      dispatch(userActions.deleteRoomUser(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId
       );
@@ -492,28 +492,31 @@ const Detail = (props) => {
   }, [socket]);
 
   // 채팅
-  const saveList = useSelector((store) => store.room.chattingList);
+  const chattingList = useSelector((store) => store.room.chattingList);
+  // const saveList = useSelector((store) => store.room.chattingList);
 
   //작성하는 채팅 내용
   const [userMessage, setUserMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
+  // const [messageList, setMessageList] = useState([]);
 
-  useEffect(() => {
-    setMessageList(saveList);
-  }, [saveList]);
+  // useEffect(() => {
+  //   setMessageList(saveList);
+  // }, [saveList]);
 
   // 채팅 받기
   useEffect(() => {
     if (!socket) {
       return;
     }
-    socket.on("receive_message", (data) => {
-      dispatch(roomActions.savechat(data));
-    });
 
-    return socket.off("receive_message", (data) => {
-      dispatch(roomActions.savechat(data));
-    });
+    const onReceiveMessage = (data) => {
+      dispatch(roomActions.saveOthersChat(data));
+    };
+    socket.on("receive_message", onReceiveMessage);
+
+    return () => {
+      socket.off("receive_message", onReceiveMessage);
+    };
   }, [socket]);
 
   // 채팅 보내기
@@ -531,7 +534,7 @@ const Detail = (props) => {
       time: timeString,
       id: user.id,
     };
-    dispatch(roomActions.savechat(data));
+    dispatch(roomActions.saveMyChat(data));
 
     socket.emit("send_message", data);
   };
@@ -547,7 +550,7 @@ const Detail = (props) => {
   // 채팅시 스크롤바 마지막으로 내리기
   useEffect(() => {
     moveScrollEnd();
-  }, [messageList]);
+  }, [chattingList]);
 
   const moveScrollEnd = () => {
     if (!document.getElementById("messageBox")) {
@@ -558,8 +561,14 @@ const Detail = (props) => {
   };
 
   const handleQuitRoom = () => {
-    console.log("emit quit room");
     socket.emit("quit room");
+    dispatch(roomActions.deleteChat());
+    userVideo.current.srcObject.getVideoTracks().forEach((track) => {
+      track.stop();
+    });
+    userVideo.current.srcObject.getAudioTracks().forEach((track) => {
+      track.stop();
+    });
     localStorage.removeItem("myRoom");
     history.replace("/main");
   };
@@ -852,7 +861,7 @@ const Detail = (props) => {
                   {ischatting ? (
                     <ChattingBox>
                       <div id="messageBox">
-                        {messageList.map((data, index) =>
+                        {chattingList.map((data, index) =>
                           data.chattingList.id === user.id ? (
                             <MyMessage key={index} data={data}></MyMessage>
                           ) : (
@@ -1604,6 +1613,9 @@ const ChattingBox = styled.div`
     justify-content: space-between;
     label {
       font-weight: 700;
+    }
+    textarea {
+      resize: none;
     }
     #lang {
       display: flex;

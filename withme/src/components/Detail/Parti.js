@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Image } from '../../elements/Index';
+import { Image } from '../../elements/Index'
 import logo from '../../assets/logo.jpeg';
 
 const Parti = ({ me }) => {
-  const userInfo = useSelector((store) => store.user.userInfo);
+  const otherUsers = useSelector((store) => store.user.otherUsers);
   return (
     <React.Fragment>
       <Container>
@@ -31,8 +31,8 @@ const Parti = ({ me }) => {
           <div className="statusMsg">{me.statusMsg}</div>
         </div>
       </Container>
-      {userInfo &&
-        userInfo.map((u, idx) => (
+      {otherUsers &&
+        otherUsers.map((u, idx) => (
           <div key={u.id}>
             <Container>
               <div className="imageBox">
@@ -52,7 +52,7 @@ const Parti = ({ me }) => {
                   />
                 </div>
               </div>
-              <div>
+              <div style={{ marginLeft: '5px', width: '70%' }}>
                 <div className="userNick">{u.nickname}</div>
                 <div className="statusMsg">{u.statusMsg}</div>
               </div>
