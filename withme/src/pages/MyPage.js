@@ -47,6 +47,13 @@ const Mypage = (props) => {
     dispatch(userActions.timeGetDB(userId));
   }, []);
 
+  useEffect(()=>{
+    if(!user.origin){
+      alert("로그인 후 이용 가능 합니다")
+      history.replace('/main')
+    }
+  },[])
+
   // 유저 닉네임 수정
   const editNickname = () => {
     const nicknameText = document.getElementById('nickname');

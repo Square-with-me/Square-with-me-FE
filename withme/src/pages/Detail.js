@@ -14,7 +14,7 @@ import Parti from "../components/Detail/Parti";
 import Logo from "../components/Main/Logo";
 import RoomInfo from "../components/Detail/RoomInfo";
 // 방 입장
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import Peer from "simple-peer";
 // icons
 import { ReactComponent as OnMic } from "../assets/inRoom/onMicIcon.svg";
@@ -31,6 +31,7 @@ import { ReactComponent as SadEmoji } from "../assets/emoji/sad.svg";
 const Detail = (props) => {
   const user = useSelector((store) => store.user.user);
   const room = useSelector((store) => store.room.myRoom);
+  const socket = useSelector((store) => store.user.socket);
 
   const dispatch = useDispatch();
   const [sideCount, setCount] = useState(0); // 오른쪽 박스에 몇개가 열려 있는지
@@ -47,7 +48,6 @@ const Detail = (props) => {
 
   // 화상 채팅
   const [peers, setPeers] = useState([]);
-  const socketRef = useRef();
   const userVideo = useRef();
   const peersRef = useRef([]);
 
@@ -144,6 +144,7 @@ const Detail = (props) => {
 
   useEffect(() => {
     const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
+    console.log("Detail.js:", myRoomInLS)
     if (!room && myRoomInLS) {
       dispatch(roomActions.setMyRoom(myRoomInLS));
     }
@@ -151,10 +152,9 @@ const Detail = (props) => {
 
   /** @memo stream 받는 effect */
   useEffect(() => {
-    if (!room || !user) {
+    if (!room || !user || !socket) {
       return;
     }
-    socketRef.current = io.connect(BackUrl);
     navigator.mediaDevices
       .getUserMedia({
         video: true,
@@ -178,15 +178,15 @@ const Detail = (props) => {
           date,
           profileImg: user.profileImg ? user.profileImg : "",
           statusMsg: user.statusMsg,
-          masterBadge: user.MasterBadge ? user.MasterBadge.imageUrl : ""
+          masterBadge: user.MasterBadge ? user.MasterBadge.imageUrl : "",
         };
-        socketRef.current.emit("join room", data, roomFull);
+        socket.emit("join room", data, roomFull);
       });
-  }, [params.id, room, user]);
+  }, [params.id, room, user, socket]);
 
   /** @memo join room 했을 때 데이터 제대로 전달 안 됐을 경우 */
   useEffect(() => {
-    if (!socketRef.current) {
+    if (!socket) {
       return;
     }
     function noData() {
@@ -194,10 +194,10 @@ const Detail = (props) => {
       history.push("/main");
     }
 
-    socketRef.current.on("no data", noData);
+    socket.on("no data", noData);
 
     return () => {
-      socketRef.current.off("no data", noData);
+      socket.off("no data", noData);
     };
   }, []);
 
@@ -212,7 +212,7 @@ const Detail = (props) => {
         dispatch(userActions.userInfo(payload.otherUsers));
       }
       payload.otherSockets.map((user) => {
-        const peer = createPeer(user.socketId, socketRef.current.id, stream);
+        const peer = createPeer(user.socketId, socket.id, stream);
 
         const peerObj = {
           peerId: user.socketId,
@@ -224,10 +224,10 @@ const Detail = (props) => {
         setPeers((prevPeers) => [...prevPeers, peerObj]);
       });
     }
-    socketRef.current.on("send users", onSendUsers);
+    socket.on("send users", onSendUsers);
 
     return () => {
-      socketRef.current.off("send users", onSendUsers);
+      socket.off("send users", onSendUsers);
     };
   }, [stream]);
 
@@ -251,10 +251,10 @@ const Detail = (props) => {
       setPeers((prevPeers) => [...prevPeers, newPeer]);
     };
 
-    socketRef.current.on("user joined", onUserJoined);
+    socket.on("user joined", onUserJoined);
 
     return () => {
-      socketRef.current.off("user joined", onUserJoined);
+      socket.off("user joined", onUserJoined);
     };
   }, [stream, peers]);
 
@@ -269,10 +269,10 @@ const Detail = (props) => {
       item.peer.signal(payload.signal);
     };
 
-    socketRef.current.on("receive returned signal", onReturnSignal);
+    socket.on("receive returned signal", onReturnSignal);
 
     return () => {
-      socketRef.current.off("receive returned signal", onReturnSignal);
+      socket.off("receive returned signal", onReturnSignal);
     };
   }, [stream]);
 
@@ -303,10 +303,10 @@ const Detail = (props) => {
       );
     };
 
-    socketRef.current.on("user left", onUserLeft);
+    socket.on("user left", onUserLeft);
 
     return () => {
-      socketRef.current.off("user left", onUserLeft);
+      socket.off("user left", onUserLeft);
     };
   }, [stream, peers]);
 
@@ -318,7 +318,7 @@ const Detail = (props) => {
     });
 
     peer.on("signal", (signal) => {
-      socketRef.current.emit("send signal", {
+      socket.emit("send signal", {
         config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
         userToSignal,
         callerId,
@@ -338,7 +338,7 @@ const Detail = (props) => {
     });
 
     peer.on("signal", (signal) => {
-      socketRef.current.emit("returning signal", { signal, callerId });
+      socket.emit("returning signal", { signal, callerId });
     });
 
     peer.signal(incomingSignal);
@@ -392,7 +392,6 @@ const Detail = (props) => {
     if (prevTime) {
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
-        console.log("디프타임>>", diffTime);
         prevTime[room.category.id] += 0.5;
         localStorage.setItem("time", JSON.stringify(prevTime));
       } else {
@@ -425,7 +424,7 @@ const Detail = (props) => {
     }
 
     setTimeout(() => {
-      socketRef.current.emit("save_time", parseInt(diffTime) + 1);
+      socket.emit("save_time", parseInt(diffTime) + 1);
     }, [1500]);
   }
 
@@ -453,10 +452,10 @@ const Detail = (props) => {
   const sendEmoji = (emojiId) => {
     const data = {
       roomId: params.id,
-      id: socketRef.current.id,
+      id: socket.id,
       emoji: emojiId,
     };
-    socketRef.current.emit("send_emoji", data);
+    socket.emit("send_emoji", data);
     showEmoji(data);
   };
 
@@ -481,16 +480,16 @@ const Detail = (props) => {
   };
   // 상대방 이모티콘 받기
   useEffect(() => {
-    if (!socketRef.current) {
+    if (!socket) {
       return;
     }
-    socketRef.current.on("receive_emoji", showEmoji);
+    socket.on("receive_emoji", showEmoji);
 
     //이벤트를 해제를 해줘야 하는데 return안에서 해제를 해줘야 함
     return () => {
-      socketRef.current.off("receive_emoji", showEmoji);
+      socket.off("receive_emoji", showEmoji);
     };
-  }, []);
+  }, [socket]);
 
   // 채팅
   const saveList = useSelector((store) => store.room.chattingList);
@@ -505,17 +504,17 @@ const Detail = (props) => {
 
   // 채팅 받기
   useEffect(() => {
-    if (!socketRef.current) {
+    if (!socket) {
       return;
     }
-    socketRef.current.on("receive_message", (data) => {
+    socket.on("receive_message", (data) => {
       dispatch(roomActions.savechat(data));
     });
 
-    return socketRef.current.off("receive_message", (data) => {
+    return socket.off("receive_message", (data) => {
       dispatch(roomActions.savechat(data));
     });
-  }, []);
+  }, [socket]);
 
   // 채팅 보내기
   const sendMessage = () => {
@@ -534,7 +533,7 @@ const Detail = (props) => {
     };
     dispatch(roomActions.savechat(data));
 
-    socketRef.current.emit("send_message", data);
+    socket.emit("send_message", data);
   };
 
   // 엔터키로 채팅 보내기
@@ -558,22 +557,31 @@ const Detail = (props) => {
     scrollBox.scrollTop = scrollBox.scrollHeight;
   };
 
+  const handleQuitRoom = () => {
+    console.log("emit quit room");
+    socket.emit("quit room");
+    localStorage.removeItem("myRoom");
+    history.replace("/main");
+  };
+
   return (
     <Back>
       {room && (
         <Container>
           <div id="top">
-            <div className="logo">
-              <Logo />
+            <div className="logo" style={{ cursor: "pointer" }}>
+              <div onClick={()=>{handleQuitRoom()}}>
+                <Logo />
+              </div>
               <RoomInfo room={room} />
             </div>
           </div>
           <div id="videoBox">
-            {socketRef.current ? (
+            {socket ? (
               <div
                 className="videoContainer"
                 //본인꺼
-                id={socketRef.current.id}
+                id={socket.id}
               >
                 <StyledVideo muted ref={userVideo} autoPlay playsInline />
                 <div className="myEmoji myHappyEmoji hidden">
@@ -690,7 +698,7 @@ const Detail = (props) => {
                     </Button>
                   </div>
                   {isTimer ? (
-                    <Timer socketRef={socketRef} roomId={params.id} />
+                    <Timer socket={socket} roomId={params.id} />
                   ) : (
                     ""
                   )}
@@ -1014,29 +1022,28 @@ const Detail = (props) => {
                 style={{
                   marginLeft: "16px",
                 }}
+                onClick={()=>{handleQuitRoom()}}
               >
-                <a href="/main">
-                  <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 4L20 20"
-                      stroke="#8A8BA3"
-                      strokeWidth="2"
-                      strokeMiterlimit="10"
-                    />
-                    <path
-                      d="M20 4L4 20"
-                      stroke="#8A8BA3"
-                      strokeWidth="2"
-                      strokeMiterlimit="10"
-                    />
-                  </svg>
-                </a>
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 4L20 20"
+                    stroke="#8A8BA3"
+                    strokeWidth="2"
+                    strokeMiterlimit="10"
+                  />
+                  <path
+                    d="M20 4L4 20"
+                    stroke="#8A8BA3"
+                    strokeWidth="2"
+                    strokeMiterlimit="10"
+                  />
+                </svg>
                 <span className="tooltiptext">나가기</span>
               </div>
             </div>

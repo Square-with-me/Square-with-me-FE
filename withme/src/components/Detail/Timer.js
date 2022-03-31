@@ -33,7 +33,7 @@ class Timer extends Component {
       seconds: this.secondsInput.current.value,
     };
     //시작신호 소켓으로 보내기
-    this.props.socketRef.current.emit("start_timer", data);
+    this.props.socket.emit("start_timer", data);
     //각 인풋 값을 0으로 만들기!
     this.hoursInput.current.value = 0;
     this.minutesInput.current.value = 0;
@@ -48,10 +48,10 @@ class Timer extends Component {
   };
 
   componentWillMount() {
-    this.props.socketRef.current.emit("join_room", this.props.roomId);
+    this.props.socket.emit("join_room", this.props.roomId);
 
     // 시작 신호 받음
-    this.props.socketRef.current.on("start_receive", (data) => {
+    this.props.socket.on("start_receive", (data) => {
       this.setState({ hours: Number(data.hours) });
       this.setState({ minutes: Number(data.minutes) });
       this.setState({ seconds: Number(data.seconds) });
@@ -67,11 +67,11 @@ class Timer extends Component {
   }
 
   componentDidUpdate() {
-    this.props.socketRef.current.on("stop_receive", () => {
+    this.props.socket.on("stop_receive", () => {
       this.receiveStopTimer();
     });
 
-    this.props.socketRef.current.on("reset_receive", () => {
+    this.props.socket.on("reset_receive", () => {
       this.receiverSetTimer();
     });
   }
@@ -83,8 +83,6 @@ class Timer extends Component {
       Number(minutes),
       Number(seconds)
     );
-    console.log(c_seconds, "초");
-
     if (c_seconds) {
       // seconds change
       if (seconds === 0 || seconds === "0") {
@@ -126,7 +124,7 @@ class Timer extends Component {
   stopTimer = async () => {
     clearInterval(this.timer);
     this.isStart = false;
-    this.props.socketRef.current.emit("stop_time", this.props.roomId);
+    this.props.socket.emit("stop_time", this.props.roomId);
   };
 
   resetTimer = async () => {
@@ -140,7 +138,7 @@ class Timer extends Component {
     this.secondsInput.current.value = 0;
     this.isStart = false;
 
-    this.props.socketRef.current.emit("reset_time", this.props.roomId);
+    this.props.socket.emit("reset_time", this.props.roomId);
   };
 
   receiveStopTimer = () => {

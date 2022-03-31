@@ -58,7 +58,8 @@ const addRoomDB = (roomInfo, category) => {
         dispatch(addRoom(response.data.data));
         dispatch(enterRoom(response.data.data));
         localStorage.setItem("myRoom", JSON.stringify(response.data.data));
-        history.replace(`/room/${response.data.data.id}`);
+        console.log("room module:", JSON.parse(localStorage.getItem("myRoom")))
+        history.push(`/room/${response.data.data.id}`);
       })
       .catch((err) => {
         alert(err.response.data.msg);
@@ -115,10 +116,9 @@ const enteringRoomDB = (roomId, userId) => {
         }
       )
       .then((res) => {
-        console.log(res)
         dispatch(enterRoom(res.data.data));
         localStorage.setItem("myRoom", JSON.stringify(res.data.data));
-        history.replace(`/room/${roomId}`);
+        history.push(`/room/${roomId}`);
       })
       .catch((err) => {
         alert(err.response.data.msg);
