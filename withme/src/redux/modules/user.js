@@ -9,7 +9,10 @@ const SET_SOCKET = "SET_SOCKET";
 //login
 const LOG_OUT = "LOG_OUT";
 const USER_INFO = "USER_INFO";
-const DELETE_USER_INFO = "DELETE_USER_INFO";
+const SET_OTHER_USERS = "SET_OTHER_USERS";  // 방 처음 들어와서, 다른 사람 목록 받았을 때
+const SET_NEW_ROOM_USER = "SET_NEW_ROOM_USER";  // 방에 있는 상태에서 새로운 사람 들어왔을 때
+
+const DELETE_ROOM_USER = "DELETE_ROOM_USER";
 //프로필 업로드
 const EDIT_PROFILE = "EDIT_PROFILE";
 //닉네임 변경
@@ -27,11 +30,14 @@ const WEEK_TIME = "WEEK_TIME";
 //이번달 시간
 const MONTH_TIME = "MONTH_TIME";
 
+// 유저미디어 저장
+const SET_USER_MEDIA = "SET_USER_MEDIA";
+
 const setSocket = createAction(SET_SOCKET, (socket) => ({ socket }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const userInfo = createAction(USER_INFO, (userInfo) => ({ userInfo }));
-const deleteUserInfo = createAction(DELETE_USER_INFO, (userid) => ({ userid }));
+const deleteRoomUser = createAction(DELETE_ROOM_USER, (userid) => ({ userid }));
 const editProfile = createAction(EDIT_PROFILE, (profileUrl) => ({
   profileUrl,
 }));
@@ -42,18 +48,23 @@ const getBadge = createAction(GET_BADGE, (badgeList) => ({ badgeList }));
 const todayTime = createAction(TODAY_TIME, () => ({}));
 const weekTime = createAction(WEEK_TIME, (weekTime) => weekTime);
 const monthTime = createAction(MONTH_TIME, (monthTime) => monthTime);
+const setOtherUsers = createAction(SET_OTHER_USERS, (users) => ({ users }));
+const setNewRoomUser = createAction(SET_NEW_ROOM_USER, (user) => ({ user }));
+const setUserMedia = createAction(SET_USER_MEDIA, (media) => ({ media }));
 
 const initialState = {
   user: {},
   is_login: false,
-  userInfo: [],
+  otherUsers: [],
   today: "",
   week: "",
   month: [],
   badges: [],
   MasterBadge: "",
   myBadges: [],
+
   socket: null,
+  userMedia: null,
 };
 
 //로그인 미들웨어
@@ -273,14 +284,19 @@ export default handleActions(
         window.location.reload("/main");
       }),
 
-    [USER_INFO]: (state, action) =>
+    [SET_OTHER_USERS]: (state, action) =>
       produce(state, (draft) => {
-        draft.userInfo = [...draft.userInfo, ...action.payload.userInfo];
+        draft.otherUsers = [...action.payload.users];
       }),
 
-    [DELETE_USER_INFO]: (state, action) =>
+    [SET_NEW_ROOM_USER]: (state, action) =>
       produce(state, (draft) => {
-        draft.userInfo = draft.userInfo.filter(
+        draft.otherUsers = [...draft.otherUsers, ...action.payload.user];
+      }),
+
+    [DELETE_ROOM_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.otherUsers = draft.otherUsers.filter(
           (user) => user.id !== action.payload.userid
         );
       }),
@@ -317,6 +333,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.socket = action.payload.socket;
       }),
+    [SET_USER_MEDIA]: (state, action) =>
+      produce(state, (draft) => {
+        draft.userMedia = action.payload.media;
+      }),
   },
   initialState
 );
@@ -330,7 +350,7 @@ const actionCreators = {
   signUpDB,
 
   userInfo,
-  deleteUserInfo,
+  deleteRoomUser,
 
   editBadge,
   getBadge,
@@ -346,6 +366,10 @@ const actionCreators = {
   editStatusDB,
 
   setSocket,
+  setOtherUsers,
+  setNewRoomUser,
+
+  setUserMedia,
 };
 
 export { actionCreators };
