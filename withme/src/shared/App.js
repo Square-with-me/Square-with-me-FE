@@ -7,7 +7,7 @@ import styled from "styled-components";
 import Detail from "../pages/Detail";
 import Main from "../pages/Main";
 import MyPage from "../pages/MyPage";
-import Kakao from "../components/Header/Kakao";
+import Kakao from "../pages/Kakao";
 import Landing from "../pages/Landing";
 import Admin from "../pages/Admin"
 import { useDispatch } from "react-redux";
