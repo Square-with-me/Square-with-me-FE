@@ -213,7 +213,7 @@ const Wrap = styled.div`
     grid-column: 1/13;
     width: 524px;
     margin: auto;
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 563px) {
       grid-column: 1/13;
       width: 95%;
       margin: auto;
@@ -275,7 +275,7 @@ const Btn = styled.button`
     color: #fff;
     box-shadow: 0 1px 5px rgb(113, 121, 240);
   }
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 563px) {
     font-size: 13px;
   }
 `;
@@ -295,10 +295,10 @@ const RoomListContainer = styled.div`
   @media screen and (min-width: 813px) and (max-width: 1110px) {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
-  @media screen and (min-width: 550px) and (max-width: 812px) {
+  @media screen and (min-width: 563px) and (max-width: 812px) {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 563px) {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 `;

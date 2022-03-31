@@ -68,9 +68,10 @@ const Wrap = styled.div`
     }
   }
   @media screen and (max-width: 875px) {
-    .logo {
-      display: none;
-    }
+    .div {
+      .logo {
+        display: none;
+      }
     .text {
       margin: auto;
     }

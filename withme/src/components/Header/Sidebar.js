@@ -127,16 +127,24 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
+  top: 19px;
   right: -26px;
-  top: 36px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
-  @media screen and (max-width: 550px) {
-    right: -7px;
-    top: 25px;
+
+  @media screen and (min-width: 813px) and (max-width: 1110px) {
+    margin: 0px 12px;
+  }
+  @media screen and (min-width: 563px) and (max-width: 813px) {
+    margin: 0px 12px;
+  }
+  @media screen and (max-width: 563px) {
+    top: 25.8px;
     width: 150px;
     padding: 10px;
+    margin: 0px 18px;
   }
+
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -170,7 +178,7 @@ const Text = styled.div`
   color: #33344b;
   cursor: pointer;
   font-weight: 550;
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 563px) {
     font-size: 13px;
   }
 `;
