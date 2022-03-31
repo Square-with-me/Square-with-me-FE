@@ -283,6 +283,11 @@ const Input = styled.input`
     font-weight: 800;
     font-size: 16px;
   }
+  &:focus {
+    border: none;
+    outline: 1px solid #7179f0;
+    box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
+  }
 `;
 
 const Text = styled.div`
