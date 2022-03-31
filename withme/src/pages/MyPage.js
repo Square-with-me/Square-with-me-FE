@@ -41,14 +41,14 @@ const Mypage = (props) => {
   const week = useSelector((store) => store.user.week);
 
   const [editbadge, setEditbadge] = useState(false);
-  const [badgeId, setBadgeId] = useState(0);
+  const [badgeId, setBadgeId] = useState(user.MasterBadge.id);
 
   useEffect(() => {
     dispatch(userActions.timeGetDB(userId));
   }, []);
 
   useEffect(()=>{
-    if(!user.origin){
+    if(!localStorage.getItem("login-token")){
       alert("로그인 후 이용 가능 합니다")
       history.replace('/main')
     }
@@ -716,6 +716,8 @@ const ProfileContainer = styled.div`
   }
 `;
 
+
+
 const BadgeContainer = styled.div`
   height: 70%;
   display: flex;
@@ -749,6 +751,7 @@ const BadgeContainer = styled.div`
     }
 
     input[type='radio']:checked + img {
+      background-color: #bcc0ff;
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
