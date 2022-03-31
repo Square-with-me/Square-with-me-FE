@@ -324,7 +324,7 @@ const Mypage = (props) => {
                     setEditbadge(false);
                   }}
                 >
-                  수정완료
+                  설정완료
                 </button>
               </BadgeContainer>
             ) : (
@@ -350,7 +350,7 @@ const Mypage = (props) => {
                     setEditbadge(true);
                   }}
                 >
-                  수정하기
+                  뱃지 설정
                 </button>
               </BadgeContainer>
             )}
