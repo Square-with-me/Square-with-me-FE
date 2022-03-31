@@ -14,7 +14,6 @@ const Kakao = () => {
     let authorization_code = new URL(window.location.href).searchParams.get(
       "code"
     );
-    console.log("auth code", authorization_code);
 
     //async/await는 스스로 에러를 잡지 못하기 때문에 try catch랑 써야 함!!
     //async/await를 안쓰면 then catch 도 사용 가능 근데 취향 차이

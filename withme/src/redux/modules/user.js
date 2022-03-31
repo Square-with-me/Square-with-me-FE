@@ -5,7 +5,7 @@ import { apis } from "../../shared/api";
 
 //로그인 체크
 const SET_USER = "SET_USER";
-
+const SET_SOCKET = "SET_SOCKET";
 //login
 const LOG_OUT = "LOG_OUT";
 const USER_INFO = "USER_INFO";
@@ -27,6 +27,7 @@ const WEEK_TIME = "WEEK_TIME";
 //이번달 시간
 const MONTH_TIME = "MONTH_TIME";
 
+const setSocket = createAction(SET_SOCKET, (socket) => ({ socket }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const userInfo = createAction(USER_INFO, (userInfo) => ({ userInfo }));
@@ -52,6 +53,7 @@ const initialState = {
   badges: [],
   MasterBadge: "",
   myBadges: [],
+  socket: null,
 };
 
 //로그인 미들웨어
@@ -66,7 +68,6 @@ const logInDB = (origin, pwd) => {
         window.location.reload("/main");
       })
       .catch(function (error) {
-        console.log(error);
         alert(error.response.data.msg);
       });
   };
@@ -106,7 +107,7 @@ const logInCheckDB = () => {
         );
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
         alert("로그인 후 이용 가능 합니다");
         history.replace("/main");
       });
@@ -130,7 +131,6 @@ const getImageUrlDB = (userId, file) => {
 
 // 프로필 사진 수정하기
 const editProfileDB = (userId, profileUrl) => {
-  console.log("fgasgfsadf", userId, profileUrl);
   return function (dispatch, getState, { history }) {
     axios
       .patch(
@@ -215,7 +215,6 @@ const getBadgeDB = (userId) => {
     apis
       .getBadges(userId)
       .then((res) => {
-        console.log("뱃지 가져오기", res);
         const badgeList = res.data.data.map((badge) => badge.id);
         dispatch(getBadge(badgeList));
         if (res.data.newBadge) {
@@ -223,7 +222,7 @@ const getBadgeDB = (userId) => {
         }
       })
       .catch((err) => {
-        console.log("전체 뱃지 가져오기 에러", err);
+        console.log(err);
       });
   };
 };
@@ -239,8 +238,6 @@ const timeGetDB = (userId) => {
         },
       })
       .then(function (res) {
-        console.log("timeGet :  ", res.data.data.weekdaysRecord);
-
         const monthData = res.data.data.monthRecord;
         const weekData = {
           beautyRecord: res.data.data.weekdaysRecord[0],
@@ -254,7 +251,7 @@ const timeGetDB = (userId) => {
         dispatch(monthTime(monthData));
       })
       .catch(function (error) {
-        console.log("시간 받아오기 에러", error.response);
+        console.log(error);
       });
   };
 };
@@ -265,7 +262,6 @@ export default handleActions(
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         draft.user = action.payload.user;
-        console.log("user", draft.user);
         draft.is_login = true;
       }),
 
@@ -317,6 +313,10 @@ export default handleActions(
         draft.user.MasterBadge = action.payload.badge;
         // draft.MasterBadge = action.payload.badge;
       }),
+    [SET_SOCKET]: (state, action) =>
+      produce(state, (draft) => {
+        draft.socket = action.payload.socket;
+      }),
   },
   initialState
 );
@@ -344,6 +344,8 @@ const actionCreators = {
   editProfileDB,
   editNickDB,
   editStatusDB,
+
+  setSocket,
 };
 
 export { actionCreators };

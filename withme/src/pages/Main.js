@@ -4,6 +4,9 @@ import "../styles/Drop.css";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import io from "socket.io-client";
+import useInterval from "../shared/hooks";
+
 //pages/components
 import Banner from "../components/Main/Banner";
 import RoomCard from "../components/Main/RoomCard";
@@ -17,13 +20,16 @@ import MakeRoomCard from "../components/Main/MakeRoomCard";
 
 //redux
 import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { BackUrl } from "../shared/config";
 
 const Main = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   let roomList = useSelector((store) => store.room.list);
-  const hotRoom = useSelector((state) => state.room.hotList);
+  const socket = useSelector((state) => state.user.socket);
+  const userId = useSelector((store) => store.user.user?.id);
 
   const [MRooms, setMRooms] = useState(false);
   //검색
@@ -32,15 +38,14 @@ const Main = () => {
   const [possible, setPossible] = useState(false);
   //비밀 방
   const [secret, setSecret] = useState(false);
-  const [hotSecret, setHotSecret] = useState(false);
-  const userId = useSelector((store) => store.user.user?.id);
   //room
   const [category, setCategory] = useState("카테고리");
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
-
   // 페이지 나누기
   const [pageNum, setPageNum] = useState(1);
   const [isSeacrh, setIsSearch] = useState(false);
+  // 비정상 방 퇴장 시 카운트
+  const [absenceCheckCount, setAbsenceCheckCount] = useState(0);
 
   // 카테고리 선택하기
   useEffect(() => {
@@ -62,9 +67,9 @@ const Main = () => {
 
   // 공개방 참가하기
   const goRoom = (roomId) => {
-    if(userId) {
+    if (userId) {
       return dispatch(roomActions.enteringRoomDB(roomId, userId));
-    };
+    }
     alert("로그인 후 이용 가능합니다.");
   };
 
@@ -88,6 +93,52 @@ const Main = () => {
       }
     }
   };
+
+  // connect Socket
+  useEffect(() => {
+    //방을 나갈때는 소켓아이디가 새롭게 변해서 값을 불러오지 못하게되서 
+    //만약에 이미 소켓이 있으면 다른 건 하지 못하게 하는 코드 
+    if (socket) {
+      return;
+    }
+    const socketConnection = io.connect(BackUrl);
+    dispatch(userActions.setSocket(socketConnection));
+  }, [socket]);
+  
+  // LS에 방 정보 있으면 1초마다 socket 신호 보내기
+  useInterval(() => {
+    const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
+    if (myRoomInLS) {
+      socket.emit("check absence");
+    }
+  }, 1000);
+
+  // socket 돌려받을 때마다 absenceCheckCount 1회씩 카운트
+  useEffect(() => {
+    if (!socket) {
+      return;
+    }
+    const countAbsence = () => {
+      setAbsenceCheckCount(absenceCheckCount + 1);
+    };
+    socket.on("resend check absence", countAbsence);
+    return () => {
+      socket.off("resend check absence", countAbsence);
+    };
+  }, [socket, absenceCheckCount]);
+  
+  // absenceCheckCount 5회 되면 방 나가기 요청
+  useEffect(() => {
+    if (!socket || !userId) {
+      return;
+    }
+    //횟수가 5가 넘으면 소켓으로 나가는거 보내고, 로컬스토리지에 있는 값을 지워랏!
+    if (absenceCheckCount >= 5) {
+      console.log("main quit room", absenceCheckCount)
+      socket.emit("quit room");
+      localStorage.removeItem("myRoom");
+    }
+  }, [absenceCheckCount, socket, userId]);
 
   return (
     <Back>

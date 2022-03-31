@@ -6,7 +6,6 @@ import logo from '../../assets/logo.jpeg';
 
 const Parti = ({ me }) => {
   const userInfo = useSelector((store) => store.user.userInfo);
-  console.log(userInfo);
   return (
     <React.Fragment>
       <Container>
