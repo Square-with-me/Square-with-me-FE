@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { Image } from "../../elements/Index";
-import logo from "../../assets/logo.jpeg";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { Image } from '../../elements/Index';
+import logo from '../../assets/logo.jpeg';
 
 const Parti = ({ me }) => {
   const userInfo = useSelector((store) => store.user.userInfo);
@@ -19,15 +19,15 @@ const Parti = ({ me }) => {
             className="profile"
           />
           <div className="badgeImg">
-              <Image
-                width="20px"
-                height="20px"
-                margin="0px"
-                src={me.MasterBadge?me.MasterBadge.imageUrl:""}
-              />
-            </div>
+            <Image
+              width="20px"
+              height="20px"
+              margin="0px"
+              src={me.MasterBadge ? me.MasterBadge.imageUrl : ''}
+            />
+          </div>
         </div>
-        <div style={{ marginLeft: "5px", width: "90%" }}>
+        <div style={{ marginLeft: '5px', width: '70%' }}>
           <div className="userNick">{me.nickname}</div>
           <div className="statusMsg">{me.statusMsg}</div>
         </div>
@@ -45,13 +45,13 @@ const Parti = ({ me }) => {
                   className="profile"
                 />
                 <div className="badgeImg">
-                    <Image
-                      width="20px"
-                      height="20px"
-                      margin="0px"
-                      src={u.masterBadge? u.masterBadge: ""}
-                    />
-                  </div>
+                  <Image
+                    width="20px"
+                    height="20px"
+                    margin="0px"
+                    src={u.masterBadge ? u.masterBadge : ''}
+                  />
+                </div>
               </div>
               <div>
                 <div className="userNick">{u.nickname}</div>
@@ -66,6 +66,7 @@ const Parti = ({ me }) => {
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
   margin-top: 20px;
   align-items: center;
   padding: 0px 5px;
@@ -83,7 +84,7 @@ const Container = styled.div`
   }
   .statusMsg {
     font-size: 14px;
-    width: 65%;
+    width: 100%;
     white-space: nowrap;
     display: block;
     overflow: hidden;

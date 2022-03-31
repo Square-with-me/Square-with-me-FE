@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { Image } from "../elements/Index";
-import styled from "styled-components";
+import { Image } from '../elements/Index';
+import styled from 'styled-components';
 
-import TodayTime from "../components/Mypage/TodayTime";
-import WeekTime from "../components/Mypage/WeekTime";
-import MonthTime from "../components/Mypage/MonthTime";
-import Header from "../components/Header/MHeader";
-import Logo from "../components/Main/Logo";
+import TodayTime from '../components/Mypage/TodayTime';
+import WeekTime from '../components/Mypage/WeekTime';
+import MonthTime from '../components/Mypage/MonthTime';
+import Header from '../components/Header/MHeader';
+import Logo from '../components/Main/Logo';
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { useDispatch, useSelector } from 'react-redux';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 // badge
-import lockBadge from "../assets/badge/lockBadge.svg";
-import logo from "../assets/logo.jpeg";
+import lockBadge from '../assets/badge/lockBadge.svg';
+import logo from '../assets/logo.jpeg';
 
 const Mypage = (props) => {
   const history = useHistory();
@@ -32,8 +32,8 @@ const Mypage = (props) => {
   const [isEditNick, setIsEditNick] = useState(false); // 닉네임 수정 상태 체크
   const [isEditStatus, setIsEditStatus] = useState(false); // 상태메시지 수정 상태 체크
 
-  const [editNick, setEditnick] = useState(""); // 수정한 닉네임 저장
-  const [editStatus, setEditStatus] = useState(""); // 수정한 상태메지시 저장
+  const [editNick, setEditnick] = useState(''); // 수정한 닉네임 저장
+  const [editStatus, setEditStatus] = useState(''); // 수정한 상태메지시 저장
 
   const userId = props.match.params.id;
 
@@ -49,19 +49,19 @@ const Mypage = (props) => {
 
   // 유저 닉네임 수정
   const editNickname = () => {
-    const nicknameText = document.getElementById("nickname");
-    const inputNickname = document.getElementById("inputNickname");
+    const nicknameText = document.getElementById('nickname');
+    const inputNickname = document.getElementById('inputNickname');
 
     if (!isEditNick) {
       // 수정시작
       setIsEditNick(true);
       setEditnick(user.nickname);
-      nicknameText.classList.add("hidden");
-      inputNickname.classList.remove("hidden");
+      nicknameText.classList.add('hidden');
+      inputNickname.classList.remove('hidden');
     } else {
       // 수정 끝
-      nicknameText.classList.remove("hidden");
-      inputNickname.classList.add("hidden");
+      nicknameText.classList.remove('hidden');
+      inputNickname.classList.add('hidden');
       dispatch(userActions.editNickDB(user.id, editNick));
       setIsEditNick(false);
     }
@@ -69,19 +69,19 @@ const Mypage = (props) => {
 
   // 상태메시지 수정
   const editStatusMsg = () => {
-    const statusText = document.getElementById("statusText");
-    const inputStatus = document.getElementById("inputStatus");
+    const statusText = document.getElementById('statusText');
+    const inputStatus = document.getElementById('inputStatus');
 
     if (!isEditStatus) {
       // 수정 시작
       setIsEditStatus(true);
       setEditStatus(user.statusMsg);
-      statusText.classList.add("hidden");
-      inputStatus.classList.remove("hidden");
+      statusText.classList.add('hidden');
+      inputStatus.classList.remove('hidden');
     } else {
       // 수정 끝
-      statusText.classList.remove("hidden");
-      inputStatus.classList.add("hidden");
+      statusText.classList.remove('hidden');
+      inputStatus.classList.add('hidden');
       dispatch(userActions.editStatusDB(user.id, editStatus));
       setIsEditStatus(false);
     }
@@ -91,108 +91,108 @@ const Mypage = (props) => {
   const saveImage = (e) => {
     const img = e.target.files[0];
     const formData = new FormData();
-    formData.append("image", img);
+    formData.append('image', img);
     dispatch(userActions.getImageUrlDB(userId, formData));
   };
 
   // 프로필 이미지 클릭시
   const onClickImage = () => {
-    const fileUpload = document.getElementById("ex_file");
+    const fileUpload = document.getElementById('ex_file');
     fileUpload.click();
   };
 
   const LockBadge = [
     {
-      name: "lock",
-      desc: "이번주 뷰티 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 뷰티 카테고리 100시간 이상',
     },
     {
-      name: "lock",
-      desc: "이번주 운동 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 운동 카테고리 100시간 이상',
     },
     {
-      name: "lock",
-      desc: "이번주 상담 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 상담 카테고리 100시간 이상',
     },
     {
-      name: "lock",
-      desc: "이번주 기타 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 기타 카테고리 100시간 이상',
     },
     {
-      name: "lock",
-      desc: "이번주 문화 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 문화 카테고리 100시간 이상',
     },
     {
-      name: "lock",
-      desc: "이번주 공부 카테고리 100시간 이상",
+      name: 'lock',
+      desc: '이번주 공부 카테고리 100시간 이상',
     },
   ];
 
   const wholeBadges = [
     {
       id: 7,
-      name: "firstCome",
-      desc: "선착순 100명!",
-      desc1: "선착순 100명에게만 지급되는 뱃지!",
+      name: 'firstCome',
+      desc: '선착순 100명!',
+      desc1: '선착순 100명에게만 지급되는 뱃지!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/firstCome.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/firstCome.svg',
     },
     {
       id: 1,
-      name: "beauty",
-      desc: "이번주 뷰티 카테고리 1시간 달성시 지급",
-      desc1: "이번주 뷰티 카테고리 1시간 달성!",
+      name: 'beauty',
+      desc: '이번주 뷰티 카테고리 1시간 달성시 지급',
+      desc1: '이번주 뷰티 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/beauty.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/beauty.svg',
     },
     {
       id: 2,
-      name: "sports",
-      desc: "이번주 운동 카테고리 1시간 달성시 지급",
-      desc1: "이번주 운동 카테고리 1시간 달성!",
+      name: 'sports',
+      desc: '이번주 운동 카테고리 1시간 달성시 지급',
+      desc1: '이번주 운동 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/sports.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/sports.svg',
     },
     {
       id: 3,
-      name: "study",
-      desc: "이번주 공부 카테고리 1시간 달성시 지급",
-      desc1: "이번주 공부 카테고리 1시간 달성!",
+      name: 'study',
+      desc: '이번주 공부 카테고리 1시간 달성시 지급',
+      desc1: '이번주 공부 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/study.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/study.svg',
     },
     {
       id: 4,
-      name: "counseling",
-      desc: "이번주 상담 카테고리 1시간 달성시 지급",
-      desc1: "이번주 상담 카테고리 1시간 달성!",
+      name: 'counseling',
+      desc: '이번주 상담 카테고리 1시간 달성시 지급',
+      desc1: '이번주 상담 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/counseling.svg',
     },
     {
       id: 5,
-      name: "culture",
-      desc: "이번주 문화 카테고리 1시간 달성시 지급",
-      desc1: "이번주 문화 카테고리 1시간 달성!",
+      name: 'culture',
+      desc: '이번주 문화 카테고리 1시간 달성시 지급',
+      desc1: '이번주 문화 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/culture.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/culture.svg',
     },
     {
       id: 6,
-      name: "etc",
-      desc: "이번주 기타 카테고리 1시간 달성시 지급",
-      desc1: "이번주 기타 카테고리 1시간 달성!",
+      name: 'etc',
+      desc: '이번주 기타 카테고리 1시간 달성시 지급',
+      desc1: '이번주 기타 카테고리 1시간 달성!',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/etc.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/etc.svg',
     },
 
     {
       id: 8,
-      name: "reviewer",
-      desc: "버그나 리뷰를 제보해주세요",
-      desc1: "버그나 리뷰 제보 뱃지",
+      name: 'reviewer',
+      desc: '버그나 리뷰를 제보해주세요',
+      desc1: '버그나 리뷰 제보 뱃지',
       imageUrl:
-        "https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/bug.svg",
+        'https://square-with-me-bucket.s3.ap-northeast-2.amazonaws.com/badges/bug.svg',
     },
   ];
   return (
@@ -224,21 +224,22 @@ const Mypage = (props) => {
                   <input type="file" id="ex_file" onChange={saveImage} />
                 </div>
                 <div className="badgeImg">
-                  <Image                       
+                  <Image
                     width="40px"
                     height="40px"
                     margin="0px"
-                    src={user.MasterBadge ? user.MasterBadge.imageUrl : ""} />
+                    src={user.MasterBadge ? user.MasterBadge.imageUrl : ''}
+                  />
                 </div>
               </div>
               <div className="textBox">
                 <div className="nameBox">
-                  <div id="nickname"> {user ? user.nickname : ""}</div>
+                  <div id="nickname"> {user ? user.nickname : ''}</div>
                   <input
                     id="inputNickname"
                     className="hidden"
                     type="text"
-                    defaultValue={user ? user.nickname : ""}
+                    defaultValue={user ? user.nickname : ''}
                     onChange={(e) => {
                       setEditnick(e.target.value);
                     }}
@@ -263,7 +264,7 @@ const Mypage = (props) => {
                   </button>
                 </div>
                 <div className="statusBox">
-                  <div id="statusText">{user ? user.statusMsg : ""}</div>
+                  <div id="statusText">{user ? user.statusMsg : ''}</div>
                   <input
                     id="inputStatus"
                     className="hidden"
@@ -387,7 +388,7 @@ const Mypage = (props) => {
           <div className="width100">
             <Text>이번 주 참여 기록</Text>
             <div id="endTopBox" className="boxStyle">
-              <WeekTimeBox>{week ? <WeekTime week={week} /> : ""}</WeekTimeBox>
+              <WeekTimeBox>{week ? <WeekTime week={week} /> : ''}</WeekTimeBox>
             </div>
           </div>
           <div className="width100 endBottomBoxWrap">
@@ -413,7 +414,7 @@ const Root = styled.div`
   background-color: #f7f7f7;
   box-sizing: border-box;
   background-size: cover;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   z-index: -100;
 `;
 
@@ -426,7 +427,7 @@ const Container = styled.div`
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
 
   .header {
     grid-column: 5/13;
@@ -611,7 +612,7 @@ const ProfileContainer = styled.div`
       border-bottom-color: #e2e2e2;
       border-radius: 0.25em;
     }
-    .filebox input[type="file"] {
+    .filebox input[type='file'] {
       /* 파일 필드 숨기기 */
       position: absolute;
       width: 1px;
@@ -676,11 +677,13 @@ const ProfileContainer = styled.div`
       display: flex;
       flex-direction: row;
       #statusText {
+        width: 100%;
         font-size: 14px;
         line-height: 24.52px;
         font-weight: 400;
         white-space: pre-line;
         word-break: keep-all;
+        word-wrap: break-word;
       }
       input {
         width: 100%;
@@ -728,7 +731,7 @@ const BadgeContainer = styled.div`
       border-radius: 50%;
       cursor: pointer;
     }
-    input[type="radio"] {
+    input[type='radio'] {
       display: none;
     }
     img {
@@ -738,12 +741,12 @@ const BadgeContainer = styled.div`
       transition: all 0.5s;
     }
 
-    input[type="radio"]:checked + img {
+    input[type='radio']:checked + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
 
-    input[type="radio"]:hover + img {
+    input[type='radio']:hover + img {
       box-shadow: rgba(0, 0, 0, 0.19) 0px 5px 10px,
         rgba(0, 0, 0, 0.23) 0px 3px 3px;
     }
@@ -776,7 +779,7 @@ const BadgeContainer = styled.div`
       word-break: keep-all;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         bottom: 100%;
         left: 50%;
@@ -857,7 +860,7 @@ const BadgeContainer2 = styled.div`
         word-break: keep-all;
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           bottom: 100%;
           left: 50%;
