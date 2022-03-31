@@ -57,6 +57,9 @@ const RightIcon = styled.button`
   justify-content: right;
   background-color: transparent;
   margin: 45px 0px 0px 0px;
+  .sidebar{
+    position: relative;
+  }
 `;
 
 export default Header;

@@ -45,11 +45,11 @@ const MSidebar = (props) => {
             {user.origin ? (
               <Text
                 onClick={() => {
-                  history.push(`/mypage/${user.id}`);
+                  window.location.replace('/main');
                   close();
                 }}
               >
-                마이페이지
+                메인페이지
               </Text>
             ) : (
               <Text

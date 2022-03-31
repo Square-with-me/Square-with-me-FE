@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
 import { useHistory } from "react-router-dom";
-// import Spinner from "react-bootstrap/Spinner"
+import Spinner from "react-bootstrap/Spinner"
 import styled from "styled-components";
 
 const Kakao = () => {
@@ -29,15 +29,15 @@ const Kakao = () => {
       } catch (error) {
         alert(error.response.data.msg);
       }
-      history.replace("/main");
+      window.location.replace("/main")
     }
     kakaoLogin(authorization_code);
   }, []);
   return (
     <div>
-      {/* <Spinner animation="border" role="status">
+      <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
-      </Spinner> */}
+      </Spinner>
     </div>
   );
 };

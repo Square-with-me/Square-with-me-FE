@@ -127,8 +127,8 @@ const Wrap = styled.div`
   width: 200px;
   background-color: #f7f7f7;
   position: absolute;
-  right: -2.4%;
-  top: 1.5%;
+  right: -26px;
+  top: 36px;
   animation: modal-bg-show 0.6s;
   font-weight: 500;
   @media screen and (max-width: 550px) {
