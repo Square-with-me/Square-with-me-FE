@@ -3,6 +3,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useHistory } from "react-router-dom";
+import Spinner from "react-bootstrap/esm/Spinner";
+import styled from "styled-components";
 
 const Kakao = () => {
   let history = useHistory();
@@ -31,7 +33,22 @@ const Kakao = () => {
     kakaoLogin(authorization_code);
   }, []);
   return (
-    <div>Loading...</div>
+    <Div>
+      <Spinner animation="border" role="status" className="spinner">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </Div>
   );
 };
+const Div = styled.div`
+  .spinner {
+    display: block;
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    span{
+      font-size: 50px;
+    }   
+  }
+`
 export default Kakao;

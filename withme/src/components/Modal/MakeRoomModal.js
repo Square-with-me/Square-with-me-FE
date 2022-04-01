@@ -362,7 +362,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
           </div>
           <div>
             <Input
-              placeholder="방정보를 입력해주세요"
+              placeholder="방제목을 입력해주세요"
               onChange={(e) => setTitle(e.target.value)}
               style={{}}
             />
@@ -371,7 +371,7 @@ const MakeRoomModal = ({ setMRooms, create }) => {
           <div>
             <TagInput
               type="text"
-              placeholder="태그를 입력해주세요 (최대 5개)"
+              placeholder="# 없이 엔터를 쳐서 태그를 입력해주세요 (최대 5개)"
               tabIndex={2}
               onChange={(e) => setTagItem(e.target.value)}
               value={tagItem}

@@ -41,9 +41,13 @@ const Mypage = (props) => {
   const week = useSelector((store) => store.user.week);
 
   const [editbadge, setEditbadge] = useState(false);
-  const [badgeId, setBadgeId] = useState(user.MasterBadge.id);
+  const [badgeId, setBadgeId] = useState(0);
 
   useEffect(() => {
+
+    if (user.MasterBadge)
+    setBadgeId(user.MasterBadge.id);
+
     dispatch(userActions.timeGetDB(userId));
   }, []);
 

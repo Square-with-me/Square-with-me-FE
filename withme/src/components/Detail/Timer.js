@@ -166,6 +166,7 @@ class Timer extends Component {
             name="hours"
             onChange={this.inputHandler}
             disabled={this.isStart}
+            maxLength='2'
           />
           <p>H</p>
           <Input
@@ -174,6 +175,7 @@ class Timer extends Component {
             name="minutes"
             onChange={this.inputHandler}
             disabled={this.isStart}
+            maxLength='2'
           />
           <p>M</p>
           <Input
@@ -182,6 +184,7 @@ class Timer extends Component {
             name="seconds"
             onChange={this.inputHandler}
             disabled={this.isStart}
+            maxLength='2'
           />
           <p>S</p>
         </div>
