@@ -10,7 +10,7 @@ const Kakao = () => {
 
   useEffect(() => {
     let authorization_code = new URL(window.location.href).searchParams.get(
-      "code"
+      'code'
     );
 
     //async/await는 스스로 에러를 잡지 못하기 때문에 try catch랑 써야 함!!
@@ -21,12 +21,12 @@ const Kakao = () => {
           `/api/auth/kakao/callback?code=${auth_code}`
         );
         const { token, user } = res.data.data;
-        localStorage.setItem("login-token", token);
+        localStorage.setItem('login-token', token);
         dispatch(userActions.setUser({ user }));
       } catch (error) {
         alert(error.response.data.msg);
       }
-      window.location.replace("/main")
+      window.location.replace('/main');
     }
     kakaoLogin(authorization_code);
   }, []);
