@@ -205,7 +205,7 @@ const Landing = () => {
               <a href="#feature3">사용후기</a>
               <div
                 onClick={() => {
-                  history.push('/main');
+                  window.location.replace('/main');
                 }}
               >
                 시작하기

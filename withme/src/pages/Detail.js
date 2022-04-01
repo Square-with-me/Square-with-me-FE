@@ -870,26 +870,7 @@ const Detail = (props) => {
                         )}
                       </div>
                       <div className="inputBox">
-                        <form action="#" className="flex">
-                          <label htmlFor="choiceReceiver">TO.</label>
-                          <div name="receiver" id="lang">
-                            모두
-                            <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M20.9001 6.54999L12.0001 15.45L3.1001 6.54999"
-                                stroke="#8A8BA3"
-                                strokeWidth="2"
-                                strokeMiterlimit="10"
-                              />
-                            </svg>
-                          </div>
-                        </form>
+                          <label htmlFor="choiceReceiver">TO. 모두에게</label>
                         <div style={{ position: "relative" }}>
                           <textarea
                             type="text"
@@ -900,25 +881,6 @@ const Detail = (props) => {
                             onKeyPress={onKeyPress}
                             placeholder="메시지를 입력하세요"
                           />
-                          <svg
-                            className="icon"
-                            width="12"
-                            height="16"
-                            viewBox="0 0 12 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            style={{
-                              position: "absolute",
-                              right: "7%",
-                              top: "20%",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <path
-                              d="M0.880005 19.21V0.790039L12 10L0.880005 19.21ZM2.88 5.00004V15L8.88 10L2.88 5.00004Z"
-                              fill="#8A8BA3"
-                            />
-                          </svg>
                         </div>
                       </div>
                     </ChattingBox>
@@ -1607,15 +1569,9 @@ const ChattingBox = styled.div`
   }
   .inputBox {
     margin: 5%;
-    height: 150px;
-    display: flex;
     flex-direction: column;
-    justify-content: space-between;
     label {
       font-weight: 700;
-    }
-    textarea {
-      resize: none;
     }
     #lang {
       display: flex;
@@ -1634,11 +1590,13 @@ const ChattingBox = styled.div`
       }
     }
     textarea {
+      resize: none;
       font-size: 1rem;
       width: 98%;
       height: 69px;
       padding: 10px;
       border-radius: 4px;
+      margin-top: 10px;
       &:focus {
         border: none;
         outline: 1px solid #7179f0;
