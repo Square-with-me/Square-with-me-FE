@@ -336,7 +336,7 @@ const DropBtn = styled.button`
   @media screen and (max-width: 550px) {
     font-size: 13px;
     height: 38px;
-    width: 100px;
+    width: 120px;
     border: 1px solid #ceced9;
   }
   p {
