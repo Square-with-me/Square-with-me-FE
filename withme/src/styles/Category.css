@@ -10,3 +10,9 @@
   transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   z-index: 100;
 }
+
+@media screen and (max-width: 550px) {
+  .menu {
+    width: 120px;
+  }
+}
