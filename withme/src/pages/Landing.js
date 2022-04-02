@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import $ from 'jquery';
+// import $ from 'jquery';
 import TypeIt from 'typeit';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -27,8 +27,6 @@ import Footer from '../components/Main/Footer';
 import { HiOutlineMenu } from 'react-icons/hi';
 import { FiX } from 'react-icons/fi';
 
-import { history } from '../redux/configureStore';
-
 const Landing = () => {
   // TypeIt
   useEffect(() => {
@@ -45,17 +43,18 @@ const Landing = () => {
   // WOW
   useEffect(() => {
     new WOW.WOW({
+      live: false,
       boxClass: 'wow',
       offset: 150,
       mobile: true,
     }).init();
   }, []);
 
-  // focus slier
-  useEffect(() => {
-    slide();
-    slide2();
-  });
+  // // focus slier
+  // useEffect(() => {
+  //   slide();
+  //   slide2();
+  // });
 
   // review slider
   const settings = {
@@ -91,89 +90,89 @@ const Landing = () => {
     ],
   };
 
-  const slide = () => {
-    var bannerLeft = 0;
-    var first = 1;
-    var last;
-    var imgCnt = 0;
-    var $img = $('.categorySlider .category-box');
-    var $first;
-    var $last;
+  // const slide = () => {
+  //   var bannerLeft = 0;
+  //   var first = 1;
+  //   var last;
+  //   var imgCnt = 0;
+  //   var $img = $('.categorySlider .category-box');
+  //   var $first;
+  //   var $last;
 
-    $img.each(function () {
-      // 5px 간격으로 배너 처음 위치 시킴
-      $(this).css('left', bannerLeft);
-      bannerLeft += $(this).width() + 5;
-      $(this).attr('id', 'banner' + ++imgCnt); // img에 id 속성 추가
-    });
+  //   $img.each(function () {
+  //     // 5px 간격으로 배너 처음 위치 시킴
+  //     $(this).css('left', bannerLeft);
+  //     bannerLeft += $(this).width() + 5;
+  //     $(this).attr('id', 'banner' + ++imgCnt); // img에 id 속성 추가
+  //   });
 
-    if (imgCnt > 8) {
-      //배너 8개 이상이면 이동시킴
-      last = imgCnt;
+  //   if (imgCnt > 8) {
+  //     //배너 8개 이상이면 이동시킴
+  //     last = imgCnt;
 
-      setInterval(function () {
-        $img.each(function () {
-          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
-        });
-        $first = $('#banner' + first);
-        $last = $('#banner' + last);
-        if ($first.position().left < -300) {
-          // 제일 앞에 배너 제일 뒤로 옮김
-          $first.css('left', $last.position().left + $last.width() + 5);
-          first++;
-          last++;
-          if (last > imgCnt) {
-            last = 1;
-          }
-          if (first > imgCnt) {
-            first = 1;
-          }
-        }
-      }, 50); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
-    }
-  };
+  //     setInterval(function () {
+  //       $img.each(function () {
+  //         $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+  //       });
+  //       $first = $('#banner' + first);
+  //       $last = $('#banner' + last);
+  //       if ($first.position().left < -300) {
+  //         // 제일 앞에 배너 제일 뒤로 옮김
+  //         $first.css('left', $last.position().left + $last.width() + 5);
+  //         first++;
+  //         last++;
+  //         if (last > imgCnt) {
+  //           last = 1;
+  //         }
+  //         if (first > imgCnt) {
+  //           first = 1;
+  //         }
+  //       }
+  //     }, 50); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
+  //   }
+  // };
 
-  const slide2 = () => {
-    var bannerLeft = 0;
-    var first = 1;
-    var last;
-    var imgCnt = 0;
-    var $img = $('.categorySlider2 .category-box');
-    var $first;
-    var $last;
+  // const slide2 = () => {
+  //   var bannerLeft = 0;
+  //   var first = 1;
+  //   var last;
+  //   var imgCnt = 0;
+  //   var $img = $('.categorySlider2 .category-box');
+  //   var $first;
+  //   var $last;
 
-    $img.each(function () {
-      // 5px 간격으로 배너 처음 위치 시킴
-      $(this).css('left', bannerLeft);
-      bannerLeft += $(this).width() + 5;
-      $(this).attr('id', 'bannerT' + ++imgCnt); // img에 id 속성 추가
-    });
+  //   $img.each(function () {
+  //     // 5px 간격으로 배너 처음 위치 시킴
+  //     $(this).css('left', bannerLeft);
+  //     bannerLeft += $(this).width() + 5;
+  //     $(this).attr('id', 'bannerT' + ++imgCnt); // img에 id 속성 추가
+  //   });
 
-    if (imgCnt > 8) {
-      //배너 8개 이상이면 이동시킴
-      last = imgCnt;
+  //   if (imgCnt > 8) {
+  //     //배너 8개 이상이면 이동시킴
+  //     last = imgCnt;
 
-      setInterval(function () {
-        $img.each(function () {
-          $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
-        });
-        $first = $('#bannerT' + first);
-        $last = $('#bannerT' + last);
-        if ($first.position().left < -300) {
-          // 제일 앞에 배너 제일 뒤로 옮김
-          $first.css('left', $last.position().left + $last.width() + 5);
-          first++;
-          last++;
-          if (last > imgCnt) {
-            last = 1;
-          }
-          if (first > imgCnt) {
-            first = 1;
-          }
-        }
-      }, 25); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
-    }
-  };
+  //     setInterval(function () {
+  //       $img.each(function () {
+  //         $(this).css('left', $(this).position().left - 1); // 1px씩 왼쪽으로 이동
+  //       });
+  //       $first = $('#bannerT' + first);
+  //       $last = $('#bannerT' + last);
+  //       if ($first.position().left < -300) {
+  //         // 제일 앞에 배너 제일 뒤로 옮김
+  //         $first.css('left', $last.position().left + $last.width() + 5);
+  //         first++;
+  //         last++;
+  //         if (last > imgCnt) {
+  //           last = 1;
+  //         }
+  //         if (first > imgCnt) {
+  //           first = 1;
+  //         }
+  //       }
+  //     }, 25); //여기 값을 조정하면 속도를 조정할 수 있다.(위에 1px 이동하는 부분도 조정하면
+  //   }
+  // };
 
   const openMenu = () => {
     const menu = document.getElementsByClassName('gnb')[0];
@@ -736,7 +735,7 @@ const Container = styled.div`
 
         div {
           display: inline;
-          margin: 0 20px;
+          margin: 20px;
           font-size: 1.3rem;
           font-weight: 900;
           text-decoration: none;
@@ -772,6 +771,10 @@ const Container = styled.div`
           }
 
           a {
+            font-size: 18px;
+          }
+
+          div {
             font-size: 18px;
           }
         }
@@ -1070,7 +1073,7 @@ const Container = styled.div`
         .category-box {
           width: 160px;
           height: 100%;
-          position: absolute;
+          margin: 10px;
 
           .category {
             box-sizing: border-box;
@@ -1132,7 +1135,7 @@ const Container = styled.div`
           .category-box {
             width: 160px;
             height: 100%;
-            position: absolute;
+            margin: 10px;
 
             .category {
               box-sizing: border-box;
