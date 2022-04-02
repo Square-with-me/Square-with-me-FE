@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import "../styles/Drop.css";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import '../styles/Drop.css';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import io from "socket.io-client";
-import useInterval from "../shared/hooks";
+import io from 'socket.io-client';
 
 //pages/components
-import Banner from "../components/Main/Banner";
-import RoomCard from "../components/Main/RoomCard";
-import FooterTest from "../components/Main/Footer";
-import Header from "../components/Header/Header";
-import Logo from "../components/Main/Logo";
-import MenuBar from "../components/Main/MenuBar";
-import SecretRoomModal from "../components/Modal/SecretRoomModal";
-import SearchBar from "../components/Main/SearchBar";
-import MakeRoomCard from "../components/Main/MakeRoomCard";
+import Banner from '../components/Main/Banner';
+import RoomCard from '../components/Main/RoomCard';
+import FooterTest from '../components/Main/Footer';
+import Header from '../components/Header/Header';
+import Logo from '../components/Main/Logo';
+import MenuBar from '../components/Main/MenuBar';
+import SecretRoomModal from '../components/Modal/SecretRoomModal';
+import SearchBar from '../components/Main/SearchBar';
+import MakeRoomCard from '../components/Main/MakeRoomCard';
 
 //redux
-import { actionCreators as roomActions } from "../redux/modules/room";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { BackUrl } from "../shared/config";
+import { actionCreators as roomActions } from '../redux/modules/room';
+import { actionCreators as userActions } from '../redux/modules/user';
+import { BackUrl } from '../shared/config';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -30,23 +29,21 @@ const Main = () => {
   let roomList = useSelector((store) => store.room.list);
   const socket = useSelector((state) => state.user.socket);
   const userId = useSelector((store) => store.user.user?.id);
-  const userMedia = useSelector((store => store.user.userMedia));
+  const userMedia = useSelector((store) => store.user.userMedia);
 
   const [MRooms, setMRooms] = useState(false);
   //검색
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   //참여가능한 방
   const [possible, setPossible] = useState(false);
   //비밀 방
   const [secret, setSecret] = useState(false);
   //room
-  const [category, setCategory] = useState("카테고리");
+  const [category, setCategory] = useState('카테고리');
   const [choiceCate, setChoiceCate] = useState(0); // 0은 전체 불러오기
   // 페이지 나누기
   const [pageNum, setPageNum] = useState(1);
   const [isSeacrh, setIsSearch] = useState(false);
-  // 비정상 방 퇴장 시 카운트
-  const [absenceCheckCount, setAbsenceCheckCount] = useState(0);
 
   // 카테고리 선택하기
   useEffect(() => {
@@ -56,7 +53,7 @@ const Main = () => {
       dispatch(roomActions.getRoomDB(1));
       setPageNum(2);
       setIsSearch(false);
-      setCategory("카테고리");
+      setCategory('카테고리');
     } else {
       // 카테고리별 방 불러오기
       dispatch(roomActions.emptyRoom());
@@ -71,7 +68,7 @@ const Main = () => {
     if (userId) {
       return dispatch(roomActions.enteringRoomDB(roomId, userId));
     }
-    alert("로그인 후 이용 가능합니다.");
+    alert('로그인 후 이용 가능합니다.');
   };
 
   //비밀방 모달
@@ -97,51 +94,29 @@ const Main = () => {
 
   // connect Socket
   useEffect(() => {
-    //방을 나갈때는 소켓아이디가 새롭게 변해서 값을 불러오지 못하게되서 
-    //만약에 이미 소켓이 있으면 다른 건 하지 못하게 하는 코드 
+    //방을 나갈때는 소켓아이디가 새롭게 변해서 값을 불러오지 못하게되서
+    //만약에 이미 소켓이 있으면 다른 건 하지 못하게 하는 코드
     if (socket) {
       return;
     }
     const socketConnection = io.connect(BackUrl);
     dispatch(userActions.setSocket(socketConnection));
   }, [socket]);
-  
-  // LS에 방 정보 있으면 1초마다 socket 신호 보내기
-  useInterval(() => {
-    const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
-    if (myRoomInLS) {
-      socket.emit("check absence");
-    }
-  }, 1000);
 
-  // socket 돌려받을 때마다 absenceCheckCount 1회씩 카운트
-  useEffect(() => {
-    if (!socket) {
-      return;
-    }
-    const countAbsence = () => {
-      setAbsenceCheckCount(absenceCheckCount + 1);
-    };
-    socket.on("resend check absence", countAbsence);
-    return () => {
-      socket.off("resend check absence", countAbsence);
-    };
-  }, [socket, absenceCheckCount]);
-  
-  // absenceCheckCount 5회 되면 방 나가기 요청
+  // 홈화면에서 방 나가기 요청
   useEffect(() => {
     if (!socket || !userId) {
       return;
     }
-    //횟수가 5가 넘으면 소켓으로 나가는거 보내고, 로컬스토리지에 있는 값을 지워랏!
-    if (absenceCheckCount >= 5) {
-      socket.emit("quit room");
-      localStorage.removeItem("myRoom");
+    if (localStorage.getItem('myRoom')) {
+      //로컬스토리지에 있는 값을 지워랏!
+      socket.emit('quit room');
+      localStorage.removeItem('myRoom');
     }
-  }, [absenceCheckCount, socket, userId]);
+  }, [socket, userId]);
 
   useEffect(() => {
-    if(userMedia) {
+    if (userMedia) {
       userMedia.getVideoTracks().forEach((track) => {
         track.stop();
       });
@@ -158,8 +133,8 @@ const Main = () => {
           <Header />
         </div>
 
-        <div className="logo" onClick={() => history.replace("/main")}>
-          <Logo style={{ margin: "auto" }} />
+        <div className="logo" onClick={() => history.replace('/main')}>
+          <Logo style={{ margin: 'auto' }} />
         </div>
         <div className="searchbar">
           <SearchBar
@@ -216,7 +191,7 @@ const Main = () => {
                   </div>
                 );
               })
-            : ""}
+            : ''}
           {secret === true ? (
             <SecretRoomModal setSecret={setSecret} data={secretRoom} />
           ) : null}
@@ -242,7 +217,7 @@ const Back = styled.div`
   background-size: initial;
   background-size: 100vw;
   background-repeat: repeat-y;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   z-index: -100;
   /* background: linear-gradient(to top, black 51%, #fff 30%); */
 `;
