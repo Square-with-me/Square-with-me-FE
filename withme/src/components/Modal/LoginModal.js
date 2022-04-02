@@ -115,7 +115,7 @@ const LoginModal = ({ setIsM, setIsSignup }) => {
               </svg>
               카카오 로그인
             </KaKaoLoginBtn>
-            <NaverLoginBtn>
+            <NaverLoginBtn onClick={()=>{alert("업데이트 중입니다!")}}>
               <svg
                 width="32"
                 height="32"
