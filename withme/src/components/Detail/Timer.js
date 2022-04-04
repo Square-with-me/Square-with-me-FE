@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Timer = ({ socket, roomId }) => {
-  const [testNum, setTestNum] = useState(0);
-
   const hours = useRef(0);
   const minutes = useRef(0);
   const seconds = useRef(0);
@@ -19,15 +17,6 @@ const Timer = ({ socket, roomId }) => {
     return seconds + minutes * 60 + hours * 60 * 60;
   };
 
-  useEffect(() => {
-    // if (hours === 0 && minutes === 0 && seconds === 0) {
-    //   clearInterval(timer.current);
-    //   alert('시간 끝!');
-    //   setIsStart(false);
-    // }
-    console.log(hours, minutes, seconds);
-  }, [hours, minutes, seconds]);
-
   const startTimer = async () => {
     timer.current = setInterval(() => {
       countDown();
@@ -41,7 +30,7 @@ const Timer = ({ socket, roomId }) => {
       seconds: secondsInput,
     };
     //시작신호 소켓으로 보내기
-    // socket.emit('start_timer', data);
+    socket.emit('start_timer', data);
     //각 인풋 값을 0으로 만들기!
 
     // hours.current = hoursInput;
@@ -63,41 +52,43 @@ const Timer = ({ socket, roomId }) => {
     }, 1000);
   };
 
-  // useEffect(() => {
-  //   socket.on('start_receive', (data) => {
-  //     hours.current = Number(data.hours);
-  //     minutes.current = Number(data.minutes);
-  //     seconds.current = Number(data.seconds);
+  useEffect(() => {
+    socket.on('start_receive', (data) => {
+      hours.current = Number(data.hours);
+      minutes.current = Number(data.minutes);
+      seconds.current = Number(data.seconds);
 
-  //     receiveStartTimer();
+      receiveStartTimer();
 
-  //     setHoursInput(0);
-  //     setMinutesInput(0);
-  //     setSecondsInput(0);
+      setHoursInput(0);
+      setMinutesInput(0);
+      setSecondsInput(0);
 
-  //     this.isStart = true;
-  //   });
+      this.isStart = true;
+    });
 
-  //   socket.on('stop_receive', () => {
-  //     receiveStopTimer();
-  //   });
+    socket.on('stop_receive', () => {
+      receiveStopTimer();
+    });
 
-  //   socket.on('reset_receive', () => {
-  //     receiverSetTimer();
-  //   });
-  // }, [socket]);
+    socket.on('reset_receive', () => {
+      receiverSetTimer();
+    });
+  }, [socket]);
 
   const countDown = () => {
     console.log(hours.current, minutes.current, seconds.current);
 
-    setTestNum((testNum) => testNum + 1);
     let c_seconds = convertToSeconds(
       Number(hours.current),
       Number(minutes.current),
       Number(seconds.current)
     );
     if (c_seconds) {
-      if (c_seconds % 3600 === 0) {
+      if (c_seconds === 0) {
+        // 시간 끝!
+        clearInterval(timer.current);
+      } else if (c_seconds % 3600 === 0) {
         // 시간 단위로 떨어질 때
         hours.current = hours.current - 1;
         minutes.current = 59;
@@ -133,7 +124,7 @@ const Timer = ({ socket, roomId }) => {
     console.log('onClick reset');
     clearInterval(timer.current);
 
-    // socket.emit('reset_time', roomId);
+    socket.emit('reset_time', roomId);
   };
 
   const receiveStopTimer = () => {
@@ -190,7 +181,6 @@ const Timer = ({ socket, roomId }) => {
         <p>S</p>
       </div>
       <div className="outputGroup">
-        <h1>테스트!!!!!{testNum}</h1>
         <Text>
           {hours.current}
           <span>H</span>
