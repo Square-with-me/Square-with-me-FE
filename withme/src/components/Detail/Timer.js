@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 
 const Timer = ({ socket, roomId }) => {
+
   const hours = useRef(0);
   const minutes = useRef(0);
   const seconds = useRef(0);
@@ -20,7 +21,6 @@ const Timer = ({ socket, roomId }) => {
   const startTimer = async () => {
     timer.current = setInterval(() => {
       countDown();
-      console.log(seconds);
     }, 1000);
 
     const data = {
@@ -30,13 +30,9 @@ const Timer = ({ socket, roomId }) => {
       seconds: secondsInput,
     };
     //시작신호 소켓으로 보내기
-    socket.emit('start_timer', data);
+    socket.emit("start_timer", data);
+    
     //각 인풋 값을 0으로 만들기!
-
-    // hours.current = hoursInput;
-    // minutes.current = minutesInput;
-    // seconds.current = secondsInput;
-
     setHoursInput(0);
     setMinutesInput(0);
     setSecondsInput(0);
@@ -45,50 +41,51 @@ const Timer = ({ socket, roomId }) => {
     setIsStart(true);
   };
 
-  const receiveStartTimer = () => {
-    //기준 간격을 두고 주기적으로 이벤트를 발생 시키고 싶을 때 (setInterval)
-    timer.current = setInterval(() => {
-      countDown();
-    }, 1000);
-  };
-
+  //스타트 받았을때 
   useEffect(() => {
-    socket.on('start_receive', (data) => {
+    socket.on("start_receive", (data) => {
       hours.current = Number(data.hours);
       minutes.current = Number(data.minutes);
       seconds.current = Number(data.seconds);
 
-      receiveStartTimer();
+      timer.current = setInterval(() => {
+        countDown();
+      }, 1000);
 
       setHoursInput(0);
       setMinutesInput(0);
       setSecondsInput(0);
 
-      this.isStart = true;
+      setIsStart(true);
     });
+  }, [socket]);
 
-    socket.on('stop_receive', () => {
-      receiveStopTimer();
-    });
-
-    socket.on('reset_receive', () => {
-      receiverSetTimer();
+  //리셋 받았을때 
+  useEffect(() => {
+    socket.on("reset_receive", () => {
+      hours.current = 0;
+      minutes.current = 0;
+      seconds.current = 0;
+      setIsStart(false);
+      clearInterval(timer.current);
     });
   }, [socket]);
 
   const countDown = () => {
-    console.log(hours.current, minutes.current, seconds.current);
-
     let c_seconds = convertToSeconds(
       Number(hours.current),
       Number(minutes.current),
       Number(seconds.current)
     );
+    //전체 0일때 
+    if (hours.current === 0 && minutes.current === 0 && seconds.current === 0) {
+      clearInterval(timer.current);
+      setIsStart(false);
+      alert("시간 끝!")
+    }
+    // 타이머 알고리즘
     if (c_seconds) {
-      if (c_seconds === 0) {
-        // 시간 끝!
-        clearInterval(timer.current);
-      } else if (c_seconds % 3600 === 0) {
+      if (c_seconds % 3600 === 0) {
         // 시간 단위로 떨어질 때
         hours.current = hours.current - 1;
         minutes.current = 59;
@@ -103,14 +100,6 @@ const Timer = ({ socket, roomId }) => {
     }
   };
 
-  const stopTimer = () => {
-    setIsStart(false);
-    clearInterval(timer.current);
-    console.log('onClick reset');
-
-    // socket.emit('stop_time', roomId);
-  };
-
   const resetTimer = () => {
     hours.current = 0;
     minutes.current = 0;
@@ -121,23 +110,9 @@ const Timer = ({ socket, roomId }) => {
     setSecondsInput(0);
     setIsStart(false);
 
-    console.log('onClick reset');
     clearInterval(timer.current);
 
-    socket.emit('reset_time', roomId);
-  };
-
-  const receiveStopTimer = () => {
-    clearInterval(timer.timer);
-    setIsStart(false);
-  };
-
-  const receiverSetTimer = () => {
-    hours.current = 0;
-    minutes.current = 0;
-    seconds.current = 0;
-
-    setIsStart(false);
+    socket.emit("reset_time", roomId);
   };
 
   return (
@@ -194,9 +169,6 @@ const Timer = ({ socket, roomId }) => {
         <Btn onClick={startTimer} className="start" disabled={isStart}>
           start
         </Btn>
-        {/* <Btn onClick={stopTimer} className="stop">
-          <div>stop</div>
-        </Btn> */}
         <Btn onClick={resetTimer} className="reset">
           reset
         </Btn>
@@ -213,7 +185,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: 'Noto Sans';
+  font-family: "Noto Sans";
   margin-top: 20px;
 
   .inputGroup {
@@ -291,7 +263,7 @@ const Text = styled.div`
   color: #8a8ba3;
 
   span {
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
