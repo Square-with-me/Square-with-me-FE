@@ -47,9 +47,10 @@ const Detail = (props) => {
   const [isEmoji, setIsEmoji] = useState(false);
 
   // 화상 채팅
-  const [peers, setPeers] = useState([]);
+  const [peers, setPeers] = useState([]);   //비디오를 보여주는 용
   const userVideo = useRef();
-  const peersRef = useRef([]);
+  const peersRef = useRef([]);  //정보를 담는용
+  //작성하다보니 peers peersRef 둘이 같은 정보를 담고 있어서 합쳐도 될꺼같다는 의견 
 
   const [stream, setStream] = useState(null);
 
@@ -160,7 +161,8 @@ const Detail = (props) => {
         audio: true,
       })
       .then((stream) => {
-        setStream(stream);
+        setStream(stream) //리덕스에 값이 저장되어있기 때문에 불러와서 사용해되니 나중에 바꿔볼 것 
+        //비디오랑 오디오 정보를 리덕스에 저장 
         dispatch(userActions.setUserMedia(stream));
         userVideo.current.srcObject = stream;
 
@@ -212,6 +214,7 @@ const Detail = (props) => {
         dispatch(userActions.setOtherUsers(payload.otherUsers));
       }
       payload.otherSockets.map((user) => {
+        //유저 한명당 create를 해줌 
         const peer = createPeer(user.socketId, socket.id, stream);
 
         const peerObj = {
@@ -224,6 +227,7 @@ const Detail = (props) => {
         setPeers((prevPeers) => [...prevPeers, peerObj]);
       });
     }
+    //방에 나를 제외한 누군가가 있는지 보여줌 
     socket.on("send users", onSendUsers);
 
     return () => {
@@ -268,7 +272,7 @@ const Detail = (props) => {
       const item = peersRef.current.find((p) => p.peerId === payload.id);
       item.peer.signal(payload.signal);
     };
-
+    //잘 받았다고 확인하는 용(?)
     socket.on("receive returned signal", onReturnSignal);
 
     return () => {
@@ -290,6 +294,7 @@ const Detail = (props) => {
       );
       if (peerObj) {
         peerObj.peer.on("close", () => {
+          //peer연결을 끊어내기 
           peerObj.peer.destroy();
         });
       }
@@ -444,10 +449,6 @@ const Detail = (props) => {
     setDate(date);
   }, []);
 
-  function handleEnd() {
-    window.location.replace("/");
-  }
-
   // 이모티콘 보내기
   const sendEmoji = (emojiId) => {
     const data = {
@@ -493,15 +494,9 @@ const Detail = (props) => {
 
   // 채팅
   const chattingList = useSelector((store) => store.room.chattingList);
-  // const saveList = useSelector((store) => store.room.chattingList);
 
   //작성하는 채팅 내용
   const [userMessage, setUserMessage] = useState("");
-  // const [messageList, setMessageList] = useState([]);
-
-  // useEffect(() => {
-  //   setMessageList(saveList);
-  // }, [saveList]);
 
   // 채팅 받기
   useEffect(() => {
