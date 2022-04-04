@@ -1,221 +1,209 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
-class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-      isStart: false,
-    };
-    this.hoursInput = React.createRef();
-    this.minutesInput = React.createRef();
-    this.secondsInput = React.createRef();
-  }
+const Timer = ({ socket, roomId }) => {
+  const hours = useRef(0);
+  const minutes = useRef(0);
+  const seconds = useRef(0);
 
-  inputHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  const [hoursInput, setHoursInput] = useState(0);
+  const [minutesInput, setMinutesInput] = useState(0);
+  const [secondsInput, setSecondsInput] = useState(0);
+  const [isStart, setIsStart] = useState(false);
 
-  convertToSeconds = (hours, minutes, seconds) => {
+  const timer = useRef(null);
+
+  const convertToSeconds = (hours, minutes, seconds) => {
     return seconds + minutes * 60 + hours * 60 * 60;
   };
 
-  startTimer = async () => {
-    this.timer = setInterval(this.countDown, 1000);
+  const startTimer = async () => {
+    timer.current = setInterval(() => {
+      countDown();
+      console.log(seconds);
+    }, 1000);
 
     const data = {
-      roomId: this.props.roomId,
-      hours: this.hoursInput.current.value,
-      minutes: this.minutesInput.current.value,
-      seconds: this.secondsInput.current.value,
+      roomId: roomId,
+      hours: hoursInput,
+      minutes: minutesInput,
+      seconds: secondsInput,
     };
     //시작신호 소켓으로 보내기
-    this.props.socket.emit("start_timer", data);
+    socket.emit('start_timer', data);
     //각 인풋 값을 0으로 만들기!
-    this.hoursInput.current.value = 0;
-    this.minutesInput.current.value = 0;
-    this.secondsInput.current.value = 0;
+
+    // hours.current = hoursInput;
+    // minutes.current = minutesInput;
+    // seconds.current = secondsInput;
+
+    setHoursInput(0);
+    setMinutesInput(0);
+    setSecondsInput(0);
+
     //시작 버튼 안눌리게
-    this.isStart = true;
+    setIsStart(true);
   };
 
-  receiveStartTimer = () => {
+  const receiveStartTimer = () => {
     //기준 간격을 두고 주기적으로 이벤트를 발생 시키고 싶을 때 (setInterval)
-    this.timer = setInterval(this.countDown, 1000);
+    timer.current = setInterval(() => {
+      countDown();
+    }, 1000);
   };
 
-  componentWillMount() {
+  useEffect(() => {
+    socket.on('start_receive', (data) => {
+      hours.current = Number(data.hours);
+      minutes.current = Number(data.minutes);
+      seconds.current = Number(data.seconds);
 
-    // 시작 신호 받음
-    this.props.socket.on("start_receive", (data) => {
-      this.setState({ hours: Number(data.hours) });
-      this.setState({ minutes: Number(data.minutes) });
-      this.setState({ seconds: Number(data.seconds) });
+      receiveStartTimer();
 
-      this.receiveStartTimer();
-
-      // this.hoursInput.current.value = 0;
-      // this.minutesInput.current.value = 0;
-      // this.secondsInput.current.value = 0;
+      setHoursInput(0);
+      setMinutesInput(0);
+      setSecondsInput(0);
 
       this.isStart = true;
     });
-  }
 
-  componentDidUpdate() {
-    this.props.socket.on("stop_receive", () => {
-      this.receiveStopTimer();
+    socket.on('stop_receive', () => {
+      receiveStopTimer();
     });
 
-    this.props.socket.on("reset_receive", () => {
-      this.receiverSetTimer();
+    socket.on('reset_receive', () => {
+      receiverSetTimer();
     });
-  }
+  }, [socket]);
 
-  countDown = () => {
-    const { hours, minutes, seconds } = this.state;
-    let c_seconds = this.convertToSeconds(
-      Number(hours),
-      Number(minutes),
-      Number(seconds)
+  const countDown = () => {
+    console.log(hours.current, minutes.current, seconds.current);
+
+    let c_seconds = convertToSeconds(
+      Number(hours.current),
+      Number(minutes.current),
+      Number(seconds.current)
     );
     if (c_seconds) {
-      // seconds change
-      if (seconds === 0 || seconds === "0") {
-        this.setState({ seconds: 59 });
-      } else if (seconds !== "0" || seconds !== 0) {
-        this.setState({ seconds: seconds - 1 });
+      if (c_seconds === 0) {
+        // 시간 끝!
+        clearInterval(timer.current);
+      } else if (c_seconds % 3600 === 0) {
+        // 시간 단위로 떨어질 때
+        hours.current = hours.current - 1;
+        minutes.current = 59;
+        seconds.current = 59;
+      } else if (c_seconds % 60 === 0) {
+        // 분 단위로 떨어질 때
+        minutes.current = minutes.current - 1;
+        seconds.current = 59;
+      } else {
+        seconds.current = seconds.current - 1;
       }
-      //시간 분 초 전부다 있을때
-      if (hours && minutes && seconds) {
-        this.setState({ seconds: seconds - 1 });
-        //시간 초만 있을때
-      } else if (!minutes && hours && seconds) {
-        this.setState({ seconds: seconds - 1 });
-      }
-
-      // minutes change -> 분단위로 떨어지는데
-      else if (c_seconds % 60 === 0 && minutes) {
-        this.setState({ minutes: minutes - 1 });
-      }
-
-      // 시간만 있을때
-      else if (!minutes && hours) {
-        this.setState({ minutes: 59 });
-        this.setState({ hours: hours - 1 });
-      }
-
-      // hours change
-      else if (c_seconds % 3600 === 0 && hours) {
-        this.setState({ hours: hours - 1 });
-      }
-    } else {
-      //중지하고 싶을때 사용
-      clearInterval(this.timer);
-      // alert("시간 끝!");
-      this.isStart = false;
     }
   };
 
-  stopTimer = async () => {
-    clearInterval(this.timer);
-    this.isStart = false;
-    this.props.socket.emit("stop_time", this.props.roomId);
+  const stopTimer = () => {
+    setIsStart(false);
+    clearInterval(timer.current);
+    console.log('onClick reset');
+
+    // socket.emit('stop_time', roomId);
   };
 
-  resetTimer = async () => {
-    this.setState({
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    });
-    this.hoursInput.current.value = 0;
-    this.minutesInput.current.value = 0;
-    this.secondsInput.current.value = 0;
-    this.isStart = false;
+  const resetTimer = () => {
+    hours.current = 0;
+    minutes.current = 0;
+    seconds.current = 0;
 
-    this.props.socket.emit("reset_time", this.props.roomId);
+    setHoursInput(0);
+    setMinutesInput(0);
+    setSecondsInput(0);
+    setIsStart(false);
+
+    console.log('onClick reset');
+    clearInterval(timer.current);
+
+    socket.emit('reset_time', roomId);
   };
 
-  receiveStopTimer = () => {
-    clearInterval(this.timer);
-    this.isStart = false;
+  const receiveStopTimer = () => {
+    clearInterval(timer.timer);
+    setIsStart(false);
   };
 
-  receiverSetTimer = () => {
-    this.setState({
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
-    });
-    this.isStart = false;
+  const receiverSetTimer = () => {
+    hours.current = 0;
+    minutes.current = 0;
+    seconds.current = 0;
+
+    setIsStart(false);
   };
 
-  render() {
-    const { hours, minutes, seconds } = this.state;
-
-    return (
-      <Container>
-        <div className="inputGroup">
-          <Input
-            ref={this.hoursInput}
-            placeholder={0}
-            name="hours"
-            onChange={this.inputHandler}
-            disabled={this.isStart}
-            maxLength='2'
-          />
-          <p>H</p>
-          <Input
-            ref={this.minutesInput}
-            placeholder={0}
-            name="minutes"
-            onChange={this.inputHandler}
-            disabled={this.isStart}
-            maxLength='2'
-          />
-          <p>M</p>
-          <Input
-            ref={this.secondsInput}
-            placeholder={0}
-            name="seconds"
-            onChange={this.inputHandler}
-            disabled={this.isStart}
-            maxLength='2'
-          />
-          <p>S</p>
-        </div>
-        <div className="outputGroup">
-          <Text>
-            {hours}
-            <span>H</span>
-            {minutes}
-            <span>M</span> {seconds}
-            <span>S</span>
-          </Text>
-        </div>
-        <div className="buttonGroup">
-          <Btn
-            onClick={this.startTimer}
-            className="start"
-            disabled={this.isStart}
-          >
-            start
-          </Btn>
-          {/* <Btn onClick={this.stopTimer} className="stop" >
-            <div>stop</div>
-          </Btn> */}
-          <Btn onClick={this.resetTimer} className="reset">
-            reset
-          </Btn>
-        </div>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <div className="inputGroup">
+        <Input
+          value={hoursInput}
+          placeholder={0}
+          name="hours"
+          onChange={(e) => {
+            setHoursInput(e.target.value);
+            hours.current = e.target.value;
+          }}
+          disabled={isStart}
+          maxLength="2"
+        />
+        <p>H</p>
+        <Input
+          value={minutesInput}
+          placeholder={0}
+          name="minutes"
+          onChange={(e) => {
+            setMinutesInput(e.target.value);
+            minutes.current = e.target.value;
+          }}
+          disabled={isStart}
+          maxLength="2"
+        />
+        <p>M</p>
+        <Input
+          value={secondsInput}
+          placeholder={0}
+          name="seconds"
+          onChange={(e) => {
+            setSecondsInput(e.target.value);
+            seconds.current = e.target.value;
+          }}
+          disabled={isStart}
+          maxLength="2"
+        />
+        <p>S</p>
+      </div>
+      <div className="outputGroup">
+        <Text>
+          {hours.current}
+          <span>H</span>
+          {minutes.current}
+          <span>M</span>
+          {seconds.current}
+          <span>S</span>
+        </Text>
+      </div>
+      <div className="buttonGroup">
+        <Btn onClick={startTimer} className="start" disabled={isStart}>
+          start
+        </Btn>
+        {/* <Btn onClick={stopTimer} className="stop">
+          <div>stop</div>
+        </Btn> */}
+        <Btn onClick={resetTimer} className="reset">
+          reset
+        </Btn>
+      </div>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   width: 100%;
@@ -225,7 +213,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans';
   margin-top: 20px;
 
   .inputGroup {
@@ -303,7 +291,7 @@ const Text = styled.div`
   color: #8a8ba3;
 
   span {
-    font-family: "Noto Sans";
+    font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
