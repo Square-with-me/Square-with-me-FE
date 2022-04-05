@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { actionCreators as roomActions } from "../../redux/modules/room";
 
 //svg
 import { ReactComponent as Lock } from "../../assets/modals/lockIcon.svg";
 
 const SecretRoomModal = (props) => {
+  const history = useHistory()
   const userId = useSelector((store) => store.user.user.id);
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState("");
+  useEffect(()=>{
+    if (!localStorage.getItem('login-token')) {
+      alert('로그인 후 이용 가능 합니다');
+      props.setSecret(false)
+    }
+  },[])
 
   return (
     <React.Fragment>
