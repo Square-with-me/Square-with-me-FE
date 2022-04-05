@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { BackUrl } from "../shared/config";
+import useInterval from "../hooks/useInterval"
 
 //redux
 import { actionCreators as userActions } from "../redux/modules/user";
@@ -575,18 +576,33 @@ const Detail = (props) => {
   const [hoursInput, setHoursInput] = useState(0);
   const [minutesInput, setMinutesInput] = useState(0);
   const [secondsInput, setSecondsInput] = useState(0);
+
+  const [hoursOutput, setHoursOutput] = useState(0);
+  const [minutesOutput, setMinutesOutput] = useState(0);
+  const [secondsOutput, setSecondsOutput] = useState(0);
+  
   const [isStart, setIsStart] = useState(false);
 
   const timer = useRef(null);
+
+  useInterval(() => {
+    if(hours.current === 0 && minutes.current === 0 && seconds.current === 0) {
+      setHoursOutput(0);
+      setMinutesOutput(0);
+      setSecondsOutput(0)
+      return
+    }
+    setHoursOutput(hours.current);
+    setMinutesOutput(minutes.current);
+    setSecondsOutput(seconds.current)
+  }, 1000);
 
   const convertToSeconds = (hours, minutes, seconds) => {
     return seconds + minutes * 60 + hours * 60 * 60;
   };
 
   const startTimer = async () => {
-    timer.current = setInterval(() => {
-      countDown();
-    }, 1000);
+    timer.current = setInterval(countDown, 1000);
 
     const data = {
       roomId: params.id,
@@ -631,8 +647,10 @@ const Detail = (props) => {
       hours.current = 0;
       minutes.current = 0;
       seconds.current = 0;
+
       setIsStart(false);
       clearInterval(timer.current);
+      timer.current = null;
     });
   }, [socket]);
 
@@ -648,6 +666,8 @@ const Detail = (props) => {
       clearInterval(timer.current);
       setIsStart(false);
       alert("시간 끝!");
+      timer.current = null;
+      console.log("timer current", timer.current);
     }
     // 타이머 알고리즘
     if (c_seconds) {
@@ -655,7 +675,7 @@ const Detail = (props) => {
         // 시간 단위로 떨어질 때
         hours.current = hours.current - 1;
         minutes.current = 59;
-        seconds.current = 59;
+        seconds.current = 59
       } else if (c_seconds % 60 === 0) {
         // 분 단위로 떨어질 때
         minutes.current = minutes.current - 1;
@@ -670,6 +690,10 @@ const Detail = (props) => {
     hours.current = 0;
     minutes.current = 0;
     seconds.current = 0;
+
+    setHoursOutput(hours.current);
+    setMinutesOutput(minutes.current);
+    setSecondsOutput(seconds.current);
 
     setHoursInput(0);
     setMinutesInput(0);
@@ -860,11 +884,11 @@ const Detail = (props) => {
                       </div>
                       <div className="outputGroup">
                         <TimerText>
-                          {hours.current}
+                          {hoursOutput}
                           <span>H</span>
-                          {minutes.current}
+                          {minutesOutput}
                           <span>M</span>
-                          {seconds.current}
+                          {secondsOutput}
                           <span>S</span>
                         </TimerText>
                       </div>
