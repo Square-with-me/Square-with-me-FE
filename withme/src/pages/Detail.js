@@ -9,7 +9,6 @@ import { BackUrl } from "../shared/config";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { actionCreators as roomActions } from "../redux/modules/room";
 //pages
-import Timer from "../components/Detail/Timer";
 import Parti from "../components/Detail/Parti";
 import Logo from "../components/Main/Logo";
 import RoomInfo from "../components/Detail/RoomInfo";
@@ -47,10 +46,10 @@ const Detail = (props) => {
   const [isEmoji, setIsEmoji] = useState(false);
 
   // 화상 채팅
-  const [peers, setPeers] = useState([]);   //비디오를 보여주는 용
+  const [peers, setPeers] = useState([]); //비디오를 보여주는 용
   const userVideo = useRef();
-  const peersRef = useRef([]);  //정보를 담는용
-  //작성하다보니 peers peersRef 둘이 같은 정보를 담고 있어서 합쳐도 될꺼같다는 의견 
+  const peersRef = useRef([]); //정보를 담는용
+  //작성하다보니 peers peersRef 둘이 같은 정보를 담고 있어서 합쳐도 될꺼같다는 의견
 
   const [stream, setStream] = useState(null);
 
@@ -161,8 +160,8 @@ const Detail = (props) => {
         audio: true,
       })
       .then((stream) => {
-        setStream(stream) //리덕스에 값이 저장되어있기 때문에 불러와서 사용해되니 나중에 바꿔볼 것 
-        //비디오랑 오디오 정보를 리덕스에 저장 
+        setStream(stream); //리덕스에 값이 저장되어있기 때문에 불러와서 사용해되니 나중에 바꿔볼 것
+        //비디오랑 오디오 정보를 리덕스에 저장
         dispatch(userActions.setUserMedia(stream));
         userVideo.current.srcObject = stream;
 
@@ -214,7 +213,7 @@ const Detail = (props) => {
         dispatch(userActions.setOtherUsers(payload.otherUsers));
       }
       payload.otherSockets.map((user) => {
-        //유저 한명당 create를 해줌 
+        //유저 한명당 create를 해줌
         const peer = createPeer(user.socketId, socket.id, stream);
 
         const peerObj = {
@@ -227,7 +226,7 @@ const Detail = (props) => {
         setPeers((prevPeers) => [...prevPeers, peerObj]);
       });
     }
-    //방에 나를 제외한 누군가가 있는지 보여줌 
+    //방에 나를 제외한 누군가가 있는지 보여줌
     socket.on("send users", onSendUsers);
 
     return () => {
@@ -294,7 +293,7 @@ const Detail = (props) => {
       );
       if (peerObj) {
         peerObj.peer.on("close", () => {
-          //peer연결을 끊어내기 
+          //peer연결을 끊어내기
           peerObj.peer.destroy();
         });
       }
@@ -568,13 +567,131 @@ const Detail = (props) => {
     history.replace("/main");
   };
 
+  //타이머
+  const hours = useRef(0);
+  const minutes = useRef(0);
+  const seconds = useRef(0);
+
+  const [hoursInput, setHoursInput] = useState(0);
+  const [minutesInput, setMinutesInput] = useState(0);
+  const [secondsInput, setSecondsInput] = useState(0);
+  const [isStart, setIsStart] = useState(false);
+
+  const timer = useRef(null);
+
+  const convertToSeconds = (hours, minutes, seconds) => {
+    return seconds + minutes * 60 + hours * 60 * 60;
+  };
+
+  const startTimer = async () => {
+    timer.current = setInterval(() => {
+      countDown();
+    }, 1000);
+
+    const data = {
+      roomId: params.id,
+      hours: hoursInput,
+      minutes: minutesInput,
+      seconds: secondsInput,
+    };
+    //시작신호 소켓으로 보내기
+    socket.emit("start_timer", data);
+
+    //각 인풋 값을 0으로 만들기!
+    setHoursInput(0);
+    setMinutesInput(0);
+    setSecondsInput(0);
+
+    //시작 버튼 안눌리게
+    setIsStart(true);
+  };
+
+  //스타트 받았을때
+  useEffect(() => {
+    socket.on("start_receive", (data) => {
+      hours.current = Number(data.hours);
+      minutes.current = Number(data.minutes);
+      seconds.current = Number(data.seconds);
+
+      timer.current = setInterval(() => {
+        countDown();
+      }, 1000);
+
+      setHoursInput(0);
+      setMinutesInput(0);
+      setSecondsInput(0);
+
+      setIsStart(true);
+    });
+  }, [socket]);
+
+  //리셋 받았을때
+  useEffect(() => {
+    socket.on("reset_receive", () => {
+      hours.current = 0;
+      minutes.current = 0;
+      seconds.current = 0;
+      setIsStart(false);
+      clearInterval(timer.current);
+    });
+  }, [socket]);
+
+  const countDown = () => {
+    let c_seconds = convertToSeconds(
+      Number(hours.current),
+      Number(minutes.current),
+      Number(seconds.current)
+    );
+    console.log("시간",hours.current, minutes.current, seconds.current)
+    //전체 0일때
+    if (hours.current === 0 && minutes.current === 0 && seconds.current === 0) {
+      clearInterval(timer.current);
+      setIsStart(false);
+      alert("시간 끝!");
+    }
+    // 타이머 알고리즘
+    if (c_seconds) {
+      if (c_seconds % 3600 === 0) {
+        // 시간 단위로 떨어질 때
+        hours.current = hours.current - 1;
+        minutes.current = 59;
+        seconds.current = 59;
+      } else if (c_seconds % 60 === 0) {
+        // 분 단위로 떨어질 때
+        minutes.current = minutes.current - 1;
+        seconds.current = 59;
+      } else {
+        seconds.current = seconds.current - 1;
+      }
+    }
+  };
+
+  const resetTimer = () => {
+    hours.current = 0;
+    minutes.current = 0;
+    seconds.current = 0;
+
+    setHoursInput(0);
+    setMinutesInput(0);
+    setSecondsInput(0);
+    setIsStart(false);
+
+    clearInterval(timer.current);
+
+    socket.emit("reset_time", params.id);
+  };
+
   return (
     <Back>
       {room && (
         <Container>
           <div id="top">
             <div className="logo" style={{ cursor: "pointer" }}>
-              <div onClick={()=>{handleQuitRoom()}}>
+              <div
+                onClick={() => {
+                  handleQuitRoom();
+                }}
+              >
                 <Logo />
               </div>
               <RoomInfo room={room} />
@@ -702,7 +819,68 @@ const Detail = (props) => {
                     </Button>
                   </div>
                   {isTimer ? (
-                    <Timer socket={socket} roomId={params.id} />
+                    <TimerContainer>
+                      <div className="inputGroup">
+                        <TimerInput
+                          value={hoursInput}
+                          placeholder={0}
+                          name="hours"
+                          onChange={(e) => {
+                            setHoursInput(e.target.value);
+                            hours.current = e.target.value;
+                          }}
+                          disabled={isStart}
+                          maxLength="2"
+                        />
+                        <p>H</p>
+                        <TimerInput
+                          value={minutesInput}
+                          placeholder={0}
+                          name="minutes"
+                          onChange={(e) => {
+                            setMinutesInput(e.target.value);
+                            minutes.current = e.target.value;
+                          }}
+                          disabled={isStart}
+                          maxLength="2"
+                        />
+                        <p>M</p>
+                        <TimerInput
+                          value={secondsInput}
+                          placeholder={0}
+                          name="seconds"
+                          onChange={(e) => {
+                            setSecondsInput(e.target.value);
+                            seconds.current = e.target.value;
+                          }}
+                          disabled={isStart}
+                          maxLength="2"
+                        />
+                        <p>S</p>
+                      </div>
+                      <div className="outputGroup">
+                        <TimerText>
+                          {hours.current}
+                          <span>H</span>
+                          {minutes.current}
+                          <span>M</span>
+                          {seconds.current}
+                          <span>S</span>
+                        </TimerText>
+                      </div>
+                      <div className="buttonGroup">
+                        <TimerBtn
+                          onClick={startTimer}
+                          className="start"
+                          disabled={isStart}
+                        >
+                          start
+                        </TimerBtn>
+                        <TimerBtn onClick={resetTimer} className="reset">
+                          reset
+                        </TimerBtn>
+                      </div>
+                    </TimerContainer>
                   ) : (
                     ""
                   )}
@@ -865,7 +1043,7 @@ const Detail = (props) => {
                         )}
                       </div>
                       <div className="inputBox">
-                          <label htmlFor="choiceReceiver">TO. 모두에게</label>
+                        <label htmlFor="choiceReceiver">TO. 모두에게</label>
                         <div style={{ position: "relative" }}>
                           <textarea
                             type="text"
@@ -988,7 +1166,9 @@ const Detail = (props) => {
                 style={{
                   marginLeft: "16px",
                 }}
-                onClick={()=>{handleQuitRoom()}}
+                onClick={() => {
+                  handleQuitRoom();
+                }}
               >
                 <svg
                   width="30"
@@ -1844,4 +2024,122 @@ const MyMessageBox = styled.div`
     color: #000;
   }
 `;
+
+//타이머
+const TimerContainer = styled.div`
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-family: "Noto Sans";
+  margin-top: 20px;
+
+  .inputGroup {
+    display: flex;
+    align-items: end;
+
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 19px;
+      margin: 0 5%;
+    }
+  }
+
+  .outputGroup {
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+
+    padding: 8px 10px;
+    background-color: #e3e5ff;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    // 세로가 더 긴 기기가 세로로 있을 때 .outputGroup이 밀려보이는 부분 조절
+    @media screen and (max-width: 820px) and (orientation: portrait) {
+      width: 98%;
+    }
+  }
+  .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const TimerInput = styled.input`
+  width: 20%;
+  height: 42px;
+  border: 1px solid #8a8ba3;
+  border-radius: 4px;
+  background: #ffffff;
+  text-align: center;
+  margin: auto;
+
+  color: #8a8ba3;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 150%;
+
+  &::placeholder {
+    color: #8a8ba3;
+    font-weight: 800;
+    font-size: 16px;
+  }
+  &:focus {
+    border: none;
+    outline: 1px solid #7179f0;
+    box-shadow: 0px 0px 6px rgba(113, 121, 240, 0.3);
+  }
+`;
+
+const TimerText = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #8a8ba3;
+
+  span {
+    font-family: "Noto Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 19px;
+    margin: 0 5%;
+  }
+`;
+
+const TimerBtn = styled.button`
+  width: 100%;
+  margin: auto 5px;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: #7179f0;
+  align-items: center;
+  align-content: center;
+  color: #fafaff;
+  font-size: 18px;
+  font-weight: 400;
+  /* line-height: 27px; */
+
+  // 세로가 더 긴 기기가 세로로 있을 때 버튼 밀리는 부분 조절
+  @media screen and (max-width: 767px) and (orientation: portrait) {
+    font-size: 15px;
+    margin: 3px 3px 3px 1px;
+  }
+`;
+
 export default Detail;

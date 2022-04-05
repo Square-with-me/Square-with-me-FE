@@ -21,7 +21,7 @@ const SearchBar = (props) => {
     <React.Fragment>
       <SearchBarWrap>
         <SearchBarInput
-          placeholder="방 제목를 입력해주세요. (방 제목만 검색 가능합니다)"
+          placeholder="검색어를 입력해주세요(방 제목, 카테고리, 태그 모두 가능)"
           onChange={(e) => props.setSearch(e.target.value)}
           onKeyPress={onKeyPress}
         />

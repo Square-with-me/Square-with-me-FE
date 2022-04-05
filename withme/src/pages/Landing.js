@@ -860,7 +860,7 @@ const Container = styled.div`
     }
 
     .welcome-heading {
-      width: 750px;
+      width: 755px;
       text-align: center;
 
       span {
