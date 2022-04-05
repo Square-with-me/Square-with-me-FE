@@ -44,19 +44,17 @@ const Mypage = (props) => {
   const [badgeId, setBadgeId] = useState(0);
 
   useEffect(() => {
-
-    if (user.MasterBadge)
-    setBadgeId(user.MasterBadge.id);
+    if (user.MasterBadge) setBadgeId(user.MasterBadge.id);
 
     dispatch(userActions.timeGetDB(userId));
   }, []);
 
-  useEffect(()=>{
-    if(!localStorage.getItem("login-token")){
-      alert("로그인 후 이용 가능 합니다")
-      history.replace('/main')
+  useEffect(() => {
+    if (!localStorage.getItem('login-token')) {
+      alert('로그인 후 이용 가능 합니다');
+      history.replace('/main');
     }
-  },[])
+  }, []);
 
   // 유저 닉네임 수정
   const editNickname = () => {
@@ -438,7 +436,7 @@ const Container = styled.div`
   row-gap: 50px;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(12, 1fr);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
 
   .header {
     grid-column: 5/13;
@@ -719,8 +717,6 @@ const ProfileContainer = styled.div`
     }
   }
 `;
-
-
 
 const BadgeContainer = styled.div`
   height: 70%;

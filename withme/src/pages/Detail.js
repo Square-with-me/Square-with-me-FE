@@ -7,26 +7,26 @@ import { BackUrl } from "../shared/config";
 import useInterval from "../hooks/useInterval"
 
 //redux
-import { actionCreators as userActions } from "../redux/modules/user";
-import { actionCreators as roomActions } from "../redux/modules/room";
+import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as roomActions } from '../redux/modules/room';
 //pages
 import Parti from "../components/Detail/Parti";
 import Logo from "../components/Main/Logo";
 import RoomInfo from "../components/Detail/RoomInfo";
 // 방 입장
 // import io from "socket.io-client";
-import Peer from "simple-peer";
+import Peer from 'simple-peer';
 // icons
-import { ReactComponent as OnMic } from "../assets/inRoom/onMicIcon.svg";
-import { ReactComponent as OffMic } from "../assets/inRoom/offMicIcon.svg";
-import { ReactComponent as OnCamera } from "../assets/inRoom/onCameraIcon.svg";
-import { ReactComponent as OffCamera } from "../assets/inRoom/offCameraIcon.svg";
-import { ReactComponent as ChooseEmotion } from "../assets/inRoomEmotion/chooseEmotion.svg";
+import { ReactComponent as OnMic } from '../assets/inRoom/onMicIcon.svg';
+import { ReactComponent as OffMic } from '../assets/inRoom/offMicIcon.svg';
+import { ReactComponent as OnCamera } from '../assets/inRoom/onCameraIcon.svg';
+import { ReactComponent as OffCamera } from '../assets/inRoom/offCameraIcon.svg';
+import { ReactComponent as ChooseEmotion } from '../assets/inRoomEmotion/chooseEmotion.svg';
 // emotion icons
-import { ReactComponent as HappyEmoji } from "../assets/emoji/happy.svg";
-import { ReactComponent as LoveEmoji } from "../assets/emoji/love.svg";
-import { ReactComponent as BadEmoji } from "../assets/emoji/bad.svg";
-import { ReactComponent as SadEmoji } from "../assets/emoji/sad.svg";
+import { ReactComponent as HappyEmoji } from '../assets/emoji/happy.svg';
+import { ReactComponent as LoveEmoji } from '../assets/emoji/love.svg';
+import { ReactComponent as BadEmoji } from '../assets/emoji/bad.svg';
+import { ReactComponent as SadEmoji } from '../assets/emoji/sad.svg';
 
 const Detail = (props) => {
   const user = useSelector((store) => store.user.user);
@@ -58,12 +58,12 @@ const Detail = (props) => {
 
   // 사이드바 컨트롤
   useEffect(() => {
-    const videoBox = document.getElementById("videoBox");
+    const videoBox = document.getElementById('videoBox');
 
     if (videoBox !== null && sideCount === 0) {
-      videoBox.style.gridColumn = "1/13";
+      videoBox.style.gridColumn = '1/13';
     } else if (videoBox !== null && sideCount > 0) {
-      videoBox.style.gridColumn = "1/10";
+      videoBox.style.gridColumn = '1/10';
     }
   }, [sideCount]);
 
@@ -144,7 +144,7 @@ const Detail = (props) => {
   };
 
   useEffect(() => {
-    const myRoomInLS = JSON.parse(localStorage.getItem("myRoom"));
+    const myRoomInLS = JSON.parse(localStorage.getItem('myRoom'));
     if (!room && myRoomInLS) {
       dispatch(roomActions.setMyRoom(myRoomInLS));
     }
@@ -178,11 +178,11 @@ const Detail = (props) => {
           userId: user.id,
           categoryId: room.category.id,
           date,
-          profileImg: user.profileImg ? user.profileImg : "",
+          profileImg: user.profileImg ? user.profileImg : '',
           statusMsg: user.statusMsg,
-          masterBadge: user.MasterBadge ? user.MasterBadge.imageUrl : "",
+          masterBadge: user.MasterBadge ? user.MasterBadge.imageUrl : '',
         };
-        socket.emit("join room", data, roomFull);
+        socket.emit('join room', data, roomFull);
       });
   }, [params.id, room, user, socket]);
 
@@ -192,14 +192,14 @@ const Detail = (props) => {
       return;
     }
     function noData() {
-      alert("데이터 전달 오류");
-      history.push("/main");
+      alert('데이터 전달 오류');
+      history.push('/main');
     }
 
-    socket.on("no data", noData);
+    socket.on('no data', noData);
 
     return () => {
-      socket.off("no data", noData);
+      socket.off('no data', noData);
     };
   }, []);
 
@@ -228,10 +228,10 @@ const Detail = (props) => {
       });
     }
     //방에 나를 제외한 누군가가 있는지 보여줌
-    socket.on("send users", onSendUsers);
+    socket.on('send users', onSendUsers);
 
     return () => {
-      socket.off("send users", onSendUsers);
+      socket.off('send users', onSendUsers);
     };
   }, [stream]);
 
@@ -255,10 +255,10 @@ const Detail = (props) => {
       setPeers((prevPeers) => [...prevPeers, newPeer]);
     };
 
-    socket.on("user joined", onUserJoined);
+    socket.on('user joined', onUserJoined);
 
     return () => {
-      socket.off("user joined", onUserJoined);
+      socket.off('user joined', onUserJoined);
     };
   }, [stream, peers]);
 
@@ -273,10 +273,10 @@ const Detail = (props) => {
       item.peer.signal(payload.signal);
     };
     //잘 받았다고 확인하는 용(?)
-    socket.on("receive returned signal", onReturnSignal);
+    socket.on('receive returned signal', onReturnSignal);
 
     return () => {
-      socket.off("receive returned signal", onReturnSignal);
+      socket.off('receive returned signal', onReturnSignal);
     };
   }, [stream]);
 
@@ -287,13 +287,13 @@ const Detail = (props) => {
     }
 
     const onUserLeft = (payload) => {
-      alert(payload.userInfo.nickname + "님이 나갔습니다."); // 참가자 나감 알림 용
+      alert(payload.userInfo.nickname + '님이 나갔습니다.'); // 참가자 나감 알림 용
       dispatch(userActions.deleteRoomUser(payload.userInfo.id));
       const peerObj = peersRef.current.find(
         (p) => p.peerId === payload.socketId
       );
       if (peerObj) {
-        peerObj.peer.on("close", () => {
+        peerObj.peer.on('close', () => {
           //peer연결을 끊어내기
           peerObj.peer.destroy();
         });
@@ -308,10 +308,10 @@ const Detail = (props) => {
       );
     };
 
-    socket.on("user left", onUserLeft);
+    socket.on('user left', onUserLeft);
 
     return () => {
-      socket.off("user left", onUserLeft);
+      socket.off('user left', onUserLeft);
     };
   }, [stream, peers]);
 
@@ -322,9 +322,9 @@ const Detail = (props) => {
       stream,
     });
 
-    peer.on("signal", (signal) => {
-      socket.emit("send signal", {
-        config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
+    peer.on('signal', (signal) => {
+      socket.emit('send signal', {
+        config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] },
         userToSignal,
         callerId,
         signal,
@@ -336,14 +336,14 @@ const Detail = (props) => {
 
   function addPeer(incomingSignal, callerId, stream) {
     const peer = new Peer({
-      config: { iceServers: [{ url: "stun:stun.l.google.com:19302" }] },
+      config: { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] },
       initiator: false,
       trickle: false,
       stream,
     });
 
-    peer.on("signal", (signal) => {
-      socket.emit("returning signal", { signal, callerId });
+    peer.on('signal', (signal) => {
+      socket.emit('returning signal', { signal, callerId });
     });
 
     peer.signal(incomingSignal);
@@ -352,8 +352,8 @@ const Detail = (props) => {
   }
 
   const roomFull = () => {
-    alert("정원이 다 찬 방입니다. 메인화면으로 이동합니다.");
-    history.push("/main");
+    alert('정원이 다 찬 방입니다. 메인화면으로 이동합니다.');
+    history.push('/main');
   };
 
   const [videoOn, setVideoOn] = useState(true);
@@ -391,14 +391,14 @@ const Detail = (props) => {
 
     setDiffTime(Math.abs(closeTime - Date.parse(openTime)) / 60000);
 
-    const prevTime = JSON.parse(localStorage.getItem("time"));
+    const prevTime = JSON.parse(localStorage.getItem('time'));
     const today = new Date().getDate();
 
     if (prevTime) {
       if (prevTime.date === today) {
         //기존 데이터에 새운 데이터 추가해서 저장
         prevTime[room.category.id] += 0.5;
-        localStorage.setItem("time", JSON.stringify(prevTime));
+        localStorage.setItem('time', JSON.stringify(prevTime));
       } else {
         //기존 데이터 초기화 하고 새로 저장
         const data = {
@@ -411,7 +411,7 @@ const Detail = (props) => {
           6: 0,
         };
         data[room.category.id] = diffTime;
-        localStorage.setItem("time", JSON.stringify(data));
+        localStorage.setItem('time', JSON.stringify(data));
       }
     } else {
       // 시간데이터가 없을 때
@@ -425,11 +425,11 @@ const Detail = (props) => {
         6: 0,
       };
       data[room.category.id] = diffTime;
-      localStorage.setItem("time", JSON.stringify(data));
+      localStorage.setItem('time', JSON.stringify(data));
     }
 
     setTimeout(() => {
-      socket.emit("save_time", parseInt(diffTime) + 1);
+      socket.emit('save_time', parseInt(diffTime) + 1);
     }, [1500]);
   }
 
@@ -456,7 +456,7 @@ const Detail = (props) => {
       id: socket.id,
       emoji: emojiId,
     };
-    socket.emit("send_emoji", data);
+    socket.emit('send_emoji', data);
     showEmoji(data);
   };
 
@@ -465,18 +465,18 @@ const Detail = (props) => {
     const { id, emoji } = data;
     //소켓아이디가 감싸고있는 디브테그에 있음 그래서 같이 확인하게 위치 확인을 위해서
     const targetVideo = document.getElementById(id);
-    if (emoji === "happy") {
-      targetVideo.childNodes[1].classList.remove("hidden");
-      setTimeout(() => targetVideo.childNodes[1].classList.add("hidden"), 3000);
-    } else if (emoji === "love") {
-      targetVideo.childNodes[2].classList.remove("hidden");
-      setTimeout(() => targetVideo.childNodes[2].classList.add("hidden"), 3000);
-    } else if (emoji === "bad") {
-      targetVideo.childNodes[3].classList.remove("hidden");
-      setTimeout(() => targetVideo.childNodes[3].classList.add("hidden"), 3000);
-    } else if (emoji === "sad") {
-      targetVideo.childNodes[4].classList.remove("hidden");
-      setTimeout(() => targetVideo.childNodes[4].classList.add("hidden"), 3000);
+    if (emoji === 'happy') {
+      targetVideo.childNodes[1].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[1].classList.add('hidden'), 3000);
+    } else if (emoji === 'love') {
+      targetVideo.childNodes[2].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[2].classList.add('hidden'), 3000);
+    } else if (emoji === 'bad') {
+      targetVideo.childNodes[3].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[3].classList.add('hidden'), 3000);
+    } else if (emoji === 'sad') {
+      targetVideo.childNodes[4].classList.remove('hidden');
+      setTimeout(() => targetVideo.childNodes[4].classList.add('hidden'), 3000);
     }
   };
   // 상대방 이모티콘 받기
@@ -484,11 +484,11 @@ const Detail = (props) => {
     if (!socket) {
       return;
     }
-    socket.on("receive_emoji", showEmoji);
+    socket.on('receive_emoji', showEmoji);
 
     //이벤트를 해제를 해줘야 하는데 return안에서 해제를 해줘야 함
     return () => {
-      socket.off("receive_emoji", showEmoji);
+      socket.off('receive_emoji', showEmoji);
     };
   }, [socket]);
 
@@ -496,7 +496,7 @@ const Detail = (props) => {
   const chattingList = useSelector((store) => store.room.chattingList);
 
   //작성하는 채팅 내용
-  const [userMessage, setUserMessage] = useState("");
+  const [userMessage, setUserMessage] = useState('');
 
   // 채팅 받기
   useEffect(() => {
@@ -507,21 +507,21 @@ const Detail = (props) => {
     const onReceiveMessage = (data) => {
       dispatch(roomActions.saveOthersChat(data));
     };
-    socket.on("receive_message", onReceiveMessage);
+    socket.on('receive_message', onReceiveMessage);
 
     return () => {
-      socket.off("receive_message", onReceiveMessage);
+      socket.off('receive_message', onReceiveMessage);
     };
   }, [socket]);
 
   // 채팅 보내기
   const sendMessage = () => {
     const today = new Date();
-    const hours = ("0" + today.getHours()).slice(-2);
-    const minutes = ("0" + today.getMinutes()).slice(-2);
-    var timeString = hours + ":" + minutes;
+    const hours = ('0' + today.getHours()).slice(-2);
+    const minutes = ('0' + today.getMinutes()).slice(-2);
+    var timeString = hours + ':' + minutes;
 
-    if (userMessage === "" || userMessage === "\n") return;
+    if (userMessage === '' || userMessage === '\n') return;
     const data = {
       roomId: params.id,
       sender: user.nickname,
@@ -531,14 +531,14 @@ const Detail = (props) => {
     };
     dispatch(roomActions.saveMyChat(data));
 
-    socket.emit("send_message", data);
+    socket.emit('send_message', data);
   };
 
   // 엔터키로 채팅 보내기
   const onKeyPress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       sendMessage();
-      setUserMessage("");
+      setUserMessage('');
     }
   };
 
@@ -548,15 +548,15 @@ const Detail = (props) => {
   }, [chattingList]);
 
   const moveScrollEnd = () => {
-    if (!document.getElementById("messageBox")) {
+    if (!document.getElementById('messageBox')) {
       return;
     }
-    const scrollBox = document.getElementById("messageBox");
+    const scrollBox = document.getElementById('messageBox');
     scrollBox.scrollTop = scrollBox.scrollHeight;
   };
 
   const handleQuitRoom = () => {
-    socket.emit("quit room");
+    socket.emit('quit room');
     dispatch(roomActions.deleteChat());
     userVideo.current.srcObject.getVideoTracks().forEach((track) => {
       track.stop();
@@ -564,8 +564,8 @@ const Detail = (props) => {
     userVideo.current.srcObject.getAudioTracks().forEach((track) => {
       track.stop();
     });
-    localStorage.removeItem("myRoom");
-    history.replace("/main");
+    localStorage.removeItem('myRoom');
+    history.replace('/main');
   };
 
   //타이머
@@ -710,7 +710,7 @@ const Detail = (props) => {
       {room && (
         <Container>
           <div id="top">
-            <div className="logo" style={{ cursor: "pointer" }}>
+            <div className="logo" style={{ cursor: 'pointer' }}>
               <div
                 onClick={() => {
                   handleQuitRoom();
@@ -744,7 +744,7 @@ const Detail = (props) => {
                 {/* <div className="nameLable">{user.nickname}</div> */}
               </div>
             ) : (
-              ""
+              ''
             )}
             {peers.map((peer) => {
               return (
@@ -911,7 +911,7 @@ const Detail = (props) => {
                 </div>
               </>
             ) : (
-              ""
+              ''
             )}
             {isPP ? (
               <div className="designBox">
@@ -984,7 +984,7 @@ const Detail = (props) => {
                 {isUserList ? <Parti me={user} /> : null}
               </div>
             ) : (
-              ""
+              ''
             )}
             {isCT ? (
               <>
@@ -1068,7 +1068,7 @@ const Detail = (props) => {
                       </div>
                       <div className="inputBox">
                         <label htmlFor="choiceReceiver">TO. 모두에게</label>
-                        <div style={{ position: "relative" }}>
+                        <div style={{ position: 'relative' }}>
                           <textarea
                             type="text"
                             onChange={(e) => {
@@ -1082,23 +1082,23 @@ const Detail = (props) => {
                       </div>
                     </ChattingBox>
                   ) : (
-                    ""
+                    ''
                   )}
                 </div>
               </>
             ) : (
-              ""
+              ''
             )}
           </div>
           <div id="bottom">
-            <div id="centerButton" style={{ position: "relative" }}>
+            <div id="centerButton" style={{ position: 'relative' }}>
               <div
                 style={{
-                  display: "flex",
-                  marginRight: "16px",
-                  alignContent: "center",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  marginRight: '16px',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
                 className="tooltip"
               >
@@ -1120,11 +1120,11 @@ const Detail = (props) => {
 
               <div
                 style={{
-                  display: "flex",
-                  marginRight: "20px",
-                  alignContent: "center",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  marginRight: '20px',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
                 className="tooltip"
               >
@@ -1181,14 +1181,17 @@ const Detail = (props) => {
                     />
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
 
               <div
                 className="tooltip"
                 style={{
-                  marginLeft: "16px",
+                  marginLeft: '16px',
+                }}
+                onClick={() => {
+                  handleQuitRoom();
                 }}
                 onClick={() => {
                   handleQuitRoom();
@@ -1295,9 +1298,9 @@ const Video = (props) => {
     function onStream(stream) {
       ref.current.srcObject = stream;
     }
-    props.peer.on("stream", onStream);
+    props.peer.on('stream', onStream);
     return () => {
-      props.peer.off("stream", onStream);
+      props.peer.off('stream', onStream);
     };
   }, [props.peer]);
 
@@ -1307,7 +1310,7 @@ const Video = (props) => {
 const Message = (props) => {
   const {
     data: {
-      chattingList: { sender, message, time = "오후 6:04" },
+      chattingList: { sender, message, time = '오후 6:04' },
     },
   } = props;
 
@@ -1326,7 +1329,7 @@ const Message = (props) => {
 const MyMessage = (props) => {
   const {
     data: {
-      chattingList: { sender, message, time = "오후 6:04" },
+      chattingList: { sender, message, time = '오후 6:04' },
     },
   } = props;
 
@@ -1346,7 +1349,7 @@ const Back = styled.div`
   height: 100%;
   background-color: #f7f7f7;
   background-size: cover;
-  background-image: url("${(props) => props.src}");
+  background-image: url('${(props) => props.src}');
   z-index: -100;
   @media screen and (max-width: 820px) and (orientation: portrait) {
     height: fit-content;
@@ -1366,6 +1369,11 @@ const Container = styled.div`
   column-gap: 30px;
   grid-template-rows: 70px 1fr 70px;
   grid-template-columns: repeat(12, 1fr);
+
+  * {
+    font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
+  }
+
   #top {
     background-color: #f7f7f7;
     grid-row: 1/2;
@@ -1668,7 +1676,7 @@ const Container = styled.div`
           word-break: keep-all;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             bottom: -35%;
             left: 50%;
@@ -1715,7 +1723,7 @@ const Container = styled.div`
           word-break: keep-all;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             bottom: -35%;
             left: 50%;
@@ -1757,7 +1765,7 @@ const ChattingBox = styled.div`
   background: #f7f7f7;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
   margin-top: 20px;
 
   #messageBox {
@@ -1969,7 +1977,7 @@ const MessageBox = styled.div`
   min-height: 58px;
   justify-content: center;
   padding: 2.5% 5% 2.5%;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
 
   #userInfo {
     display: flex;
@@ -1986,7 +1994,7 @@ const MessageBox = styled.div`
       text-align: center;
     }
     #toText {
-      font-family: "Noto Sans";
+      font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
       font-style: normal;
     }
   }
@@ -2012,7 +2020,7 @@ const MyMessageBox = styled.div`
   min-height: 58px;
   justify-content: center;
   padding: 2.5% 5% 2.5%;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
   background-color: #e3e5ff;
 
   #userInfo {
@@ -2030,7 +2038,7 @@ const MyMessageBox = styled.div`
       text-align: center;
     }
     #toText {
-      font-family: "Noto Sans";
+      font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
       font-style: normal;
     }
   }

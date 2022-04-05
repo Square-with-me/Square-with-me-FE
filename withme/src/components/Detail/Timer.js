@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 const Timer = ({ socket, roomId }) => {
   const hours = useRef(0);
@@ -29,7 +29,7 @@ const Timer = ({ socket, roomId }) => {
       seconds: secondsInput,
     };
     //시작신호 소켓으로 보내기
-    socket.emit("start_timer", data);
+    socket.emit('start_timer', data);
 
     //각 인풋 값을 0으로 만들기!
     setHoursInput(0);
@@ -42,7 +42,7 @@ const Timer = ({ socket, roomId }) => {
 
   //스타트 받았을때
   useEffect(() => {
-    socket.on("start_receive", (data) => {
+    socket.on('start_receive', (data) => {
       hours.current = Number(data.hours);
       minutes.current = Number(data.minutes);
       seconds.current = Number(data.seconds);
@@ -61,7 +61,7 @@ const Timer = ({ socket, roomId }) => {
 
   //리셋 받았을때
   useEffect(() => {
-    socket.on("reset_receive", () => {
+    socket.on('reset_receive', () => {
       hours.current = 0;
       minutes.current = 0;
       seconds.current = 0;
@@ -80,7 +80,7 @@ const Timer = ({ socket, roomId }) => {
     if (hours.current === 0 && minutes.current === 0 && seconds.current === 0) {
       clearInterval(timer.current);
       setIsStart(false);
-      alert("시간 끝!");
+      alert('시간 끝!');
     }
     // 타이머 알고리즘
     if (c_seconds) {
@@ -111,7 +111,7 @@ const Timer = ({ socket, roomId }) => {
 
     clearInterval(timer.current);
 
-    socket.emit("reset_time", roomId);
+    socket.emit('reset_time', roomId);
   };
 
   return (
@@ -184,7 +184,7 @@ const TimerContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: "Noto Sans";
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
   margin-top: 20px;
 
   .inputGroup {
@@ -262,7 +262,7 @@ const TimerText = styled.div`
   color: #8a8ba3;
 
   span {
-    font-family: "Noto Sans";
+    font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
     font-style: normal;
     font-weight: 400;
     font-size: 19px;
