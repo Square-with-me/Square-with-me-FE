@@ -115,9 +115,9 @@ const Timer = ({ socket, roomId }) => {
   };
 
   return (
-    <Container>
+    <TimerContainer>
       <div className="inputGroup">
-        <Input
+        <TimerInput
           value={hoursInput}
           placeholder={0}
           name="hours"
@@ -129,7 +129,7 @@ const Timer = ({ socket, roomId }) => {
           maxLength="2"
         />
         <p>H</p>
-        <Input
+        <TimerInput
           value={minutesInput}
           placeholder={0}
           name="minutes"
@@ -141,7 +141,7 @@ const Timer = ({ socket, roomId }) => {
           maxLength="2"
         />
         <p>M</p>
-        <Input
+        <TimerInput
           value={secondsInput}
           placeholder={0}
           name="seconds"
@@ -155,28 +155,28 @@ const Timer = ({ socket, roomId }) => {
         <p>S</p>
       </div>
       <div className="outputGroup">
-        <Text>
+        <TimerText>
           {hours.current}
           <span>H</span>
           {minutes.current}
           <span>M</span>
           {seconds.current}
           <span>S</span>
-        </Text>
+        </TimerText>
       </div>
       <div className="buttonGroup">
-        <Btn onClick={startTimer} className="start" disabled={isStart}>
+        <TimerBtn onClick={startTimer} className="start" disabled={isStart}>
           start
-        </Btn>
-        <Btn onClick={resetTimer} className="reset">
+        </TimerBtn>
+        <TimerBtn onClick={resetTimer} className="reset">
           reset
-        </Btn>
+        </TimerBtn>
       </div>
-    </Container>
+    </TimerContainer>
   );
 };
 
-const Container = styled.div`
+const TimerContainer = styled.div`
   width: 100%;
   height: 200px;
   box-sizing: border-box;
@@ -223,7 +223,7 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.input`
+const TimerInput = styled.input`
   width: 20%;
   height: 42px;
   border: 1px solid #8a8ba3;
@@ -249,7 +249,7 @@ const Input = styled.input`
   }
 `;
 
-const Text = styled.div`
+const TimerText = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -271,7 +271,7 @@ const Text = styled.div`
   }
 `;
 
-const Btn = styled.button`
+const TimerBtn = styled.button`
   width: 100%;
   margin: auto 5px;
   padding: 4px;
