@@ -33,10 +33,6 @@ const Timer = ({ socket, roomId }) => {
     socket.emit('start_timer', data);
     //각 인풋 값을 0으로 만들기!
 
-    // hours.current = hoursInput;
-    // minutes.current = minutesInput;
-    // seconds.current = secondsInput;
-
     setHoursInput(0);
     setMinutesInput(0);
     setSecondsInput(0);
