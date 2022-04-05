@@ -680,6 +680,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
+  * {
+    font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
+  }
+
   section {
     width: 80vw;
 

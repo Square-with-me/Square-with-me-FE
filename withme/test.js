@@ -224,7 +224,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  font-family: 'Noto Sans';
+  font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
   margin-top: 20px;
 
   .inputGroup {
@@ -302,7 +302,7 @@ const Text = styled.div`
   color: #8a8ba3;
 
   span {
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
     font-style: normal;
     font-weight: 400;
     font-size: 19px;

@@ -220,6 +220,10 @@ const Back = styled.div`
   background-image: url('${(props) => props.src}');
   z-index: -100;
   /* background: linear-gradient(to top, black 51%, #fff 30%); */
+
+  * {
+    font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
+  }
 `;
 //share
 const Wrap = styled.div`
