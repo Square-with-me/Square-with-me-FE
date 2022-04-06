@@ -109,7 +109,7 @@
 </br></br></br>
 
 
-## 팀원 소개
+## 👩‍💻 팀원 소개
 |Name|GitHub / Contact|Position|
 |------|---|---|
 |장혜진🔰|https://github.com/zinny22|FE / React|
