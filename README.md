@@ -17,7 +17,7 @@
 - <a href="https://github.com/Square-with-me/Square-with-me-FE"> 📁 프론트엔드 GitHub Repository </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-BE"> 📁 백엔드 GitHub Repository </a></br>
 - <a href="https://www.youtube.com/watch?v=QKoJh3oyPMs"> 🎥 프로젝트 발표 영상 보러가기 </a>
-- <a href="https://smart-surprise-3fe.notion.site/with-me-6638767634654e5490df2991947906f6"> 🟪 WITH ME 팀노션 (Brochure) </a></br>
+- <a href="https://smart-surprise-3fe.notion.site/WITH-ME-6638767634654e5490df2991947906f6"> 🟪 WITH ME 팀노션 (Brochure) </a></br>
 - <a href="https://www.instagram.com/nemo_with_me/"> 🟪 WITH ME 인스타그램 </a></br>
 
 
