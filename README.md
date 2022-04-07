@@ -61,7 +61,6 @@
 
 ## 🧑‍🔧 프로젝트 구조
 <img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
-</br>
 
 
 ## 🔎 전체 기능
