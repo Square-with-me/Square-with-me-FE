@@ -8,8 +8,8 @@
 
 
 <h3 align='center'> 🙆 무엇이든 함께 할 수 있는 실시간 화상 채팅 🙆‍♂️ </h3>
-  
-</br></br></br>
+ 
+</br>
 
 ## 📌 바로가기
 - <a href="https://nemowithme.com"> 🟪 with me 바로가기 </a></br>
@@ -78,7 +78,6 @@
 </br>
 
 ## 🧑‍🔧 프로젝트 구조
-</br>
 
 <img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
 
@@ -93,11 +92,12 @@
   <img src='https://img.shields.io/badge/StyledComponents-v5.3.3-violet?logo=styled-components'/>
   <img src='https://img.shields.io/badge/Redux-v4.1.2-764ABC?logo=Redux'/>
   </br>
- 
+
   <img src='https://img.shields.io/badge/socket.io-v4.4.1-white?logo=Socket.io'/>
   <img src='https://img.shields.io/badge/Axios-v0.26.0-pink?'/>
   <img src='https://img.shields.io/badge/yarn-v1.22.17-yellow?logo=yarn'/>
   </br>
+
   <img src='https://img.shields.io/badge/WebRTC-333333?logo=WebRTC&logoColor=white'/>
   <img src="https://img.shields.io/badge/CloudFront-D95043?logo=CloudFront&logoColor=white" />
   <img src="https://img.shields.io/badge/Route 53-F38536?logo=Route 53&logoColor=white" />
