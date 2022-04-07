@@ -1,4 +1,4 @@
-# 🟪 with me (네모위드미)  
+# 🟪 WITH ME (네모위드미)  
 
 <p align='center'>
 <img width="540" alt="네모위드미" src="https://user-images.githubusercontent.com/77830226/161585283-36e4a2aa-d171-464a-8204-c7b2e67631a2.png">
@@ -10,18 +10,23 @@
 서로 관심을 가져준다면 흐트러지지 않고 더욱 몰입해서 열심히 할 수 있어요!</br>
 </p>
 <h3 align='center'> 🙆 무엇이든 함께 할 수 있는 실시간 화상 채팅 🙆‍♂️ </h3>
-</br>
+
 
 ## 📌 바로가기
-- <a href="https://nemowithme.com"> 🟪 with me 바로가기 </a></br>
+- <a href="https://nemowithme.com"> 🟪 WITH ME 바로가기 </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-FE"> 📁 프론트엔드 GitHub Repository </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-BE"> 📁 백엔드 GitHub Repository </a></br>
 - <a href="https://www.youtube.com/watch?v=FtRGOCRLCSY&feature=youtu.be"> 🎥 프로젝트 발표 영상 보러가기 </a>
-- <a href="https://smart-surprise-3fe.notion.site/with-me-6638767634654e5490df2991947906f6"> 🟪 with me 팀노션 (Brochure) </a></br>
-- <a href="https://www.instagram.com/nemo_with_me/"> 🟪 with me 인스타그램 </a></br>
-</br>
+- <a href="https://smart-surprise-3fe.notion.site/with-me-6638767634654e5490df2991947906f6"> 🟪 WITH ME 팀노션 (Brochure) </a></br>
+- <a href="https://www.instagram.com/nemo_with_me/"> 🟪 WITH ME 인스타그램 </a></br>
 
-## 서비스 소개
+
+## 👩‍💻 팀원 소개
+|Name|GitHub / Contact|Position|
+|------|---|---|
+|장혜진🔰|https://github.com/zinny22|FE / React|
+|박수민|https://github.com/clappingmin|FE / React|
+|윤현정|https://github.com/yun2021|FE / React|
 
 
 ## ⏰ 프로젝트 기간
@@ -31,8 +36,41 @@
 |배포일| 4월 1일|
 |사용자 설문조사| 4월 1일 ~ 4월 7일|
 |서비스 개선| 4월 1일 ~ 4월 8일|
+
+
+## 🛠 프론트엔드 기술 스택
+<p align='center'>
+  <img src='https://img.shields.io/badge/React-v17.0.2-blue?logo=React'/>
+  <img src='https://img.shields.io/badge/ReactRouter-v5.2.1-pink?logo=React Router'/>
+  <img src='https://img.shields.io/badge/StyledComponents-v5.3.3-violet?logo=styled-components'/>
+  <img src='https://img.shields.io/badge/Redux-v4.1.2-764ABC?logo=Redux'/>
+  </br>
+
+  <img src='https://img.shields.io/badge/socket.io-v4.4.1-white?logo=Socket.io'/>
+  <img src='https://img.shields.io/badge/Axios-v0.26.0-pink?'/>
+  <img src='https://img.shields.io/badge/yarn-v1.22.17-yellow?logo=yarn'/>
+  </br>
+
+  <img src='https://img.shields.io/badge/WebRTC-333333?logo=WebRTC&logoColor=white'/>
+  <img src="https://img.shields.io/badge/CloudFront-D95043?logo=CloudFront&logoColor=white" />
+  <img src="https://img.shields.io/badge/Route 53-F38536?logo=Route 53&logoColor=white" />
+  <img src="https://img.shields.io/badge/Amazon S3-569A31?logo=Amazon S3&logoColor=white" />
+  <img src="https://img.shields.io/badge/Amazon AWS-232F3E?logo=Amazon AWS&logoColor=white" />
+</p>
+
+
+## 🧑‍🔧 프로젝트 구조
+<img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
 </br>
 
+## 🔎 전체 기능
+1. 로그인, 회원가입
+2. 카카오 소셜 로그인
+3. 실시간 화상 채팅
+4. 공용 타이머
+5. 화상 채팅 방 검색 및 카테고리별 필터링
+6. 마이페이지에서 참여기록 그래프로 확인
+7. 뱃지 열람 및 대표 뱃지 설정
 
 ## 🔎 주요 기능
 <details>
@@ -71,36 +109,3 @@
 </details>
 
 </br>
-
-## 🧑‍🔧 프로젝트 구조
-<img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
-</br>
-
-## 🛠 프론트엔드 기술스택
-<p align='center'>
-  <img src='https://img.shields.io/badge/React-v17.0.2-blue?logo=React'/>
-  <img src='https://img.shields.io/badge/ReactRouter-v5.2.1-pink?logo=React Router'/>
-  <img src='https://img.shields.io/badge/StyledComponents-v5.3.3-violet?logo=styled-components'/>
-  <img src='https://img.shields.io/badge/Redux-v4.1.2-764ABC?logo=Redux'/>
-  </br>
-
-  <img src='https://img.shields.io/badge/socket.io-v4.4.1-white?logo=Socket.io'/>
-  <img src='https://img.shields.io/badge/Axios-v0.26.0-pink?'/>
-  <img src='https://img.shields.io/badge/yarn-v1.22.17-yellow?logo=yarn'/>
-  </br>
-
-  <img src='https://img.shields.io/badge/WebRTC-333333?logo=WebRTC&logoColor=white'/>
-  <img src="https://img.shields.io/badge/CloudFront-D95043?logo=CloudFront&logoColor=white" />
-  <img src="https://img.shields.io/badge/Route 53-F38536?logo=Route 53&logoColor=white" />
-  <img src="https://img.shields.io/badge/Amazon S3-569A31?logo=Amazon S3&logoColor=white" />
-  <img src="https://img.shields.io/badge/Amazon AWS-232F3E?logo=Amazon AWS&logoColor=white" />
-</p>
-
-</br>
-
-## 👩‍💻 팀원 소개
-|Name|GitHub / Contact|Position|
-|------|---|---|
-|장혜진🔰|https://github.com/zinny22|FE / React|
-|박수민|https://github.com/clappingmin|FE / React|
-|윤현정|https://github.com/yun2021|FE / React|
