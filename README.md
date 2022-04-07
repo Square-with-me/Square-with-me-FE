@@ -3,6 +3,10 @@
 <p align='center'>
 <img width="540" alt="네모위드미" src="https://user-images.githubusercontent.com/77830226/161585283-36e4a2aa-d171-464a-8204-c7b2e67631a2.png">
 </p>
+💡 혼자가 아쉬운 사람들을 위한! **다른 사람과** **함께 집중**하자!
+자신의 흔적을 남기고 타인이 그것에 **공유**해주는 교류의 장! 
+누군가가 지켜봐주고 있다는 느낌을 받으면 더 잘할 수 있다! 
+서로 관심을 가져준다면 흐트러지지 않고 더욱 **몰입**해서 열심히 할 수 있어요! 
 <h3 align='center'> 🙆 무엇이든 함께 할 수 있는 실시간 화상 채팅 🙆‍♂️ </h3>
 </br>
 
@@ -14,6 +18,9 @@
 - <a href="https://smart-surprise-3fe.notion.site/with-me-6638767634654e5490df2991947906f6"> 🟪 with me 팀노션 (Brochure) </a></br>
 - <a href="https://www.instagram.com/nemo_with_me/"> 🟪 with me 인스타그램 </a></br>
 </br>
+
+## 서비스 소개
+
 
 ## ⏰ 프로젝트 기간
 ||기간 (2022)|
