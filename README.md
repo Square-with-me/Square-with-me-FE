@@ -1,4 +1,4 @@
-# 🟪 WITH ME (네모위드미)  
+# ▇ WITH ME (네모위드미)  
 
 <p align='center'>
 <img width="540" alt="네모위드미" src="https://user-images.githubusercontent.com/77830226/161585283-36e4a2aa-d171-464a-8204-c7b2e67631a2.png">
@@ -13,7 +13,7 @@
 
 
 ## 📌 바로가기
-- <a href="https://nemowithme.com"> 🟪 WITH ME 바로가기 </a></br>
+- <a href="https://nemowithme.com"> ▇ WITH ME 바로가기 </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-FE"> 📁 프론트엔드 GitHub Repository </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-BE"> 📁 백엔드 GitHub Repository </a></br>
 - <a href="https://www.youtube.com/watch?v=QKoJh3oyPMs"> 🎥 프로젝트 발표 영상 보러가기 </a>
@@ -71,7 +71,7 @@
 7. 마이페이지에서 참여기록 그래프로 확인
 8. 뱃지 열람 및 대표 뱃지 설정
 
-## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki"> 🟪 WITH ME 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
+## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki"> ▇ WITH ME 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
 
 ## 🔎 주요 기능
 
