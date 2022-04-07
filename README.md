@@ -38,7 +38,7 @@
 |서비스 개선| 4월 1일 ~ 4월 8일|
 
 
-## 🛠 프론트엔드 기술 스택
+## 🛠  기술 스택
 <p align='center'>
   <img src='https://img.shields.io/badge/React-v17.0.2-blue?logo=React'/>
   <img src='https://img.shields.io/badge/ReactRouter-v5.2.1-pink?logo=React Router'/>
