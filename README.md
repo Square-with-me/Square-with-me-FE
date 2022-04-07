@@ -19,7 +19,7 @@
 - <a href="https://smart-surprise-3fe.notion.site/with-me-6638767634654e5490df2991947906f6"> 🟪 with me 팀노션 (Brochure) </a></br>
 - <a href="https://www.instagram.com/nemo_with_me/"> 🟪 with me 인스타그램 </a></br>
 
-</br></br></br>
+</br>
 
 ## ⏰ 프로젝트 기간
 
@@ -32,7 +32,7 @@
 |사용자 설문조사| 4월 1일 ~ 4월 7일|
 |서비스 개선| 4월 1일 ~ 4월 8일|
 
-</br></br></br>
+</br>
 
 
 ## 🔎 주요 기능
@@ -75,14 +75,14 @@
     
 </details>
 
-</br></br>
+</br>
 
 ## 🧑‍🔧 프로젝트 구조
 </br>
 
 <img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
 
-</br></br>
+</br>
 
 
 ## 🛠 프론트엔드 기술스택
@@ -105,7 +105,7 @@
   <img src="https://img.shields.io/badge/Amazon AWS-232F3E?logo=Amazon AWS&logoColor=white" />
 </p>
 
-</br></br></br>
+</br>
 
 
 ## 👩‍💻 팀원 소개
@@ -114,6 +114,3 @@
 |장혜진🔰|https://github.com/zinny22|FE / React|
 |박수민|https://github.com/clappingmin|FE / React|
 |윤현정|https://github.com/yun2021|FE / React|
-
-
-</br></br>
