@@ -1,7 +1,7 @@
 # ▇ WITH ME (네모위드미)  
 
 <p align='center'>
-<img width="540" alt="네모위드미" src="https://user-images.githubusercontent.com/48178101/162206566-f759b7de-5cfa-4b33-81e5-7794c093bbee.png">
+<img width="100%" src="https://user-images.githubusercontent.com/48178101/162206566-f759b7de-5cfa-4b33-81e5-7794c093bbee.png">
 </p>
 <p align='center'>
 💡 혼자가 아쉬운 사람들을 위한! 다른 사람과 함께 집중하자!</br>
