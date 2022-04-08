@@ -10,14 +10,14 @@
 서로 관심을 가져준다면 흐트러지지 않고 더욱 몰입해서 열심히 할 수 있어요!</br>
 </p>
 <h3 align='center'> 🙆 무엇이든 함께 할 수 있는 실시간 화상 채팅 🙆‍♂️ </h3>
-
+<br/>
 
 ## 바로가기
 - <a href="https://nemowithme.com"> ▇ WITH ME 바로가기 </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-FE"> 📁 프론트엔드 GitHub Repository </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-BE"> 📁 백엔드 GitHub Repository </a></br>
 - <a href="https://www.youtube.com/watch?v=QKoJh3oyPMs"> 🎥 프로젝트 발표 영상 보러가기 </a>
-
+<br/>
 
 ## 팀원 소개
 |Name|GitHub / Contact|Position|
@@ -25,7 +25,7 @@
 |장혜진🔰|https://github.com/zinny22|FE / React|
 |박수민|https://github.com/clappingmin|FE / React|
 |윤현정|https://github.com/yun2021|FE / React|
-
+<br/>
 
 ## 프로젝트 기간
 ||기간 (2022)|
@@ -34,7 +34,7 @@
 |배포일| 4월 1일|
 |사용자 설문조사| 4월 1일 ~ 4월 7일|
 |서비스 개선| 4월 1일 ~ 4월 8일|
-
+<br/>
 
 ## 기술 스택
 <p align='center'>
@@ -55,11 +55,11 @@
   <img src="https://img.shields.io/badge/Amazon S3-569A31?logo=Amazon S3&logoColor=white" />
   <img src="https://img.shields.io/badge/Amazon AWS-232F3E?logo=Amazon AWS&logoColor=white" />
 </p>
-
+<br/>
 
 ## 프로젝트 구조
 <img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
-
+<br/>
 
 ## 전체 기능
 1. 로그인, 회원가입
@@ -70,8 +70,10 @@
 6. 화상 채팅 방 검색 및 카테고리별 필터링
 7. 마이페이지에서 참여기록 그래프로 확인
 8. 뱃지 열람 및 대표 뱃지 설정
+<br/>
 
 ## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5"> FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
+<br/>
 
 ## 주요 기능
 
