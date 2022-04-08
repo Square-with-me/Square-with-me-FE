@@ -12,14 +12,14 @@
 <h3 align='center'> 🙆 무엇이든 함께 할 수 있는 실시간 화상 채팅 🙆‍♂️ </h3>
 
 
-## 📌 바로가기
+## 바로가기
 - <a href="https://nemowithme.com"> ▇ WITH ME 바로가기 </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-FE"> 📁 프론트엔드 GitHub Repository </a></br>
 - <a href="https://github.com/Square-with-me/Square-with-me-BE"> 📁 백엔드 GitHub Repository </a></br>
 - <a href="https://www.youtube.com/watch?v=QKoJh3oyPMs"> 🎥 프로젝트 발표 영상 보러가기 </a>
 
 
-## 👩‍💻 팀원 소개
+## 팀원 소개
 |Name|GitHub / Contact|Position|
 |------|---|---|
 |장혜진🔰|https://github.com/zinny22|FE / React|
@@ -27,7 +27,7 @@
 |윤현정|https://github.com/yun2021|FE / React|
 
 
-## ⏰ 프로젝트 기간
+## 프로젝트 기간
 ||기간 (2022)|
 |:------:|---|
 |총 기간| 2월 25일 ~ 4월 8일 (6주)|
@@ -36,7 +36,7 @@
 |서비스 개선| 4월 1일 ~ 4월 8일|
 
 
-## 🛠  기술 스택
+## 기술 스택
 <p align='center'>
   <img src='https://img.shields.io/badge/React-v17.0.2-blue?logo=React'/>
   <img src='https://img.shields.io/badge/ReactRouter-v5.2.1-pink?logo=React Router'/>
@@ -57,11 +57,11 @@
 </p>
 
 
-## 🧑‍🔧 프로젝트 구조
+## 프로젝트 구조
 <img width="2385" alt="아키텍처" src="https://user-images.githubusercontent.com/77830226/161778578-d49e244d-4348-417f-95ed-d9e4f6a00391.png">
 
 
-## 🔎 전체 기능
+## 전체 기능
 1. 로그인, 회원가입
 2. 카카오 소셜 로그인
 3. 실시간 화상 채팅
@@ -71,9 +71,9 @@
 7. 마이페이지에서 참여기록 그래프로 확인
 8. 뱃지 열람 및 대표 뱃지 설정
 
-## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5"> 👩‍💻 FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
+## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5"> FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
 
-## 🔎 주요 기능
+## 주요 기능
 
 ### 1. 실시간 화상 채팅
 
