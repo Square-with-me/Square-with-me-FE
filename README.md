@@ -100,5 +100,4 @@
 - 뱃지를 함께 볼 수 있도록 구성해 사용자가 서비스를 이용하며 성취감을 느낄 수 있고,
 </br> 원하는 대표 뱃지를 설정해 다른 사용자에게 보여줄 수 있습니다.</br>
 
-</br>
 ## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5"> FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
