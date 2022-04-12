@@ -75,29 +75,47 @@
 
 ## 주요 기능
 
-### 1. 실시간 화상 채팅
-
-![채팅 이모티콘](https://user-images.githubusercontent.com/77830226/161819289-32fbe0fc-566d-4983-a0e0-feaa78456a01.gif) 
-
-- 마이크 on/off , 카메라 on/off 기능을 통해 화상채팅 사용자들이 자율적으로 선택해 사용할 수 있으며,
-</br>이모티콘을 눌러 간단한 감정 표현도 주고받을 수 있습니다.</br>
-
-
-###  2. 공용 타이머
-
-![타이머](https://user-images.githubusercontent.com/77830226/161819311-b0cc09c7-7dcb-44ed-9f91-32509c4af994.gif)  
-
+<details>
+<summary>⏱ 공용 타이머</summary> </br>
+  
 - 시간 제한을 필요로 하는 작업을 할 때 사용자들이 함께 정한 시간 동안 집중할 수 있도록 공용 타이머 기능을 구현했습니다. 
 - 시간 제한을 필요로 하는 작업의 예: 스터디, 운동, 스케치, 마피아 게임 등 </br>
+  
+</br>
 
+![타이머](https://user-images.githubusercontent.com/77830226/161819311-b0cc09c7-7dcb-44ed-9f91-32509c4af994.gif)  
+  
+</details>
 
-### 3. 기록 그래프
+<details>
+<summary>👥 실시간 화상 채팅</summary> </br>
+  
+- 마이크 on/off , 카메라 on/off 기능을 통해 화상채팅 사용자들이 자율적으로 선택해 사용할 수 있으며,
+</br>이모티콘을 눌러 간단한 감정 표현도 주고받을 수 있습니다. 
+    
+</br>
 
-![마이페이지 기록](https://user-images.githubusercontent.com/77830226/161819359-b1ba80bc-4765-4c58-ae5b-61408d768299.gif)
+![채팅 이모티콘](https://user-images.githubusercontent.com/77830226/161819289-32fbe0fc-566d-4983-a0e0-feaa78456a01.gif) 
+    
+</details>
 
-- 사용자가 **▇ WITH ME**에서 얼마만큼 활동했는지 시각적으로 볼 수 있도록 참여 기록을 그래프로 표현했습니다.
+<details>
+<summary>📊 기록 그래프</summary> </br>
+
+- 사용자가 ▇ WITH ME 에서 얼마만큼 활동했는지 시각적으로 볼 수 있도록 마이페이지를 그래프 형태로 표현했습니다.
 - 오늘과 이번 주 참여 기록에서는 카테고리별 참여 기록을, 이번 달 참여 기록에서는 하루 총 참여 시간을 확인할 수 있습니다.
-- 뱃지를 함께 볼 수 있도록 구성해 사용자가 서비스를 이용하며 성취감을 느낄 수 있고,
-</br> 원하는 대표 뱃지를 설정해 다른 사용자에게 보여줄 수 있습니다.</br>
+- 뱃지를 함께 볼 수 있도록 구성해 사용자가 서비스를 이용하며 성취감을 느낄 수 있도록 하고
+</br> 원하는 대표 뱃지를 설정해 다른 참여자에게 보여줄 수 있도록 구현했습니다.
+    
+</br>
+  
+![마이페이지 기록](https://user-images.githubusercontent.com/77830226/161819359-b1ba80bc-4765-4c58-ae5b-61408d768299.gif)
+    
+</details>
 
-## <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5"> FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥</a>
+
+## FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥
+<a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5#1-%ED%83%80%EC%9D%B4%EB%A8%B8-%EC%8B%A0%ED%98%B8-%EC%A4%91%EB%B3%B5-%EB%AC%B8%EC%A0%9C-">1. 타이머 신호 중복 문제</a>
+<a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5#2-%EB%B0%A9-%EC%9C%A0%EC%A0%80-%ED%87%B4%EC%9E%A5-%EC%9D%B8%EC%8B%9D-%EB%AC%B8%EC%A0%9C">2. 방 유저 퇴장 인식 문제</a>
+<a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5#3-%EB%B0%A9-%EB%82%B4%EB%B6%80-%EC%9C%A0%EC%A0%80-%EC%9D%B8%EC%8B%9D-%EB%AC%B8%EC%A0%9C---1">3. 방 내부 유저 인식 문제 - 1</a>
+<a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5#4-%EB%B0%A9-%EB%82%B4%EB%B6%80-%EC%9C%A0%EC%A0%80-%EC%9D%B8%EC%8B%9D-%EB%AC%B8%EC%A0%9C---2">4. 방 내부 유저 인식 문제 - 2</a>
