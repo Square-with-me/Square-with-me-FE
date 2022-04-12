@@ -71,7 +71,6 @@
 7. 마이페이지에서 참여기록 그래프로 확인
 8. 뱃지 열람 및 대표 뱃지 설정
 9. 반응형 웹
-<br/>
 
 ## 주요 기능
 
@@ -112,7 +111,7 @@
 ![마이페이지 기록](https://user-images.githubusercontent.com/77830226/161819359-b1ba80bc-4765-4c58-ae5b-61408d768299.gif)
     
 </details>
-
+</br>
 
 ## FE 기술적 도전 및 트러블 슈팅 - WIKI 🔥
 <a href="https://github.com/Square-with-me/Square-with-me-FE/wiki/%F0%9F%91%A9%E2%80%8D%F0%9F%92%BB-FE-%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84-%EB%B0%8F-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85-%F0%9F%94%A5#1-%ED%83%80%EC%9D%B4%EB%A8%B8-%EC%8B%A0%ED%98%B8-%EC%A4%91%EB%B3%B5-%EB%AC%B8%EC%A0%9C-">1. 타이머 신호 중복 문제</a></br>
