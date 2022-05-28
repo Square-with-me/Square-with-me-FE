@@ -9,6 +9,9 @@ import WeekTime from '../components/Mypage/WeekTime';
 import MonthTime from '../components/Mypage/MonthTime';
 import Header from '../components/Header/MHeader';
 import Logo from '../components/Main/Logo';
+import LoginModal from '../components/Modal/LoginModal';
+import SignupModal from '../components/Modal/SignupModal';
+
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -18,6 +21,8 @@ import lockBadge from '../assets/badge/lockBadge.svg';
 import logo from '../assets/logo.jpeg';
 
 const Mypage = (props) => {
+  const [LoginM, setIsM] = useState(false);
+  const [SignupM, setIsSignup] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -52,7 +57,8 @@ const Mypage = (props) => {
   useEffect(() => {
     if (!localStorage.getItem('login-token')) {
       alert('로그인 후 이용 가능 합니다');
-      history.replace('/main');
+      // history.replace('/main');
+      setIsM(true)
     }
   }, []);
 
@@ -409,6 +415,8 @@ const Mypage = (props) => {
             </div>
           </div>
         </div>
+        {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+        {SignupM && <SignupModal setIsSignup={setIsSignup} />}
       </Container>
     </Root>
   );
