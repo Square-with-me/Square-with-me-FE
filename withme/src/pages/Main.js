@@ -16,6 +16,8 @@ import MenuBar from '../components/Main/MenuBar';
 import SecretRoomModal from '../components/Modal/SecretRoomModal';
 import SearchBar from '../components/Main/SearchBar';
 import MakeRoomCard from '../components/Main/MakeRoomCard';
+import LoginModal from '../components/Modal/LoginModal';
+import SignupModal from '../components/Modal/SignupModal';
 
 //redux
 import { actionCreators as roomActions } from '../redux/modules/room';
@@ -23,6 +25,8 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { BackUrl } from '../shared/config';
 
 const Main = () => {
+  const [LoginM, setIsM] = useState(false);
+  const [SignupM, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -68,7 +72,11 @@ const Main = () => {
     if (userId) {
       return dispatch(roomActions.enteringRoomDB(roomId, userId));
     }
-    alert('로그인 후 이용 가능합니다.');
+    if (!userId) {
+      alert('로그인 후 이용 가능합니다.');
+      setIsM(true)
+    }
+    
   };
 
   //비밀방 모달
@@ -195,6 +203,8 @@ const Main = () => {
           {secret === true ? (
             <SecretRoomModal setSecret={setSecret} data={secretRoom} />
           ) : null}
+          {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+          {SignupM && <SignupModal setIsSignup={setIsSignup} />}
         </RoomListContainer>
 
         <div className="morebtn" onClick={() => morePage()}>

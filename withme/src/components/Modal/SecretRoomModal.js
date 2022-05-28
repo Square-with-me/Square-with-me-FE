@@ -8,16 +8,24 @@ import { actionCreators as roomActions } from "../../redux/modules/room";
 //svg
 import { ReactComponent as Lock } from "../../assets/modals/lockIcon.svg";
 
+//modal
+import LoginModal from "./LoginModal";
+import SignupModal from "./SignupModal";
+
 const SecretRoomModal = (props) => {
+  const [LoginM, setIsM] = React.useState(false);
+  const [SignupM, setIsSignup] = React.useState(false);
   const history = useHistory()
   const userId = useSelector((store) => store.user.user.id);
   const dispatch = useDispatch();
 
   const [pwd, setPwd] = useState("");
+
   useEffect(()=>{
     if (!localStorage.getItem('login-token')) {
       alert('로그인 후 이용 가능 합니다');
       props.setSecret(false)
+      setIsM(true)
     }
   },[])
 
@@ -82,6 +90,8 @@ const SecretRoomModal = (props) => {
             입장
           </Button>
         </Contents>
+        {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+        {SignupM && <SignupModal setIsSignup={setIsSignup} />}
       </SecretRoomWrap>
     </React.Fragment>
   );

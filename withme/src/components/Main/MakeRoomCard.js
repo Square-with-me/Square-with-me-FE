@@ -3,10 +3,14 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 //modal
 import MakeRoomModal from "../Modal/MakeRoomModal";
+import LoginModal from "../Modal/LoginModal";
+import SignupModal from "../Modal/SignupModal";
 //icon
 import { ReactComponent as Plus } from "../../assets/main/plusIcon.svg";
 
 const MakeRoomCard = (props) => {
+  const [LoginM, setIsM] = React.useState(false);
+  const [SignupM, setIsSignup] = React.useState(false);
   const user = useSelector((state) => state.user.user);
   return (
     <>
@@ -22,12 +26,15 @@ const MakeRoomCard = (props) => {
       ) : (
         <RoomCardContainer
           onClick={() => {
-            window.alert("로그인을 하신 후에 방을 만들 수 있습니다!");
+              window.alert("로그인을 하신 후에 방을 만들 수 있습니다!");
+              setIsM(true)
           }}
         >
           <Plus className="plus" />
         </RoomCardContainer>
       )}
+      {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
+      {SignupM && <SignupModal setIsSignup={setIsSignup} />}
       {props.MRooms && <MakeRoomModal setMRooms={props.setMRooms} />}
     </>
   );

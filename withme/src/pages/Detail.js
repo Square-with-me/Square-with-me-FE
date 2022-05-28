@@ -566,6 +566,7 @@ const Detail = (props) => {
     });
     localStorage.removeItem("myRoom");
     history.replace("/main");
+    window.location.reload();
   };
 
   //타이머
