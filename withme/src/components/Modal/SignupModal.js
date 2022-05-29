@@ -33,22 +33,6 @@ const SignupModal = ({ setIsSignup }) => {
     dispatch(userActions.signUpDB(origin, nickname, pwd, pwd_check));
   };
 
-    const login = () => {
-    if (nickname.length > 8 || nickname.length < 2) {
-      window.alert(
-        "닉네임은 영문, 숫자 또는 한글로 이루어진 2~8자를 사용하세요"
-      );
-    }
-
-    if (pwd.length > 16 || pwd.length < 8) {
-      window.alert(
-        "비밀번호는 영문(필수), 숫자(필수), 특수문자(자유)로 이루어진 8~16자를 사용하세요"
-      );
-    }
-
-    dispatch(userActions.logInDB(origin, pwd));
-  };
-
   return (
     <>
       <ModalBackground
@@ -153,7 +137,7 @@ const SignupModal = ({ setIsSignup }) => {
               value={pwd_check}
             />
           </div>
-          <SignUpButton onClick={() => { Signup(); login(); }}>회원가입</SignUpButton>
+          <SignUpButton onClick={Signup}>회원가입</SignUpButton>
         </Contents>
       </SignUpWrap>
     </>

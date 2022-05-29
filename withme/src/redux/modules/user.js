@@ -91,7 +91,7 @@ const signUpDB = (origin, nickname, pwd) => {
       .signup(origin, nickname, pwd)
       .then((res) => {
         window.alert(res.data.msg);
-        window.location.reload("/main");
+        dispatch(logInDB(origin,pwd))
       })
       .catch(function (error) {
         window.alert(error.response.data.msg);
