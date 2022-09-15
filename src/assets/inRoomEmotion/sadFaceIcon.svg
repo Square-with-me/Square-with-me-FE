@@ -1,0 +1,15 @@
+<svg
+id="레이어_2"
+data-name="레이어 2"
+xmlns="http://www.w3.org/2000/svg" 
+viewBox="0 0 32 32"
+>
+  <defs>
+    <style>.cls-1{fill:#40b3df;}.cls-2{fill:#030000;}</style>
+  </defs>
+  <rect class="cls-1" x="10.5" y="12.74" width="2" height="13.26"/>
+  <rect class="cls-1" x="19.5" y="12.74" width="2" height="13.26"/>
+  <rect class="cls-2" x="10" y="11.24" width="3" height="3"/>
+  <rect class="cls-2" x="19" y="11.24" width="3" height="3"/>
+  <path class="cls-2" d="M28,28H4V4H28ZM6,26H26V6H6Z"/>
+</svg>
