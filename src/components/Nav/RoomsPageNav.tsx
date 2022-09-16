@@ -18,7 +18,7 @@ function RoomsPageNav({ isOpen, toggleInnerNav }: RoomsPageNavProps) {
           width="32px"
           height="32px"
           className="sidebar"
-          // onClick={() => openSidebar(true)}
+          onClick={toggleInnerNav}
         />
       </HeaderNavButtonWrapper>
       <RoomsPageToggleNav
@@ -26,7 +26,7 @@ function RoomsPageNav({ isOpen, toggleInnerNav }: RoomsPageNavProps) {
         toggleInnerNav={toggleInnerNav}
         // setIsM={setIsM}
         // setIsSignup={setIsSignup}
-      ></RoomsPageToggleNav>
+      />
       {/* {LoginM && <LoginModal setIsM={setIsM} setIsSignup={setIsSignup} />}
       {SignupM && <SignupModal setIsSignup={setIsSignup} />} */}
     </div>
