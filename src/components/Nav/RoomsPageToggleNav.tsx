@@ -17,7 +17,7 @@ function RoomsPageToggleNav({ isOpen, toggleInnerNav }: RoomsPageSideNavProps) {
       {isOpen ?
         <>
           <Wrap>
-            <SidebarHeader>
+            <ToggleNavButtonWrapper>
               <HamburgerIcon
                 fill="#030000"
                 width="32px"
@@ -25,7 +25,7 @@ function RoomsPageToggleNav({ isOpen, toggleInnerNav }: RoomsPageSideNavProps) {
                 className="sidebar"
                 onClick={toggleInnerNav}
               />
-            </SidebarHeader>
+            </ToggleNavButtonWrapper>
             <div
               style={{ display: "flex", padding: "8px", alignItems: "center" }}
             >
@@ -118,15 +118,15 @@ const ModalBackground = styled.div`
 `;
 
 const Wrap = styled.div`
-  z-index: 30;
-  padding: 16px;
-  width: 200px;
-  background-color: #f7f7f7;
   position: absolute;
   top: 19px;
   right: -26px;
-  animation: modal-bg-show 0.6s;
+  z-index: 30;
+  padding: 16px;
+  width: 200px;
   font-weight: 500;
+  background-color: #f7f7f7;
+  animation: modal-bg-show 0.6s;
 
   @media screen and (min-width: 813px) and (max-width: 1110px) {
     margin: 0px 12px;
@@ -161,19 +161,20 @@ const Wrap = styled.div`
   }
 `;
 
-const SidebarHeader = styled.header`
-  position: relative;
+const ToggleNavButtonWrapper = styled.button`
   display: flex;
   justify-content: right;
+  position: relative;
+  width: 100%;
   padding: 10px;
   background-color: #f7f7f7;
 `;
 
 const Text = styled.div`
   font-size: 18px;
+  font-weight: 550;
   color: #33344b;
   cursor: pointer;
-  font-weight: 550;
   @media screen and (max-width: 563px) {
     font-size: 13px;
   }
