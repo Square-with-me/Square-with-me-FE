@@ -30,13 +30,9 @@ function HomeNav({ openMobileNav, closeMobileNav, mobileNavRef }: HomeNavProps) 
           <a href="#feature1">서비스 설명</a>
           <a href="#feature2">튜토리얼</a>
           <a href="#feature3">사용후기</a>
-          <div
-            onClick={() => {
-              window.location.replace('/main');
-            }}
-          >
+          <Link to="/category">
             시작하기
-          </div>
+          </Link>
         </div>
       </div>
     </header>
