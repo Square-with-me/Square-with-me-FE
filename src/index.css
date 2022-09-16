@@ -4,7 +4,7 @@
 
 * {
   font-family: 'Noto Sans', 'Apple SD Gothic Neo', 'Sans-serif';
-  /* font-family: 'Do Hyeon', sans-serif; */
+  box-sizing: border-box;
 }
 
 body {
@@ -46,6 +46,7 @@ h6,
 p,
 blockquote,
 pre,
+button,
 a,
 abbr,
 acronym,
@@ -159,10 +160,6 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 /* 페이지 이동시 부드럽게 해줌 */
