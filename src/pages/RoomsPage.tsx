@@ -1,8 +1,21 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import RoomsPageNavContainer from "../containers/RoomsPage/RoomsPageNavContainer";
+import { logIn } from "../redux/middlewares/user";
+import { logInAction } from "../redux/reducers/user";
 
 function RoomsPage() {
+  const [id, setId] = useState('');
+  const [pwd, setPwd] = useState('');
+
+  const dispatch = useDispatch();
+
+  const logInHandler = () => {
+    console.log(id, pwd);
+    dispatch(logInAction({ id: id, pwd: pwd, }));
+  }
 
   return (
     <Back>
@@ -39,7 +52,11 @@ function RoomsPage() {
         </div>
 
         <RoomListContainer>
-
+          <div style={{ position: "absolute", top: 0, left: 0,}}>
+            <input type="text" placeholder="id" value={id} onChange={(e) => {setId(e.target.value)}} />
+            <input type="text" placeholder="pwd" value={pwd} onChange={(e) => {setPwd(e.target.value)}} />
+            <button onClick={logInHandler}>로그인 테스트</button>
+          </div>
         </RoomListContainer>
 
         <div className="morebtn">
